@@ -1,7 +1,10 @@
-name                   = "site-mauricio-leite"
-compatibility_date     = "2025-01-01"
+name = "techlo-lite-astro"
+compatibility_date = "2025-01-01"
 pages_build_output_dir = "./dist"
-compatibility_flags    = ["nodejs_compat"]
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist"
 
 [vars]
-  NODE_VERSION = "22.13.1"
+NODE_VERSION = "22.13.1"
