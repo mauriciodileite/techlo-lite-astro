@@ -22,11 +22,15 @@ interface Props extends JSONLDProps {
   fitToScreen?: boolean;
   ctaSpacingTop?: boolean;
   footerSpaceTop?: boolean;
-  headerLayout?: HeaderLayout;
+  headerLayout?: HeaderLayout | "none";
   headerPosition?: HeaderPosition;
   hasBodyDarkBackground?: boolean;
   hasFooterDarkBackground?: boolean;
   hideOffcanvas?: boolean;
+  hideHeader?: boolean;
+  hideFooter?: boolean;
+  hideCallToAction?: boolean;
+  hideHelperButtons?: boolean;
   draft?: boolean;
   metaTitle?: string;
   metaDescription?: string;
@@ -40,49 +44,60 @@ interface Props extends JSONLDProps {
 }
 
 // destructure frontmatter
-let {
+const {
   className,
   structuredData,
   headerLayout = "two",
   headerPosition = "sticky",
   hideOffcanvas = false,
-  hasBodyDarkBackground = false,
+  hideHeader = false,
+  hideFooter = false,
+  hideCallToAction = false,
+  hideHelperButtons = true,
+  hasBodyDarkBackground = true,
   fitToScreen = true,
 } = Astro.props;
+
+const shouldHideHeader = hideHeader || headerLayout === "none";
+const shouldHideFooter = hideFooter || headerLayout === "none";
+const shouldHideCta = hideCallToAction || headerLayout === "none";
 
 // Exclude empty key value weather it may empty string, object or array from Astro.props
 let props = removeEmptyKeys(Astro.props);
 
 // Conditionally add min-h-[102vh] class to prevent FOUC (flash of unstyled content) while fast navigation
-className = fitToScreen
+const finalClassName = fitToScreen
   ? (className ? className + " " : "") + "fit-to-screen"
   : className;
 ---
 
 <!doctype html>
-<html lang={Astro.currentLocale || "en"}>
+<html lang={Astro.currentLocale || "pt"} class="bg-[#111111]">
   <Head {...props} structuredData={structuredData} />
-  <body class:list={[hasBodyDarkBackground && "bg-body-dark"]}>
+  <body class="bg-[#111111] text-white">
     {!Astro.props.homepage && <PageLoader />}
-    <Header
-      {...props}
-      layout={headerLayout}
-      position={headerPosition}
-      hideOffcanvas={hideOffcanvas}
-    />
+    
+    {!shouldHideHeader && (
+      <Header
+        {...props}
+        layout={headerLayout}
+        position={headerPosition}
+        hideOffcanvas={hideOffcanvas}
+      />
+    )}
 
-    <main {...className ? { class: className } : {}}>
+    <main {...finalClassName ? { class: finalClassName } : {}}>
       <slot />
     </main>
 
-    <CallToAction hasSectionSpacing={Astro.props.ctaSpacingTop} />
-    <Footer {...Astro.props} />
+    {!shouldHideCta && <CallToAction hasSectionSpacing={Astro.props.ctaSpacingTop} />}
+    {!shouldHideFooter && <Footer {...Astro.props} />}
 
     <KeepAstroSourceLoc />
     <GlobalScripts />
     <CursorFollower />
     <BackToTop />
-    <HelperButtons />
+    {!hideHelperButtons && <HelperButtons />}
     <BreakpointIndicator />
   </body>
 </html>

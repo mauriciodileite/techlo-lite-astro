@@ -17,3 +17,7 @@ This is an Astro and Tailwind CSS theme. When editing code:
 - Keep copy generic for a shippable theme and avoid hardcoded brand names in reusable content.
 
 Before finishing code or schema changes, run `npm run astro-check`. Run `npm run build` for broad routing, content, or asset changes.
+
+<!-- specsfy:framework:start -->
+@.specsfy/Spec.md
+<!-- specsfy:framework:end -->

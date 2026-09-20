@@ -1,50 +1,83 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { getEntryCTM } from "@/lib/contentParser.astro";
+import HeaderNav from "@/components/HeaderNav.astro";
+import Hero from "@/components/Hero.astro";
+import Experience from "@/components/Experience.astro";
+import SplineSolutions from "@/components/SplineSolutions.astro";
+import FreeContent from "@/components/FreeContent.astro";
+import FaqAccordion from "@/components/FaqAccordion.astro";
+import FooterMauricio from "@/components/FooterMauricio.astro";
 import { generatePaths } from "@/lib/utils/i18nUtils.ts";
-import TeamSection from "@/components/sections/TeamSection.astro";
-import BlogSection from "@/components/sections/BlogSection.astro";
-import BannerThree from "@/components/sections/BannerThree.astro";
-import MultipurposeSection from "@/components/sections/Section.astro";
-import ServicesSection from "@/components/sections/ServicesSection.astro";
-import WorkingProcessSection from "@/components/sections/WorkingProcessSection.astro";
-import TestimonialQuoteSection from "@/components/sections/TestimonialQuoteSection.astro";
-import ContactSectionTwo from "@/components/sections/ContactSectionTwo.astro";
 
 export function getStaticPaths() {
   return generatePaths();
 }
 
-const homepageContent = await getEntryCTM(
-  "homepage",
-  "-index",
-  Astro.currentLocale,
-);
+const currentLocale = Astro.currentLocale || "pt";
+// Verifica se estamos na rota em inglês ou se o locale resolvido é 'en'
+const isEnglish = currentLocale === "en" || Astro.url.pathname.startsWith("/en");
 
-const skillSectionContent = await getEntryCTM(
-  "sections",
-  "startup-skill-section",
-  Astro.currentLocale,
-);
+const metaTitle = isEnglish 
+  ? "Maurício Leite | Marketing & Revenue Growth" 
+  : "Maurício Leite | Marketing & Aumento de Lucro";
+
+const metaDescription = isEnglish
+  ? "My mission is to facilitate sales for your client and increase your company's profit. Commitment, speed, and clarity."
+  : "Minha missão é facilitar a venda para seu cliente e aumentar o lucro da sua empresa. Comprometimento, velocidade e clareza.";
 ---
 
-<Base {...homepageContent?.data} headerLayout="three" headerPosition="fixed">
-  <BannerThree />
-  <ServicesSection
-    hasLightBackground={false}
-    content={{
-      options: {
-        layout: "carousel",
-      },
-    }}
-  />
-  <MultipurposeSection
-    hasSectionBackground={true}
-    content={skillSectionContent.data}
-  />
-  <WorkingProcessSection />
-  <TestimonialQuoteSection />
-  <ContactSectionTwo hasSectionSpacing={false} />
-  <TeamSection hasDarkAppearance={true} hasSectionSpacing={false} />
-  <BlogSection />
+<Base 
+  title={metaTitle} 
+  description={metaDescription}
+  headerLayout="none"
+  hideHeader={true}
+  hideFooter={true}
+  hideCallToAction={true}
+  hideHelperButtons={true}
+>
+  <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
+    <!-- Header oficial exclusivo com Símbolo Brand Book e Seletor Funcional -->
+    <HeaderNav currentLocale={isEnglish ? "en" : "pt"} />
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow">
+      <!-- 1. Hero com Headline, Foto Oficial e CTAs 100% no idioma ativo -->
+      <Hero 
+        headline={isEnglish 
+          ? "My mission is to facilitate sales for your client and increase your company's profit."
+          : "Minha missão é facilitar a venda para seu cliente e aumentar o lucro da sua empresa."
+        }
+        subheadline={isEnglish
+          ? "Commitment. Speed. Clarity. Marketing strategies and intelligent automation focused on predictable financial results."
+          : "Comprometimento. Velocidade. Clareza. Estratégias de marketing e automações inteligentes focadas em resultado financeiro previsível."
+        }
+        ctaSolutionsText={isEnglish ? "View Solutions" : "Ver Soluções"}
+        ctaFreeText={isEnglish ? "Learn for Free" : "Aprender de graça"}
+        tagText={isEnglish ? "Marketing & AI Automation" : "Marketing & Automação com IA"}
+      />
+
+      <!-- 2. Minha Experiência (Container reservado para diagrama animado no Spline) -->
+      <Experience 
+        title={isEnglish ? "My Experience" : "Minha experiência"}
+      />
+
+      <!-- 3. Minhas Soluções (Iframe Interativo do Spline 3D com 7 soluções) -->
+      <SplineSolutions 
+        title={isEnglish ? "My Solutions" : "Minhas soluções"}
+        subtitle={isEnglish 
+          ? "Complete architecture of sales, automation, and profitability for your business."
+          : "Arquitetura completa de vendas, automação e lucratividade para o seu negócio."
+        }
+      />
+
+      <!-- 4. Todo dia eu ajudo de graça (Instagram, YouTube, Blog) no idioma correto -->
+      <FreeContent isEnglish={isEnglish} />
+
+      <!-- 5. Perguntas Frequentes (FAQ) no idioma correto -->
+      <FaqAccordion isEnglish={isEnglish} />
+    </main>
+
+    <!-- Rodapé Oficial de Maurício Leite -->
+    <FooterMauricio />
+  </div>
 </Base>

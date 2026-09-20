@@ -1,13 +1,13 @@
 # Site Configuration
 [site]
-  title            = "Techlo Lite" # Shared title for SEO and OpenGraph
+  title            = "Maurício Leite" # Shared title for SEO and OpenGraph
   description      = "Techlo Lite is a free IT solutions and services theme for managed IT services, cloud consulting, cybersecurity, software development, and digital transformation websites." # Shared description for SEO and OpenGraph
   tagline          = "Free IT Solutions & Services Astro & Tailwind CSS Theme"
   taglineSeparator = "" # default is " - " 
   baseUrl          = "https://techlo-lite-astro.pages.dev/" # Base URL for the site and used in OpenGraph meta tags.
-  logo             = "/images/logo.svg" # Path to the site's logo
+  logo             = "/images/logo-mauricio-leite.svg" # Path to the site's logo
   logoAlternate    = "" # Path to the site's logo
-  logoText         = "Techlo" # Text displayed next to the logo
+  logoText         = "MAURÍCIO LEITE" # Text displayed next to the logo
   logoWidth        = "24px" # Width of the logo
   logoHeight       = "36px" # Height of the logo
 
@@ -113,7 +113,7 @@
     # Set `enable` to `true` for enabling the multilingual feature or `false` for disabling it.
     # Run `npm run remove-multilingual` for removing multilingual content files after disabling the feature.
     enable               = true
-    defaultLanguage      = "en"
+    defaultLanguage      = "pt"
     disableLanguages     = [""] # List of languages to disable (eg: ["fr", "es"])
     showDefaultLangInUrl = false # Show default language in URL (eg: https://getastrothemes.com/en/)
 

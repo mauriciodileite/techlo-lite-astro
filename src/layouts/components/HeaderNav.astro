@@ -1,0 +1,127 @@
+---
+/**
+ * Componente: HeaderNav.astro
+ * Responsabilidade: Cabeçalho oficial com o símbolo SVG do Brand Book, tipografia Sora, links dos 4 públicos e seletor PT/EN funcional.
+ */
+
+interface Props {
+  currentLocale?: string;
+}
+
+const { currentLocale = "pt" } = Astro.props;
+
+// Se a rota contiver '/en', o idioma atual é inglês
+const isEnglish = currentLocale === "en" || Astro.url.pathname.startsWith("/en");
+
+const navItems = [
+  { 
+    name: isEnglish ? "For companies in Brazil" : "Para empresas no Brasil", 
+    href: isEnglish ? "/en/empresas-brasil" : "/empresas-brasil" 
+  },
+  { 
+    name: isEnglish ? "For companies abroad" : "Para empresas no exterior", 
+    href: isEnglish ? "/en/empresas-exterior" : "/empresas-exterior" 
+  },
+  { 
+    name: isEnglish ? "For entrepreneurs" : "Para empreendedores", 
+    href: isEnglish ? "/en/empreendedores" : "/empreendedores" 
+  },
+  { 
+    name: isEnglish ? "For experts" : "Para expertos", 
+    href: isEnglish ? "/en/expertos" : "/expertos" 
+  },
+  { 
+    name: "Blog", 
+    href: isEnglish ? "/en/blog" : "/blog" 
+  },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#111111]/95 backdrop-blur-md border-b border-white/10 transition-all">
+  <div class="container mx-auto px-4 max-w-7xl h-20 flex items-center justify-between">
+    
+    <!-- Logo Oficial: Símbolo do Brand Book + Nome em Sora ExtraBold -->
+    <a href={isEnglish ? "/en/" : "/"} class="flex items-center gap-3.5 group">
+      <img
+        src="/images/simbolo-mauricio-leite.svg"
+        alt="Símbolo Maurício Leite"
+        class="h-10 w-auto object-contain transition-transform group-hover:scale-105"
+      />
+      <span class="text-xl md:text-2xl font-extrabold tracking-tight font-['Sora',sans-serif] text-white">
+        MAURÍCIO LEITE
+      </span>
+    </a>
+
+    <!-- Menu Central (Desktop) -->
+    <nav class="hidden xl:flex items-center gap-7">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="text-sm font-medium text-[#C6C6C6] hover:text-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]"
+        >
+          {item.name}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Seletor de Idioma (PT | EN) -->
+    <div class="flex items-center gap-4">
+      <div class="inline-flex items-center bg-[#1A1A1A] border border-[#C6C6C6]/30 rounded-lg p-1 text-xs font-mono">
+        <a
+          href="/"
+          class={`px-3 py-1.5 rounded transition-colors ${
+            !isEnglish ? "bg-[#00A39E] text-[#111111] font-bold" : "text-[#C6C6C6] hover:text-white"
+          }`}
+          aria-label="Versão em Português"
+        >
+          PT
+        </a>
+        <a
+          href="/en/"
+          class={`px-3 py-1.5 rounded transition-colors ${
+            isEnglish ? "bg-[#00A39E] text-[#111111] font-bold" : "text-[#C6C6C6] hover:text-white"
+          }`}
+          aria-label="English Version"
+        >
+          EN
+        </a>
+      </div>
+
+      <!-- Botão Menu Mobile -->
+      <button
+        id="mobile-menu-btn"
+        aria-label="Alternar menu"
+        class="xl:hidden p-2 rounded-lg bg-[#1A1A1A] border border-white/10 text-[#C6C6C6] hover:text-white"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Gaveta Mobile -->
+  <div id="mobile-menu" class="hidden xl:hidden bg-[#1A1A1A] border-b border-white/10 px-6 py-6 space-y-4">
+    {navItems.map((item) => (
+      <a
+        href={item.href}
+        class="block text-base font-medium text-[#C6C6C6] hover:text-[#00A39E] py-2 border-b border-white/5 font-['Instrument_Sans',sans-serif]"
+      >
+        {item.name}
+      </a>
+    ))}
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  if (btn && menu) {
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  }
+</script>

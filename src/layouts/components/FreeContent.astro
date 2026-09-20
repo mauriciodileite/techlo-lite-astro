@@ -1,0 +1,98 @@
+---
+/**
+ * Componente: FreeContent.astro
+ * Responsabilidade: Seção "Todo dia eu ajudo de graça" adaptada para PT e EN.
+ */
+
+interface Props {
+  isEnglish?: boolean;
+}
+
+const { isEnglish = false } = Astro.props;
+
+const channels = [
+  {
+    title: "Instagram",
+    description: isEnglish
+      ? "Business backstage, daily strategies, and scalable growth insights."
+      : "Bastidores de negócios, estratégias diárias e insights de crescimento.",
+    link: "https://www.instagram.com/mauriciodeleite",
+    badge: "@mauriciodeleite",
+    cta: isEnglish ? "Access channel" : "Acessar canal",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>`
+  },
+  {
+    title: "YouTube",
+    description: isEnglish
+      ? "In-depth lessons on sales funnels, marketing automation, and real metrics."
+      : "Aulas aprofundadas sobre funis, automações de vendas e métricas reais.",
+    link: "https://youtube.com/@mauriciodeleite",
+    badge: "@mauriciodeleite",
+    cta: isEnglish ? "Access channel" : "Acessar canal",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9 10 15"/></svg>`
+  },
+  {
+    title: "Blog",
+    description: isEnglish
+      ? "Articles, analyses, and technical frameworks to read at your own pace."
+      : "Artigos, análises e documentações técnicas para ler no seu ritmo.",
+    link: isEnglish ? "/en/blog" : "/blog",
+    badge: isEnglish ? "Articles" : "Artigos",
+    cta: isEnglish ? "Read articles" : "Ler artigos",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>`
+  }
+];
+---
+
+<section id="conteudo-gratuito" class="py-16 md:py-24 bg-[#111111] text-white border-t border-white/5">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="text-center mb-16">
+      <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-3 font-['Sora',sans-serif]">
+        {isEnglish ? "SAME MISSION, FOR FREE" : "A MESMA MISSÃO, DE GRAÇA"}
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight font-['Sora',sans-serif] text-white">
+        {isEnglish ? "Every day I help for free" : "Todo dia eu ajudo de graça"}
+      </h2>
+      <p class="mt-4 text-base md:text-lg text-[#C6C6C6] max-w-xl mx-auto font-['Instrument_Sans',sans-serif]">
+        {isEnglish
+          ? "Before any paid solution, this is where I deliver content. Start wherever you prefer."
+          : "Antes de qualquer solução paga, é aqui que eu entrego conteúdo. Comece por onde preferir."}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {channels.map((ch) => (
+        <a
+          href={ch.link}
+          target={ch.link.startsWith("http") ? "_blank" : "_self"}
+          rel={ch.link.startsWith("http") ? "noopener noreferrer" : undefined}
+          class="flex flex-col justify-between p-8 bg-[#1A1A1A] rounded-2xl border border-[#C6C6C6]/20 transition-all duration-300 hover:border-[#00A39E] hover:-translate-y-1 shadow-lg group"
+        >
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-xl bg-[#242528] flex items-center justify-center text-[#00A39E] group-hover:bg-[#00A39E] group-hover:text-[#111111] transition-colors">
+                <Fragment set:html={ch.icon} />
+              </div>
+              <span class="text-xs font-mono text-[#C6C6C6] px-3 py-1 rounded-full bg-[#111111] border border-white/5">
+                {ch.badge}
+              </span>
+            </div>
+            <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white mb-3">
+              {ch.title}
+            </h3>
+            <p class="text-sm text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed">
+              {ch.description}
+            </p>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-white/5 flex items-center text-sm font-semibold text-[#00A39E] group-hover:underline">
+            <span>{ch.cta}</span>
+            <svg class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

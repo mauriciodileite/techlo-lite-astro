@@ -1,0 +1,82 @@
+---
+/**
+ * Componente: FooterMauricio.astro
+ * Responsabilidade: Rodapé oficial de Maurício Leite.
+ * Inclui: Informações de contato direto, suporte@mauricioleite.com.br, redes sociais e assinatura de marca.
+ */
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-[#111111] text-[#C6C6C6] border-t border-white/10 py-12">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center justify-between">
+      
+      <!-- Marca e Assinatura -->
+      <div class="md:col-span-5 text-center md:text-left">
+        <span class="text-2xl font-extrabold tracking-tight font-['Sora',sans-serif] text-white block mb-2">
+          MAURÍCIO LEITE
+        </span>
+        <p class="text-xs font-mono text-[#00A39E] tracking-wider uppercase mb-3">
+          Comprometimento · Velocidade · Clareza
+        </p>
+        <p class="text-sm text-[#9A9A9A] font-['Instrument_Sans',sans-serif] max-w-sm">
+          Foco em vendas com previsibilidade e lucro real para o seu negócio.
+        </p>
+      </div>
+
+      <!-- Contato e Suporte -->
+      <div class="md:col-span-4 text-center md:text-left">
+        <h4 class="text-sm font-semibold font-['Sora',sans-serif] text-white uppercase tracking-wider mb-2">
+          Contato & Suporte
+        </h4>
+        <a
+          href="mailto:suporte@mauricioleite.com.br"
+          class="text-sm font-mono text-[#00A39E] hover:underline block"
+        >
+          suporte@mauricioleite.com.br
+        </a>
+        <p class="text-xs text-[#9A9A9A] mt-1">
+          Tempo médio de resposta: menos de 1 minuto.
+        </p>
+      </div>
+
+      <!-- Redes Sociais -->
+      <div class="md:col-span-3 flex justify-center md:justify-end gap-4">
+        <a
+          href="https://www.instagram.com/mauriciodeleite"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-10 h-10 rounded-lg bg-[#1A1A1A] border border-[#C6C6C6]/20 flex items-center justify-center text-[#C6C6C6] hover:text-[#00A39E] hover:border-[#00A39E] transition-all"
+          aria-label="Instagram de Maurício Leite"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </a>
+        <a
+          href="https://youtube.com/@mauriciodeleite"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-10 h-10 rounded-lg bg-[#1A1A1A] border border-[#C6C6C6]/20 flex items-center justify-center text-[#C6C6C6] hover:text-[#00A39E] hover:border-[#00A39E] transition-all"
+          aria-label="YouTube de Maurício Leite"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9 10 15"/></svg>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/mauriciodileite"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-10 h-10 rounded-lg bg-[#1A1A1A] border border-[#C6C6C6]/20 flex items-center justify-center text-[#C6C6C6] hover:text-[#00A39E] hover:border-[#00A39E] transition-all"
+          aria-label="LinkedIn de Maurício Leite"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="mt-8 pt-8 border-t border-white/5 text-center text-xs text-[#8A8A8A]">
+      &copy; {currentYear} Maurício Leite. Todos os direitos reservados.
+    </div>
+  </div>
+</footer>

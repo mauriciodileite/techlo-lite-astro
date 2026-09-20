@@ -1,0 +1,80 @@
+---
+/**
+ * Componente: FaqAccordion.astro
+ * Responsabilidade: Exibir perguntas e respostas oficiais em formato de acordeão, com suporte bilíngue.
+ */
+
+interface Props {
+  isEnglish?: boolean;
+}
+
+const { isEnglish = false } = Astro.props;
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const faqsPt: FaqItem[] = [
+  {
+    question: "Quem é Maurício Leite?",
+    answer: "É um cara gente boa demais! Que curte rock and roll, blues, andar de Harley e um bom vinho seco! Apaixonado pela natureza e ciência exata (sou Mestre em Química). Curioso demais em saber como as coisas funcionam. Prático e racional demais. Quando lida com humanos é 50% emocional e 50% racional, já quando lida com negócios é 110% racional."
+  },
+  {
+    question: "O que Maurício Leite oferece?",
+    answer: "Ofereço serviços de marketing para empresas no Brasil e no exterior (agência aiSIM para quem prefere delegar), formação de automação para empreendedores e empresas. Para expertos (especialistas) ofereço construção de funis de low ticket perpétuo (produtos físicos e infoprodutos)."
+  },
+  {
+    question: "Como entrar em contato?",
+    answer: "Preencher o formulário para uma breve reunião de 30 min, ou através do e-mail suporte@mauricioleite.com.br. Você será respondido em menos de 1 min, sério!"
+  }
+];
+
+const faqsEn: FaqItem[] = [
+  {
+    question: "Who is Maurício Leite?",
+    answer: "A great guy who loves rock and roll, blues, riding Harleys, and fine dry wine! Passionate about nature and exact sciences (Master's in Chemistry). Highly curious about how things work. Extremely practical and rational. When dealing with humans, 50% emotional and 50% rational; when dealing with business, 110% rational."
+  },
+  {
+    question: "What does Maurício Leite offer?",
+    answer: "Marketing services for companies in Brazil and abroad (aiSIM Agency for those who prefer to delegate), automation training for entrepreneurs and businesses. For experts/specialists, building perpetual low-ticket funnels (physical and digital products)."
+  },
+  {
+    question: "How to get in touch?",
+    answer: "Fill out the form for a brief 30-minute meeting, or email suporte@mauricioleite.com.br. You will get a reply in less than 1 minute, seriously!"
+  }
+];
+
+const currentFaqs = isEnglish ? faqsEn : faqsPt;
+---
+
+<section id="faq" class="py-16 md:py-24 bg-[#111111] text-white border-t border-white/5">
+  <div class="container mx-auto px-4 max-w-4xl">
+    <div class="text-center mb-12">
+      <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-3 font-['Sora',sans-serif]">
+        {isEnglish ? "FAQ" : "DÚVIDAS"}
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight font-['Sora',sans-serif] text-white">
+        {isEnglish ? "Frequently Asked Questions" : "Perguntas frequentes"}
+      </h2>
+    </div>
+
+    <div class="space-y-4">
+      {currentFaqs.map((faq) => (
+        <details class="group bg-[#1A1A1A] border border-[#C6C6C6]/20 rounded-xl p-6 transition-all duration-200 hover:border-[#00A39E]/50">
+          <summary class="flex justify-between items-center cursor-pointer list-none text-lg md:text-xl font-semibold font-['Sora',sans-serif] text-white select-none">
+            <span>{faq.question}</span>
+            <span class="ml-4 text-[#00A39E] transition-transform duration-200 group-open:rotate-180 flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </summary>
+          <p class="mt-4 text-[#C6C6C6] text-base leading-relaxed font-['Instrument_Sans',sans-serif] border-t border-white/5 pt-4">
+            {faq.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
