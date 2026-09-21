@@ -42,5 +42,11 @@ const fontVariables = fontsJson.map((font) => font.cssVariable) as any[];
   <!------------------
     Fonts
 -------------------->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Sora:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
   {fontVariables.map((font) => <Font cssVariable={font} />)}
 </head>

@@ -105,7 +105,7 @@ const pillars = isEn
           <div>
             <!-- Topo do Card: Número e Ícone -->
             <div class="flex items-center justify-between mb-6">
-              <span class="text-xs font-mono font-bold tracking-wider text-[#00A39E] bg-[#00A39E]/10 border border-[#00A39E]/30 px-3 py-1 rounded-full">
+              <span class="text-xs font-['Sora',sans-serif] font-bold tracking-wider text-[#00A39E] bg-[#00A39E]/10 border border-[#00A39E]/30 px-3.5 py-1 rounded-full uppercase">
                 PILAR {pillar.id}
               </span>
               <div class="w-10 h-10 rounded-xl bg-[#242528] border border-white/10 flex items-center justify-center text-[#00A39E] group-hover:border-[#00A39E]/40 group-hover:scale-110 transition-all">
@@ -114,7 +114,7 @@ const pillars = isEn
             </div>
 
             <!-- Título e Descrição -->
-            <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white mb-3 group-hover:text-white transition-colors">
+            <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white mb-3 group-hover:text-[#00A39E] transition-colors">
               {pillar.title}
             </h3>
             <p class="text-sm md:text-base text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
@@ -122,13 +122,13 @@ const pillars = isEn
             </p>
           </div>
 
-          <!-- Rodapé do Card: Destaque da Métrica -->
+          <!-- Rodapé do Card: Destaque da Métrica com tipografia consistente -->
           <div class="mt-8 pt-5 border-t border-white/5 flex items-center justify-between">
-            <span class="text-xs font-mono text-[#9A9A9A] uppercase tracking-wider">
+            <span class="text-xs font-['Instrument_Sans',sans-serif] font-medium text-[#9A9A9A] uppercase tracking-wider">
               {isEn ? "Target Outcome" : "Foco em Resultado"}
             </span>
-            <span class="text-xs font-semibold font-mono text-[#00A39E] flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E] animate-pulse"></span>
+            <span class="text-xs font-semibold font-['Sora',sans-serif] text-[#00A39E] flex items-center gap-1.5 tracking-tight">
+              <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
               {pillar.metric}
             </span>
           </div>
