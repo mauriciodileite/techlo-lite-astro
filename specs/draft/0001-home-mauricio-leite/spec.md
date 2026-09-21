@@ -76,8 +76,7 @@ Uma página inicial (Home) minimalista, de alta conversão, responsiva e alinhad
 #### Incluído
 
 - Header com Logo "Maurício Leite", links dos 4 públicos, link do Blog e seletor PT/EN.
-- Seção "Minha experiência": 4 cards com pilares orientados a resultado (Aquisição, Funis Perpétuos, Automação IA e Lucratividade), badge "METODOLOGIA & RESULTADOS" e métricas de tração no padrão dark do Brand Book.
-- Seção "Minhas soluções": container responsivo com o embed do Spline (7 soluções com efeito sanfona).
+- Seção "Minhas soluções": Accordion sanfona nativo em Astro/Tailwind (7 soluções com animação fluida, zero impacto em performance e conformidade total com Brand Book).
 - Seção "Todo dia eu ajudo de graça": 3 cards de canais (Instagram, YouTube, Blog) com links oficiais.
 - Seção "Perguntas Frequentes (FAQ)": acordeão com 3 perguntas e respostas fornecidas.
 - Footer: links de suporte, canais sociais e assinatura da marca ("Comprometimento. Velocidade. Clareza.").

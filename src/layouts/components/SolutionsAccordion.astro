@@ -1,0 +1,218 @@
+---
+/**
+ * Componente: SolutionsAccordion.astro
+ * Responsabilidade: Apresentar as 7 soluções de Maurício Leite através de um Accordion
+ * nativo, ultrarrápido, responsivo e 100% no padrão do Brand Book.
+ * 
+ * Substitui o antigo Spline 3D (pesado) por HTML/CSS estático com animação suave.
+ * Diretrizes do Brand Book: Fundo Preto Pista (#111111), bordas em Prata (#C6C6C6/20),
+ * acento em Petronas (#00A39E), tipografia Sora e Instrument Sans.
+ */
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  isEnglish?: boolean;
+}
+
+const {
+  title = "Minhas soluções",
+  subtitle = "Arquitetura completa de vendas, automação e lucratividade para o seu negócio.",
+  isEnglish = false,
+} = Astro.props;
+
+const solutions = isEnglish
+  ? [
+      {
+        id: "01",
+        title: "Custom Applications & Systems",
+        category: "Software & Operations",
+        desc: "Tailor-made web applications, internal operational dashboards, and software built to automate bottlenecks and eliminate repetitive human labor.",
+        deliverables: ["Full-stack architecture", "Custom dashboards", "Scalable cloud deployment"],
+      },
+      {
+        id: "02",
+        title: "Paid Traffic Architecture",
+        category: "Customer Acquisition",
+        desc: "High-performance direct response media buying across Meta and Google, laser-focused on CAC control, cash flow predictability, and verified sales.",
+        deliverables: ["Precision campaign structure", "Pixel & API conversion tracking", "Continuous ROAS optimization"],
+      },
+      {
+        id: "03",
+        title: "AI Automation for WhatsApp & CRM",
+        category: "AI & Instant Speed",
+        desc: "24/7 intelligent conversational agents designed to qualify inbound leads instantly, schedule meetings, and connect ready-to-buy prospects to sales reps.",
+        deliverables: ["Instant lead response (< 1 min)", "Dynamic CRM sync (n8n)", "Automated follow-up sequences"],
+      },
+      {
+        id: "04",
+        title: "Omnichannel Customer Support",
+        category: "Customer Experience",
+        desc: "Centralized communication channels uniting WhatsApp, Instagram Direct, and Email into a single unified workspace with smart routing.",
+        deliverables: ["Centralized communication inbox", "Smart triage & routing", "Reduced response & resolution time"],
+      },
+      {
+        id: "05",
+        title: "AI Avatars & Digital Influencers",
+        category: "Content & Brand Scale",
+        desc: "Creation of hyper-realistic digital personas and automated video pipelines for educational content, product demonstrations, and scalable authority.",
+        deliverables: ["Voice & visual persona training", "Rapid video content creation", "Scalable ad creative production"],
+      },
+      {
+        id: "06",
+        title: "High-Converting Landing Pages & Sites",
+        category: "Conversion Engineering",
+        desc: "Minimalist, blazing-fast web pages engineered specifically for direct-response marketing, friction-free checkout, and maximum conversion rates.",
+        deliverables: ["Sub-second page load times", "Direct-response copy hierarchy", "Integrated analytics & tracking"],
+      },
+      {
+        id: "07",
+        title: "Automated Blog & Organic SEO",
+        category: "Organic Authority & Inbound",
+        desc: "Autonomous publishing pipelines producing data-driven, keyword-targeted articles to generate compound organic search traffic without recurring ad costs.",
+        deliverables: ["AI-assisted content curation", "Technical on-page SEO", "Automated scheduled publishing"],
+      },
+    ]
+  : [
+      {
+        id: "01",
+        title: "Aplicativos Personalizados & Sistemas",
+        category: "Software & Operações",
+        desc: "Desenvolvimento de aplicações web sob medida, painéis operacionais e sistemas voltados para automatizar gargalos e eliminar trabalho manual repetitivo.",
+        deliverables: ["Arquitetura full-stack moderna", "Painéis e dashboards sob medida", "Deploy escalável em nuvem"],
+      },
+      {
+        id: "02",
+        title: "Estrutura de Tráfego Pago & Aquisição",
+        category: "Geração de Demanda",
+        desc: "Gestão técnica de tráfego direto no Meta e Google com foco estrito em fluxo de caixa, previsibilidade de aquisição e redução consistente do CAC.",
+        deliverables: ["Estrutura analítica de campanhas", "Rastreamento avançado (API de Conversões)", "Otimização contínua de ROAS real"],
+      },
+      {
+        id: "03",
+        title: "Atendimento por IA & CRM 24h",
+        category: "Inteligência & Velocidade",
+        desc: "Agentes inteligentes no WhatsApp e canais de entrada para qualificação imediata de leads, triagem comercial e agendamento automático em menos de 1 minuto.",
+        deliverables: ["Resposta instantânea ao lead (< 1 min)", "Sincronização com CRM via n8n", "Sequências automáticas de follow-up"],
+      },
+      {
+        id: "04",
+        title: "Atendimento Multicanal Integrado",
+        category: "Experiência do Cliente",
+        desc: "Centralização de WhatsApp, Direct do Instagram e E-mail em um painel unificado com histórico centralizado e distribuição inteligente para a equipe.",
+        deliverables: ["Caixa de entrada única multicanal", "Triagem e roteamento inteligente", "Redução drástica do tempo de espera"],
+      },
+      {
+        id: "05",
+        title: "Criação de Avatares & Pessoas Digitais",
+        category: "Escala de Conteúdo",
+        desc: "Desenvolvimento de personas digitais hiper-realistas com inteligência artificial para demonstração de produtos, aulas e anúncios em escala contínua.",
+        deliverables: ["Treinamento de voz e imagem realista", "Geração ágil de vídeos para tráfego", "Redução de custo de produção audiovisual"],
+      },
+      {
+        id: "06",
+        title: "Sites & Landing Pages de Alta Conversão",
+        category: "Engenharia de Conversão",
+        desc: "Páginas ultravelozes com arquitetura limpa, navegação sem atrito e engenharia visual desenhada exclusivamente para transformar visitantes em clientes pagantes.",
+        deliverables: ["Carregamento instantâneo (< 1 segundo)", "Design e copy orientados a ação", "Rastreamento de métricas e conversões"],
+      },
+      {
+        id: "07",
+        title: "Automação de Blog & SEO Orgânico",
+        category: "Autoridade Orgânica",
+        desc: "Ecossistema automatizado de geração e publicação de artigos técnicos otimizados para mecanismos de busca, atraindo demanda qualificada sem custo por clique.",
+        deliverables: ["Pesquisa e posicionamento por palavras-chave", "SEO técnico on-page completo", "Publicação contínua e programada"],
+      },
+    ];
+---
+
+<section id="solucoes" class="py-16 md:py-24 bg-[#111111] text-white border-t border-white/5">
+  <div class="container mx-auto px-4 max-w-6xl">
+    
+    <!-- Cabeçalho da Seção -->
+    <div class="text-center mb-16">
+      <span class="text-xs uppercase tracking-widest text-[#00A39E] font-semibold font-['Sora',sans-serif]">
+        {isEnglish ? "SOLUTIONS ECOSYSTEM" : "ECOSSISTEMA DE SOLUÇÕES"}
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mt-2 font-['Sora',sans-serif] text-white">
+        {title}
+      </h2>
+      <p class="mt-4 text-base md:text-lg text-[#C6C6C6] max-w-2xl mx-auto font-['Instrument_Sans',sans-serif]">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Accordion Sanfona Nativo em Astro / Tailwind -->
+    <div class="w-full max-w-4xl mx-auto space-y-3.5" id="native-solutions-accordion">
+      {solutions.map((item, index) => (
+        <details 
+          class="solution-item group bg-[#17171a] border border-[#C6C6C6]/15 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#00A39E]/40"
+          open={index === 0}
+        >
+          <summary class="flex items-center justify-between p-6 sm:p-7 cursor-pointer list-none select-none transition-colors group-hover:bg-[#1c1d21]">
+            <div class="flex items-center gap-4 sm:gap-6">
+              <span class="text-xs font-['Sora',sans-serif] font-bold text-[#00A39E] bg-[#00A39E]/10 border border-[#00A39E]/30 px-3 py-1 rounded-full">
+                {item.id}
+              </span>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#9A9A9A] font-['Instrument_Sans',sans-serif] block mb-0.5">
+                  {item.category}
+                </span>
+                <h3 class="text-lg sm:text-xl font-bold font-['Sora',sans-serif] text-white group-hover:text-[#00A39E] transition-colors">
+                  {item.title}
+                </h3>
+              </div>
+            </div>
+
+            <!-- Ícone Chevron Animado -->
+            <div class="w-9 h-9 rounded-xl bg-[#242528] border border-white/10 flex items-center justify-center text-[#00A39E] transition-all duration-300 group-open:rotate-180 group-open:bg-[#00A39E] group-open:text-[#111111] flex-shrink-0 ml-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </summary>
+
+          <!-- Conteúdo Expandido da Solução -->
+          <div class="px-6 pb-7 sm:px-7 sm:pb-8 pt-2 border-t border-white/5 bg-[#141417]">
+            <p class="text-base text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif] max-w-2xl mb-6">
+              {item.desc}
+            </p>
+
+            <!-- Entregáveis em badges -->
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="text-xs uppercase tracking-wider text-[#9A9A9A] font-['Instrument_Sans',sans-serif] mr-2">
+                {isEnglish ? "Deliverables:" : "Entregas:"}
+              </span>
+              {item.deliverables.map((deliv) => (
+                <span class="inline-flex items-center gap-1.5 text-xs font-medium font-['Instrument_Sans',sans-serif] text-white bg-[#202126] border border-white/10 px-3 py-1.5 rounded-lg">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E]"></span>
+                  {deliv}
+                </span>
+              ))}
+            </div>
+          </div>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Comportamento interativo de sanfona: ao abrir uma, fecha as outras suavemente
+  const accordion = document.getElementById("native-solutions-accordion");
+  if (accordion) {
+    const items = accordion.querySelectorAll<HTMLDetailsElement>("details.solution-item");
+    items.forEach((item) => {
+      item.addEventListener("toggle", () => {
+        if (item.open) {
+          items.forEach((other) => {
+            if (other !== item && other.open) {
+              other.open = false;
+            }
+          });
+        }
+      });
+    });
+  }
+</script>
