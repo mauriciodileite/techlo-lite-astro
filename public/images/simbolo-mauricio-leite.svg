@@ -1,6 +1,11 @@
-<svg viewBox="450 180 300 480" xmlns="http://www.w3.org/2000/svg" fill="none">
-  <path d="M470 240 L530 200 L530 560 L470 560 Z" fill="#00A39E"/>
-  <path d="M670 200 L730 240 L730 460 L670 460 Z" fill="#00A39E"/>
-  <path d="M560 300 L600 340 L640 300 L640 500 L730 500 L730 560 L560 560 Z" fill="#FFFFFF"/>
-  <rect x="470" y="630" width="260" height="12" fill="#C6C6C6"/>
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Símbolo Monograma ML Oficial de Maurício Leite -->
+  <!-- Coluna 1 (Extrema esquerda): topo em chanfro descendente para a direita -->
+  <path d="M 60 40 L 140 100 L 140 360 L 60 360 Z" fill="#FFFFFF"/>
+  
+  <!-- Coluna 2 (Centro): vértice em 'V' no topo e base horizontal em 'L' -->
+  <path d="M 210 145 L 180 185 L 180 360 L 340 360 L 340 285 L 255 285 L 255 185 Z" fill="#FFFFFF"/>
+
+  <!-- Coluna 3 (Extrema direita): topo em chanfro descendente para a esquerda -->
+  <path d="M 340 40 L 260 100 L 260 250 L 340 250 Z" fill="#FFFFFF"/>
 </svg>

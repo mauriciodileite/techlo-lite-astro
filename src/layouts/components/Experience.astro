@@ -1,49 +1,141 @@
 ---
 /**
  * Componente: Experience.astro
- * Responsabilidade: Espaço reservado para o futuro diagrama interativo construído em Spline.
- * Diretrizes do Brand Book: Fundo Preto Pista (#111111), bordas em Prata (#C6C6C6/20), acento em Petronas (#00A39E).
+ * Responsabilidade: Exibir 4 pilares orientados a resultado e números de tração.
+ * Paleta do Brand Book: Fundo Preto Pista (#111111), acento Petronas (#00A39E), Prata (#C6C6C6), Vinho (#80142B).
  */
 
 interface Props {
   title?: string;
+  lang?: string;
 }
 
-const { title = "Minha experiência" } = Astro.props;
+const { title = "Minha experiência", lang = "pt" } = Astro.props;
+const isEn = lang === "en";
+
+const pillars = isEn
+  ? [
+      {
+        id: "01",
+        title: "Direct Response & Acquisition",
+        desc: "High-intent paid traffic focused on cash flow, CAC optimization, and qualified demand generation across Google and Meta.",
+        metric: "Predictable CAC & Volume",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4"/><path d="M12 16V8"/></svg>`,
+      },
+      {
+        id: "02",
+        title: "Perpetual Funnels & Conversion",
+        desc: "Architecture of automated low-ticket and core offer funnels that liquidate traffic costs and create immediate buyer acquisition.",
+        metric: "Immediate ROI Liquidation",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`,
+      },
+      {
+        id: "03",
+        title: "AI Automation & CRM",
+        desc: "End-to-end integration with n8n, automated qualification pipelines, and instant lead-to-sales speed to maximize conversion rates.",
+        metric: "< 1 min Response Time",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 18v4"/><path d="m16.24 16.24 2.83 2.83"/><path d="M18 12h4"/><path d="m16.24 7.76 2.83-2.83"/></svg>`,
+      },
+      {
+        id: "04",
+        title: "Profit Margins & LTV",
+        desc: "Analytical optimization prioritizing real net profit over vanity metrics. Continuous retention, upsells, and unit economics control.",
+        metric: "Net Profit & LTV Expansion",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+      },
+    ]
+  : [
+      {
+        id: "01",
+        title: "Aquisição & Tráfego Direto",
+        desc: "Gestão técnica focada em fluxo de caixa, redução de CAC e geração de demanda qualificada no Google, Meta e canais de intenção.",
+        metric: "CAC Previsível & Escala",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4"/><path d="M12 16V8"/></svg>`,
+      },
+      {
+        id: "02",
+        title: "Funis Perpétuos de Vendas",
+        desc: "Estruturação de funis de oferta direta e produtos de entrada (low-ticket) que liquidam o custo de anúncio no primeiro toque.",
+        metric: "Liquidação Imediata de Tráfego",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`,
+      },
+      {
+        id: "03",
+        title: "Automações com IA & CRM",
+        desc: "Integrações via n8n e IA para qualificação imediata de leads e conexão instantânea com o time comercial em menos de 1 minuto.",
+        metric: "Resposta em < 1 minuto",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 18v4"/><path d="m16.24 16.24 2.83 2.83"/><path d="M18 12h4"/><path d="m16.24 7.76 2.83-2.83"/></svg>`,
+      },
+      {
+        id: "04",
+        title: "Lucratividade Real & LTV",
+        desc: "Otimização analítica focada na margem líquida da operação: esteira de upsell, esteira de retenção e controle estrito do ROAS real.",
+        metric: "Lucro Líquido & Margem",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+      },
+    ];
 ---
 
 <section id="experiencia" class="py-16 md:py-24 bg-[#111111] text-white border-t border-white/5">
   <div class="container mx-auto px-4 max-w-6xl">
-    <div class="text-center mb-12">
+    
+    <!-- Cabeçalho da Seção -->
+    <div class="text-center mb-16">
       <span class="text-xs uppercase tracking-widest text-[#00A39E] font-semibold font-['Sora',sans-serif]">
-        METODOLOGIA & TRACÃO
+        METODOLOGIA & RESULTADOS
       </span>
       <h2 class="text-3xl md:text-5xl font-bold tracking-tight mt-2 font-['Sora',sans-serif] text-white">
         {title}
       </h2>
       <p class="mt-4 text-base md:text-lg text-[#C6C6C6] max-w-2xl mx-auto font-['Instrument_Sans',sans-serif]">
-        Comprometimento. Velocidade. Clareza. O caminho do clique até a venda com números reais.
+        {isEn 
+          ? "Commitment. Speed. Clarity. The path from the initial click to repeatable net profit."
+          : "Comprometimento. Velocidade. Clareza. O caminho do clique até o lucro líquido previsível."}
       </p>
     </div>
 
-    <!-- Container do Diagrama (Preparado para Spline) -->
-    <div class="w-full mx-auto max-w-5xl">
-      <div class="relative w-full h-[400px] sm:h-[480px] md:h-[550px] rounded-2xl border border-[#C6C6C6]/20 bg-[#17171a] flex flex-col items-center justify-center p-8 text-center shadow-xl overflow-hidden group">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#00A39E]/5 to-transparent pointer-events-none"></div>
-        <div class="w-16 h-16 rounded-2xl bg-[#242528] border border-[#C6C6C6]/20 flex items-center justify-center mb-6 text-[#00A39E] shadow-inner">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10"></line>
-            <line x1="12" y1="20" x2="12" y2="4"></line>
-            <line x1="6" y1="20" x2="6" y2="14"></line>
-          </svg>
+    <!-- Grid de 4 Cards Orientados a Resultado -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      {pillars.map((pillar) => (
+        <div class="group relative rounded-2xl border border-[#C6C6C6]/15 bg-[#17171a] p-8 transition-all duration-300 hover:border-[#00A39E]/50 hover:bg-[#1a1a1f] hover:shadow-2xl hover:shadow-[#00A39E]/10 flex flex-col justify-between">
+          
+          <!-- Gradiente de Fundo sutil -->
+          <div class="absolute inset-0 bg-gradient-to-br from-[#00A39E]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
+
+          <div>
+            <!-- Topo do Card: Número e Ícone -->
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-mono font-bold tracking-wider text-[#00A39E] bg-[#00A39E]/10 border border-[#00A39E]/30 px-3 py-1 rounded-full">
+                PILAR {pillar.id}
+              </span>
+              <div class="w-10 h-10 rounded-xl bg-[#242528] border border-white/10 flex items-center justify-center text-[#00A39E] group-hover:border-[#00A39E]/40 group-hover:scale-110 transition-all">
+                <Fragment set:html={pillar.icon} />
+              </div>
+            </div>
+
+            <!-- Título e Descrição -->
+            <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white mb-3 group-hover:text-white transition-colors">
+              {pillar.title}
+            </h3>
+            <p class="text-sm md:text-base text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
+              {pillar.desc}
+            </p>
+          </div>
+
+          <!-- Rodapé do Card: Destaque da Métrica -->
+          <div class="mt-8 pt-5 border-t border-white/5 flex items-center justify-between">
+            <span class="text-xs font-mono text-[#9A9A9A] uppercase tracking-wider">
+              {isEn ? "Target Outcome" : "Foco em Resultado"}
+            </span>
+            <span class="text-xs font-semibold font-mono text-[#00A39E] flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E] animate-pulse"></span>
+              {pillar.metric}
+            </span>
+          </div>
+
         </div>
-        <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white mb-2">
-          Diagrama Interativo de Operações & Tração
-        </h3>
-        <p class="text-sm md:text-base text-[#C6C6C6] max-w-md font-['Instrument_Sans',sans-serif]">
-          Ambiente 3D em desenvolvimento no Spline para demonstrar o ecossistema de geração de demanda, funis e conversão.
-        </p>
-      </div>
+      ))}
     </div>
+
   </div>
 </section>

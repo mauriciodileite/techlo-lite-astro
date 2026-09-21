@@ -76,8 +76,7 @@ Uma página inicial (Home) minimalista, de alta conversão, responsiva e alinhad
 #### Incluído
 
 - Header com Logo "Maurício Leite", links dos 4 públicos, link do Blog e seletor PT/EN.
-- Hero Section com foto de Maurício Leite (public/images/foto.png), headline de impacto e 2 CTAs.
-- Seção "Minha experiência": container preparado para diagrama animado no padrão dark do Brand Book.
+- Seção "Minha experiência": 4 cards com pilares orientados a resultado (Aquisição, Funis Perpétuos, Automação IA e Lucratividade), badge "METODOLOGIA & RESULTADOS" e métricas de tração no padrão dark do Brand Book.
 - Seção "Minhas soluções": container responsivo com o embed do Spline (7 soluções com efeito sanfona).
 - Seção "Todo dia eu ajudo de graça": 3 cards de canais (Instagram, YouTube, Blog) com links oficiais.
 - Seção "Perguntas Frequentes (FAQ)": acordeão com 3 perguntas e respostas fornecidas.
@@ -395,13 +394,13 @@ src/
   - [x] ****: Registrar conclusão.
   - [x] ****: Ícones vetoriais leves.
 
-- [x] T004 [CODE] [US-001] Criar componente `Experience.astro` preparado para futuro diagrama animado — Refs: US-001, FR-001, NFR-001, AC-001, AC-002, AC-003 — Depends: none
-  - [x] ****: Definir dimensões e layout placeholder.
+- [x] T004 [CODE] [US-001] Criar componente `Experience.astro` com 4 cards de pilares orientados a resultado e badge METODOLOGIA & RESULTADOS — Refs: US-001, FR-001, NFR-001, AC-001, AC-002, AC-003 — Depends: none
+  - [x] ****: Definir os 4 pilares (Aquisição, Funis, Automação IA, Lucro/LTV).
   - [x] ****: Criar `src/components/Experience.astro`.
   - [x] ****: Testar renderização sem erros.
-  - [x] ****: Padrão estético do Brand Book.
+  - [x] ****: Padrão estético do Brand Book com badge "METODOLOGIA & RESULTADOS".
   - [x] ****: Registrar conclusão.
-  - [x] ****: Estrutura modular.
+  - [x] ****: Suporte bilingue (PT/EN) nativo.
 
 - [x] T005 [CODE] [US-001] Atualizar `Header.astro` e `Hero.astro` com paleta, tipografia, seletor de idioma e cópias alinhadas à marca — Refs: US-001, FR-001, NFR-001, AC-001, AC-002, AC-003 — Depends: none
   - [x] ****: Checar variáveis de cores no CSS/Tailwind.
