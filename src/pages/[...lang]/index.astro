@@ -3,7 +3,7 @@ import Base from "@/layouts/Base.astro";
 import HeaderNav from "@/components/HeaderNav.astro";
 import Hero from "@/components/Hero.astro";
 import Experience from "@/components/Experience.astro";
-import SolutionsAccordion from "@/components/SolutionsAccordion.astro";
+import SolutionsCards from "@/components/SolutionsCards.astro";
 import FreeContent from "@/components/FreeContent.astro";
 import FaqAccordion from "@/components/FaqAccordion.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
@@ -62,12 +62,12 @@ const metaDescription = isEnglish
         lang={isEnglish ? "en" : "pt"}
       />
 
-      <!-- 3. Minhas Soluções (Sanfona Nativa Astro com 7 soluções) -->
-      <SolutionsAccordion 
+      <!-- 3. Minhas Soluções (4 Cards de Perfis com CTAs específicos) -->
+      <SolutionsCards 
         title={isEnglish ? "My Solutions" : "Minhas soluções"}
         subtitle={isEnglish 
-          ? "Complete architecture of sales, automation, and profitability for your business."
-          : "Arquitetura completa de vendas, automação e lucratividade para o seu negócio."
+          ? "Choose your profile and discover the direct path to accelerate sales and profit."
+          : "Escolha o seu perfil e descubra o caminho mais direto para acelerar vendas e lucro."
         }
         isEnglish={isEnglish}
       />
