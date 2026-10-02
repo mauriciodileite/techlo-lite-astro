@@ -254,9 +254,9 @@ const currentFaqs = isEnglish ? faqsAiSimEn : faqsAiSimPt;
         </div>
       </section>
 
-      <!-- 4. O QUE FAZEMOS (SERVIÇOS DE RESULTADO) -->
+      <!-- 4. O QUE FAZEMOS (SERVIÇOS DE RESULTADO) - CARDS LADO A LADO COM ÍCONES -->
       <section class="py-20 md:py-28 bg-[#111111] text-white border-b border-white/5">
-        <div class="container mx-auto px-4 max-w-5xl">
+        <div class="container mx-auto px-4 max-w-6xl">
           <div class="text-center mb-16">
             <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-3 font-['Sora',sans-serif]">
               {isEnglish ? "SERVICES" : "O QUE FAZEMOS"}
@@ -268,41 +268,59 @@ const currentFaqs = isEnglish ? faqsAiSimEn : faqsAiSimPt;
             </h2>
           </div>
 
-          <div class="space-y-8">
+          <!-- Cards lado a lado com grid de 2 colunas -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             <!-- Bloco 1: Captação de Leads e Vendas -->
-            <div class="bg-[#161616] border border-[#C6C6C6]/15 rounded-2xl p-8 md:p-10">
-              <div class="flex items-center gap-3 mb-4">
-                <span class="w-3 h-3 rounded-full bg-[#00A39E]"></span>
-                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white">
+            <div class="bg-[#181818] border border-white/10 rounded-2xl p-8 md:p-10 hover:border-[#00A39E]/50 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <!-- Ícone estilizado com cantos arredondados e cor Petronas conforme referência visual -->
+                <div class="w-14 h-14 rounded-2xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center text-[#00A39E] mb-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white mb-4">
                   {isEnglish ? "Lead Acquisition and Direct Sales" : "Captação de leads e vendas"}
                 </h3>
+                <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base leading-relaxed">
+                  {isEnglish
+                    ? "We capture people online with immediate buying intent using paid traffic and the complete VCEC framework of our agency. We also build artificial intelligence trained with your business data to answer, sell, schedule, and follow up with your leads immediately."
+                    : "Capturamos pessoas na internet com intenção de compra utilizando tráfego pago e toda a estrutura VCEC da nossa agência. Criamos inteligência artificial com os dados do seu negócio para que atenda, venda, agende e contate seu cliente imediatamente."}
+                </p>
               </div>
-              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg leading-relaxed">
-                {isEnglish
-                  ? "We capture people online with immediate buying intent using paid traffic and the complete VCEC framework of our agency. We also build artificial intelligence trained with your business data to answer, sell, schedule, and follow up with your leads immediately."
-                  : "Capturamos pessoas na internet com intenção de compra utilizando tráfego pago e toda a estrutura VCEC da nossa agência. Criamos inteligência artificial com os dados do seu negócio para que atenda, venda, agende e contate seu cliente imediatamente."}
-              </p>
             </div>
 
             <!-- Bloco 2: Desenvolvimento Exclusivo -->
-            <div class="bg-[#161616] border border-[#C6C6C6]/15 rounded-2xl p-8 md:p-10">
-              <div class="flex items-center gap-3 mb-4">
-                <span class="w-3 h-3 rounded-full bg-[#00A39E]"></span>
-                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white">
+            <div class="bg-[#181818] border border-white/10 rounded-2xl p-8 md:p-10 hover:border-[#00A39E]/50 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <!-- Ícone estilizado com cantos arredondados e cor Petronas conforme referência visual -->
+                <div class="w-14 h-14 rounded-2xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center text-[#00A39E] mb-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white mb-4">
                   {isEnglish ? "Exclusive Technical Development" : "Desenvolvimento exclusivo"}
                 </h3>
+                <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base leading-relaxed">
+                  {isEnglish
+                    ? "We develop custom platforms, online video ads, institutional websites with ultra-fast sub-second loading, high-converting landing pages, and blog automations. We believe marketing is solid construction, not a 3-minute instant noodle illusion."
+                    : "Desenvolvemos plataformas personalizadas, vídeos para anúncios online, sites institucionais com carregamento rápido, landing pages e automações de blog. Acreditamos que marketing é uma construção consistente e não resultado rápido como miojo de 3 minutos."}
+                </p>
               </div>
-              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg leading-relaxed">
-                {isEnglish
-                  ? "We develop custom platforms, online video ads, institutional websites with ultra-fast sub-second loading, high-converting landing pages, and blog automations. We believe marketing is solid construction, not a 3-minute instant noodle illusion."
-                  : "Desenvolvemos plataformas personalizadas, vídeos para anúncios online, sites institucionais com carregamento rápido, landing pages e automações de blog. Acreditamos que marketing é uma construção consistente e não resultado rápido como miojo de 3 minutos."}
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 5. FAQ EXCLUSIVO AISIM -->
+      <!-- 5. AGENDAMENTO CALENDLY (POSICIONADO ANTES DO FAQ, SEM SCROLLBAR) -->
+      <CalendlyEmbed
+        url="https://calendly.com/mauricioleitecontato"
+        title={isEnglish ? "Ready to increase your net profit with a partner agency?" : "Pronto para aumentar seu lucro líquido com uma agência parceira?"}
+        description={isEnglish ? "Tell us about your business and receive a clear proposal — with zero bureaucracy." : "Conte pra gente sobre o seu negócio e receba um orçamento — sem burocracia."}
+      />
+
+      <!-- 6. FAQ EXCLUSIVO AISIM (APÓS O CALENDLY) -->
       <FaqAccordion
         isEnglish={isEnglish}
         items={currentFaqs}
@@ -310,12 +328,28 @@ const currentFaqs = isEnglish ? faqsAiSimEn : faqsAiSimPt;
         title={isEnglish ? "Questions about aiSIM" : "Perguntas frequentes sobre a agência"}
       />
 
-      <!-- 6. CTA FINAL COM EMBED DO CALENDLY -->
-      <CalendlyEmbed
-        url="https://calendly.com/mauricioleitecontato"
-        title={isEnglish ? "Ready to increase your net profit with a partner agency?" : "Pronto para aumentar seu lucro líquido com uma agência parceira?"}
-        description={isEnglish ? "Tell us about your business and receive a clear proposal — with zero bureaucracy." : "Conte pra gente sobre o seu negócio e receba um orçamento — sem burocracia."}
-      />
+      <!-- 7. CTA FINAL NO RODAPÉ DA PÁGINA (SOLICITAR ORÇAMENTO) -->
+      <section class="py-16 bg-[#161616] text-white border-t border-white/10 text-center">
+        <div class="container mx-auto px-4 max-w-4xl">
+          <h2 class="text-2xl md:text-4xl font-bold font-['Sora',sans-serif] text-white mb-4">
+            {isEnglish ? "Let's Scale Your Business Together?" : "Vamos escalar o lucro da sua empresa juntos?"}
+          </h2>
+          <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg mb-8 max-w-xl mx-auto">
+            {isEnglish
+              ? "Schedule your 30-minute strategic meeting and discover our tailored plan for your company."
+              : "Agende sua reunião estratégica de 30 minutos e conheça o plano sob medida para sua operação."}
+          </p>
+          <a
+            href="#agendamento"
+            class="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-lg hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-xl shadow-[#00A39E]/20"
+          >
+            <span>{isEnglish ? "Request a Proposal" : "Solicitar orçamento"}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </section>
     </main>
 
     <!-- Rodapé Oficial da Marca -->
