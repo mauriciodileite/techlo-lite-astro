@@ -75,6 +75,10 @@ const finalClassName = fitToScreen
 <html lang={Astro.currentLocale || "pt"} class="bg-[#111111]">
   <Head {...props} structuredData={structuredData} />
   <body class="bg-[#111111] text-white">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWQQ826L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     {!Astro.props.homepage && <PageLoader />}
     
     {!shouldHideHeader && (

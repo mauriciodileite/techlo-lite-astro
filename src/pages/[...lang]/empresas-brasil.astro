@@ -1,0 +1,324 @@
+---
+import Base from "@/layouts/Base.astro";
+import HeaderNav from "@/components/HeaderNav.astro";
+import FooterMauricio from "@/components/FooterMauricio.astro";
+import VideoPlayer1Min from "@/components/VideoPlayer1Min.astro";
+import CalendlyEmbed from "@/components/CalendlyEmbed.astro";
+import FaqAccordion, { type FaqItem } from "@/components/FaqAccordion.astro";
+import { generatePaths } from "@/lib/utils/i18nUtils.ts";
+
+export function getStaticPaths() {
+  return generatePaths();
+}
+
+const currentLocale = Astro.currentLocale || "pt";
+const isEnglish = currentLocale === "en" || Astro.url.pathname.startsWith("/en");
+
+const metaTitle = isEnglish
+  ? "aiSIM Agency | Marketing & Predictable Profit for Companies in Brazil"
+  : "Agência aiSIM | Marketing & Vendas com Lucro para Empresas no Brasil";
+
+const metaDescription = isEnglish
+  ? "The aiSIM agency uses the VCEC method to attract buyers without objections and scale your company's net profit."
+  : "A agência aiSIM utiliza o método VCEC baseado nos algoritmos da Meta e Google para atrair compradores sem objeção e aumentar seu lucro líquido.";
+
+// FAQ Oficial da agência aiSIM extraído do briefing
+const faqsAiSimPt: FaqItem[] = [
+  {
+    question: "Para quem é a aiSIM?",
+    answer: "De negócios locais a grandes e-commerces, com produtos físicos ou digitais, que querem vender mais na internet."
+  },
+  {
+    question: "Quais plataformas gerencia?",
+    answer: "Meta Ads (Instagram e Facebook), Google Ads, Perfil de Empresa do Google, TikTok Shop e LinkedIn Ads."
+  },
+  {
+    question: "Como funciona o orçamento?",
+    answer: "Você preenche o formulário, escolhe o seu melhor dia e horário para uma reunião rápida de alinhamento, sem qualquer burocracia."
+  },
+  {
+    question: "Promete resultado rápido?",
+    answer: "Não prometemos venda mágica da noite para o dia. Prometemos método, consistência, engenharia reversa do algoritmo e cada real bem investido."
+  },
+  {
+    question: "Quais outros serviços adicionais a agência oferece?",
+    answer: "Atendimento com inteligência artificial multicanal para seu time de vendas; centralização de conversas em uma única caixa de entrada; coordenação de múltiplos agentes com responsabilidades e colaboração claras; padronização operacional com etiquetas e automações; acompanhamento de desempenho com relatórios e métricas operacionais; e integração com sua infraestrutura por meio de APIs e webhooks."
+  }
+];
+
+const faqsAiSimEn: FaqItem[] = [
+  {
+    question: "Who is aiSIM for?",
+    answer: "From local businesses to large e-commerces, with physical or digital products, looking to sell more online with predictable profit."
+  },
+  {
+    question: "Which platforms do you manage?",
+    answer: "Meta Ads (Instagram and Facebook), Google Ads, Google Business Profile, TikTok Shop, and LinkedIn Ads."
+  },
+  {
+    question: "How does the proposal/quote process work?",
+    answer: "You schedule directly through the calendar, picking your best day and time for a quick 30-minute alignment meeting with zero bureaucracy."
+  },
+  {
+    question: "Do you promise fast overnight results?",
+    answer: "We do not promise magic sales overnight. We promise method, consistency, algorithm data reverse-engineering, and every single dollar wisely invested."
+  },
+  {
+    question: "What other complementary services do you provide?",
+    answer: "Multi-channel AI automated attendance for sales teams; unified customer inbox; coordination of multiple agents with clear ownership; operational standardizations with automations; performance metrics reports; and infrastructure connectivity via APIs & webhooks."
+  }
+];
+
+const currentFaqs = isEnglish ? faqsAiSimEn : faqsAiSimPt;
+---
+
+<Base
+  title={metaTitle}
+  description={metaDescription}
+  headerLayout="none"
+  hideHeader={true}
+  hideFooter={true}
+  hideCallToAction={true}
+  hideHelperButtons={true}
+>
+  <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
+    <!-- Header Oficial da Marca -->
+    <HeaderNav currentLocale={isEnglish ? "en" : "pt"} />
+
+    <main class="flex-grow">
+      <!-- 1. HERO SECTION COM ONE BELIEF -->
+      <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden border-b border-white/5">
+        <!-- Glow suave de iluminação da marca -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[#00A39E]/10 blur-[140px] rounded-full pointer-events-none"></div>
+
+        <div class="container mx-auto px-4 max-w-5xl relative z-10 text-center">
+          <!-- Tag / Badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-8">
+            <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
+            <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-['Sora',sans-serif] font-semibold">
+              {isEnglish ? "aiSIM Agency • Brazil" : "Agência aiSIM • Brasil"}
+            </span>
+          </div>
+
+          <!-- Headline One Belief oficial -->
+          <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight font-['Sora',sans-serif] text-white leading-[1.15] mb-6 max-w-4xl mx-auto">
+            {isEnglish ? (
+              <>
+                Hiring a team that masters the social media algorithm is the key to bringing <span class="text-[#00A39E]">buyers without objections</span>.
+              </>
+            ) : (
+              <>
+                Contratar uma empresa que conhece o algoritmo das redes sociais é a chave para trazer <span class="text-[#00A39E]">compradores sem objeção</span>.
+              </>
+            )}
+          </h1>
+
+          <!-- Subheadline -->
+          <p class="text-lg md:text-xl text-[#C6C6C6] font-['Instrument_Sans',sans-serif] max-w-2xl mx-auto mb-10 leading-relaxed">
+            {isEnglish
+              ? "And this is only possible through the VCEC methodology developed by the aiSIM agency. Predictability and net profit for your operation."
+              : "E isso só é possível através do método VCEC presente na agência aiSIM. Previsibilidade, dados reais e lucro líquido para a sua operação."}
+          </p>
+
+          <!-- Botão Scroll Âncora até o Calendly -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+            <a
+              href="#agendamento"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-base hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#00A39E]/20"
+            >
+              <span>{isEnglish ? "Request a Proposal" : "Solicitar orçamento"}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Componente do Vídeo de 1 Minuto -->
+          <VideoPlayer1Min
+            title={isEnglish ? "Understand in 60 seconds how aiSIM scales your operation" : "Entenda em 60 segundos como a aiSIM escala sua operação"}
+            badgeText={isEnglish ? "Strategic Video • 1 Min" : "Vídeo Estratégico • 1 Minuto"}
+            durationText="01:00 min"
+          />
+        </div>
+      </section>
+
+      <!-- 2. PARA QUEM É -->
+      <section class="py-20 md:py-28 bg-[#111111] text-white border-b border-white/5 relative">
+        <div class="container mx-auto px-4 max-w-5xl">
+          <div class="bg-[#161616] border border-[#C6C6C6]/15 rounded-3xl p-8 md:p-14 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-[#00A39E]/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-3xl">
+              <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-4 font-['Sora',sans-serif]">
+                {isEnglish ? "TARGET AUDIENCE" : "PARA QUEM É"}
+              </span>
+              <h2 class="text-3xl md:text-5xl font-bold font-['Sora',sans-serif] text-white mb-4 leading-tight">
+                {isEnglish
+                  ? "The aiSIM agency is for those who want to sell with profit every single day."
+                  : "A agência aiSIM é para quem quer vender com lucro todos os dias."}
+              </h2>
+              <p class="text-xl md:text-2xl text-[#00A39E] font-['Instrument_Sans',sans-serif] font-medium mb-6">
+                {isEnglish ? "From local business to large online operations." : "De negócio local a grandes operações online."}
+              </p>
+              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg leading-relaxed">
+                {isEnglish
+                  ? "We don't work with superficial vanity metrics like likes or empty reach. We operate with customer acquisition cost (CAC), average ticket, margin, and net cash profit in your account."
+                  : "Não trabalhamos com métricas de vaidade como curtidas ou alcance vazio. Trabalhamos orientados a custo por aquisição (CAC), ticket médio, margem de contribuição e lucro líquido no caixa."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. COMO TRABALHAMOS (4 PILARES EM CARDS) -->
+      <section class="py-20 md:py-28 bg-[#141414] text-white border-b border-white/5">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="text-center mb-16">
+            <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-3 font-['Sora',sans-serif]">
+              {isEnglish ? "METHODOLOGY" : "COMO TRABALHAMOS"}
+            </span>
+            <h2 class="text-3xl md:text-5xl font-bold font-['Sora',sans-serif] text-white max-w-3xl mx-auto">
+              {isEnglish ? "Our pillars for real growth" : "Nossos pilares de execução direta"}
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            <!-- Card 1: Metodologia VCEC -->
+            <div class="bg-[#181818] border border-white/10 rounded-2xl p-8 hover:border-[#00A39E]/50 transition-all duration-300">
+              <div class="w-12 h-12 rounded-xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center text-[#00A39E] mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white mb-3">
+                {isEnglish ? "VCEC Methodology" : "Metodologia VCEC"}
+              </h3>
+              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed text-sm md:text-base">
+                {isEnglish
+                  ? "Our testing and scaling method rigorously engineered on how the Meta and Google Ads algorithms actually work."
+                  : "Nosso método de testes e escala baseado nos dados de funcionamento do algoritmo da Meta e Google Ads."}
+              </p>
+            </div>
+
+            <!-- Card 2: Sem Burocracia -->
+            <div class="bg-[#181818] border border-white/10 rounded-2xl p-8 hover:border-[#00A39E]/50 transition-all duration-300">
+              <div class="w-12 h-12 rounded-xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center text-[#00A39E] mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white mb-3">
+                {isEnglish ? "Zero Bureaucracy to Talk to Us" : "Sem burocracia para falar com a gente"}
+              </h3>
+              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed text-sm md:text-base">
+                {isEnglish
+                  ? "Most agencies have rigid, slow office hours. We take care of your data, ads, and information whenever you need."
+                  : "A maioria das agências tem horário de funcionamento truncado. Nós cuidamos de suas informações e campanhas a qualquer momento."}
+              </p>
+            </div>
+
+            <!-- Card 3: Facilitamos a Venda -->
+            <div class="bg-[#181818] border border-white/10 rounded-2xl p-8 hover:border-[#00A39E]/50 transition-all duration-300">
+              <div class="w-12 h-12 rounded-xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center text-[#00A39E] mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white mb-3">
+                {isEnglish ? "We Facilitate the Sale" : "Facilitamos a venda"}
+              </h3>
+              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed text-sm md:text-base">
+                {isEnglish
+                  ? "Our primary mission is to simplify the decision for your buying audience, making them buy from your business and generate higher profit."
+                  : "Nosso objetivo é facilitar a venda para seu público comprador fazendo com que ele compre de sua empresa e gere mais lucro."}
+              </p>
+            </div>
+
+            <!-- Card 4: Tudo em um lugar só -->
+            <div class="bg-[#181818] border border-white/10 rounded-2xl p-8 hover:border-[#00A39E]/50 transition-all duration-300">
+              <div class="w-12 h-12 rounded-xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center text-[#00A39E] mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white mb-3">
+                {isEnglish ? "Everything in One Place" : "Tudo em um lugar só"}
+              </h3>
+              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed text-sm md:text-base">
+                {isEnglish
+                  ? "Most agencies have separate extra package charges that make marketing expensive. We deliver everything from ad creatives to full sales landing pages."
+                  : "A maioria das agências possui pacotes de serviços extras que encarecem o marketing. Nós oferecemos da criação de anúncios à página de vendas."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. O QUE FAZEMOS (SERVIÇOS DE RESULTADO) -->
+      <section class="py-20 md:py-28 bg-[#111111] text-white border-b border-white/5">
+        <div class="container mx-auto px-4 max-w-5xl">
+          <div class="text-center mb-16">
+            <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-3 font-['Sora',sans-serif]">
+              {isEnglish ? "SERVICES" : "O QUE FAZEMOS"}
+            </span>
+            <h2 class="text-3xl md:text-5xl font-bold font-['Sora',sans-serif] text-white leading-tight max-w-3xl mx-auto">
+              {isEnglish
+                ? "We facilitate the sale for your client, increasing your company's net profit."
+                : "Facilitamos a venda para seu cliente aumentando o lucro líquido da sua empresa."}
+            </h2>
+          </div>
+
+          <div class="space-y-8">
+            <!-- Bloco 1: Captação de Leads e Vendas -->
+            <div class="bg-[#161616] border border-[#C6C6C6]/15 rounded-2xl p-8 md:p-10">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-3 h-3 rounded-full bg-[#00A39E]"></span>
+                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white">
+                  {isEnglish ? "Lead Acquisition and Direct Sales" : "Captação de leads e vendas"}
+                </h3>
+              </div>
+              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg leading-relaxed">
+                {isEnglish
+                  ? "We capture people online with immediate buying intent using paid traffic and the complete VCEC framework of our agency. We also build artificial intelligence trained with your business data to answer, sell, schedule, and follow up with your leads immediately."
+                  : "Capturamos pessoas na internet com intenção de compra utilizando tráfego pago e toda a estrutura VCEC da nossa agência. Criamos inteligência artificial com os dados do seu negócio para que atenda, venda, agende e contate seu cliente imediatamente."}
+              </p>
+            </div>
+
+            <!-- Bloco 2: Desenvolvimento Exclusivo -->
+            <div class="bg-[#161616] border border-[#C6C6C6]/15 rounded-2xl p-8 md:p-10">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-3 h-3 rounded-full bg-[#00A39E]"></span>
+                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white">
+                  {isEnglish ? "Exclusive Technical Development" : "Desenvolvimento exclusivo"}
+                </h3>
+              </div>
+              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg leading-relaxed">
+                {isEnglish
+                  ? "We develop custom platforms, online video ads, institutional websites with ultra-fast sub-second loading, high-converting landing pages, and blog automations. We believe marketing is solid construction, not a 3-minute instant noodle illusion."
+                  : "Desenvolvemos plataformas personalizadas, vídeos para anúncios online, sites institucionais com carregamento rápido, landing pages e automações de blog. Acreditamos que marketing é uma construção consistente e não resultado rápido como miojo de 3 minutos."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. FAQ EXCLUSIVO AISIM -->
+      <FaqAccordion
+        isEnglish={isEnglish}
+        items={currentFaqs}
+        badge={isEnglish ? "aiSIM FAQ" : "DÚVIDAS DA AGÊNCIA"}
+        title={isEnglish ? "Questions about aiSIM" : "Perguntas frequentes sobre a agência"}
+      />
+
+      <!-- 6. CTA FINAL COM EMBED DO CALENDLY -->
+      <CalendlyEmbed
+        url="https://calendly.com/mauricioleitecontato"
+        title={isEnglish ? "Ready to increase your net profit with a partner agency?" : "Pronto para aumentar seu lucro líquido com uma agência parceira?"}
+        description={isEnglish ? "Tell us about your business and receive a clear proposal — with zero bureaucracy." : "Conte pra gente sobre o seu negócio e receba um orçamento — sem burocracia."}
+      />
+    </main>
+
+    <!-- Rodapé Oficial da Marca -->
+    <FooterMauricio isEnglish={isEnglish} />
+  </div>
+</Base>

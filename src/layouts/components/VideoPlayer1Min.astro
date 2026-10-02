@@ -1,0 +1,85 @@
+---
+/**
+ * Componente: VideoPlayer1Min.astro
+ * Responsabilidade: Player de vídeo otimizado para o pitch de 1 minuto ("One Belief").
+ * Suporta vídeo HTML5 nativo (mp4/webm), embed de YouTube/Vimeo, ou poster estático com trigger.
+ * Estilo: Dark (#111111), bordas em Prata (#C6C6C6/20), acento Petronas (#00A39E) e tipografia Sora/Instrument Sans.
+ */
+
+interface Props {
+  videoUrl?: string;
+  youtubeId?: string;
+  posterImage?: string;
+  badgeText?: string;
+  title?: string;
+  durationText?: string;
+}
+
+const {
+  videoUrl = "",
+  youtubeId = "",
+  posterImage = "/images/foto.png",
+  badgeText = "Vídeo Explicativo • 1 Minuto",
+  title = "Entenda em 60 segundos como funciona",
+  durationText = "01:00 min"
+} = Astro.props;
+---
+
+<div class="relative w-full max-w-3xl mx-auto my-8">
+  <!-- Container do Vídeo com estética Brand Book -->
+  <div class="relative rounded-2xl overflow-hidden bg-[#161616] border border-white/10 shadow-2xl group">
+    
+    <!-- Barra superior com status -->
+    <div class="flex items-center justify-between px-4 py-2.5 bg-[#1C1C1C] border-b border-white/5 text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif]">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#00A39E]"></span>
+        <span class="font-semibold text-white">{badgeText}</span>
+      </div>
+      <div class="flex items-center gap-1.5 bg-[#111111] px-2 py-0.5 rounded border border-white/10 text-[11px] text-[#C6C6C6]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{durationText}</span>
+      </div>
+    </div>
+
+    <!-- Área de Exibição / Player -->
+    <div class="relative aspect-video w-full bg-black flex items-center justify-center overflow-hidden">
+      {youtubeId && (
+        <iframe
+          class="w-full h-full"
+          src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      )}
+
+      {!youtubeId && videoUrl && (
+        <video
+          controls
+          poster={posterImage}
+          preload="metadata"
+          class="w-full h-full object-cover"
+        >
+          <source src={videoUrl} type="video/mp4" />
+          Seu navegador não suporta a reprodução deste vídeo.
+        </video>
+      )}
+
+      {!youtubeId && !videoUrl && (
+        <div class="relative w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-[#1A1A1A] to-[#111111]">
+          <div class="w-16 h-16 rounded-full bg-[#00A39E]/20 border border-[#00A39E]/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#00A39E] ml-1" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <h4 class="text-white font-['Sora',sans-serif] font-semibold text-lg mb-1">{title}</h4>
+          <p class="text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif] max-w-sm">
+            Apresentação estratégica concisa do ecossistema Maurício Leite.
+          </p>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
