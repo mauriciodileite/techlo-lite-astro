@@ -1,0 +1,151 @@
+---
+/**
+ * Componente: ComparisonTable.astro
+ * Responsabilidade: Tabela comparativa lado a lado para Empreendedores (Curso vs Mentoria) e Experts (Formatos de Parceria).
+ * Estilo: Brand Book Dark (#111111), acentos Petronas (#00A39E), bordas em Prata (#C6C6C6/15) e responsividade móvel com scroll suave.
+ */
+
+export interface ComparisonRow {
+  feature: string;
+  optionA: string | boolean;
+  optionB: string | boolean;
+  highlightB?: boolean;
+}
+
+interface Props {
+  badge?: string;
+  title?: string;
+  description?: string;
+  labelA?: string;
+  labelB?: string;
+  subLabelA?: string;
+  subLabelB?: string;
+  rows?: ComparisonRow[];
+  ctaTextA?: string;
+  ctaTextB?: string;
+  ctaUrlA?: string;
+  ctaUrlB?: string;
+}
+
+const {
+  badge = "COMPARAÇÃO DIRETA",
+  title = "Qual é a melhor opção para você?",
+  description = "Compare os formatos de aprendizagem e escolha a modalidade ideal para o seu momento de negócio.",
+  labelA = "Curso Prático",
+  labelB = "Mentoria Individual",
+  subLabelA = "Formação passo a passo",
+  subLabelB = "Acompanhamento estratégico",
+  rows = [],
+  ctaTextA = "Quero o Curso",
+  ctaTextB = "Aplicar para Mentoria",
+  ctaUrlA = "#curso",
+  ctaUrlB = "#mentoria"
+} = Astro.props;
+---
+
+<section class="py-20 md:py-28 bg-[#141414] text-white border-b border-white/5 relative">
+  <div class="container mx-auto px-4 max-w-5xl">
+    
+    <!-- Cabeçalho da Seção -->
+    <div class="text-center mb-16">
+      <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-3 font-['Sora',sans-serif]">
+        {badge}
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold font-['Sora',sans-serif] text-white max-w-2xl mx-auto mb-4 leading-tight">
+        {title}
+      </h2>
+      <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg max-w-xl mx-auto">
+        {description}
+      </p>
+    </div>
+
+    <!-- Tabela Comparativa em Container Responsivo -->
+    <div class="relative bg-[#181818] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[600px]">
+          <thead>
+            <tr class="border-b border-white/10 bg-[#161616]">
+              <th class="p-6 text-sm md:text-base font-['Sora',sans-serif] text-[#C6C6C6] w-2/5">
+                Recursos & Escopo
+              </th>
+              <th class="p-6 text-center w-3/10 border-l border-white/10">
+                <div class="font-['Sora',sans-serif] text-lg font-bold text-white mb-1">{labelA}</div>
+                <div class="text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif]">{subLabelA}</div>
+              </th>
+              <th class="p-6 text-center w-3/10 border-l border-white/10 bg-[#00A39E]/5 relative">
+                <div class="inline-block px-2 py-0.5 text-[10px] uppercase font-bold text-black bg-[#00A39E] rounded mb-1 font-['Sora',sans-serif]">
+                  Mais Recomendado
+                </div>
+                <div class="font-['Sora',sans-serif] text-lg font-bold text-white mb-1">{labelB}</div>
+                <div class="text-xs text-[#00A39E] font-['Instrument_Sans',sans-serif]">{subLabelB}</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5 font-['Instrument_Sans',sans-serif]">
+            {rows.map((row) => (
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-5 text-sm md:text-base text-white font-medium">
+                  {row.feature}
+                </td>
+                <td class="p-5 text-center text-sm md:text-base text-[#C6C6C6] border-l border-white/5">
+                  {typeof row.optionA === 'boolean' ? (
+                    row.optionA ? (
+                      <span class="inline-flex text-[#00A39E]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span class="text-white/30">—</span>
+                    )
+                  ) : (
+                    row.optionA
+                  )}
+                </td>
+                <td class="p-5 text-center text-sm md:text-base border-l border-white/5 bg-[#00A39E]/[0.02]">
+                  {typeof row.optionB === 'boolean' ? (
+                    row.optionB ? (
+                      <span class="inline-flex text-[#00A39E]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span class="text-white/30">—</span>
+                    )
+                  ) : (
+                    <span class={row.highlightB ? "text-[#00A39E] font-semibold" : "text-white"}>
+                      {row.optionB}
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))}
+            <!-- Linha de Ações no Rodapé da Tabela -->
+            <tr class="border-t border-white/10 bg-[#161616]">
+              <td class="p-6 text-xs text-[#C6C6C6]/60">
+                Transparência total sem surpresas
+              </td>
+              <td class="p-6 text-center border-l border-white/10">
+                <a
+                  href={ctaUrlA}
+                  class="inline-block px-5 py-2.5 rounded-lg border border-white/20 text-white font-['Sora',sans-serif] text-xs font-semibold hover:border-[#00A39E] hover:text-[#00A39E] transition-colors"
+                >
+                  {ctaTextA}
+                </a>
+              </td>
+              <td class="p-6 text-center border-l border-white/10 bg-[#00A39E]/5">
+                <a
+                  href={ctaUrlB}
+                  class="inline-block px-6 py-2.5 rounded-lg bg-[#00A39E] text-black font-['Sora',sans-serif] text-xs font-bold hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-md shadow-[#00A39E]/20"
+                >
+                  {ctaTextB}
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

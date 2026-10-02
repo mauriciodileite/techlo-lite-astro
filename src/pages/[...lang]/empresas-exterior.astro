@@ -1,0 +1,297 @@
+---
+import Base from "@/layouts/Base.astro";
+import HeaderNav from "@/components/HeaderNav.astro";
+import FooterMauricio from "@/components/FooterMauricio.astro";
+import VideoPlayer1Min from "@/components/VideoPlayer1Min.astro";
+import CalendlyEmbed from "@/components/CalendlyEmbed.astro";
+import FaqAccordion, { type FaqItem } from "@/components/FaqAccordion.astro";
+import { generatePaths } from "@/lib/utils/i18nUtils.ts";
+
+export function getStaticPaths() {
+  return generatePaths();
+}
+
+const currentLocale = Astro.currentLocale || "pt";
+const isEnglish = currentLocale === "en" || Astro.url.pathname.startsWith("/en");
+
+const metaTitle = isEnglish
+  ? "aiSIM Global | Predictable Revenue & Marketing for Local Businesses in the US"
+  : "Agência aiSIM Exterior | Marketing & Receita Previsível nos Estados Unidos";
+
+const metaDescription = isEnglish
+  ? "Not hiring a rigid agency to manage online business is the key to generating more revenue for local businesses in the US, through the VCEC method."
+  : "Não contratar agência fixa para gerir negócios online é a chave para gerar mais receita em negócios locais nos Estados Unidos. Conheça o método VCEC da aiSIM.";
+
+// FAQ Internacional oficial
+const faqsExteriorPt: FaqItem[] = [
+  {
+    question: "Como funciona a contratação internacional sem agência fixa?",
+    answer: "Trabalhamos com modelo de execução sob demanda e sprint orientado a dados (VCEC). Você não fica preso a contratos engessados e burocráticos de agências tradicionais americanas que cobram fortunas em 'retainers' mensais sem entregar CAC previsível."
+  },
+  {
+    question: "Quanto custa o serviço em moeda forte (USD)?",
+    answer: "Nossos planos são estruturados em dólar (USD), ajustados ao tamanho do negócio local e volume de mídia. Por operarmos de forma remota ultrassintonizada, nosso custo operacional é até 60% mais eficiente do que agências locais nos EUA."
+  },
+  {
+    question: "Qual resultado esperado e em quanto tempo?",
+    answer: "Na primeira quinzena calibramos a esteira de tráfego (Google Ads e Meta Ads locais) e os fluxos de conversão. A partir da terceira semana, os testes VCEC identificam o criativo e o público de menor CAC, gerando fluxo constante de ligações, agendamentos e vendas locais."
+  },
+  {
+    question: "Vocês gerenciam quais canais de aquisição nos EUA?",
+    answer: "Google Ads (Search & Local Service Ads), Google Business Profile (mapas locais), Meta Ads (Instagram/Facebook) e automação de atendimento por IA via WhatsApp / SMS / Instagram Direct."
+  },
+  {
+    question: "Como agendar uma reunião de alinhamento?",
+    answer: "Basta selecionar o melhor horário no calendário abaixo para uma reunião estratégica de 30 minutos em português ou inglês."
+  }
+];
+
+const faqsExteriorEn: FaqItem[] = [
+  {
+    question: "How does international service work without a rigid agency?",
+    answer: "We operate on a sprint and demand-driven model powered by the VCEC method. You are not locked into bureaucratic monthly retainers common in US agencies that charge high fees with no predictable CAC."
+  },
+  {
+    question: "How much does it cost in USD?",
+    answer: "Our plans are structured in USD, scaled to local business size and media spend. Our lean, high-tech operation delivers up to 60% more efficiency than traditional US local agencies."
+  },
+  {
+    question: "What is the expected outcome and timeline?",
+    answer: "In the first two weeks, we calibrate local Google & Meta ads along with conversion funnels. By week three, VCEC testing identifies optimal CAC to deliver a steady stream of calls, bookings, and local revenue."
+  },
+  {
+    question: "Which acquisition channels do you manage in the US?",
+    answer: "Google Ads (Search & Local Services), Google Business Profile, Meta Ads (Instagram/Facebook), and AI automated multi-channel messaging (WhatsApp / SMS / DM)."
+  },
+  {
+    question: "How to schedule an introductory call?",
+    answer: "Simply select your preferred slot in the calendar below for a 30-minute strategic alignment call."
+  }
+];
+
+const currentFaqs = isEnglish ? faqsExteriorEn : faqsExteriorPt;
+---
+
+<Base
+  title={metaTitle}
+  description={metaDescription}
+  headerLayout="none"
+  hideHeader={true}
+  hideFooter={true}
+  hideCallToAction={true}
+  hideHelperButtons={true}
+>
+  <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
+    <!-- Header Oficial da Marca -->
+    <HeaderNav currentLocale={isEnglish ? "en" : "pt"} />
+
+    <main class="flex-grow">
+      <!-- 1. HERO SECTION COM ONE BELIEF INTERNACIONAL -->
+      <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden border-b border-white/5">
+        <!-- Glow suave de iluminação da marca -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[#00A39E]/10 blur-[140px] rounded-full pointer-events-none"></div>
+
+        <div class="container mx-auto px-4 max-w-6xl relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            
+            <!-- Coluna da Esquerda: Textos e CTA -->
+            <div class="lg:col-span-7 text-center lg:text-left">
+              <!-- Tag / Badge -->
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-6">
+                <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
+                <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-['Sora',sans-serif] font-semibold">
+                  {isEnglish ? "aiSIM Global • United States" : "Agência aiSIM • Exterior (EUA)"}
+                </span>
+              </div>
+
+              <!-- Headline One Belief oficial fornecido pelo usuário -->
+              <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[40px] xl:text-[46px] font-extrabold tracking-tight font-['Sora',sans-serif] text-white leading-[1.18] mb-6">
+                {isEnglish ? (
+                  <>
+                    Not hiring a rigid fixed agency to manage online business is the key to <span class="text-[#00A39E]">generating more revenue</span> in local businesses across the United States.
+                  </>
+                ) : (
+                  <>
+                    Não contratar agência fixa para gerir negócios online é a chave para <span class="text-[#00A39E]">gerar mais receita</span> em negócios locais nos Estados Unidos.
+                  </>
+                )}
+              </h1>
+
+              <!-- Subheadline -->
+              <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                {isEnglish
+                  ? "And this is only possible through the VCEC methodology engineered by the aiSIM agency. Scalable acquisition in strong currency with zero administrative bloat."
+                  : "Isso só é possível através do método VCEC presente na aiSIM. Aquisição escalável em moeda forte com zero inchaço administrativo."}
+              </p>
+
+              <!-- Botão Scroll Âncora até o Calendly com Pulsar Elegante -->
+              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a
+                  href="#agendamento"
+                  class="relative group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-base hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#00A39E]/25"
+                >
+                  <span class="absolute -inset-0.5 rounded-xl bg-[#00A39E] opacity-40 group-hover:opacity-75 blur-sm animate-pulse transition duration-1000 -z-10"></span>
+                  <span>{isEnglish ? "Schedule 30-Min Strategy Call" : "Agendar reunião estratégica (30 min)"}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Coluna da Direita: Vídeo Vertical 9:16 (Formato Reels) -->
+            <div class="lg:col-span-5 flex justify-center">
+              <VideoPlayer1Min
+                aspectRatio="9/16"
+                title={isEnglish ? "Understand how aiSIM scales US businesses" : "Entenda como a aiSIM escala negócios nos EUA"}
+                badgeText={isEnglish ? "US Market • 1 Min Video" : "Mercado Americano • Vídeo 1 Min"}
+                durationText="01:00 min"
+              />
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. PARA QUEM É (CENTRALIZADO) -->
+      <section class="py-20 md:py-28 bg-[#111111] text-white border-b border-white/5 relative">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+          <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-4 font-['Sora',sans-serif]">
+            {isEnglish ? "GLOBAL REACH" : "PARA QUEM É"}
+          </span>
+          <h2 class="text-3xl md:text-5xl font-bold font-['Sora',sans-serif] text-white mb-4 leading-tight">
+            {isEnglish
+              ? "For local business owners and service companies operating in the US who demand positive ROI."
+              : "Para donos de negócios locais e prestadores de serviço nos EUA que exigem ROI positivo real."}
+          </h2>
+          <p class="text-xl md:text-2xl text-[#00A39E] font-['Instrument_Sans',sans-serif] font-medium mb-6">
+            {isEnglish ? "Restaurants, clinics, real estate, remodeling, home services, and local retail." : "Clínicas, restaurantes, reformas, serviços locais e e-commerce americano."}
+          </p>
+          <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+            {isEnglish
+              ? "We eliminate the friction of slow American agencies that charge high retainers without accountability. You get elite marketing engineering and real customer acquisition."
+              : "Eliminamos a fricção de agências lentas nos EUA que cobram mensalidades caras sem prestar contas. Você tem engenharia de tráfego de elite e captação real de clientes na sua cidade."}
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. QUANTO CUSTA & RESULTADOS ESPERADOS (CARDS LADO A LADO) -->
+      <section class="py-20 md:py-28 bg-[#141414] text-white border-b border-white/5">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="text-center mb-16">
+            <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-3 font-['Sora',sans-serif]">
+              {isEnglish ? "VALUE & METRICS" : "TRANSPARÊNCIA"}
+            </span>
+            <h2 class="text-3xl md:text-5xl font-bold font-['Sora',sans-serif] text-white max-w-3xl mx-auto">
+              {isEnglish ? "Cost efficiency and expected outcomes" : "Quanto custa e qual o resultado esperado"}
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            <!-- Card 1: Quanto Custa -->
+            <div class="interactive-glow-card relative bg-[#181818] border border-white/10 rounded-2xl p-8 md:p-10 transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 hover:shadow-xl hover:shadow-[#00A39E]/5">
+              <div class="glow-effect pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 163, 158, 0.15), transparent 40%);"></div>
+              <div class="relative z-10">
+                <div class="w-14 h-14 rounded-2xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center text-[#00A39E] mb-6 group-hover:scale-105 transition-transform">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white mb-4">
+                  {isEnglish ? "How Much Does It Cost?" : "Quanto custa?"}
+                </h3>
+                <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base leading-relaxed mb-4">
+                  {isEnglish
+                    ? "Custom plans in USD scaled to your market area and media volume. With zero agency bloat, our lean operation is up to 60% more cost-effective than standard US agency retainers."
+                    : "Planos sob medida em USD proporcionais à sua área de atuação e verba de mídia. Sem custos inflacionados de agências locais, entregamos operação até 60% mais econômica e focada em conversão."}
+                </p>
+                <div class="text-xs uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] font-bold">
+                  {isEnglish ? "Predictable investment in USD" : "Investimento previsível em moeda forte"}
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: Qual Resultado Esperado -->
+            <div class="interactive-glow-card relative bg-[#181818] border border-white/10 rounded-2xl p-8 md:p-10 transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 hover:shadow-xl hover:shadow-[#00A39E]/5">
+              <div class="glow-effect pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 163, 158, 0.15), transparent 40%);"></div>
+              <div class="relative z-10">
+                <div class="w-14 h-14 rounded-2xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center text-[#00A39E] mb-6 group-hover:scale-105 transition-transform">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white mb-4">
+                  {isEnglish ? "What Outcome Can You Expect?" : "Qual resultado esperado?"}
+                </h3>
+                <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base leading-relaxed mb-4">
+                  {isEnglish
+                    ? "In week 1-2, full calibration of local Google Search, Local Services Ads, and Meta creatives. By week 3, VCEC testing locks in the lowest CAC, delivering constant phone calls, form leads, and foot traffic."
+                    : "Nas semanas 1 e 2, calibramos Google Search local, anúncios de serviços locais e criativos no Meta. A partir da semana 3, o método VCEC estabiliza o menor CAC, gerando fluxo consistente de clientes."}
+                </p>
+                <div class="text-xs uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] font-bold">
+                  {isEnglish ? "Focus on CAC & Cash in Hand" : "Foco em CAC e caixa no bolso"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. AGENDAMENTO CALENDLY (DIRETO NO EVENTO /30MIN) -->
+      <CalendlyEmbed
+        url="https://calendly.com/mauricioleitecontato/30min"
+        title={isEnglish ? "Book Your 30-Minute US Growth Strategy Call" : "Agende sua reunião estratégica de crescimento nos EUA"}
+        description={isEnglish ? "Choose your best date and time for an executive 30-minute discussion." : "Escolha o melhor dia e horário para conversar diretamente com nossa equipe."}
+      />
+
+      <!-- 5. FAQ INTERNACIONAL AISIM -->
+      <FaqAccordion
+        isEnglish={isEnglish}
+        items={currentFaqs}
+        badge={isEnglish ? "GLOBAL FAQ" : "DÚVIDAS FREQUENTES"}
+        title={isEnglish ? "US Market Operations & Engagement" : "Perguntas sobre a operação nos EUA"}
+      />
+
+      <!-- 6. CTA FINAL COM PULSAR ELEGANTE -->
+      <section class="py-16 bg-[#161616] text-white border-t border-white/10 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#00A39E]/5 to-transparent pointer-events-none"></div>
+        <div class="container mx-auto px-4 max-w-4xl relative z-10">
+          <h2 class="text-2xl md:text-4xl font-bold font-['Sora',sans-serif] text-white mb-4">
+            {isEnglish ? "Ready to scale your US revenue?" : "Pronto para escalar seu faturamento em dólar?"}
+          </h2>
+          <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg mb-8 max-w-xl mx-auto">
+            {isEnglish
+              ? "Schedule your 30-minute strategy call and receive a clear roadmap for your business."
+              : "Agende sua reunião de 30 minutos e receba um plano claro de escala para o mercado americano."}
+          </p>
+          <a
+            href="#agendamento"
+            class="relative group inline-flex items-center justify-center gap-3 px-10 py-5 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-lg hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-xl shadow-[#00A39E]/25"
+          >
+            <span class="absolute -inset-1 rounded-xl bg-[#00A39E] opacity-35 group-hover:opacity-75 blur-md animate-pulse transition duration-1000 -z-10"></span>
+            <span>{isEnglish ? "Schedule 30-Min Strategy Call" : "Agendar reunião estratégica"}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Rodapé Oficial da Marca -->
+    <FooterMauricio isEnglish={isEnglish} />
+  </div>
+
+  <!-- Micro-script para Glow Border e Scroll Reveal -->
+  <script is:inline>
+    document.querySelectorAll('.interactive-glow-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
+</Base>

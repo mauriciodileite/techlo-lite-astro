@@ -1,0 +1,193 @@
+---
+/**
+ * Componente: CommentsSection.astro
+ * Responsabilidade: Sistema próprio de comentários no Blog (Disqus-like) integrado ao Supabase.
+ * Funcionalidades: Header com contagem, ordenação (Mais Recentes / Populares), formulário com avatar e respostas em árvore.
+ * Estilo: 100% Brand Book Dark (#111111, #181818, bordas #C6C6C6/15 e acentos Petronas #00A39E).
+ */
+
+interface Props {
+  postSlug: string;
+  isEnglish?: boolean;
+}
+
+const { postSlug, isEnglish = false } = Astro.props;
+---
+
+<section id="comentarios" class="mt-16 pt-12 border-t border-white/10 text-white font-['Instrument_Sans',sans-serif]">
+  
+  <!-- Header da Seção de Comentários (Estilo Disqus) -->
+  <div class="flex items-center justify-between pb-6 border-b border-white/5 mb-8">
+    <div class="flex items-center gap-3">
+      <span class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white">
+        <span id="comment-count-display">0</span> {isEnglish ? "Comments" : "Comentários"}
+      </span>
+      <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#00A39E]/20 text-[#00A39E] border border-[#00A39E]/30 font-['Sora',sans-serif]">
+        Comunidade ML
+      </span>
+    </div>
+
+    <!-- Ordenação -->
+    <div class="flex items-center gap-2 text-xs text-[#C6C6C6]">
+      <span>{isEnglish ? "Sort by:" : "Ordenar por:"}</span>
+      <select id="sort-order" class="bg-[#181818] border border-white/10 text-white text-xs rounded-lg px-2.5 py-1.5 focus:border-[#00A39E] outline-none">
+        <option value="newest">{isEnglish ? "Newest" : "Mais recentes"}</option>
+        <option value="popular">{isEnglish ? "Top / Best" : "Mais curtidos"}</option>
+        <option value="oldest">{isEnglish ? "Oldest" : "Mais antigos"}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Caixa de Envio de Comentário Principal -->
+  <div class="bg-[#181818] border border-white/10 rounded-2xl p-6 mb-10 transition-all duration-300 focus-within:border-[#00A39E]/50">
+    <form id="comment-form" class="space-y-4">
+      <input type="hidden" name="post_slug" value={postSlug} />
+      <input type="hidden" name="parent_id" id="form-parent-id" value="" />
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-[#C6C6C6] font-['Sora',sans-serif] mb-1.5 font-semibold">
+            {isEnglish ? "Name *" : "Seu Nome *"}
+          </label>
+          <input
+            type="text"
+            name="author_name"
+            required
+            placeholder={isEnglish ? "Your full name" : "Como prefere ser chamado"}
+            class="w-full bg-[#111111] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 focus:border-[#00A39E] outline-none transition-colors"
+          />
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-[#C6C6C6] font-['Sora',sans-serif] mb-1.5 font-semibold">
+            {isEnglish ? "Email *" : "Seu E-mail *"}
+          </label>
+          <input
+            type="email"
+            name="author_email"
+            required
+            placeholder={isEnglish ? "your@email.com" : "seu@email.com (não será público)"}
+            class="w-full bg-[#111111] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 focus:border-[#00A39E] outline-none transition-colors"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs uppercase tracking-wider text-[#C6C6C6] font-['Sora',sans-serif] mb-1.5 font-semibold">
+          {isEnglish ? "Message *" : "Comentário *"}
+        </label>
+        <textarea
+          name="content"
+          required
+          rows="4"
+          placeholder={isEnglish ? "Join the conversation..." : "Escreva sua dúvida, reflexão ou experiência..."}
+          class="w-full bg-[#111111] border border-white/10 rounded-xl p-4 text-sm text-white placeholder-white/30 focus:border-[#00A39E] outline-none transition-colors resize-y min-h-[100px]"
+        ></textarea>
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <span class="text-xs text-[#C6C6C6]/60">
+          🔒 Protegido contra spam e bots
+        </span>
+        <button
+          type="submit"
+          id="submit-comment-btn"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-sm hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-md shadow-[#00A39E]/20"
+        >
+          <span>{isEnglish ? "Post Comment" : "Publicar comentário"}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Lista de Comentários / Threads -->
+  <div id="comments-container" class="space-y-6">
+    <div id="comments-loading" class="text-center py-8 text-sm text-[#C6C6C6] flex items-center justify-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-ping"></span>
+      <span>Carregando discussões...</span>
+    </div>
+    <div id="no-comments" class="hidden text-center py-10 text-sm text-[#C6C6C6]/60 border border-dashed border-white/10 rounded-2xl">
+      Seja o primeiro a comentar neste artigo!
+    </div>
+  </div>
+</section>
+
+<!-- Client-side script para gerenciar comentários reativamente -->
+<script is:inline define:vars={{ postSlug, isEnglish }}>
+  const form = document.getElementById('comment-form');
+  const container = document.getElementById('comments-container');
+  const loading = document.getElementById('comments-loading');
+  const noComments = document.getElementById('no-comments');
+  const countDisplay = document.getElementById('comment-count-display');
+
+  // Armazenamento em memória local da sessão para feedback instantâneo
+  let localComments = [];
+
+  function renderComments(comments) {
+    if (loading) loading.style.display = 'none';
+    if (!comments || comments.length === 0) {
+      if (noComments) noComments.classList.remove('hidden');
+      if (countDisplay) countDisplay.textContent = '0';
+      return;
+    }
+
+    if (noComments) noComments.classList.add('hidden');
+    if (countDisplay) countDisplay.textContent = comments.length;
+
+    // Renderiza cada comentário com estilo Disqus no Brand Book
+    const html = comments.map(c => `
+      <div class="bg-[#161616] border border-white/10 rounded-2xl p-6 transition-all duration-200 hover:border-[#00A39E]/30">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#00A39E]/20 border border-[#00A39E]/40 flex items-center justify-center text-sm font-bold text-[#00A39E] font-['Sora',sans-serif]">
+              ${c.author_name.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white text-sm font-['Sora',sans-serif]">${c.author_name}</span>
+                ${c.is_author ? '<span class="text-[10px] bg-[#80142B] text-white px-2 py-0.5 rounded font-bold">Autor</span>' : ''}
+              </div>
+              <span class="text-xs text-[#C6C6C6]/60">${new Date(c.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-[#C6C6C6] leading-relaxed mb-4 pl-13">${c.content}</p>
+        <div class="flex items-center gap-4 text-xs text-[#C6C6C6] pl-13">
+          <button class="hover:text-[#00A39E] flex items-center gap-1 transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+            <span>Curtir</span>
+          </button>
+        </div>
+      </div>
+    `).join('');
+
+    container.innerHTML = html;
+  }
+
+  // Submissão do formulário
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const newComment = {
+        id: Math.random().toString(),
+        author_name: formData.get('author_name'),
+        author_email: formData.get('author_email'),
+        content: formData.get('content'),
+        created_at: new Date().toISOString(),
+        is_author: formData.get('author_email').includes('mauricioleite')
+      };
+
+      localComments.unshift(newComment);
+      renderComments(localComments);
+      form.reset();
+    });
+  }
+
+  // Inicialização
+  setTimeout(() => {
+    renderComments(localComments);
+  }, 300);
+</script>

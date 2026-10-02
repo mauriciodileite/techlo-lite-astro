@@ -10,6 +10,7 @@ import { useTranslations } from "@/lib/utils/i18nUtils.ts";
 import OptimizedImage from "./utilities/OptimizedImage.astro";
 import formatRelativeDate from "@/lib/utils/formatRelativeDate";
 import PaginationForSingle from "./widgets/PaginationForSingle.astro";
+import CommentsSection from "./CommentsSection.astro";
 
 interface Props {
   content: CollectionEntry<"blog">;
@@ -125,5 +126,8 @@ const t = await useTranslations(Astro.currentLocale as string);
         </div>
       )
     }
+
+    <!-- Sistema Próprio de Comentários no Blog (Disqus-like) -->
+    <CommentsSection postSlug={content.id || "post"} isEnglish={Astro.currentLocale === "en"} />
   </div>
 </div>
