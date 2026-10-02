@@ -30,8 +30,11 @@ const isVertical = aspectRatio === "9/16";
 ---
 
 <div class={`relative w-full ${isVertical ? 'max-w-[340px] sm:max-w-[360px]' : 'max-w-3xl'} mx-auto my-4`}>
+  <!-- Brilho pulsante sutil atrás do container do vídeo -->
+  <div class="absolute -inset-1 bg-gradient-to-r from-[#00A39E]/20 via-[#00A39E]/5 to-[#00A39E]/20 rounded-3xl blur-md opacity-75 group-hover:opacity-100 animate-pulse transition duration-1000"></div>
+
   <!-- Container do Vídeo com estética Brand Book -->
-  <div class="relative rounded-2xl overflow-hidden bg-[#161616] border border-white/10 shadow-2xl group">
+  <div class="relative rounded-2xl overflow-hidden bg-[#161616] border border-white/15 shadow-2xl group transition-all duration-300 group-hover:border-[#00A39E]/40">
     
     <!-- Barra superior com status -->
     <div class="flex items-center justify-between px-4 py-2.5 bg-[#1C1C1C] border-b border-white/5 text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif]">
