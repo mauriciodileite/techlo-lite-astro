@@ -142,31 +142,25 @@ const currentFaqs = isEnglish ? faqsAiSimEn : faqsAiSimPt;
         </div>
       </section>
 
-      <!-- 2. PARA QUEM É -->
+      <!-- 2. PARA QUEM É (CENTRALIZADO NO MESMO PADRÃO DAS DEMAIS) -->
       <section class="py-20 md:py-28 bg-[#111111] text-white border-b border-white/5 relative">
-        <div class="container mx-auto px-4 max-w-5xl">
-          <div class="bg-[#161616] border border-[#C6C6C6]/15 rounded-3xl p-8 md:p-14 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-80 h-80 bg-[#00A39E]/5 blur-[100px] rounded-full pointer-events-none"></div>
-
-            <div class="max-w-3xl">
-              <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-4 font-['Sora',sans-serif]">
-                {isEnglish ? "TARGET AUDIENCE" : "PARA QUEM É"}
-              </span>
-              <h2 class="text-3xl md:text-5xl font-bold font-['Sora',sans-serif] text-white mb-4 leading-tight">
-                {isEnglish
-                  ? "The aiSIM agency is for those who want to sell with profit every single day."
-                  : "A agência aiSIM é para quem quer vender com lucro todos os dias."}
-              </h2>
-              <p class="text-xl md:text-2xl text-[#00A39E] font-['Instrument_Sans',sans-serif] font-medium mb-6">
-                {isEnglish ? "From local business to large online operations." : "De negócio local a grandes operações online."}
-              </p>
-              <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg leading-relaxed">
-                {isEnglish
-                  ? "We don't work with superficial vanity metrics like likes or empty reach. We operate with customer acquisition cost (CAC), average ticket, margin, and net cash profit in your account."
-                  : "Não trabalhamos com métricas de vaidade como curtidas ou alcance vazio. Trabalhamos orientados a custo por aquisição (CAC), ticket médio, margem de contribuição e lucro líquido no caixa."}
-              </p>
-            </div>
-          </div>
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+          <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#111111] bg-[#00A39E] rounded mb-4 font-['Sora',sans-serif]">
+            {isEnglish ? "TARGET AUDIENCE" : "PARA QUEM É"}
+          </span>
+          <h2 class="text-3xl md:text-5xl font-bold font-['Sora',sans-serif] text-white mb-4 leading-tight">
+            {isEnglish
+              ? "The aiSIM agency is for those who want to sell with profit every single day."
+              : "A agência aiSIM é para quem quer vender com lucro todos os dias."}
+          </h2>
+          <p class="text-xl md:text-2xl text-[#00A39E] font-['Instrument_Sans',sans-serif] font-medium mb-6">
+            {isEnglish ? "From local business to large online operations." : "De negócio local a grandes operações online."}
+          </p>
+          <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+            {isEnglish
+              ? "We don't work with superficial vanity metrics like likes or empty reach. We operate with customer acquisition cost (CAC), average ticket, margin, and net cash profit in your account."
+              : "Não trabalhamos com métricas de vaidade como curtidas ou alcance vazio. Trabalhamos orientados a custo por aquisição (CAC), ticket médio, margem de contribuição e lucro líquido no caixa."}
+          </p>
         </div>
       </section>
 
