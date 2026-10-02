@@ -9,6 +9,8 @@ import BlogRelatedPosts from "@/layouts/components/blog/BlogRelatedPosts.astro";
 import BlogCta from "@/layouts/components/blog/BlogCta.astro";
 import CommentsSection from "@/layouts/components/CommentsSection.astro";
 import { shortcodes } from "@/lib/shortcodes";
+import HeaderNav from "@/components/HeaderNav.astro";
+import FooterMauricio from "@/components/FooterMauricio.astro";
 import config from ".astro/config.generated.json";
 
 export async function getStaticPaths() {
@@ -104,9 +106,17 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => ({
   metaTitle={post.data.metaTitle || `${post.data.title} | Maurício Leite`}
   metaDescription={post.data.metaDescription || post.data.description}
   image={post.data.image}
-  hasBodyDarkBackground={true}
+  headerLayout="none"
+  hideHeader={true}
+  hideFooter={true}
+  hideCallToAction={true}
+  hideHelperButtons={true}
 >
-  <main class="flex flex-col bg-[#111111] text-[#C6C6C6] min-h-screen">
+  <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
+    <!-- Header Oficial da Marca -->
+    <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
+
+    <main class="flex-grow flex flex-col bg-[#111111] text-[#C6C6C6] pt-20">
     <!-- Article Section -->
     <section class="py-10 sm:pt-20 sm:pb-24">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -259,4 +269,8 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => ({
     <!-- Newsletter CTA -->
     <BlogCta />
   </main>
+
+  <!-- Rodapé Oficial Maurício Leite -->
+  <FooterMauricio />
+</div>
 </Base>

@@ -4,6 +4,8 @@ import { getCollectionCTM } from "@/lib/contentParser.astro";
 import { getEntryCTM } from "@/lib/contentParser.astro";
 import PageHeader from "@/components/widgets/PageHeader.astro";
 import { supportedLanguages } from "@/lib/utils/i18nUtils.ts";
+import HeaderNav from "@/components/HeaderNav.astro";
+import FooterMauricio from "@/components/FooterMauricio.astro";
 import BlogLayout from "@/components/BlogLayout.astro";
 import config from ".astro/config.generated.json";
 
@@ -71,18 +73,34 @@ const currentPage = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
 let { postIndex } = Astro.props;
 ---
 
-<Base {...postIndex?.data}>
-  <PageHeader content={postIndex?.data} />
-  <BlogLayout
-    contentList={{
-      pagination: { enable: true, currentPage },
-      options: { ...postIndex?.data.options },
-    }}
-    sidebar={{
-      enable: true,
-      sticky: true,
-    }}
-    pageType="list"
-    content={{ ...postIndex, ...postIndex?.data }}
-  />
+<Base
+  {...postIndex?.data}
+  headerLayout="none"
+  hideHeader={true}
+  hideFooter={true}
+  hideCallToAction={true}
+  hideHelperButtons={true}
+>
+  <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
+    <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
+
+    <main class="flex-grow pt-20">
+      <PageHeader content={postIndex?.data} />
+      <BlogLayout
+        contentList={{
+          pagination: { enable: true, currentPage },
+          options: { ...postIndex?.data.options },
+        }}
+        sidebar={{
+          enable: true,
+          sticky: true,
+        }}
+        pageType="list"
+        content={{ ...postIndex, ...postIndex?.data }}
+      />
+    </main>
+
+    <FooterMauricio />
+  </div>
 </Base>
+

@@ -7,6 +7,8 @@ import BlogHero from "@/layouts/components/blog/BlogHero.astro";
 import BlogGrid from "@/layouts/components/blog/BlogGrid.astro";
 import BlogCta from "@/layouts/components/blog/BlogCta.astro";
 import extractSlug from "@/lib/utils/extractSlug";
+import HeaderNav from "@/components/HeaderNav.astro";
+import FooterMauricio from "@/components/FooterMauricio.astro";
 import config from ".astro/config.generated.json";
 
 export function getStaticPaths() {
@@ -56,9 +58,24 @@ const featuredPosts = formattedPosts.filter((p) => p.featured);
   title={postIndex?.data.title || "Blog — Maurício Leite"}
   metaTitle={postIndex?.data.metaTitle || "Blog | Maurício Leite — Estratégia, IA e Funis"}
   metaDescription={postIndex?.data.metaDescription || "Artigos, frameworks e análises práticas sobre automações com IA, escala de negócios e funis perpétuos."}
-  hasBodyDarkBackground={true}
+  headerLayout="none"
+  hideHeader={true}
+  hideFooter={true}
+  hideCallToAction={true}
+  hideHelperButtons={true}
 >
-  <BlogHero featuredPosts={featuredPosts.length > 0 ? featuredPosts : formattedPosts.slice(0, 2)} />
-  <BlogGrid posts={formattedPosts} />
-  <BlogCta />
+  <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
+    <!-- Header Oficial da Marca -->
+    <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
+
+    <main class="flex-grow pt-20">
+      <BlogHero featuredPosts={featuredPosts.length > 0 ? featuredPosts : formattedPosts.slice(0, 2)} />
+      <BlogGrid posts={formattedPosts} />
+      <BlogCta />
+    </main>
+
+    <!-- Rodapé Oficial Maurício Leite -->
+    <FooterMauricio />
+  </div>
 </Base>
+
