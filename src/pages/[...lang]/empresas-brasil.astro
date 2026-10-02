@@ -91,54 +91,64 @@ const currentFaqs = isEnglish ? faqsAiSimEn : faqsAiSimPt;
         <!-- Glow suave de iluminação da marca -->
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[#00A39E]/10 blur-[140px] rounded-full pointer-events-none"></div>
 
-        <div class="container mx-auto px-4 max-w-5xl relative z-10 text-center">
-          <!-- Tag / Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-8">
-            <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
-            <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-['Sora',sans-serif] font-semibold">
-              {isEnglish ? "aiSIM Agency • Brazil" : "Agência aiSIM • Brasil"}
-            </span>
+        <div class="container mx-auto px-4 max-w-6xl relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            
+            <!-- Coluna da Esquerda: Textos e CTA -->
+            <div class="lg:col-span-7 text-center lg:text-left">
+              <!-- Tag / Badge -->
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-6">
+                <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
+                <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-['Sora',sans-serif] font-semibold">
+                  {isEnglish ? "aiSIM Agency • Brazil" : "Agência aiSIM • Brasil"}
+                </span>
+              </div>
+
+              <!-- Headline One Belief oficial com 'domina' -->
+              <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-5xl font-extrabold tracking-tight font-['Sora',sans-serif] text-white leading-[1.18] mb-6">
+                {isEnglish ? (
+                  <>
+                    Hiring a team that masters the social media algorithm is the key to bringing <span class="text-[#00A39E]">buyers without objections</span>.
+                  </>
+                ) : (
+                  <>
+                    Contratar uma empresa que <span class="text-[#00A39E]">domina</span> o algoritmo das redes sociais é a chave para trazer <span class="text-[#00A39E]">compradores sem objeção</span>.
+                  </>
+                )}
+              </h1>
+
+              <!-- Subheadline -->
+              <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                {isEnglish
+                  ? "And this is only possible through the VCEC methodology developed by the aiSIM agency. Predictability, real data, and net profit for your operation."
+                  : "E isso só é possível através do método VCEC presente na agência aiSIM. Previsibilidade, dados reais e lucro líquido para a sua operação."}
+              </p>
+
+              <!-- Botão Scroll Âncora até o Calendly -->
+              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a
+                  href="#agendamento"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-base hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#00A39E]/20"
+                >
+                  <span>{isEnglish ? "Request a Proposal" : "Solicitar orçamento"}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Coluna da Direita: Vídeo Vertical 9:16 (Formato Reels) -->
+            <div class="lg:col-span-5 flex justify-center">
+              <VideoPlayer1Min
+                aspectRatio="9/16"
+                title={isEnglish ? "Understand in 60s how aiSIM scales your operation" : "Entenda em 60s como a aiSIM escala sua operação"}
+                badgeText={isEnglish ? "Strategic Video • 1 Min" : "Vídeo Estratégico • 1 Minuto"}
+                durationText="01:00 min"
+              />
+            </div>
+
           </div>
-
-          <!-- Headline One Belief oficial -->
-          <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight font-['Sora',sans-serif] text-white leading-[1.15] mb-6 max-w-4xl mx-auto">
-            {isEnglish ? (
-              <>
-                Hiring a team that masters the social media algorithm is the key to bringing <span class="text-[#00A39E]">buyers without objections</span>.
-              </>
-            ) : (
-              <>
-                Contratar uma empresa que conhece o algoritmo das redes sociais é a chave para trazer <span class="text-[#00A39E]">compradores sem objeção</span>.
-              </>
-            )}
-          </h1>
-
-          <!-- Subheadline -->
-          <p class="text-lg md:text-xl text-[#C6C6C6] font-['Instrument_Sans',sans-serif] max-w-2xl mx-auto mb-10 leading-relaxed">
-            {isEnglish
-              ? "And this is only possible through the VCEC methodology developed by the aiSIM agency. Predictability and net profit for your operation."
-              : "E isso só é possível através do método VCEC presente na agência aiSIM. Previsibilidade, dados reais e lucro líquido para a sua operação."}
-          </p>
-
-          <!-- Botão Scroll Âncora até o Calendly -->
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <a
-              href="#agendamento"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-base hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#00A39E]/20"
-            >
-              <span>{isEnglish ? "Request a Proposal" : "Solicitar orçamento"}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </a>
-          </div>
-
-          <!-- Componente do Vídeo de 1 Minuto -->
-          <VideoPlayer1Min
-            title={isEnglish ? "Understand in 60 seconds how aiSIM scales your operation" : "Entenda em 60 segundos como a aiSIM escala sua operação"}
-            badgeText={isEnglish ? "Strategic Video • 1 Min" : "Vídeo Estratégico • 1 Minuto"}
-            durationText="01:00 min"
-          />
         </div>
       </section>
 

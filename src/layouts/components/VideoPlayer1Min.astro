@@ -13,6 +13,7 @@ interface Props {
   badgeText?: string;
   title?: string;
   durationText?: string;
+  aspectRatio?: "9/16" | "16/9";
 }
 
 const {
@@ -21,11 +22,14 @@ const {
   posterImage = "/images/foto.png",
   badgeText = "Vídeo Explicativo • 1 Minuto",
   title = "Entenda em 60 segundos como funciona",
-  durationText = "01:00 min"
+  durationText = "01:00 min",
+  aspectRatio = "16/9"
 } = Astro.props;
+
+const isVertical = aspectRatio === "9/16";
 ---
 
-<div class="relative w-full max-w-3xl mx-auto my-8">
+<div class={`relative w-full ${isVertical ? 'max-w-[340px] sm:max-w-[360px]' : 'max-w-3xl'} mx-auto my-4`}>
   <!-- Container do Vídeo com estética Brand Book -->
   <div class="relative rounded-2xl overflow-hidden bg-[#161616] border border-white/10 shadow-2xl group">
     
@@ -43,8 +47,8 @@ const {
       </div>
     </div>
 
-    <!-- Área de Exibição / Player -->
-    <div class="relative aspect-video w-full bg-black flex items-center justify-center overflow-hidden">
+    <!-- Área de Exibição / Player (com suporte a aspect-ratio vertical 9:16 ou horizontal 16:9) -->
+    <div class={`relative ${isVertical ? 'aspect-[9/16]' : 'aspect-video'} w-full bg-black flex items-center justify-center overflow-hidden`}>
       {youtubeId && (
         <iframe
           class="w-full h-full"
