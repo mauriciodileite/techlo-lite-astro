@@ -1,0 +1,192 @@
+---
+import type { BlogPostItem } from './BlogHero.astro';
+
+interface Props {
+  posts: BlogPostItem[];
+}
+
+const { posts = [] } = Astro.props;
+
+// Extract unique categories
+const categories = ['Todos', ...new Set(posts.map((p) => p.category).filter(Boolean))];
+---
+
+<section id="articles-grid" class="relative bg-[#111111] py-16">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
+    <!-- Filter and Search Header -->
+    <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between border-b border-white/5 pb-8">
+      <!-- Category Tabs (horizontal scrollable on mobile) -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="category-tabs-container">
+        {categories.map((cat, idx) => (
+          <button
+            type="button"
+            class={`category-tab shrink-0 rounded-full px-4 py-2 font-heading text-xs font-medium transition-all duration-200 cursor-pointer ${
+              idx === 0
+                ? 'bg-[#00A39E] text-black shadow-[0_0_15px_rgba(0,163,158,0.3)]'
+                : 'border border-white/10 bg-[#161616] text-[#C6C6C6] hover:border-[#00A39E]/40 hover:text-white'
+            }`}
+            data-category={cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Real-time Search Input -->
+      <div class="relative w-full md:w-80 shrink-0">
+        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#777777]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          id="blog-search-input"
+          placeholder="Filtrar por título..."
+          class="w-full rounded-xl border border-white/10 bg-[#181818] py-2.5 pl-10 pr-4 font-body text-xs text-white placeholder-[#666666] outline-none transition-all focus:border-[#00A39E] focus:ring-1 focus:ring-[#00A39E]/30"
+        />
+      </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div id="posts-container" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <article
+          class="post-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#161616] p-4 transition-all duration-300 hover:border-[#00A39E]/50 hover:shadow-[0_0_25px_rgba(0,163,158,0.12)]"
+          data-category={post.category || 'Geral'}
+          data-title={post.title.toLowerCase()}
+          data-desc={(post.description || '').toLowerCase()}
+        >
+          <div class="space-y-4">
+            <!-- Thumbnail Image -->
+            <a href={`/blog/${post.slug}`} class="block h-52 w-full overflow-hidden rounded-xl bg-[#222]">
+              <img
+                src={post.imageUrl || '/images/blog-post/post-1.webp'}
+                alt={post.imageAlt || post.title}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </a>
+
+            <!-- Meta: Date + Category -->
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5 text-xs text-[#999999]">
+                <svg class="h-3.5 w-3.5 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>{post.pubDate || 'Recente'}</span>
+              </div>
+              {post.category && (
+                <span class="rounded-full border border-[#00A39E]/30 bg-[#00A39E]/10 px-2.5 py-0.5 font-heading text-[11px] font-medium text-[#00A39E]">
+                  {post.category}
+                </span>
+              )}
+            </div>
+
+            <!-- Title -->
+            <a href={`/blog/${post.slug}`} class="block">
+              <h3 class="font-heading text-lg font-semibold text-white transition-colors duration-200 group-hover:text-[#00A39E] line-clamp-2">
+                {post.title}
+              </h3>
+            </a>
+
+            <!-- Description -->
+            <p class="font-body text-xs text-[#C6C6C6] line-clamp-2 leading-relaxed">
+              {post.description}
+            </p>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="mt-6 flex items-center justify-between border-t border-white/5 pt-3">
+            <span class="font-body text-xs text-[#888888]">{post.author || 'Maurício Leite'}</span>
+            <a
+              href={`/blog/${post.slug}`}
+              aria-label={`Ler artigo ${post.title}`}
+              class="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all duration-300 group-hover:border-[#00A39E] group-hover:bg-[#00A39E] group-hover:text-black"
+            >
+              <svg class="h-4 w-4 -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Empty State -->
+    <div id="no-results-msg" class="hidden py-16 text-center">
+      <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white/5 text-[#777777]">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h4 class="font-heading text-lg font-semibold text-white">Nenhum artigo encontrado</h4>
+      <p class="font-body text-xs text-[#999999] mt-1">Tente pesquisar por outros termos ou selecionar outra categoria.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const initBlogFilter = () => {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.category-tab');
+    const searchInput = document.getElementById('blog-search-input') as HTMLInputElement | null;
+    const cards = document.querySelectorAll<HTMLElement>('.post-card');
+    const emptyState = document.getElementById('no-results-msg');
+
+    let currentCategory = 'Todos';
+    let searchQuery = '';
+
+    const filterCards = () => {
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const cardCat = card.dataset.category || '';
+        const cardTitle = card.dataset.title || '';
+        const cardDesc = card.dataset.desc || '';
+
+        const matchesCat = currentCategory === 'Todos' || cardCat.toLowerCase() === currentCategory.toLowerCase();
+        const matchesSearch = !searchQuery || cardTitle.includes(searchQuery) || cardDesc.includes(searchQuery);
+
+        if (matchesCat && matchesSearch) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (emptyState) {
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+        }
+      }
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => {
+          t.classList.remove('bg-[#00A39E]', 'text-black', 'shadow-[0_0_15px_rgba(0,163,158,0.3)]');
+          t.classList.add('border', 'border-white/10', 'bg-[#161616]', 'text-[#C6C6C6]');
+        });
+
+        tab.classList.remove('border', 'border-white/10', 'bg-[#161616]', 'text-[#C6C6C6]');
+        tab.classList.add('bg-[#00A39E]', 'text-black', 'shadow-[0_0_15px_rgba(0,163,158,0.3)]');
+
+        currentCategory = tab.dataset.category || 'Todos';
+        filterCards();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+        filterCards();
+      });
+    }
+  };
+
+  document.addEventListener('astro:page-load', initBlogFilter);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initBlogFilter();
+  }
+</script>

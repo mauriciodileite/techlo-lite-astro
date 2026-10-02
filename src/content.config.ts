@@ -59,12 +59,15 @@ const serviceCollection = defineCollection({
   }),
 });
 
-// Post collection schema
 const blogCollection = defineCollection({
   // Load Markdown and MDX files in the `src/content/blog/` directory.
   loader: contentLoader(`./src/content/${blogFolder}`),
   schema: page.extend({
     author: z.string().optional(),
+    avatarUrl: z.string().optional(),
+    readTime: z.number().optional(),
+    featured: z.boolean().optional(),
+    imageAlt: z.string().optional(),
     options: z
       .object({
         layout: z
@@ -77,6 +80,7 @@ const blogCollection = defineCollection({
       .optional(),
   }),
 });
+
 
 // Team Collection
 export const teamCollection = defineCollection({

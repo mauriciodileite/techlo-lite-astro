@@ -1,29 +1,25 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { getCollectionCTM } from "@/lib/contentParser.astro";
-import { getEntryCTM } from "@/lib/contentParser.astro";
+import { render } from "astro:content";
+import { getCollectionCTM, getEntryCTM } from "@/lib/contentParser.astro";
 import { supportedLanguages } from "@/lib/utils/i18nUtils.ts";
-import BlogLayout from "@/components/BlogLayout.astro";
-import PageHeader from "@/components/widgets/PageHeader.astro";
 import extractSlug from "@/lib/utils/extractSlug";
+import DynamicToc from "@/layouts/components/blog/DynamicToc.astro";
+import BlogRelatedPosts from "@/layouts/components/blog/BlogRelatedPosts.astro";
+import BlogCta from "@/layouts/components/blog/BlogCta.astro";
+import CommentsSection from "@/layouts/components/CommentsSection.astro";
+import { shortcodes } from "@/lib/shortcodes";
 import config from ".astro/config.generated.json";
 
 export async function getStaticPaths() {
   const paths = await Promise.all(
     supportedLanguages.map(async (lang) => {
       const blogFolder = config.settings.blogFolder as "blog";
-      const { defaultLanguage, showDefaultLangInUrl } =
-        config.settings.multilingual;
+      const { defaultLanguage, showDefaultLangInUrl } = config.settings.multilingual;
 
-      const postIndex = await getEntryCTM(
-        blogFolder,
-        "-index",
-        lang.languageCode,
-      );
+      const postIndex = await getEntryCTM(blogFolder, "-index", lang.languageCode);
+      const posts = await getCollectionCTM(blogFolder, lang.languageCode);
 
-      let posts = await getCollectionCTM(blogFolder, lang.languageCode);
-
-      // If draft true in index.md file frontmatter don't include any page related to this page collection in production
       if (postIndex?.data.draft && import.meta.env.PROD) {
         return [];
       }
@@ -38,6 +34,7 @@ export async function getStaticPaths() {
         },
         props: {
           post,
+          allPosts: posts,
         },
       }));
     }),
@@ -46,17 +43,220 @@ export async function getStaticPaths() {
   return paths.flat();
 }
 
-const { post } = Astro.props;
+interface Props {
+  post: any;
+  allPosts: any[];
+}
+
+const { post, allPosts = [] } = Astro.props;
+const { Content, headings } = await render(post);
+
+const currentSlug = extractSlug(post).split("/").pop();
+const category = (post.data.categories && post.data.categories[0]) || "Geral";
+const pubDateStr = post.data.date
+  ? new Date(post.data.date).toLocaleDateString(Astro.currentLocale === "en" ? "en-US" : "pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    })
+  : "Recente";
+
+const readTime = post.data.readTime || 5;
+const author = post.data.author || "Maurício Leite";
+const avatarUrl = post.data.avatarUrl || "/images/avatars/1.webp";
+
+// Navigation (Previous & Next Post)
+const currentIndex = allPosts.findIndex(
+  (p) => extractSlug(p).split("/").pop() === currentSlug,
+);
+
+const previousPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+// Related Posts (Same category or fallback)
+const relatedRaw = allPosts
+  .filter((p) => extractSlug(p).split("/").pop() !== currentSlug)
+  .slice(0, 3);
+
+const formattedRelatedPosts = relatedRaw.map((p, idx) => ({
+  id: p.id || idx + 1,
+  slug: extractSlug(p).split("/").pop() || p.id,
+  title: p.data.title,
+  description: p.data.description || "",
+  imageUrl: p.data.image || `/images/blog-post/post-${(idx % 8) + 1}.webp`,
+  imageAlt: p.data.imageAlt || p.data.title,
+  pubDate: p.data.date
+    ? new Date(p.data.date).toLocaleDateString(Astro.currentLocale === "en" ? "en-US" : "pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : "Recente",
+  category: (p.data.categories && p.data.categories[0]) || "Estratégia",
+  author: p.data.author || "Maurício Leite",
+  readTime: p.data.readTime || 5,
+  featured: false,
+}));
 ---
 
-<Base {...post.data}>
-  <PageHeader content={post.data} />
-  <BlogLayout
-    sidebar={{
-      enable: true,
-      sticky: true,
-      widgets: ["Search", "Categories", "RecentPosts", "Tags"],
-    }}
-    content={post}
-  />
+<Base
+  title={`${post.data.title} — Maurício Leite`}
+  metaTitle={post.data.metaTitle || `${post.data.title} | Maurício Leite`}
+  metaDescription={post.data.metaDescription || post.data.description}
+  image={post.data.image}
+  hasBodyDarkBackground={true}
+>
+  <main class="flex flex-col bg-[#111111] text-[#C6C6C6] min-h-screen">
+    <!-- Article Section -->
+    <section class="py-10 sm:pt-20 sm:pb-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="gap-12 md:grid md:grid-cols-5 lg:grid-cols-7">
+          <!-- Table of Contents Sidebar (sticky on desktop) -->
+          <aside class="hidden md:col-span-2 md:block lg:col-span-2">
+            <DynamicToc headings={headings} />
+          </aside>
+
+          <!-- Main Article Column -->
+          <div class="space-y-10 md:col-span-3 lg:col-span-5">
+            <!-- Breadcrumbs -->
+            <nav class="flex items-center gap-2 font-body text-xs text-[#888888]">
+              <a href="/" class="transition-colors hover:text-white">Home</a>
+              <span>/</span>
+              <a href="/blog" class="transition-colors hover:text-white">Blog</a>
+              <span>/</span>
+              <span class="text-[#00A39E] font-medium">{category}</span>
+            </nav>
+
+            <!-- Title & Lead Description -->
+            <div class="space-y-4">
+              <h1 class="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl leading-tight">
+                {post.data.title}
+              </h1>
+              {post.data.description && (
+                <p class="font-body text-lg text-[#C6C6C6] leading-relaxed">
+                  {post.data.description}
+                </p>
+              )}
+            </div>
+
+            <!-- Separator -->
+            <div class="h-px w-full bg-white/10"></div>
+
+            <!-- Post Metadata (Author avatar, Read Time, Date) -->
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6 text-sm">
+              <div class="flex items-center gap-3">
+                <img
+                  src={avatarUrl}
+                  alt={author}
+                  class="h-10 w-10 rounded-full border border-white/15 object-cover"
+                />
+                <div class="flex flex-col">
+                  <span class="text-xs text-[#888888]">Escrito por</span>
+                  <span class="font-heading font-medium text-white">{author}</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-6 text-xs text-[#999999]">
+                <div class="flex items-center gap-1.5">
+                  <svg class="h-4 w-4 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{readTime} min de leitura</span>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <svg class="h-4 w-4 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>{pubDateStr}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Image -->
+            {post.data.image && (
+              <div class="overflow-hidden rounded-2xl border border-white/10 bg-[#161616]">
+                <img
+                  src={post.data.image}
+                  alt={post.data.imageAlt || post.data.title}
+                  class="max-h-[500px] w-full object-cover"
+                  loading="eager"
+                />
+              </div>
+            )}
+
+            <!-- Article Body Content with Brand Styling -->
+            <article
+              id="content"
+              class="prose prose-invert max-w-none text-[#C6C6C6] font-body leading-relaxed
+                prose-headings:font-heading prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-white
+                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-white/5 prose-h2:pb-2
+                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                prose-p:text-base prose-p:leading-relaxed prose-p:mb-5
+                prose-a:text-[#00A39E] prose-a:font-medium prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-white
+                prose-code:text-[#00A39E] prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
+                prose-blockquote:border-l-[#00A39E] prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-5 prose-blockquote:rounded-r-xl prose-blockquote:italic prose-blockquote:text-white/90
+                prose-ul:list-disc prose-ul:pl-6 prose-li:my-1
+                prose-ol:list-decimal prose-ol:pl-6"
+            >
+              <Content components={shortcodes} />
+            </article>
+
+            <!-- Post Navigation (Previous / Next) matching shadcn style -->
+            <div class="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8">
+              {previousPost ? (
+                <a
+                  href={`/blog/${extractSlug(previousPost).split("/").pop()}`}
+                  class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#161616] px-5 py-2.5 font-heading text-xs font-medium text-white transition-all hover:border-[#00A39E] hover:bg-white/5"
+                >
+                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Artigo Anterior
+                </a>
+              ) : (
+                <span class="inline-flex cursor-not-allowed items-center gap-2 rounded-xl border border-white/5 bg-white/5 px-5 py-2.5 font-heading text-xs text-[#555555]">
+                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Artigo Anterior
+                </span>
+              )}
+
+              {nextPost ? (
+                <a
+                  href={`/blog/${extractSlug(nextPost).split("/").pop()}`}
+                  class="ml-auto inline-flex items-center gap-2 rounded-xl border border-[#00A39E]/40 bg-[#00A39E]/10 px-5 py-2.5 font-heading text-xs font-medium text-[#00A39E] transition-all hover:bg-[#00A39E] hover:text-black hover:shadow-[0_0_15px_rgba(0,163,158,0.3)]"
+                >
+                  Próximo Artigo
+                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              ) : (
+                <span class="ml-auto inline-flex cursor-not-allowed items-center gap-2 rounded-xl border border-white/5 bg-white/5 px-5 py-2.5 font-heading text-xs text-[#555555]">
+                  Próximo Artigo
+                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              )}
+            </div>
+
+            <!-- Sistema Próprio de Comentários no Blog (Disqus-like com Supabase) -->
+            <div class="pt-8">
+              <CommentsSection postSlug={currentSlug || "post"} isEnglish={Astro.currentLocale === "en"} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Artigos Relacionados -->
+    <BlogRelatedPosts posts={formattedRelatedPosts} />
+
+    <!-- Newsletter CTA -->
+    <BlogCta />
+  </main>
 </Base>

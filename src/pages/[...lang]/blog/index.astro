@@ -1,37 +1,64 @@
 ---
-import { getEntryCTM } from "@/lib/contentParser.astro";
+import { getEntryCTM, getCollectionCTM } from "@/lib/contentParser.astro";
 import Base from "@/layouts/Base.astro";
 import handleDraftPage from "@/lib/utils/handleDraftPage";
-import PageHeader from "@/components/widgets/PageHeader.astro";
 import { generatePaths } from "@/lib/utils/i18nUtils.ts";
-import BlogLayout from "@/components/BlogLayout.astro";
+import BlogHero from "@/layouts/components/blog/BlogHero.astro";
+import BlogGrid from "@/layouts/components/blog/BlogGrid.astro";
+import BlogCta from "@/layouts/components/blog/BlogCta.astro";
+import extractSlug from "@/lib/utils/extractSlug";
+import config from ".astro/config.generated.json";
 
 export function getStaticPaths() {
   return generatePaths();
 }
 
-import config from ".astro/config.generated.json";
 const blogFolder = config.settings.blogFolder as "blog";
-
 const postIndex = await getEntryCTM(blogFolder, "-index", Astro.currentLocale);
 
 // Remove drafts pages in production
 const response = handleDraftPage(postIndex?.data);
 if (response) return response;
+
+// Fetch all posts for current locale
+const allPosts = await getCollectionCTM(blogFolder, Astro.currentLocale);
+
+// Map into the format expected by the template components
+const formattedPosts = allPosts.map((post: any, index: number) => {
+  const slugPart = extractSlug(post).split("/").pop() || post.id;
+  const pubDateStr = post.data.date
+    ? new Date(post.data.date).toLocaleDateString(Astro.currentLocale === "en" ? "en-US" : "pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : "Recent";
+
+  return {
+    id: post.id || index + 1,
+    slug: slugPart,
+    title: post.data.title,
+    description: post.data.description || "",
+    imageUrl: post.data.image || `/images/blog-post/post-${(index % 8) + 1}.webp`,
+    imageAlt: post.data.imageAlt || post.data.title,
+    pubDate: pubDateStr,
+    category: (post.data.categories && post.data.categories[0]) || "Estratégia",
+    author: post.data.author || "Maurício Leite",
+    readTime: post.data.readTime || 5,
+    featured: post.data.featured ?? (index < 2),
+  };
+});
+
+const featuredPosts = formattedPosts.filter((p) => p.featured);
 ---
 
-<Base {...postIndex?.data} fitToScreen={false}>
-  <PageHeader content={postIndex?.data} />
-  <BlogLayout
-    pageType="list"
-    contentList={{
-      options: postIndex?.data.options,
-      pagination: { enable: true, currentPage: 1 },
-    }}
-    sidebar={{
-      enable: true,
-      sticky: true,
-    }}
-    content={{ ...postIndex, ...postIndex?.data }}
-  />
+<Base
+  title={postIndex?.data.title || "Blog — Maurício Leite"}
+  metaTitle={postIndex?.data.metaTitle || "Blog | Maurício Leite — Estratégia, IA e Funis"}
+  metaDescription={postIndex?.data.metaDescription || "Artigos, frameworks e análises práticas sobre automações com IA, escala de negócios e funis perpétuos."}
+  hasBodyDarkBackground={true}
+>
+  <BlogHero featuredPosts={featuredPosts.length > 0 ? featuredPosts : formattedPosts.slice(0, 2)} />
+  <BlogGrid posts={formattedPosts} />
+  <BlogCta />
 </Base>

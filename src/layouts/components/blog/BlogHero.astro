@@ -1,0 +1,147 @@
+---
+export interface BlogPostItem {
+  id: string | number;
+  slug: string;
+  title: string;
+  description?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  pubDate?: string;
+  category?: string;
+  author?: string;
+  readTime?: number;
+  featured?: boolean;
+}
+
+interface Props {
+  featuredPosts: BlogPostItem[];
+}
+
+const { featuredPosts = [] } = Astro.props;
+---
+
+<section id="home" class="relative overflow-hidden bg-[#111111] pt-28 pb-14 border-b border-white/5">
+  <!-- Subtle ambient glow -->
+  <div class="pointer-events-none absolute -top-40 left-1/2 h-[450px] w-[700px] -translate-x-1/2 rounded-full bg-[#00A39E]/10 blur-[130px]"></div>
+
+  <div class="relative mx-auto flex h-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
+    <!-- Hero Header -->
+    <div class="flex max-w-4xl flex-col items-center gap-4 self-center text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-[#00A39E]/30 bg-[#00A39E]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#00A39E]">
+        <span class="h-1.5 w-1.5 rounded-full bg-[#00A39E] animate-pulse"></span>
+        Artigos & Metodologia — Maurício Leite
+      </div>
+
+      <h1 class="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl text-balance">
+        Insights práticos para automações com IA, tráfego e escala de negócios.
+      </h1>
+
+      <p class="font-body text-base sm:text-lg text-[#C6C6C6] max-w-2xl">
+        Aprenda como estruturar funis perpétuos, automatizar processos e gerar receita com consistência no mercado nacional e internacional.
+      </p>
+
+      <!-- Search / Filter quick input -->
+      <form id="hero-search-form" class="mt-2 flex w-full max-w-md items-center gap-2 rounded-xl border border-white/15 bg-[#181818]/90 p-1.5 shadow-lg backdrop-blur-md focus-within:border-[#00A39E]">
+        <svg class="ml-3 h-5 w-5 text-[#999999]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          id="hero-search-input"
+          placeholder="Buscar artigos por tema ou palavra-chave..."
+          class="w-full bg-transparent px-2 py-2 font-body text-sm text-white placeholder-[#777777] outline-none"
+        />
+        <button
+          type="submit"
+          class="shrink-0 rounded-lg bg-[#00A39E] px-4 py-2 font-heading text-xs font-semibold text-black transition-all hover:bg-[#00c4be] hover:shadow-[0_0_15px_rgba(0,163,158,0.4)]"
+        >
+          Buscar
+        </button>
+      </form>
+    </div>
+
+    <!-- Featured Posts Grid (2 Cards layout from template) -->
+    {featuredPosts.length > 0 && (
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {featuredPosts.slice(0, 2).map((item) => (
+          <div class="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#161616] p-4 transition-all duration-300 hover:border-[#00A39E]/40 hover:shadow-[0_0_30px_rgba(0,163,158,0.12)]">
+            <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+              <a href={`/blog/${item.slug}`} class="block h-52 w-full overflow-hidden rounded-xl bg-[#222]">
+                <img
+                  src={item.imageUrl || '/images/blog-post/post-1.webp'}
+                  alt={item.imageAlt || item.title}
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </a>
+
+              <div class="flex flex-col justify-between py-1">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-1.5 text-xs text-[#999999]">
+                      <svg class="h-3.5 w-3.5 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span>{item.pubDate || 'Recente'}</span>
+                    </div>
+                    {item.category && (
+                      <span class="rounded-full border border-[#00A39E]/30 bg-[#00A39E]/10 px-2.5 py-0.5 font-heading text-[11px] font-medium text-[#00A39E]">
+                        {item.category}
+                      </span>
+                    )}
+                  </div>
+
+                  <a href={`/blog/${item.slug}`} class="block">
+                    <h3 class="font-heading text-lg font-semibold text-white transition-colors duration-200 group-hover:text-[#00A39E] line-clamp-2">
+                      {item.title}
+                    </h3>
+                  </a>
+
+                  <p class="font-body text-xs text-[#C6C6C6] line-clamp-2 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between border-t border-white/5 pt-3">
+                  <span class="font-body text-xs text-[#888888]">{item.author || 'Maurício Leite'}</span>
+                  <a
+                    href={`/blog/${item.slug}`}
+                    aria-label={`Ler post ${item.title}`}
+                    class="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all duration-300 group-hover:border-[#00A39E] group-hover:bg-[#00A39E] group-hover:text-black"
+                  >
+                    <svg class="h-4 w-4 -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<script>
+  const searchForm = document.getElementById('hero-search-form');
+  const searchInput = document.getElementById('hero-search-input') as HTMLInputElement | null;
+
+  if (searchForm && searchInput) {
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      const gridSection = document.getElementById('articles-grid');
+      const gridSearchInput = document.getElementById('blog-search-input') as HTMLInputElement | null;
+
+      if (gridSearchInput) {
+        gridSearchInput.value = query;
+        gridSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+
+      if (gridSection) {
+        gridSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+</script>

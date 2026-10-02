@@ -1,0 +1,78 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Receba estratégias práticas sobre automações, tráfego e escala no seu e-mail.",
+  description = "Junte-se a empreendedores e especialistas que recebem nossos insights para acelerar negócios, automatizar processos e construir ecossistemas de alta conversão.",
+} = Astro.props;
+---
+
+<section class="relative bg-[#111111] py-16 sm:py-20 border-t border-white/5" id="newsletter">
+  <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="overflow-hidden rounded-2xl border border-white/10 bg-[#161616] p-6 sm:p-8 shadow-2xl relative">
+      <!-- Glow effect -->
+      <div class="pointer-events-none absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-[#00A39E]/10 blur-[90px]"></div>
+
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 items-center">
+        <!-- Left Column - Image -->
+        <div class="relative h-64 sm:h-72 lg:h-full min-h-[220px] overflow-hidden rounded-xl bg-[#222]">
+          <img
+            src="/images/cta.webp"
+            alt="Maurício Leite Workspace"
+            class="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Right Column - Content -->
+        <div class="flex h-full flex-col justify-center gap-4">
+          <div class="inline-flex w-fit items-center gap-2 rounded-full border border-[#00A39E]/30 bg-[#00A39E]/10 px-3 py-1 text-xs font-semibold text-[#00A39E]">
+            Newsletter Semanal
+          </div>
+
+          <h2 class="font-heading text-xl font-bold leading-tight text-white sm:text-2xl">
+            {title}
+          </h2>
+
+          <p class="font-body text-sm text-[#C6C6C6] leading-relaxed">
+            {description}
+          </p>
+
+          <!-- Email / Action Form -->
+          <form id="blog-cta-form" class="mt-2 flex flex-col gap-3 sm:flex-row">
+            <input
+              type="email"
+              placeholder="Digite seu melhor e-mail"
+              required
+              class="w-full rounded-xl border border-white/15 bg-[#1f1f1f] px-4 py-3 font-body text-sm text-white placeholder-[#777777] outline-none transition-all focus:border-[#00A39E]"
+            />
+            <button
+              type="submit"
+              class="shrink-0 rounded-xl bg-[#00A39E] px-6 py-3 font-heading text-sm font-semibold text-black transition-all hover:bg-[#00c4be] hover:shadow-[0_0_20px_rgba(0,163,158,0.4)]"
+            >
+              Inscrever-se
+            </button>
+          </form>
+
+          <p class="text-[11px] text-[#777777] font-body">
+            100% livre de spam. Cancele quando quiser.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const ctaForm = document.getElementById('blog-cta-form');
+  if (ctaForm) {
+    ctaForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Obrigado por se inscrever!');
+      (ctaForm as HTMLFormElement).reset();
+    });
+  }
+</script>

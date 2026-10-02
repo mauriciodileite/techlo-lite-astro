@@ -1,0 +1,171 @@
+---
+interface Props {
+  headings?: { depth: number; slug: string; text: string }[];
+}
+
+const { headings = [] } = Astro.props;
+
+// Filter to only h2 and h3 headings
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+// Group h3 headings under their parent h2
+interface TocItem {
+  slug: string;
+  text: string;
+  depth: number;
+  children: TocItem[];
+}
+
+const groupedHeadings: TocItem[] = [];
+let currentH2: TocItem | null = null;
+
+tocHeadings.forEach((heading) => {
+  if (heading.depth === 2) {
+    currentH2 = {
+      slug: heading.slug,
+      text: heading.text,
+      depth: heading.depth,
+      children: [],
+    };
+    groupedHeadings.push(currentH2);
+  } else if (heading.depth === 3 && currentH2) {
+    currentH2.children.push({
+      slug: heading.slug,
+      text: heading.text,
+      depth: heading.depth,
+      children: [],
+    });
+  }
+});
+---
+
+{
+  groupedHeadings.length > 0 && (
+    <div class="sticky top-28 space-y-4 rounded-xl border border-white/10 bg-[#161616]/80 p-5 backdrop-blur-md">
+      <h3 class="font-heading text-sm font-semibold tracking-wider text-white uppercase">
+        Neste Artigo
+      </h3>
+      <nav class="max-h-[calc(100vh-12rem)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10">
+        <ul class="space-y-2.5 text-sm">
+          {groupedHeadings.map((item) => (
+            <li>
+              <a
+                href={`#${item.slug}`}
+                class="toc-link group flex items-start gap-2 text-left font-body text-[#C6C6C6] transition-colors hover:text-white"
+                data-heading-link={item.slug}
+                data-depth="0"
+              >
+                <span
+                  class="toc-indicator mt-2 inline-block h-0.5 w-2.5 shrink-0 rounded-full bg-[#00A39E]/30 transition-all group-hover:bg-[#00A39E]"
+                  data-link={item.slug}
+                />
+                <span class="line-clamp-2 leading-relaxed">{item.text}</span>
+              </a>
+
+              {item.children.length > 0 && (
+                <ul class="mt-2 ml-4 space-y-2 border-l border-white/5 pl-3">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={`#${child.slug}`}
+                        class="toc-link group flex items-start gap-2 text-left font-body text-xs text-[#999999] transition-colors hover:text-white"
+                        data-heading-link={child.slug}
+                        data-depth="1"
+                      >
+                        <span
+                          class="toc-indicator mt-1.5 inline-block h-0.5 w-2 shrink-0 rounded-full bg-[#00A39E]/30 transition-all group-hover:bg-[#00A39E]"
+                          data-link={child.slug}
+                        />
+                        <span class="line-clamp-2 leading-relaxed">{child.text}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  )
+}
+
+<script>
+  const HEADER_OFFSET = 120;
+
+  const initializeToc = () => {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+    const sections = document.querySelectorAll<HTMLElement>('h2[id], h3[id]');
+    let activeId = '';
+
+    const updateActiveLink = () => {
+      links.forEach((link) => {
+        const linkHref = link.getAttribute('href');
+        const indicator = link.querySelector('.toc-indicator');
+
+        if (linkHref === `#${activeId}`) {
+          link.classList.add('font-medium', 'text-[#00A39E]');
+          link.classList.remove('text-[#C6C6C6]', 'text-[#999999]');
+          if (indicator) {
+            indicator.classList.add('bg-[#00A39E]', 'w-4');
+            indicator.classList.remove('bg-[#00A39E]/30', 'w-2.5', 'w-2');
+          }
+        } else {
+          link.classList.remove('font-medium', 'text-[#00A39E]');
+          link.classList.add(link.dataset.depth === '1' ? 'text-[#999999]' : 'text-[#C6C6C6]');
+          if (indicator) {
+            indicator.classList.remove('bg-[#00A39E]', 'w-4');
+            indicator.classList.add('bg-[#00A39E]/30');
+          }
+        }
+      });
+    };
+
+    const findActiveHeading = () => {
+      const scrollY = window.scrollY;
+      let foundId = '';
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        const sectionTop = section.getBoundingClientRect().top + scrollY;
+        if (sectionTop - HEADER_OFFSET <= scrollY) {
+          foundId = section.id;
+          break;
+        }
+      }
+
+      if (!foundId && sections.length > 0) {
+        foundId = sections[0].id;
+      }
+
+      if (foundId !== activeId) {
+        activeId = foundId;
+        updateActiveLink();
+      }
+    };
+
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (href) {
+          const target = document.querySelector(href);
+          if (target) {
+            const targetPos = target.getBoundingClientRect().top + window.scrollY - (HEADER_OFFSET - 20);
+            window.scrollTo({ top: targetPos, behavior: 'smooth' });
+            activeId = href.substring(1);
+            updateActiveLink();
+          }
+        }
+      });
+    });
+
+    window.addEventListener('scroll', findActiveHeading, { passive: true });
+    findActiveHeading();
+  };
+
+  document.addEventListener('astro:page-load', initializeToc);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initializeToc();
+  }
+</script>
