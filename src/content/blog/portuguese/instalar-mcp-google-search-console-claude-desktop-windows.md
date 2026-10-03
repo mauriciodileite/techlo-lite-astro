@@ -40,15 +40,15 @@ Se você prefere acompanhar a instalação passo a passo na tela, assista ao ví
     loading="lazy"
   />
   <div class="absolute inset-0 bg-black/40 transition-colors duration-300 group-hover:bg-black/20 flex items-center justify-center">
-    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#00A39E] flex items-center justify-center shadow-[0_0_30px_rgba(0,163,158,0.5)] transition-all duration-300 transform group-hover:scale-110 group-hover:bg-[#00c4be]">
-      <svg class="w-7 h-7 sm:w-8 sm:h-8 text-[#111111] translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#80142B] flex items-center justify-center shadow-[0_0_30px_rgba(128,20,43,0.6)] transition-all duration-300 transform group-hover:scale-110 group-hover:bg-[#9b1834] group-hover:shadow-[0_0_40px_rgba(128,20,43,0.85)]">
+      <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M8 5v14l11-7z"/>
       </svg>
     </div>
   </div>
   <div class="absolute bottom-3 left-4 right-4 text-xs font-semibold text-white/90 drop-shadow-md flex items-center justify-between pointer-events-none">
     <span>▶ Clique para assistir ao tutorial prático</span>
-    <span class="bg-black/60 px-2.5 py-1 rounded-md text-[11px] font-mono text-[#00A39E]">YouTube 1080p</span>
+    <span class="bg-black/60 px-2.5 py-1 rounded-md text-[11px] font-mono text-[#E8C3CC]">YouTube 1080p</span>
   </div>
 </div>
 
