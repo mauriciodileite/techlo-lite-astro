@@ -5,6 +5,7 @@ image: "/images/blog-post/post-1.webp"
 imageAlt: "Mem0 Open Source Architecture and Self-Hosting Guide"
 date: 2026-10-02
 author: "Maurício Leite"
+avatarUrl: "/images/perfil.jpg"
 categories:
   - "Inteligência Artificial"
 tags:
