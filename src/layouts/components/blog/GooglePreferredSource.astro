@@ -1,0 +1,82 @@
+---
+/**
+ * Componente: GooglePreferredSource.astro
+ * Card de chamada para ação oficial do recurso do Google: "Add to Preferred Sources".
+ * Link direto: https://www.google.com/preferences/source?q=mauricioleite.com.br
+ */
+
+interface Props {
+  domain?: string;
+  isEnglish?: boolean;
+}
+
+const { domain = "mauricioleite.com.br", isEnglish = false } = Astro.props;
+const googlePreferredUrl = `https://www.google.com/preferences/source?q=${domain}`;
+---
+
+<div class="google-preferred-source-card relative overflow-hidden rounded-2xl bg-[#161616] border border-white/10 p-6 md:p-8 my-10 shadow-2xl transition-all duration-300 hover:border-[#00A39E]/40 group">
+  <!-- Borda gradiente superior colorida -->
+  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00A39E] via-[#4285F4] to-[#80142B]"></div>
+
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+    
+    <!-- LADO ESQUERDO: Ícone, Tag e Textos -->
+    <div class="flex items-start gap-4 md:gap-5 flex-1">
+      
+      <!-- Ícone Estrela com Badge -->
+      <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#00A39E]/10 border border-[#00A39E]/30 flex items-center justify-center shrink-0 text-[#00A39E] shadow-[0_0_20px_rgba(0,163,158,0.15)] group-hover:scale-105 transition-transform">
+        <svg class="w-6 h-6 fill-[#00A39E]" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+
+      <!-- Textos -->
+      <div class="space-y-1.5">
+        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#00A39E]/10 text-[#00A39E] border border-[#00A39E]/30 font-['Sora',sans-serif]">
+          {isEnglish ? "GOOGLE • PREFERRED SOURCE" : "GOOGLE • FONTE PREFERIDA"}
+        </div>
+
+        <h3 class="text-lg md:text-xl font-bold font-['Sora',sans-serif] text-white leading-tight">
+          {isEnglish ? "See my articles first on Google" : "Veja meus artigos primeiro no Google"}
+        </h3>
+
+        <p class="text-sm text-[#A0A0A0] font-['Instrument_Sans',sans-serif] leading-relaxed max-w-xl">
+          {isEnglish ? (
+            <>
+              Liked the content? Add <span class="text-white font-medium">{domain}</span> as a preferred source and see more of my articles in your Google search results.
+            </>
+          ) : (
+            <>
+              Gostou do conteúdo? Adicione <span class="text-white font-medium">{domain}</span> como fonte preferida e receba mais dos meus artigos nos resultados de busca.
+            </>
+          )}
+        </p>
+      </div>
+    </div>
+
+    <!-- LADO DIREITO: Botão Oficial e Subtítulo -->
+    <div class="flex flex-col items-center sm:items-end md:items-center shrink-0">
+      <a
+        href={googlePreferredUrl}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#202124] hover:bg-[#2b2c30] border border-white/20 hover:border-[#00A39E] text-white font-['Sora',sans-serif] font-semibold text-xs md:text-sm shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(0,163,158,0.25)] group/btn"
+      >
+        <!-- Logo Oficial do Google 4 Cores -->
+        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.64v3h3.88c2.27-2.09 3.665-5.17 3.665-9.08z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.1C3.27 21.43 7.35 24 12 24z"/>
+          <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.58H1.25C.45 8.17 0 9.97 0 12s.45 3.83 1.25 5.42l4.03-3.1z"/>
+          <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.27 2.57 1.25 6.58l4.03 3.1c.95-2.83 3.6-4.93 6.72-4.93z"/>
+        </svg>
+
+        <span>Add to Preferred Sources</span>
+      </a>
+
+      <span class="text-[11px] text-[#777777] font-['Instrument_Sans',sans-serif] mt-2 tracking-wide text-center">
+        {isEnglish ? "Free • 1 click • appears in search results" : "Grátis • 1 clique • aparece nos resultados"}
+      </span>
+    </div>
+
+  </div>
+</div>

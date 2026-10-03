@@ -8,6 +8,7 @@ import DynamicToc from "@/layouts/components/blog/DynamicToc.astro";
 import BlogRelatedPosts from "@/layouts/components/blog/BlogRelatedPosts.astro";
 import BlogCta from "@/layouts/components/blog/BlogCta.astro";
 import BlogShareBar from "@/layouts/components/blog/BlogShareBar.astro";
+import GooglePreferredSource from "@/layouts/components/blog/GooglePreferredSource.astro";
 import CommentsSection from "@/layouts/components/CommentsSection.astro";
 import { shortcodes } from "@/lib/shortcodes";
 import HeaderNav from "@/components/HeaderNav.astro";
@@ -213,6 +214,9 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => ({
             >
               <Content components={shortcodes} />
             </article>
+
+            <!-- Card Google Preferred Source (Add to Preferred Sources) -->
+            <GooglePreferredSource isEnglish={Astro.currentLocale === "en"} />
 
             <!-- Barra de Métricas e Compartilhamento Social (WhatsApp, Instagram, X, Reddit, etc.) -->
             <BlogShareBar

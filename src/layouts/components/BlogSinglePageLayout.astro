@@ -11,6 +11,7 @@ import OptimizedImage from "./utilities/OptimizedImage.astro";
 import formatRelativeDate from "@/lib/utils/formatRelativeDate";
 import PaginationForSingle from "./widgets/PaginationForSingle.astro";
 import BlogShareBar from "./blog/BlogShareBar.astro";
+import GooglePreferredSource from "./blog/GooglePreferredSource.astro";
 import CommentsSection from "./CommentsSection.astro";
 
 interface Props {
@@ -127,6 +128,9 @@ const t = await useTranslations(Astro.currentLocale as string);
         </div>
       )
     }
+
+    <!-- Card Google Preferred Source -->
+    <GooglePreferredSource isEnglish={Astro.currentLocale === "en"} />
 
     <!-- Barra de Métricas e Compartilhamento Social (WhatsApp, Instagram, X, etc.) -->
     <BlogShareBar
