@@ -2,7 +2,6 @@
 import Base from "@/layouts/Base.astro";
 import HeaderNav from "@/components/HeaderNav.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
-import CalendlyEmbed from "@/components/CalendlyEmbed.astro";
 import ComparisonTable, { type ComparisonRow } from "@/components/ComparisonTable.astro";
 import FaqAccordion, { type FaqItem } from "@/components/FaqAccordion.astro";
 import { generatePaths } from "@/lib/utils/i18nUtils.ts";
@@ -202,7 +201,7 @@ const currentFaqs = isEnglish ? faqsEmpreendedoresEn : faqsEmpreendedoresPt;
                 </ul>
               </div>
               <a
-                href="#agendamento"
+                href="#modalidades"
                 class="w-full inline-flex items-center justify-center py-4 rounded-xl border border-white/20 text-white font-['Sora',sans-serif] font-bold text-sm hover:border-[#00A39E] hover:text-[#00A39E] transition-colors relative z-10"
               >
                 {isEnglish ? "Enroll in Course" : "Quero acessar o curso"}
@@ -240,7 +239,7 @@ const currentFaqs = isEnglish ? faqsEmpreendedoresEn : faqsEmpreendedoresPt;
                 </ul>
               </div>
               <a
-                href="#agendamento"
+                href="#modalidades"
                 class="w-full inline-flex items-center justify-center py-4 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-sm hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#00A39E]/25 relative z-10"
               >
                 {isEnglish ? "Apply for Mentorship" : "Aplicar para mentoria individual"}
@@ -262,18 +261,11 @@ const currentFaqs = isEnglish ? faqsEmpreendedoresEn : faqsEmpreendedoresPt;
         rows={currentRows}
         ctaTextA={isEnglish ? "Get Course" : "Acessar Curso"}
         ctaTextB={isEnglish ? "Apply for Mentorship" : "Aplicar para Mentoria"}
-        ctaUrlA="#agendamento"
-        ctaUrlB="#agendamento"
+        ctaUrlA="#modalidades"
+        ctaUrlB="#modalidades"
       />
 
-      <!-- 4. AGENDAMENTO CALENDLY -->
-      <CalendlyEmbed
-        url="https://calendly.com/mauricioleitecontato/30min"
-        title={isEnglish ? "Schedule an Alignment Call with Maurício" : "Agende sua sessão de alinhamento com o Maurício"}
-        description={isEnglish ? "Choose your best time to talk about your goals and business model." : "Escolha o melhor dia e horário para entender o melhor formato para a sua operação."}
-      />
-
-      <!-- 5. FAQ EXCLUSIVO PARA EMPREENDEDORES -->
+      <!-- 4. FAQ EXCLUSIVO PARA EMPREENDEDORES -->
       <FaqAccordion
         isEnglish={isEnglish}
         items={currentFaqs}
@@ -281,7 +273,7 @@ const currentFaqs = isEnglish ? faqsEmpreendedoresEn : faqsEmpreendedoresPt;
         title={isEnglish ? "Frequently Asked Questions for Entrepreneurs" : "Dúvidas frequentes de empreendedores"}
       />
 
-      <!-- 6. CTA FINAL COM PULSAR ELEGANTE -->
+      <!-- 5. CTA FINAL COM PULSAR ELEGANTE -->
       <section class="py-16 bg-[#161616] text-white border-t border-white/10 text-center relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-[#00A39E]/5 to-transparent pointer-events-none"></div>
         <div class="container mx-auto px-4 max-w-4xl relative z-10">
@@ -290,15 +282,15 @@ const currentFaqs = isEnglish ? faqsEmpreendedoresEn : faqsEmpreendedoresPt;
           </h2>
           <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg mb-8 max-w-xl mx-auto">
             {isEnglish
-              ? "Schedule your 30-minute session and take the first step towards financial predictability."
-              : "Agende sua sessão estratégica de 30 minutos e dê o primeiro passo rumo à previsibilidade em moeda forte."}
+              ? "Choose the learning path that best fits your business goals and start scaling."
+              : "Escolha a modalidade ideal para o seu momento e comece a escalar seu ecossistema."}
           </p>
           <a
-            href="#agendamento"
+            href="#modalidades"
             class="relative group inline-flex items-center justify-center gap-3 px-10 py-5 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-lg hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-xl shadow-[#00A39E]/25"
           >
             <span class="absolute -inset-1 rounded-xl bg-[#00A39E] opacity-35 group-hover:opacity-75 blur-md animate-pulse transition duration-1000 -z-10"></span>
-            <span>{isEnglish ? "Schedule Alignment Call" : "Agendar alinhamento de 30 min"}</span>
+            <span>{isEnglish ? "Choose Modality" : "Conhecer modalidades"}</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
