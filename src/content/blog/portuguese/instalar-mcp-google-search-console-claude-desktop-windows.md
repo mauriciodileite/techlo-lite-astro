@@ -32,16 +32,43 @@ Neste guia definitivo e testado na prática, você aprenderá exatamente como co
 
 Se você prefere acompanhar a instalação passo a passo na tela, assista ao vídeo completo abaixo antes de executar os comandos:
 
-<div class="my-8 aspect-video w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl bg-black">
-  <iframe
-    class="w-full h-full"
-    src="https://www.youtube-nocookie.com/embed/pJVmzRl3iDA?rel=0"
-    title="Instalar o MCP do Google Search Console no Windows - Maurício Leite"
+<div class="not-prose my-8 aspect-video w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl bg-black relative group cursor-pointer" id="yt-lite-player">
+  <img
+    src="https://i.ytimg.com/vi/pJVmzRl3iDA/maxresdefault.jpg"
+    alt="Instalar o MCP do Google Search Console no Windows - Maurício Leite"
+    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
     loading="lazy"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen
-  ></iframe>
+  />
+  <div class="absolute inset-0 bg-black/40 transition-colors duration-300 group-hover:bg-black/20 flex items-center justify-center">
+    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#00A39E] flex items-center justify-center shadow-[0_0_30px_rgba(0,163,158,0.5)] transition-all duration-300 transform group-hover:scale-110 group-hover:bg-[#00c4be]">
+      <svg class="w-7 h-7 sm:w-8 sm:h-8 text-[#111111] translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>
+  </div>
+  <div class="absolute bottom-3 left-4 right-4 text-xs font-semibold text-white/90 drop-shadow-md flex items-center justify-between pointer-events-none">
+    <span>▶ Clique para assistir ao tutorial prático</span>
+    <span class="bg-black/60 px-2.5 py-1 rounded-md text-[11px] font-mono text-[#00A39E]">YouTube 1080p</span>
+  </div>
 </div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const player = document.getElementById('yt-lite-player');
+    if (player) {
+      player.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('class', 'w-full h-full');
+        iframe.setAttribute('src', 'https://www.youtube-nocookie.com/embed/pJVmzRl3iDA?autoplay=1&rel=0');
+        iframe.setAttribute('title', 'Instalar o MCP do Google Search Console no Windows - Maurício Leite');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', 'true');
+        player.innerHTML = '';
+        player.appendChild(iframe);
+      }, { once: true });
+    }
+  });
+</script>
 
 ---
 
