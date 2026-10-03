@@ -1,0 +1,3 @@
+/empresas-brasil/* /agenda/:splat 301
+/empresas-brasil /agenda 301
+/en/empresas-brasil /en/agenda 301

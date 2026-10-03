@@ -24,6 +24,10 @@ let {
 export default defineConfig({
   site: config.site.baseUrl ? config.site.baseUrl : "http://examplesite.com",
   trailingSlash: config.site.trailingSlash ? "always" : "never",
+  redirects: {
+    "/empresas-brasil": "/agenda",
+    "/en/empresas-brasil": "/en/agenda",
+  },
   devToolbar: {
     enabled: true,
   },
