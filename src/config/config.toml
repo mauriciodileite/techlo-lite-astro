@@ -1,10 +1,10 @@
 # Site Configuration
 [site]
   title            = "Maurício Leite" # Shared title for SEO and OpenGraph
-  description      = "Techlo Lite is a free IT solutions and services theme for managed IT services, cloud consulting, cybersecurity, software development, and digital transformation websites." # Shared description for SEO and OpenGraph
-  tagline          = "Free IT Solutions & Services Astro & Tailwind CSS Theme"
-  taglineSeparator = "" # default is " - " 
-  baseUrl          = "https://techlo-lite-astro.pages.dev/" # Base URL for the site and used in OpenGraph meta tags.
+  description      = "Estratégia, IA e Engenharia de Software. Artigos práticos, frameworks e análises aprofundadas sobre automações, agentes de IA, arquitetura e escala de produtos por Maurício Leite." # Shared description for SEO and OpenGraph
+  tagline          = "Estratégia, IA e Engenharia de Software"
+  taglineSeparator = " | " 
+  baseUrl          = "https://mauricioleite.com.br/" # Base URL for the site and used in OpenGraph meta tags.
   logo             = "/images/logo-mauricio-leite.svg" # Path to the site's logo
   logoAlternate    = "" # Path to the site's logo
   logoText         = "MAURÍCIO LEITE" # Text displayed next to the logo
@@ -25,14 +25,17 @@
 # Specific SEO configurations that complement the general site settings.
 # -----------------------------------------------------------------------------------------------------------------------------------
 [seo]
-  author = "Getastrothemes"
+  author = "Maurício Leite"
   keywords = [
-    "astro technology template",
-    "astro template",
-    "astro theme",
-    "free astro theme",
-    "it solution theme",
-    "technology astro theme",
+    "Maurício Leite",
+    "Inteligência Artificial",
+    "Agentes de IA",
+    "Claude Desktop",
+    "Model Context Protocol",
+    "MCP",
+    "Automações",
+    "Engenharia de Software",
+    "SEO",
   ]
   robots = "index, follow" # Instructs search engines on how to crawl and index the pages.
 
@@ -156,7 +159,7 @@
 # -----------------------------------------------------------------------------------------------------------------------------------
 [opengraph]
   image       = "/images/og-image.jpg" # Image used in OpenGraph previews
-  ogLocale    = "en_US" # Locale setting for OpenGraph
+  ogLocale    = "pt_BR" # Locale setting for OpenGraph
   ogType      = "website" # Type of content for OpenGraph protocol
   twitter     = "" # Twitter handle for Twitter Card meta tags
   twitterCard = "summary_large_image" # Type of Twitter Card to use in social sharing
