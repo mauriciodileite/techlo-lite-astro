@@ -49,27 +49,28 @@ Se você prefere acompanhar a instalação passo a passo na tela, assista ao ví
 
 Para quem utiliza agentes inteligentes e ferramentas compatíveis com skills de automação (como o ecossistema Claude, Antigravity ou Cursor), disponibilizei o pacote oficial da skill para download direto:
 
-<div class="my-8 rounded-2xl border border-[#00A39E]/30 bg-[#161616] p-6 md:p-8 shadow-xl relative overflow-hidden">
+<div class="not-prose my-8 rounded-2xl border border-[#00A39E]/30 bg-[#161616] p-6 md:p-8 shadow-xl relative overflow-hidden">
   <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00A39E] via-[#4285F4] to-[#00A39E]"></div>
   <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
     <div class="space-y-2">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A39E]/10 border border-[#00A39E]/30 text-[#00A39E] text-xs font-semibold uppercase tracking-wider">
         Recurso para Download
       </div>
-      <h3 class="text-xl md:text-2xl font-heading font-bold text-white m-0">instalar-mcp-gsc-windows.skill</h3>
-      <p class="text-sm text-[#C6C6C6] max-width-[600px] m-0">
+      <h3 class="text-xl md:text-2xl font-['Sora',sans-serif] font-bold text-white m-0">instalar-mcp-gsc-windows.skill</h3>
+      <p class="text-sm text-[#C6C6C6] max-w-[600px] m-0">
         Pacote estruturado com as instruções normativas, comandos de diagnóstico e cheatsheet de resolução de problemas para instalar e validar o MCP do Search Console no Windows.
       </p>
     </div>
     <a
       href="/downloads/instalar-mcp-gsc-windows.skill"
       download="instalar-mcp-gsc-windows.skill"
-      class="shrink-0 inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-[#00A39E] hover:bg-[#008f8a] text-black font-semibold text-sm transition-all duration-300 shadow-[0_0_25px_rgba(0,163,158,0.3)] hover:scale-105 cursor-pointer no-underline"
+      style="color: #111111 !important; background-color: #00A39E !important;"
+      class="shrink-0 inline-flex items-center gap-3 px-6 py-3.5 rounded-xl font-['Sora',sans-serif] font-bold text-sm tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(0,163,158,0.35)] hover:shadow-[0_0_30px_rgba(0,163,158,0.6)] hover:brightness-110 hover:scale-105 cursor-pointer no-underline"
     >
-      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="#111111" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
       </svg>
-      <span>Baixar Skill (.skill)</span>
+      <span style="color: #111111 !important;">Baixar Skill (.skill)</span>
     </a>
   </div>
 </div>
