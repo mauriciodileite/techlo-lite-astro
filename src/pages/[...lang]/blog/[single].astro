@@ -7,6 +7,7 @@ import extractSlug from "@/lib/utils/extractSlug";
 import DynamicToc from "@/layouts/components/blog/DynamicToc.astro";
 import BlogRelatedPosts from "@/layouts/components/blog/BlogRelatedPosts.astro";
 import BlogCta from "@/layouts/components/blog/BlogCta.astro";
+import BlogShareBar from "@/layouts/components/blog/BlogShareBar.astro";
 import CommentsSection from "@/layouts/components/CommentsSection.astro";
 import { shortcodes } from "@/lib/shortcodes";
 import HeaderNav from "@/components/HeaderNav.astro";
@@ -212,6 +213,14 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => ({
             >
               <Content components={shortcodes} />
             </article>
+
+            <!-- Barra de Métricas e Compartilhamento Social (WhatsApp, Instagram, X, Reddit, etc.) -->
+            <BlogShareBar
+              title={post.data.title}
+              description={post.data.description || ""}
+              slug={currentSlug || "post"}
+              isEnglish={Astro.currentLocale === "en"}
+            />
 
             <!-- Post Navigation (Previous / Next) matching shadcn style -->
             <div class="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8">

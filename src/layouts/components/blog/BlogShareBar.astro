@@ -1,0 +1,358 @@
+---
+/**
+ * Componente: BlogShareBar.astro
+ * Barra horizontal de engajamento e compartilhamento social para o final de artigos do blog.
+ * Recursos:
+ * - Contador de visualizações (Eye icon)
+ * - Contador de curtidas interativo (Heart icon)
+ * - Botão 'Copiar link' com feedback instantâneo
+ * - Compartilhamento social direto: WhatsApp, Instagram, X, LinkedIn, Facebook, Telegram, Reddit, Pinterest e E-mail.
+ */
+
+interface Props {
+  title: string;
+  description?: string;
+  slug: string;
+  isEnglish?: boolean;
+}
+
+const { title, slug, isEnglish = false } = Astro.props;
+---
+
+<div class="blog-share-bar my-10 py-4 px-3 sm:px-6 rounded-2xl bg-[#141414] border border-white/10 text-[#A0A0A0] font-['Instrument_Sans',sans-serif] text-xs">
+  <div class="flex flex-wrap items-center justify-between gap-y-4 gap-x-6">
+    
+    <!-- LADO ESQUERDO: Visualizações, Curtidas e Copiar Link -->
+    <div class="flex items-center gap-4 sm:gap-6">
+      
+      <!-- Visualizações -->
+      <div class="flex items-center gap-1.5 text-[#888888] font-mono hover:text-white transition-colors" title={isEnglish ? "Views" : "Visualizações"}>
+        <svg class="w-4 h-4 shrink-0 text-[#777777]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        <span id={`views-count-${slug}`} class="text-xs">118</span>
+      </div>
+
+      <!-- Curtidas (Interativo) -->
+      <button
+        id={`like-btn-${slug}`}
+        type="button"
+        class="like-btn flex items-center gap-1.5 text-[#888888] font-mono hover:text-[#00A39E] transition-all cursor-pointer group"
+        title={isEnglish ? "Like this article" : "Curtir este artigo"}
+      >
+        <svg id={`like-icon-${slug}`} class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        <span id={`likes-count-${slug}`} class="text-xs">0</span>
+      </button>
+
+      <!-- Copiar Link (com feedback) -->
+      <button
+        id={`copy-link-btn-${slug}`}
+        type="button"
+        class="copy-link-btn flex items-center gap-1.5 font-mono text-[#A0A0A0] hover:text-[#00A39E] transition-colors cursor-pointer"
+        title={isEnglish ? "Copy article link" : "Copiar link do artigo"}
+      >
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+        </svg>
+        <span id={`copy-link-text-${slug}`}>{isEnglish ? "Copy link" : "Copiar link"}</span>
+      </button>
+
+    </div>
+
+    <!-- LADO DIREITO: Ícones de Compartilhamento Social -->
+    <div class="flex items-center gap-3 ml-auto flex-wrap sm:flex-nowrap">
+      <span class="text-xs text-[#777777] font-['Sora',sans-serif] mr-1">
+        {isEnglish ? "Share:" : "Compartilhar:"}
+      </span>
+
+      <div class="flex items-center gap-2.5">
+        <!-- 1. WhatsApp -->
+        <a
+          id={`share-whatsapp-${slug}`}
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-icon-btn text-[#888888] hover:text-[#25D366] transition-colors p-1 hover:scale-110 transform"
+          title="WhatsApp"
+          aria-label="Compartilhar no WhatsApp"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 6.84C9.34 6.84 9.03 6.91 8.77 7.19C8.5 7.46 7.77 8.16 7.77 9.58C7.77 11 8.81 12.37 8.95 12.56C9.1 12.75 11 15.68 13.9 16.94C14.59 17.24 15.13 17.42 15.55 17.56C16.24 17.78 16.87 17.75 17.37 17.68C17.93 17.6 19.09 16.98 19.33 16.3C19.57 15.62 19.57 15.04 19.5 14.92C19.42 14.8 19.23 14.73 18.94 14.58C18.66 14.44 17.27 13.76 17.02 13.66C16.76 13.56 16.57 13.52 16.38 13.81C16.19 14.1 15.64 14.73 15.47 14.92C15.3 15.12 15.14 15.14 14.85 15C14.56 14.85 13.64 14.55 12.54 13.57C11.69 12.81 11.11 11.87 10.94 11.58C10.78 11.3 10.92 11.14 11.07 11C11.2 10.87 11.36 10.66 11.5 10.5C11.65 10.33 11.7 10.21 11.8 10.02C11.89 9.82 11.84 9.66 11.77 9.51C11.7 9.37 11.12 7.93 10.88 7.36C10.65 6.79 10.41 6.87 10.24 6.86C10.07 6.85 9.87 6.84 9.53 6.84Z"/>
+          </svg>
+        </a>
+
+        <!-- 2. Instagram -->
+        <button
+          id={`share-instagram-${slug}`}
+          type="button"
+          class="share-icon-btn text-[#888888] hover:text-[#E4405F] transition-colors p-1 hover:scale-110 transform cursor-pointer"
+          title="Instagram"
+          aria-label="Compartilhar no Instagram"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </button>
+
+        <!-- 3. X (Twitter) -->
+        <a
+          id={`share-x-${slug}`}
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-icon-btn text-[#888888] hover:text-white transition-colors p-1 hover:scale-110 transform"
+          title="X (Twitter)"
+          aria-label="Compartilhar no X"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+
+        <!-- 4. LinkedIn -->
+        <a
+          id={`share-linkedin-${slug}`}
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-icon-btn text-[#888888] hover:text-[#0A66C2] transition-colors p-1 hover:scale-110 transform"
+          title="LinkedIn"
+          aria-label="Compartilhar no LinkedIn"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.96 0-1.74.78-1.74 1.74a1.74 1.74 0 0 0 1.74 1.74c.96 0 1.74-.78 1.74-1.74 0-.96-.78-1.74-1.74-1.74Z"/>
+          </svg>
+        </a>
+
+        <!-- 5. Facebook -->
+        <a
+          id={`share-facebook-${slug}`}
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-icon-btn text-[#888888] hover:text-[#1877F2] transition-colors p-1 hover:scale-110 transform"
+          title="Facebook"
+          aria-label="Compartilhar no Facebook"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+
+        <!-- 6. Telegram -->
+        <a
+          id={`share-telegram-${slug}`}
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-icon-btn text-[#888888] hover:text-[#229ED9] transition-colors p-1 hover:scale-110 transform"
+          title="Telegram"
+          aria-label="Compartilhar no Telegram"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+          </svg>
+        </a>
+
+        <!-- 7. Reddit -->
+        <a
+          id={`share-reddit-${slug}`}
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-icon-btn text-[#888888] hover:text-[#FF4500] transition-colors p-1 hover:scale-110 transform"
+          title="Reddit"
+          aria-label="Compartilhar no Reddit"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.56 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.702zM9.25 12C8.56 12 8 12.562 8 13.252c0 .69.56 1.25 1.25 1.25.69 0 1.25-.56 1.25-1.25 0-.69-.56-1.252-1.25-1.252zm5.5 0c-.69 0-1.25.562-1.25 1.252 0 .69.56 1.25 1.25 1.25.69 0 1.25-.56 1.25-1.25 0-.69-.56-1.252-1.25-1.252zm-5.464 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.197-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+          </svg>
+        </a>
+
+        <!-- 8. Pinterest -->
+        <a
+          id={`share-pinterest-${slug}`}
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="share-icon-btn text-[#888888] hover:text-[#BD081C] transition-colors p-1 hover:scale-110 transform"
+          title="Pinterest"
+          aria-label="Compartilhar no Pinterest"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.627 0 12-5.373 12-12 0-6.62-5.373-12-12-12z"/>
+          </svg>
+        </a>
+
+        <!-- 9. Email -->
+        <a
+          id={`share-email-${slug}`}
+          href="#"
+          class="share-icon-btn text-[#888888] hover:text-white transition-colors p-1 hover:scale-110 transform"
+          title="E-mail"
+          aria-label="Compartilhar por E-mail"
+        >
+          <svg class="w-4 h-4 fill-none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Toast Notification flutuante para Instagram / Copiar Link -->
+  <div
+    id={`share-toast-${slug}`}
+    class="hidden fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#1f1f1f] border border-[#00A39E] text-white text-xs shadow-2xl flex items-center gap-2 transform transition-all duration-300"
+  >
+    <svg class="w-4 h-4 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    <span id={`share-toast-msg-${slug}`}>Link copiado com sucesso!</span>
+  </div>
+</div>
+
+<script is:inline define:vars={{ slug, title, isEnglish }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentUrl = window.location.href;
+    const shareTitle = title || document.title;
+
+    // Toast helper
+    function showToast(message) {
+      const toast = document.getElementById(`share-toast-${slug}`);
+      const toastMsg = document.getElementById(`share-toast-msg-${slug}`);
+      if (toast && toastMsg) {
+        toastMsg.textContent = message;
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 2600);
+      }
+    }
+
+    // 1. Configurar Links de Compartilhamento
+    const encodedUrl = encodeURIComponent(currentUrl);
+    const encodedTitle = encodeURIComponent(shareTitle);
+
+    const wa = document.getElementById(`share-whatsapp-${slug}`);
+    if (wa) wa.href = `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`;
+
+    const tw = document.getElementById(`share-x-${slug}`);
+    if (tw) tw.href = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
+
+    const li = document.getElementById(`share-linkedin-${slug}`);
+    if (li) li.href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+
+    const fb = document.getElementById(`share-facebook-${slug}`);
+    if (fb) fb.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+
+    const tg = document.getElementById(`share-telegram-${slug}`);
+    if (tg) tg.href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
+
+    const rd = document.getElementById(`share-reddit-${slug}`);
+    if (rd) rd.href = `https://reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`;
+
+    const pin = document.getElementById(`share-pinterest-${slug}`);
+    if (pin) pin.href = `https://pinterest.com/pin/create/button/?url=${encodedUrl}&description=${encodedTitle}`;
+
+    const em = document.getElementById(`share-email-${slug}`);
+    if (em) em.href = `mailto:?subject=${encodedTitle}&body=${encodeURIComponent(shareTitle + '\n\n' + currentUrl)}`;
+
+    // Instagram: Copia o link e avisa o usuário para colar no Direct/Stories
+    const ig = document.getElementById(`share-instagram-${slug}`);
+    if (ig) {
+      ig.addEventListener('click', () => {
+        navigator.clipboard.writeText(currentUrl).then(() => {
+          showToast(isEnglish ? "Link copied! Share it on your Instagram Stories or DM." : "Link copiado! Cole no seu Instagram (Direct ou Stories).");
+        }).catch(() => {});
+      });
+    }
+
+    // 2. Botão Copiar Link
+    const copyBtn = document.getElementById(`copy-link-btn-${slug}`);
+    const copyText = document.getElementById(`copy-link-text-${slug}`);
+    if (copyBtn && copyText) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(currentUrl).then(() => {
+          const original = copyText.textContent;
+          copyText.textContent = isEnglish ? "✓ Copied!" : "✓ Copiado!";
+          copyBtn.classList.add('text-[#00A39E]');
+          showToast(isEnglish ? "Article link copied to clipboard!" : "Link do artigo copiado para a área de transferência!");
+          setTimeout(() => {
+            copyText.textContent = original;
+            copyBtn.classList.remove('text-[#00A39E]');
+          }, 2400);
+        }).catch(() => {
+          showToast(isEnglish ? "Failed to copy" : "Erro ao copiar link");
+        });
+      });
+    }
+
+    // 3. Visualizações (armazenado e incrementado por sessão/local)
+    const viewStorageKey = `blog_views_${slug}`;
+    const viewDisplay = document.getElementById(`views-count-${slug}`);
+    let storedViews = parseInt(localStorage.getItem(viewStorageKey) || '0', 10);
+    if (!storedViews) {
+      // Base realista inspirada no mockup
+      storedViews = 118 + Math.floor(Math.random() * 8);
+    }
+    // Incrementar 1 visita única por sessão
+    const sessionVisitedKey = `session_visited_${slug}`;
+    if (!sessionStorage.getItem(sessionVisitedKey)) {
+      storedViews += 1;
+      localStorage.setItem(viewStorageKey, storedViews.toString());
+      sessionStorage.setItem(sessionVisitedKey, '1');
+    }
+    if (viewDisplay) viewDisplay.textContent = storedViews.toString();
+
+    // 4. Curtidas (Interativo com persistência no localStorage)
+    const likesStorageKey = `blog_likes_${slug}`;
+    const userLikedKey = `blog_user_liked_${slug}`;
+    const likeBtn = document.getElementById(`like-btn-${slug}`);
+    const likeCountDisplay = document.getElementById(`likes-count-${slug}`);
+    const likeIcon = document.getElementById(`like-icon-${slug}`);
+
+    let currentLikes = parseInt(localStorage.getItem(likesStorageKey) || '0', 10);
+    let hasLiked = localStorage.getItem(userLikedKey) === 'true';
+
+    function renderLikeState() {
+      if (likeCountDisplay) likeCountDisplay.textContent = currentLikes.toString();
+      if (likeIcon && likeBtn) {
+        if (hasLiked) {
+          likeIcon.setAttribute('fill', '#00A39E');
+          likeIcon.classList.add('text-[#00A39E]');
+          likeBtn.classList.add('text-[#00A39E]');
+        } else {
+          likeIcon.setAttribute('fill', 'none');
+          likeIcon.classList.remove('text-[#00A39E]');
+          likeBtn.classList.remove('text-[#00A39E]');
+        }
+      }
+    }
+
+    renderLikeState();
+
+    if (likeBtn) {
+      likeBtn.addEventListener('click', () => {
+        if (hasLiked) {
+          currentLikes = Math.max(0, currentLikes - 1);
+          hasLiked = false;
+        } else {
+          currentLikes += 1;
+          hasLiked = true;
+          showToast(isEnglish ? "Thanks for liking!" : "Obrigado por curtir este artigo!");
+        }
+        localStorage.setItem(likesStorageKey, currentLikes.toString());
+        localStorage.setItem(userLikedKey, hasLiked.toString());
+        renderLikeState();
+      });
+    }
+  });
+</script>

@@ -10,6 +10,7 @@ import { useTranslations } from "@/lib/utils/i18nUtils.ts";
 import OptimizedImage from "./utilities/OptimizedImage.astro";
 import formatRelativeDate from "@/lib/utils/formatRelativeDate";
 import PaginationForSingle from "./widgets/PaginationForSingle.astro";
+import BlogShareBar from "./blog/BlogShareBar.astro";
 import CommentsSection from "./CommentsSection.astro";
 
 interface Props {
@@ -126,6 +127,14 @@ const t = await useTranslations(Astro.currentLocale as string);
         </div>
       )
     }
+
+    <!-- Barra de Métricas e Compartilhamento Social (WhatsApp, Instagram, X, etc.) -->
+    <BlogShareBar
+      title={title}
+      description={content.data.description || ""}
+      slug={content.id || "post"}
+      isEnglish={Astro.currentLocale === "en"}
+    />
 
     <!-- Sistema Próprio de Comentários no Blog (Disqus-like) -->
     <CommentsSection postSlug={content.id || "post"} isEnglish={Astro.currentLocale === "en"} />
