@@ -1,8 +1,14 @@
 ---
 /**
  * Componente: GooglePreferredSource.astro
- * Card de chamada para ação oficial do recurso do Google: "Add to Preferred Sources".
- * Link direto: https://www.google.com/preferences/source?q=mauricioleite.com.br
+ * Implementação Oficial do recurso do Google: "Add to Preferred Sources"
+ * Documentação: Google Search Central - Help your readers find your site through preferred sources
+ * 
+ * Abordagem Utilizada: Advanced JavaScript Implementation com fallback Deeplink Oficial
+ * - Carrega a biblioteca oficial da Google (https://news.google.com/swg/js/v1/publisher.js)
+ * - Inicializa o SDK via fila de callbacks PREFERRED_SOURCE (tema dark, idioma pt/en)
+ * - Dispara o modal nativo e sem atrito do Google no clique (preferredSource.addPreferredSource())
+ * - Fallback automático com Deeplink oficial para https://www.google.com/preferences/source?q=mauricioleite.com.br
  */
 
 interface Props {
@@ -14,13 +20,16 @@ const { domain = "mauricioleite.com.br", isEnglish = false } = Astro.props;
 const googlePreferredUrl = `https://www.google.com/preferences/source?q=${domain}`;
 ---
 
+<!-- Carregamento assíncrono do script oficial do Google Publisher SDK com controle manual -->
+<script is:inline async preferred-sources-control="manual" src="https://news.google.com/swg/js/v1/publisher.js"></script>
+
 <div class="google-preferred-source-card relative overflow-hidden rounded-2xl bg-[#161616] border border-white/10 p-6 md:p-8 my-10 shadow-2xl transition-all duration-300 hover:border-[#00A39E]/40 group">
   <!-- Borda gradiente superior colorida -->
   <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00A39E] via-[#4285F4] to-[#80142B]"></div>
 
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
     
-    <!-- LADO ESQUERDO: Ícone, Tag e Textos -->
+    <!-- LADO ESQUERDO: Ícone Estrela, Tag e Textos -->
     <div class="flex items-start gap-4 md:gap-5 flex-1">
       
       <!-- Ícone Estrela com Badge -->
@@ -54,13 +63,14 @@ const googlePreferredUrl = `https://www.google.com/preferences/source?q=${domain
       </div>
     </div>
 
-    <!-- LADO DIREITO: Botão Oficial e Subtítulo -->
+    <!-- LADO DIREITO: Botão Oficial com Ícone G e Subtítulo -->
     <div class="flex flex-col items-center sm:items-end md:items-center shrink-0">
       <a
+        id="google-preferred-source-btn"
         href={googlePreferredUrl}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#202124] hover:bg-[#2b2c30] border border-white/20 hover:border-[#00A39E] text-white font-['Sora',sans-serif] font-semibold text-xs md:text-sm shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(0,163,158,0.25)] group/btn"
+        class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#202124] hover:bg-[#2b2c30] border border-white/20 hover:border-[#00A39E] text-white font-['Sora',sans-serif] font-semibold text-xs md:text-sm shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(0,163,158,0.25)] cursor-pointer group/btn"
       >
         <!-- Logo Oficial do Google 4 Cores -->
         <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
@@ -80,3 +90,30 @@ const googlePreferredUrl = `https://www.google.com/preferences/source?q=${domain
 
   </div>
 </div>
+
+<!-- Script Oficial Google SDK Trigger -->
+<script is:inline define:vars={{ isEnglish }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Inicialização pela fila global recomendada pelo Google
+    (self.PREFERRED_SOURCE = self.PREFERRED_SOURCE || []).push(function(preferredSource) {
+      try {
+        preferredSource.init({
+          theme: 'dark',
+          lang: isEnglish ? 'en' : 'pt'
+        });
+
+        const btn = document.getElementById('google-preferred-source-btn');
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            if (typeof preferredSource.addPreferredSource === 'function') {
+              e.preventDefault();
+              preferredSource.addPreferredSource();
+            }
+          });
+        }
+      } catch (err) {
+        // Fallback natural para o deeplink
+      }
+    });
+  });
+</script>
