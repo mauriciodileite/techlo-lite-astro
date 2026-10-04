@@ -108,6 +108,11 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => ({
   metaTitle={post.data.metaTitle || `${post.data.title} | Maurício Leite`}
   metaDescription={post.data.metaDescription || post.data.description}
   image={post.data.image}
+  pageType="article"
+  datePublished={post.data.date}
+  dateModified={post.data.modDate || post.data.date}
+  author={author}
+  categories={post.data.categories}
   disableTagline={true}
   headerLayout="none"
   hideHeader={true}

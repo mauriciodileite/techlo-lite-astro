@@ -27,6 +27,19 @@ export default defineConfig({
   redirects: {
     "/empresas-brasil": "/agenda",
     "/en/empresas-brasil": "/en/agenda",
+    // Rotas antigas com tráfego detectado no GSC
+    "/tik-tok-shop": "/blog",
+    "/alerta": "/blog",
+    // Rotas de taxonomia, feeds e páginas legadas do WordPress detectadas
+    "/author/mauricio": "/",
+    "/author": "/",
+    "/category/uncategorized": "/blog",
+    "/category": "/blog",
+    "/tag": "/blog",
+    "/comments/feed": "/",
+    "/feed": "/blog",
+    "/wp-login.php": "/",
+    "/wp-admin": "/",
   },
   devToolbar: {
     enabled: true,
