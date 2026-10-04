@@ -78,7 +78,7 @@ const previousPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
 const postDate = post.data.date ? new Date(post.data.date).getTime() : 0;
-const isRecent = postDate > 0 && (Date.now() - postDate) < 14 * 24 * 60 * 60 * 1000;
+const isRecent = postDate > 0 && Math.abs(Date.now() - postDate) < 24 * 60 * 60 * 1000;
 const isNew = post.data.isNew ?? isRecent;
 
 // Related Posts (Same category or fallback)
@@ -88,7 +88,7 @@ const relatedRaw = allPosts
 
 const formattedRelatedPosts = relatedRaw.map((p, idx) => {
   const pDate = p.data.date ? new Date(p.data.date).getTime() : 0;
-  const pIsRecent = pDate > 0 && (Date.now() - pDate) < 14 * 24 * 60 * 60 * 1000;
+  const pIsRecent = pDate > 0 && Math.abs(Date.now() - pDate) < 24 * 60 * 60 * 1000;
   return {
     id: p.id || idx + 1,
     slug: extractSlug(p).split("/").pop() || p.id,
@@ -153,9 +153,8 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
               <span>/</span>
               <span class="text-[#00A39E] font-medium">{category}</span>
               {isNew && (
-                <span class="ml-1 inline-flex items-center gap-1 rounded-full border border-[#29FF54]/40 bg-[#29FF54]/10 px-2.5 py-0.5 font-heading text-[10px] font-bold uppercase tracking-wider text-[#29FF54] shadow-[0_0_10px_rgba(41,255,84,0.25)]">
-                  <span class="h-1.5 w-1.5 rounded-full bg-[#29FF54] animate-pulse"></span>
-                  Novo
+                <span class="ml-1 inline-flex items-center justify-center rounded-full bg-[#29FF54] px-2.5 py-0.5 text-xs font-semibold text-black leading-none shadow-sm">
+                  Now
                 </span>
               )}
             </nav>
