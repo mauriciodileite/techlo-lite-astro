@@ -36,6 +36,10 @@ const formattedPosts = allPosts.map((post: any, index: number) => {
       })
     : "Recent";
 
+  const postDate = post.data.date ? new Date(post.data.date).getTime() : 0;
+  const isRecent = postDate > 0 && (Date.now() - postDate) < 14 * 24 * 60 * 60 * 1000;
+  const isNew = post.data.isNew ?? isRecent;
+
   return {
     id: post.id || index + 1,
     slug: slugPart,
@@ -48,6 +52,7 @@ const formattedPosts = allPosts.map((post: any, index: number) => {
     author: post.data.author || "Maurício Leite",
     readTime: post.data.readTime || 5,
     featured: post.data.featured ?? (index < 2),
+    isNew,
   };
 });
 

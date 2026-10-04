@@ -11,6 +11,7 @@ export interface BlogPostItem {
   author?: string;
   readTime?: number;
   featured?: boolean;
+  isNew?: boolean;
 }
 
 interface Props {
@@ -84,11 +85,19 @@ const { featuredPosts = [] } = Astro.props;
                       </svg>
                       <span>{item.pubDate || 'Recente'}</span>
                     </div>
-                    {item.category && (
-                      <span class="rounded-full border border-[#00A39E]/30 bg-[#00A39E]/10 px-2.5 py-0.5 font-heading text-[11px] font-medium text-[#00A39E]">
-                        {item.category}
-                      </span>
-                    )}
+                    <div class="flex items-center gap-1.5">
+                      {item.isNew && (
+                        <span class="inline-flex items-center gap-1 rounded-full border border-[#29FF54]/40 bg-[#29FF54]/10 px-2 py-0.5 font-heading text-[10px] font-bold uppercase tracking-wider text-[#29FF54] shadow-[0_0_10px_rgba(41,255,84,0.25)]">
+                          <span class="h-1.5 w-1.5 rounded-full bg-[#29FF54] animate-pulse"></span>
+                          Novo
+                        </span>
+                      )}
+                      {item.category && (
+                        <span class="rounded-full border border-[#00A39E]/30 bg-[#00A39E]/10 px-2.5 py-0.5 font-heading text-[11px] font-medium text-[#00A39E]">
+                          {item.category}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   <a href={`/blog/${item.slug}`} class="block">

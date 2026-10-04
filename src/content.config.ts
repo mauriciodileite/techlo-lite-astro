@@ -67,6 +67,7 @@ const blogCollection = defineCollection({
     avatarUrl: z.string().optional(),
     readTime: z.number().optional(),
     featured: z.boolean().optional(),
+    isNew: z.boolean().optional(),
     imageAlt: z.string().optional(),
     options: z
       .object({

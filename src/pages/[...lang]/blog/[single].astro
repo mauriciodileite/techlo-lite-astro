@@ -77,30 +77,39 @@ const currentIndex = allPosts.findIndex(
 const previousPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
+const postDate = post.data.date ? new Date(post.data.date).getTime() : 0;
+const isRecent = postDate > 0 && (Date.now() - postDate) < 14 * 24 * 60 * 60 * 1000;
+const isNew = post.data.isNew ?? isRecent;
+
 // Related Posts (Same category or fallback)
 const relatedRaw = allPosts
   .filter((p) => extractSlug(p).split("/").pop() !== currentSlug)
   .slice(0, 3);
 
-const formattedRelatedPosts = relatedRaw.map((p, idx) => ({
-  id: p.id || idx + 1,
-  slug: extractSlug(p).split("/").pop() || p.id,
-  title: p.data.title,
-  description: p.data.description || "",
-  imageUrl: p.data.image || `/images/blog-post/post-${(idx % 8) + 1}.webp`,
-  imageAlt: p.data.imageAlt || p.data.title,
-  pubDate: p.data.date
-    ? new Date(p.data.date).toLocaleDateString(Astro.currentLocale === "en" ? "en-US" : "pt-BR", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      })
-    : "Recente",
-  category: (p.data.categories && p.data.categories[0]) || "Estratégia",
-  author: p.data.author || "Maurício Leite",
-  readTime: p.data.readTime || 5,
-  featured: false,
-}));
+const formattedRelatedPosts = relatedRaw.map((p, idx) => {
+  const pDate = p.data.date ? new Date(p.data.date).getTime() : 0;
+  const pIsRecent = pDate > 0 && (Date.now() - pDate) < 14 * 24 * 60 * 60 * 1000;
+  return {
+    id: p.id || idx + 1,
+    slug: extractSlug(p).split("/").pop() || p.id,
+    title: p.data.title,
+    description: p.data.description || "",
+    imageUrl: p.data.image || `/images/blog-post/post-${(idx % 8) + 1}.webp`,
+    imageAlt: p.data.imageAlt || p.data.title,
+    pubDate: p.data.date
+      ? new Date(p.data.date).toLocaleDateString(Astro.currentLocale === "en" ? "en-US" : "pt-BR", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+      : "Recente",
+    category: (p.data.categories && p.data.categories[0]) || "Estratégia",
+    author: p.data.author || "Maurício Leite",
+    readTime: p.data.readTime || 5,
+    featured: false,
+    isNew: p.data.isNew ?? pIsRecent,
+  };
+});
 ---
 
 <Base
@@ -143,6 +152,12 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => ({
               <a href="/blog" class="transition-colors hover:text-white">Blog</a>
               <span>/</span>
               <span class="text-[#00A39E] font-medium">{category}</span>
+              {isNew && (
+                <span class="ml-1 inline-flex items-center gap-1 rounded-full border border-[#29FF54]/40 bg-[#29FF54]/10 px-2.5 py-0.5 font-heading text-[10px] font-bold uppercase tracking-wider text-[#29FF54] shadow-[0_0_10px_rgba(41,255,84,0.25)]">
+                  <span class="h-1.5 w-1.5 rounded-full bg-[#29FF54] animate-pulse"></span>
+                  Novo
+                </span>
+              )}
             </nav>
 
             <!-- Title & Lead Description -->
