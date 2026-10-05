@@ -1,8 +1,8 @@
 ---
 title: "Radar de Tráfego & IA: Google AI Overviews em Buscas de Marca, Meta Muse, PMax A/B e ChatGPT Ads"
 description: "Análise estratégica das atualizações críticas de outubro de 2026: o resumo de IA ocupando 80% das buscas de marca no Google, automações no Google Ads, novos testes no PMax, cortes no YouTube e anúncios de catálogo no ChatGPT."
-image: "/images/blog-post/google-ai-overview-marca.webp"
-imageAlt: "Demonstração de resumo de Inteligência Artificial do Google em buscas de marca"
+image: "/images/blog-post/radar-ia-marketing-google-ai-overviews.webp"
+imageAlt: "Painel estratégico de Radar de Tráfego e Inteligência Artificial"
 date: 2026-10-05
 author: "Maurício Leite"
 avatarUrl: "/images/perfil.jpg"
