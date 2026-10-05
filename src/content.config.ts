@@ -69,6 +69,11 @@ const blogCollection = defineCollection({
     featured: z.boolean().optional(),
     isNew: z.boolean().optional(),
     imageAlt: z.string().optional(),
+    youtubeId: z.string().optional(),
+    videoBadgeText: z.string().optional(),
+    videoDurationText: z.string().optional(),
+    videoTitle: z.string().optional(),
+    videoAspectRatio: z.enum(["16/9", "9/16"]).optional(),
     options: z
       .object({
         layout: z

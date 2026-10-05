@@ -19,6 +19,11 @@ tags:
 readTime: 7
 featured: true
 draft: false
+youtubeId: "PEd6rmTutX0"
+videoBadgeText: "Resumo em Vídeo • 40s"
+videoDurationText: "00:40 min"
+videoTitle: "Radar de Tráfego & IA em 40 Segundos"
+videoAspectRatio: "9/16"
 ---
 
 O ecossistema de aquisição de tráfego e inteligência artificial entrou em uma das semanas mais decisivas do último trimestre de 2026. Grandes plataformas — Google, Meta, YouTube e OpenAI — liberaram simultaneamente atualizações de peso que impactam diretamente o custo por clique, a conversão e o controle sobre a presença digital da sua empresa.

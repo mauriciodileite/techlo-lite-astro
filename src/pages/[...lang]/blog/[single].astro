@@ -13,6 +13,7 @@ import CommentsSection from "@/layouts/components/CommentsSection.astro";
 import { shortcodes } from "@/lib/shortcodes";
 import HeaderNav from "@/components/HeaderNav.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
+import VideoPlayer1Min from "@/layouts/components/VideoPlayer1Min.astro";
 import config from ".astro/config.generated.json";
 
 export async function getStaticPaths() {
@@ -170,6 +171,19 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
                 </p>
               )}
             </div>
+
+            <!-- Video Player (Resumo em Vídeo logo após o subtítulo) -->
+            {post.data.youtubeId && (
+              <div class="pt-2 pb-4">
+                <VideoPlayer1Min
+                  youtubeId={post.data.youtubeId}
+                  badgeText={post.data.videoBadgeText || "Resumo em Vídeo • 40s"}
+                  durationText={post.data.videoDurationText || "00:40 min"}
+                  title={post.data.videoTitle || "Radar de Tráfego & IA em 40 Segundos"}
+                  aspectRatio={post.data.videoAspectRatio || "9/16"}
+                />
+              </div>
+            )}
 
             <!-- Separator -->
             <div class="h-px w-full bg-white/10"></div>
