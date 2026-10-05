@@ -21,38 +21,39 @@ if (!toc) return;
 
 <div
   class:list={[
-    "hs-accordion",
+    "hs-accordion rounded-2xl border border-white/10 bg-[#161616] p-5",
     { active: tableOfContents?.expanded },
     className,
   ]}
   {...rest}>
   <button
-    class="hs-accordion-toggle border-border-dark/25 text-dark mb-2 flex w-full items-center justify-between border-b pb-2"
+    class="hs-accordion-toggle border-white/10 text-white mb-2 flex w-full items-center justify-between border-b pb-2 cursor-pointer"
     aria-expanded="true"
     aria-controls="toc-collapse">
     <span
-      class="text-base-sm font-primary font-normal tracking-widest uppercase md:text-base">
-      Table of Contents
+      class="text-sm font-['Sora',sans-serif] font-semibold tracking-wider uppercase text-white flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00A39E]"></span>
+      Índice de Conteúdo
     </span>
     <span
-      class="hs-accordion-active:rotate-180 flex h-9 w-9 items-center justify-center rounded-full transition duration-300">
+      class="hs-accordion-active:rotate-180 flex h-8 w-8 items-center justify-center rounded-full text-[#C6C6C6] hover:text-[#00A39E] transition duration-300">
       <Icons icon="ChevronDown" />
     </span>
   </button>
   <nav
     id="toc-collapse"
     class:list={[
-      "hs-accordion-content toc prose-styles prose-a:text-text-default prose-ul:ps-0 overflow-hidden transition-[height] duration-300",
+      "hs-accordion-content toc overflow-hidden transition-[height] duration-300",
       marker && "scroll-menu",
       { hidden: tableOfContents?.expanded === false },
     ]}>
     <ol
       data-lenis-scroll-native
-      class="has-customized-scrollbar max-h-60 overflow-auto">
+      class="max-h-64 overflow-auto space-y-2 pt-2 text-sm font-['Instrument_Sans',sans-serif] text-[#C6C6C6]">
       {
         toc.map((heading) => (
           <li>
-            <a href={`#${heading.slug}`}>{heading.text}</a>
+            <a href={`#${heading.slug}`} class="hover:text-[#00A39E] transition-colors">{heading.text}</a>
             <RecursiveToc toc={heading.subheadings} />
           </li>
         ))

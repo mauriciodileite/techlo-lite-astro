@@ -1,7 +1,5 @@
 ---
-import buildToc from "@/lib/utils/buildToc";
 import { shortcodes } from "@/lib/shortcodes";
-import TOC from "./widgets/TableOfContents.astro";
 import { getEntryCTM } from "@/lib/contentParser.astro";
 import config from ".astro/config.generated.json";
 import OptimizedImage from "./utilities/OptimizedImage.astro";
@@ -22,8 +20,8 @@ const { tableOfContents } = config.settings.markup;
 const { content, isEnglish = false, class: className } = Astro.props;
 let { title, description, date, image, author, categories } = content.data;
 
-let Content: any, headings;
-({ Content, headings } = await render(content));
+let Content: any, rawHeadings: any[];
+({ Content, headings: rawHeadings } = await render(content));
 
 const authorName = author
   ? (await getEntryCTM("author", slugifyyy(author), Astro.currentLocale))?.data?.title
@@ -35,8 +33,12 @@ const metaItems = [
   authorName && `By ${markdownify(authorName)}`,
 ].filter(Boolean);
 
-const tocHeadings = headings ? buildToc(headings) : undefined;
-const tocEnabled = tableOfContents?.enable && tocHeadings && tocHeadings.length > 0;
+// Filter headings for TOC (h2 and h3)
+const tocItems = (rawHeadings || []).filter(
+  (h) => (h.depth === 2 || h.depth === 3) && h.text && h.slug
+);
+const hasToc = tableOfContents?.enable && tocItems.length > 0;
+const tocTitle = isEnglish ? "Table of Contents" : "Índice de Conteúdo";
 
 const slug = extractSlug(content).split("/").pop() || "";
 const isLegalPage = slug.includes("privac") || slug.includes("term");
@@ -122,9 +124,50 @@ const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
       )}
     </header>
 
-    {tocEnabled && tocHeadings && (
-      <div class="mb-10 p-6 rounded-xl bg-white/5 border border-white/10">
-        <TOC toc={tocHeadings} marker={false} />
+    <!-- Table of Contents Brand Styled -->
+    {hasToc && (
+      <div class="mb-10 rounded-2xl border border-white/10 bg-[#161616] p-5 sm:p-6 transition-all duration-300">
+        <details class="group" open>
+          <summary class="flex cursor-pointer items-center justify-between font-['Sora',sans-serif] text-sm font-semibold tracking-wider text-white uppercase list-none select-none">
+            <span class="flex items-center gap-2.5">
+              <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-[#00A39E]/10 text-[#00A39E] border border-[#00A39E]/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+              </span>
+              <span>{tocTitle}</span>
+              <span class="text-xs font-normal text-[#8A8A8A] font-['Instrument_Sans',sans-serif] normal-case">
+                ({tocItems.length} {isEnglish ? "topics" : "tópicos"})
+              </span>
+            </span>
+            <span class="text-[#8A8A8A] group-open:rotate-180 transition-transform duration-300 flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </summary>
+
+          <nav class="mt-4 pt-4 border-t border-white/5 max-h-80 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10">
+            <ol class="space-y-2 text-sm font-['Instrument_Sans',sans-serif]">
+              {tocItems.map((heading) => (
+                <li class:list={[heading.depth === 3 ? "pl-5 text-xs text-[#9A9A9A]" : "pl-0 text-[#C6C6C6]"]}>
+                  <a
+                    href={`#${heading.slug}`}
+                    class="group flex items-start gap-2.5 hover:text-white transition-colors py-0.5"
+                  >
+                    <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#00A39E]/40 group-hover:bg-[#00A39E] group-hover:scale-125 transition-all"></span>
+                    <span class="leading-relaxed group-hover:text-[#00A39E] transition-colors">{heading.text}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </details>
       </div>
     )}
 
