@@ -1,7 +1,7 @@
 ---
 title: "Radar de Tráfego & IA: Google AI Overviews em Buscas de Marca, Meta Muse, PMax A/B e ChatGPT Ads"
 description: "Análise estratégica das atualizações críticas de outubro de 2026: o resumo de IA ocupando 80% das buscas de marca no Google, automações no Google Ads, novos testes no PMax, cortes no YouTube e anúncios de catálogo no ChatGPT."
-image: "/images/blog-post/google-ai-overview-marca.png"
+image: "/images/blog-post/google-ai-overview-marca.webp"
 imageAlt: "Demonstração de resumo de Inteligência Artificial do Google em buscas de marca"
 date: 2026-10-05
 author: "Maurício Leite"
@@ -33,7 +33,7 @@ Historicamente, a busca pelo nome da sua empresa (tráfego institucional ou bran
 
 No entanto, uma mudança silenciosa alterou essa dinâmica fundamental.
 
-![Resumo de IA do Google em buscas de marca](/images/blog-post/google-ai-overview-marca.png)
+![Resumo de IA do Google em buscas de marca](/images/blog-post/google-ai-overview-marca.webp)
 
 ### O que os dados revelam
 
@@ -53,7 +53,7 @@ Testes independentes conduzidos por Chris Long (cofundador da Nectiv) em uma amo
 
 A Meta deu um passo agressivo para integrar agentes de inteligência artificial autônomos na rotina de pequenas e médias empresas com o lançamento oficial do [Muse for Small Business](https://about.fb.com/news/2026/09/introducing-muse-small-business/).
 
-![Interface do Meta Muse for Small Business](/images/blog-post/meta-muse-small-business.png)
+![Interface do Meta Muse for Small Business](/images/blog-post/meta-muse-small-business.webp)
 
 ### Como o agente opera
 
@@ -75,7 +75,7 @@ O app ultrapassou 5 milhões de downloads nos EUA e Canadá. Para agências e ge
 
 Se você possui e-commerce ou negócio local com página de ofertas, atenção redobrada: a partir de 12 de outubro entra em vigor um novo recurso automatizado do Google Ads.
 
-![Extensão de promoções automáticas no Google Ads](/images/blog-post/google-ads-promocoes-automaticas.jpg)
+![Extensão de promoções automáticas no Google Ads](/images/blog-post/google-ads-promocoes-automaticas.webp)
 
 ### O mecanismo de funcionamento
 
@@ -93,7 +93,7 @@ O Google Ads passa a varrer as páginas do seu site rastreando chamadas como *"2
 
 Uma das maiores queixas de quem investe pesado em Performance Max era a falta de testes controlados de criativos sem comprometer o aprendizado acumulado do algoritmo.
 
-![Teste A/B de criativos no Performance Max](/images/blog-post/pmax-teste-ab-criativos.jpg)
+![Teste A/B de criativos no Performance Max](/images/blog-post/pmax-teste-ab-criativos.webp)
 
 O Google Ads iniciou a liberação de **testes A/B diretamente dentro do grupo de recursos** do Performance Max, permitindo isolar variáveis como título, descrição, imagens e formatos de vídeo.
 
@@ -109,7 +109,7 @@ O Google Ads iniciou a liberação de **testes A/B diretamente dentro do grupo d
 
 Em comunicado técnico publicado na comunidade oficial do [suporte do YouTube](https://support.google.com/youtube/thread/470890423/prioritizing-original-content-on-shorts?hl=en), a plataforma confirmou uma atualização estrutural no algoritmo de recomendação do Shorts.
 
-![Atualização no algoritmo do YouTube Shorts](/images/blog-post/youtube-shorts-conteudo-original.png)
+![Atualização no algoritmo do YouTube Shorts](/images/blog-post/youtube-shorts-conteudo-original.webp)
 
 ### Quem perde e quem ganha
 
@@ -123,7 +123,7 @@ Em comunicado técnico publicado na comunidade oficial do [suporte do YouTube](h
 
 A OpenAI acelerou a expansão da sua frente publicitária. Conforme detalhado na documentação para desenvolvedores da [OpenAI Bulk API](https://developers.openai.com/ads/bulk-api), o **ChatGPT Ads** recebeu um pacote expressivo de novidades direcionado ao comércio eletrônico e catálogos de produtos.
 
-![Interface de campanhas de catálogo do ChatGPT Ads](/images/blog-post/chatgpt-ads-campanhas-catalogo.jpg)
+![Interface de campanhas de catálogo do ChatGPT Ads](/images/blog-post/chatgpt-ads-campanhas-catalogo.webp)
 
 ### Principais novidades da atualização
 
