@@ -19,6 +19,11 @@ tags:
 readTime: 6
 featured: true
 draft: false
+youtubeId: "BBysjJT87CU"
+videoBadgeText: "Vídeo Explicativo • Agentes de IA"
+videoDurationText: "01:00 min"
+videoTitle: "A melhor configuração de agentes de IA no Whatsapp"
+videoAspectRatio: "16/9"
 ---
 
 Os modelos de linguagem atuais são extraordinários em interpretação de texto e raciocínio lógico. No entanto, quando colocamos um agente de inteligência artificial para atender clientes reais no WhatsApp de uma empresa, surge um gargalo crítico: **a falta de contexto sobre como os dados do negócio se relacionam entre si**.
