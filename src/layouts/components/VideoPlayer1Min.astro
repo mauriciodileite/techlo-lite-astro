@@ -53,13 +53,38 @@ const isVertical = aspectRatio === "9/16";
     <!-- Área de Exibição / Player (com suporte a aspect-ratio vertical 9:16 ou horizontal 16:9) -->
     <div class={`relative ${isVertical ? 'aspect-[9/16]' : 'aspect-video'} w-full bg-black flex items-center justify-center overflow-hidden`}>
       {youtubeId && (
-        <iframe
-          class="w-full h-full"
-          src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1`}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
+        <div
+          class="lazy-video-container relative w-full h-full cursor-pointer group/player select-none"
+          data-youtube-id={youtubeId}
+          data-title={title}
+          role="button"
+          tabindex="0"
+          aria-label={`Reproduzir ${title}`}
+        >
+          <!-- Thumbnail estática do YouTube (Zero scripts externos no carregamento inicial) -->
+          <img
+            src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
+            alt={title}
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover/player:scale-105 opacity-80 group-hover/player:opacity-100"
+          />
+
+          <!-- Overlay escuro com gradiente -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/40 group-hover/player:opacity-75 transition-opacity duration-300"></div>
+
+          <!-- Botão Play Oficial Brand Book (Círculo Teal #00A39E neon) -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3">
+            <div class="w-16 h-16 rounded-full bg-[#00A39E] text-black flex items-center justify-center shadow-[0_0_25px_rgba(0,163,158,0.5)] transition-all duration-300 group-hover/player:scale-110 group-hover/player:shadow-[0_0_35px_rgba(0,163,158,0.85)]">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/80 border border-white/20 text-xs font-semibold text-white tracking-wide shadow-lg backdrop-blur-sm group-hover/player:border-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]">
+              Assistir Resumo ({durationText.replace(" min", "")})
+            </span>
+          </div>
+        </div>
       )}
 
       {!youtubeId && videoUrl && (
@@ -90,3 +115,39 @@ const isVertical = aspectRatio === "9/16";
     </div>
   </div>
 </div>
+
+<script>
+  function initLazyVideoPlayers() {
+    document.querySelectorAll<HTMLElement>('.lazy-video-container').forEach((container) => {
+      if (container.dataset.ready) return;
+      container.dataset.ready = 'true';
+
+      const playVideo = () => {
+        const id = container.dataset.youtubeId;
+        const title = container.dataset.title || 'Vídeo';
+        if (!id) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.className = 'w-full h-full';
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+        iframe.title = title;
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', 'true');
+
+        container.replaceWith(iframe);
+      };
+
+      container.addEventListener('click', playVideo);
+      container.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          playVideo();
+        }
+      });
+    });
+  }
+
+  // Executa na carga inicial e em transições de página (se houver ViewTransitions)
+  initLazyVideoPlayers();
+  document.addEventListener('astro:page-load', initLazyVideoPlayers);
+</script>
