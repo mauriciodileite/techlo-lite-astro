@@ -5,7 +5,18 @@
  * Inclui: Informações de contato direto, suporte@mauricioleite.com.br, redes sociais e assinatura de marca.
  */
 
+interface Props {
+  showLegalLinks?: boolean;
+  isEnglish?: boolean;
+}
+
+const { showLegalLinks = false, isEnglish = false } = Astro.props;
 const currentYear = new Date().getFullYear();
+
+const privacyUrl = isEnglish ? "/en/privacy-policy/" : "/politica-de-privacidade/";
+const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
+const privacyLabel = isEnglish ? "Privacy Policy" : "Política de Privacidade";
+const termsLabel = isEnglish ? "Terms of Use" : "Termos de Uso";
 ---
 
 <footer class="bg-[#111111] text-[#C6C6C6] border-t border-white/10 py-12">
@@ -74,9 +85,28 @@ const currentYear = new Date().getFullYear();
 
     </div>
 
-    <!-- Copyright -->
-    <div class="mt-8 pt-8 border-t border-white/5 text-center text-xs text-[#8A8A8A]">
-      &copy; {currentYear} Maurício Leite. Todos os direitos reservados.
+    <!-- Copyright & Links Legais -->
+    <div class="mt-8 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A8A8A] gap-4">
+      <div>
+        &copy; {currentYear} Maurício Leite. Todos os direitos reservados.
+      </div>
+      {showLegalLinks && (
+        <div class="flex items-center gap-4 text-xs font-['Instrument_Sans',sans-serif]">
+          <a
+            href={privacyUrl}
+            class="text-[#9A9A9A] hover:text-[#00A39E] transition-colors underline-offset-4 hover:underline"
+          >
+            {privacyLabel}
+          </a>
+          <span class="text-white/20 select-none">·</span>
+          <a
+            href={termsUrl}
+            class="text-[#9A9A9A] hover:text-[#00A39E] transition-colors underline-offset-4 hover:underline"
+          >
+            {termsLabel}
+          </a>
+        </div>
+      )}
     </div>
   </div>
 </footer>

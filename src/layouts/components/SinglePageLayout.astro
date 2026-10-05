@@ -9,83 +9,142 @@ import formatRelativeDate from "@/lib/utils/formatRelativeDate";
 import { markdownify, slugifyyy } from "@/lib/utils/textConverter";
 import { render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import extractSlug from "@/lib/utils/extractSlug";
 
 interface Props {
   content: CollectionEntry<"pages">;
+  isEnglish?: boolean;
+  class?: string;
   [key: string]: any;
 }
 
-// Configuration and constants
 const { tableOfContents } = config.settings.markup;
+const { content, isEnglish = false, class: className } = Astro.props;
+let { title, description, date, image, author, categories } = content.data;
 
-const { content, class: className } = Astro.props;
-let { title, date, image, author, categories } = content.data;
-
-// Process markdown content if function is provided
 let Content: any, headings;
 ({ Content, headings } = await render(content));
 
-// Fetch author entry if author name is provided
 const authorName = author
-  ? (await getEntryCTM("author", slugifyyy(author), Astro.currentLocale))?.data
-      ?.title
+  ? (await getEntryCTM("author", slugifyyy(author), Astro.currentLocale))?.data?.title
   : "";
+
 const metaItems = [
   date && markdownify(formatRelativeDate(date, "dd MMM, yyyy")),
   ...(categories?.map((category: string) => markdownify(category)) || []),
   authorName && `By ${markdownify(authorName)}`,
 ].filter(Boolean);
 
-// Build table of contents from headings if available
 const tocHeadings = headings ? buildToc(headings) : undefined;
+const tocEnabled = tableOfContents?.enable && tocHeadings && tocHeadings.length > 0;
 
-// Check if table of contents is enable
-const tocEnabled =
-  tableOfContents?.enable && tocHeadings && tocHeadings.length > 0;
+const slug = extractSlug(content).split("/").pop() || "";
+const isLegalPage = slug.includes("privac") || slug.includes("term");
+const isPrivacy = slug.includes("privac");
+const isTerms = slug.includes("term");
+
+const homeUrl = isEnglish ? "/en/" : "/";
+const privacyUrl = isEnglish ? "/en/privacy-policy/" : "/politica-de-privacidade/";
+const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
 ---
 
-<section>
-  <div class="container">
-    <div
-      class:list={["has-video-modal max-w-full space-y-10 lg:p-5", className]}>
-      {
-        image && Content && (
-          <OptimizedImage
-            width={896}
-            height={500}
-            alt={title}
-            src={image as string}
-            data-image-lightbox
-            class:list={["h-125 w-full object-cover"]}
-          />
-        )
-      }
+<section class:list={["w-full", className]}>
+  <div class="container mx-auto px-4 max-w-4xl">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 font-['Instrument_Sans',sans-serif] text-xs text-[#888888] mb-6">
+      <a href={homeUrl} class="transition-colors hover:text-white">Home</a>
+      <span>/</span>
+      {isLegalPage && (
+        <>
+          <span class="text-[#00A39E] font-medium">Legal</span>
+          <span>/</span>
+        </>
+      )}
+      <span class="text-white truncate max-w-xs">{title}</span>
+    </nav>
 
-      <div class="space-y-2">
-        <ul
-          class="text-dark flex flex-wrap items-center gap-x-5 gap-y-1 tracking-wide">
-          {
-            metaItems.map((item, index) => (
-              <li
-                class:list={[
-                  index > 0 &&
-                    "before:bg-dark relative pe-5 before:absolute before:inset-e-0 before:top-1/2 before:h-1 before:w-1 before:-translate-y-1/2 before:rounded-full before:content-['']",
-                ]}
-                set:html={item}
-              />
-            ))
-          }
-        </ul>
-        {title && <h1 class="text-h2-sm md:text-h2" set:html={title} />}
+    {isLegalPage && (
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-8 pb-4 border-b border-white/10 font-['Sora',sans-serif] text-xs sm:text-sm">
+        <a
+          href={privacyUrl}
+          class:list={[
+            "px-4 py-2 rounded-lg font-medium transition-all duration-200",
+            isPrivacy
+              ? "bg-[#00A39E] text-black shadow-md shadow-[#00A39E]/20"
+              : "bg-white/5 text-[#C6C6C6] hover:bg-white/10 hover:text-white"
+          ]}
+        >
+          {isEnglish ? "Privacy Policy" : "Política de Privacidade"}
+        </a>
+        <a
+          href={termsUrl}
+          class:list={[
+            "px-4 py-2 rounded-lg font-medium transition-all duration-200",
+            isTerms
+              ? "bg-[#00A39E] text-black shadow-md shadow-[#00A39E]/20"
+              : "bg-white/5 text-[#C6C6C6] hover:bg-white/10 hover:text-white"
+          ]}
+        >
+          {isEnglish ? "Terms of Use" : "Termos de Uso"}
+        </a>
       </div>
-      {tocEnabled && tocHeadings && <TOC toc={tocHeadings} marker={false} />}
-      {
-        Content && (
-          <div class="prose-styles content has-video-modal prose-headings:mb-6 prose-headings:mt-10">
-            <Content components={shortcodes} />
-          </div>
-        )
-      }
-    </div>
+    )}
+
+    {image && Content && (
+      <div class="mb-8 overflow-hidden rounded-2xl border border-white/10">
+        <OptimizedImage
+          width={896}
+          height={500}
+          alt={title}
+          src={image as string}
+          data-image-lightbox
+          class:list={["h-64 sm:h-96 w-full object-cover"]}
+        />
+      </div>
+    )}
+
+    <!-- Header Section -->
+    <header class="mb-8 space-y-3">
+      {metaItems.length > 0 && (
+        <ul class="text-xs text-[#888888] flex flex-wrap items-center gap-x-4 gap-y-1">
+          {metaItems.map((item) => (
+            <li set:html={item} />
+          ))}
+        </ul>
+      )}
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight leading-tight">
+        {title}
+      </h1>
+      {description && (
+        <p class="text-base sm:text-lg text-[#9A9A9A] font-['Instrument_Sans',sans-serif] leading-relaxed">
+          {description}
+        </p>
+      )}
+    </header>
+
+    {tocEnabled && tocHeadings && (
+      <div class="mb-10 p-6 rounded-xl bg-white/5 border border-white/10">
+        <TOC toc={tocHeadings} marker={false} />
+      </div>
+    )}
+
+    <!-- Content Area with Brand Styling -->
+    {Content && (
+      <article
+        class="prose prose-invert max-w-none text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed
+          prose-headings:font-['Sora',sans-serif] prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-white
+          prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-white/10 prose-h2:pb-3
+          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+          prose-p:text-base prose-p:leading-relaxed prose-p:mb-5
+          prose-a:text-[#00A39E] prose-a:font-medium prose-a:underline-offset-4 hover:prose-a:underline
+          prose-strong:text-white
+          prose-code:text-[#00A39E] prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
+          prose-blockquote:border-l-[#00A39E] prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-5 prose-blockquote:rounded-r-xl prose-blockquote:italic prose-blockquote:text-white/90
+          prose-ul:list-disc prose-ul:pl-6 prose-li:my-1.5
+          prose-ol:list-decimal prose-ol:pl-6"
+      >
+        <Content components={shortcodes} />
+      </article>
+    )}
   </div>
 </section>

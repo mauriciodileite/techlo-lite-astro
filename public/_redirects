@@ -1,3 +1,9 @@
 /empresas-brasil/* /agenda/:splat 301
 /empresas-brasil /agenda 301
 /en/empresas-brasil /en/agenda 301
+/privacy-policy /politica-de-privacidade 301
+/terms-conditions /termos-de-uso 301
+/terms-of-service /termos-de-uso 301
+/termos /termos-de-uso 301
+/privacidade /politica-de-privacidade 301
+/en/terms-of-service /en/terms-conditions 301

@@ -40,6 +40,13 @@ export default defineConfig({
     "/feed": "/blog",
     "/wp-login.php": "/",
     "/wp-admin": "/",
+    // Redirecionamentos para páginas legais
+    "/privacy-policy": "/politica-de-privacidade",
+    "/terms-of-service": "/termos-de-uso",
+    "/terms-conditions": "/termos-de-uso",
+    "/termos": "/termos-de-uso",
+    "/privacidade": "/politica-de-privacidade",
+    "/en/terms-of-service": "/en/terms-conditions",
   },
   devToolbar: {
     enabled: true,

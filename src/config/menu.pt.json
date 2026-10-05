@@ -131,13 +131,13 @@
         },
         {
           "enable": true,
-          "name": "Terms & Conditions",
-          "url": "/terms-conditions/"
+          "name": "Termos de Uso",
+          "url": "/termos-de-uso/"
         },
         {
           "enable": true,
-          "name": "Privacy Policy",
-          "url": "/privacy-policy/"
+          "name": "Política de Privacidade",
+          "url": "/politica-de-privacidade/"
         }
       ]
     }
