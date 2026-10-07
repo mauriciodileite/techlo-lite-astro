@@ -16,7 +16,7 @@ interface Props {
   isEnglish?: boolean;
 }
 
-const { domain = "mauricioleite.com.br", isEnglish = false } = Astro.props;
+const { domain = "mauricioleite.com.br/blog", isEnglish = false } = Astro.props;
 const googlePreferredUrl = `https://www.google.com/preferences/source?q=${domain}`;
 ---
 
