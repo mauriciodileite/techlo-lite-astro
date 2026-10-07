@@ -13,6 +13,7 @@ import PaginationForSingle from "./widgets/PaginationForSingle.astro";
 import BlogShareBar from "./blog/BlogShareBar.astro";
 import GooglePreferredSource from "./blog/GooglePreferredSource.astro";
 import CommentsSection from "./CommentsSection.astro";
+import BlogPartnerLinks from "./blog/BlogPartnerLinks.astro";
 
 interface Props {
   content: CollectionEntry<"blog">;
@@ -139,6 +140,9 @@ const t = await useTranslations(Astro.currentLocale as string);
       slug={content.id || "post"}
       isEnglish={Astro.currentLocale === "en"}
     />
+
+    <!-- Links Úteis e Parcerias Recomendadas -->
+    <BlogPartnerLinks isEnglish={Astro.currentLocale === "en"} />
 
     <!-- Sistema Próprio de Comentários no Blog (Disqus-like) -->
     <CommentsSection postSlug={content.id || "post"} isEnglish={Astro.currentLocale === "en"} />

@@ -10,6 +10,7 @@ import BlogCta from "@/layouts/components/blog/BlogCta.astro";
 import BlogShareBar from "@/layouts/components/blog/BlogShareBar.astro";
 import GooglePreferredSource from "@/layouts/components/blog/GooglePreferredSource.astro";
 import CommentsSection from "@/layouts/components/CommentsSection.astro";
+import BlogPartnerLinks from "@/layouts/components/blog/BlogPartnerLinks.astro";
 import { shortcodes } from "@/lib/shortcodes";
 import HeaderNav from "@/components/HeaderNav.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
@@ -307,6 +308,9 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
                 </span>
               )}
             </div>
+
+            <!-- Links Úteis e Parcerias Recomendadas -->
+            <BlogPartnerLinks isEnglish={Astro.currentLocale === "en"} />
 
             <!-- Sistema Próprio de Comentários no Blog (Disqus-like com Supabase) -->
             <div class="pt-8">
