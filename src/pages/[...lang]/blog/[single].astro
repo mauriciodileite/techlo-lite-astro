@@ -148,8 +148,8 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
 
           <!-- Main Article Column -->
           <div class="space-y-10 md:col-span-3 lg:col-span-5">
-            <!-- Breadcrumbs e Modo Leitura no canto superior direito -->
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-3">
+            <!-- Breadcrumbs e Modo Leitura no canto superior direito (Sem borda nem fundo) -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-2">
               <nav class="flex items-center gap-2 font-body text-xs text-[#888888]">
                 <a href="/" class="transition-colors hover:text-white">Home</a>
                 <span>/</span>
@@ -275,11 +275,11 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
             />
 
             <!-- Post Navigation (Previous / Next) matching shadcn style -->
-            <div class="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8">
+            <div class="post-navigation-row flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8">
               {previousPost ? (
                 <a
                   href={`/blog/${extractSlug(previousPost).split("/").pop()}`}
-                  class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#161616] px-5 py-2.5 font-heading text-xs font-medium text-white transition-all hover:border-[#00A39E] hover:bg-white/5"
+                  class="post-nav-btn-prev inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#161616] px-5 py-2.5 font-heading text-xs font-medium text-white transition-all hover:border-[#00A39E] hover:bg-white/5"
                 >
                   <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -298,7 +298,7 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
               {nextPost ? (
                 <a
                   href={`/blog/${extractSlug(nextPost).split("/").pop()}`}
-                  class="ml-auto inline-flex items-center gap-2 rounded-xl border border-[#00A39E]/40 bg-[#00A39E]/10 px-5 py-2.5 font-heading text-xs font-medium text-[#00A39E] transition-all hover:bg-[#00A39E] hover:text-black hover:shadow-[0_0_15px_rgba(0,163,158,0.3)]"
+                  class="post-nav-btn-next ml-auto inline-flex items-center gap-2 rounded-xl border border-[#00A39E]/40 bg-[#00A39E]/10 px-5 py-2.5 font-heading text-xs font-medium text-[#00A39E] transition-all hover:bg-[#00A39E] hover:text-black hover:shadow-[0_0_15px_rgba(0,163,158,0.3)]"
                 >
                   Próximo Artigo
                   <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -341,17 +341,22 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
 <style is:global>
   /* ==========================================================================
      Modo Leitura Blog - Brand Book Maurício Leite
-     Cores Oficiais:
-     - Fundo Primário: #FFFFFF
-     - Texto Primário / Títulos: #111111 (Preto Pista)
-     - Texto Secundário: #2E2E2E / #4A4A4A
-     - Superfícies de apoio (cards, tabelas, blockquotes): #F2F2F2
-     - Bordas e divisores: #E3E3E3
-     - Destaque e Links: #00A39E (Petronas)
+     Foco: Fundo Branco (#FFFFFF), Tipografia Preta (#111111) e Destaque (#00A39E)
+     Zero fundos cinzas acidentais.
      ========================================================================== */
   #blog-reading-area.reading-mode-light {
     background-color: #FFFFFF !important;
     color: #111111 !important;
+  }
+
+  /* Todas as seções e containers herdam transparência sobre o fundo branco */
+  #blog-reading-area.reading-mode-light section,
+  #blog-reading-area.reading-mode-light nav,
+  #blog-reading-area.reading-mode-light article,
+  #blog-reading-area.reading-mode-light .post-navigation-row,
+  #blog-reading-area.reading-mode-light .partner-links-section,
+  #blog-reading-area.reading-mode-light #disqus-comments-section {
+    background-color: transparent !important;
   }
 
   /* Títulos e Parágrafos */
@@ -372,26 +377,39 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
     color: #2E2E2E !important;
   }
 
-  /* Divisores e Bordas */
+  /* Linha divisória fina (h-px) */
+  #blog-reading-area.reading-mode-light .h-px {
+    background-color: #E3E3E3 !important;
+  }
+
+  /* Apenas trocar a cor da borda para cinza claro — SEM aplicar background */
   #blog-reading-area.reading-mode-light .border-white\/10,
   #blog-reading-area.reading-mode-light .border-white\/15,
   #blog-reading-area.reading-mode-light .border-white\/5,
   #blog-reading-area.reading-mode-light .border-b,
-  #blog-reading-area.reading-mode-light .border-t,
-  #blog-reading-area.reading-mode-light .h-px {
+  #blog-reading-area.reading-mode-light .border-t {
     border-color: #E3E3E3 !important;
-    background-color: #E3E3E3 !important;
   }
 
-  /* Metadados */
+  /* Textos secundários e metadados */
   #blog-reading-area.reading-mode-light .text-\[\#888888\],
   #blog-reading-area.reading-mode-light .text-\[\#999999\],
   #blog-reading-area.reading-mode-light .text-\[\#D4D4D4\],
-  #blog-reading-area.reading-mode-light .text-\[\#C6C6C6\] {
+  #blog-reading-area.reading-mode-light .text-\[\#C6C6C6\],
+  #blog-reading-area.reading-mode-light .text-\[\#A0A0A0\],
+  #blog-reading-area.reading-mode-light .text-\[\#A8A8A8\] {
     color: #4A4A4A !important;
   }
 
-  /* Sidebar TOC (Neste Artigo) */
+  /* Breadcrumbs (Home / Blog...) - Limpo e sem fundo */
+  #blog-reading-area.reading-mode-light nav a {
+    color: #555555 !important;
+  }
+  #blog-reading-area.reading-mode-light nav a:hover {
+    color: #111111 !important;
+  }
+
+  /* Sidebar TOC (Sumário à direita) - Mantido elegante */
   #blog-reading-area.reading-mode-light aside > div {
     background-color: #F8F9FA !important;
     border-color: #E3E3E3 !important;
@@ -440,13 +458,13 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
   }
 
   #blog-reading-area.reading-mode-light article.prose blockquote {
-    background-color: #F2F2F2 !important;
+    background-color: #F8F9FA !important;
     border-left-color: #00A39E !important;
     color: #111111 !important;
   }
 
   #blog-reading-area.reading-mode-light article.prose code:not(pre code) {
-    background-color: #F2F2F2 !important;
+    background-color: #F4F4F5 !important;
     color: #00A39E !important;
     border: 1px solid #E3E3E3 !important;
   }
@@ -460,7 +478,7 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
   }
 
   #blog-reading-area.reading-mode-light article.prose table th {
-    background-color: #F2F2F2 !important;
+    background-color: #F8F9FA !important;
     color: #111111 !important;
     border-color: #E3E3E3 !important;
   }
@@ -470,37 +488,120 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
     border-bottom-color: #E3E3E3 !important;
   }
 
-  /* Botão Toggle no Modo Claro */
-  #reading-mode-toggle-btn.is-light-active {
-    background-color: #F2F2F2 !important;
-    border-color: #C6C6C6 !important;
+  /* Preferências do Google - Mantido como card destacado aprovado */
+  #blog-reading-area.reading-mode-light .google-preferred-source-card {
+    background-color: #F8F9FA !important;
+    border-color: #E3E3E3 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .google-preferred-source-card h3 {
     color: #111111 !important;
   }
 
-  #reading-mode-toggle-btn.is-light-active:hover {
-    background-color: #FFFFFF !important;
-    border-color: #00A39E !important;
-    box-shadow: 0 0 12px rgba(0, 163, 158, 0.25) !important;
+  /* Ferramentas e Parcerias Recomendadas - Cards brancos sobre fundo branco */
+  #blog-reading-area.reading-mode-light .partner-links-section {
+    border-top-color: #E3E3E3 !important;
   }
 
-  /* Cartões de navegação anterior/próximo */
-  #blog-reading-area.reading-mode-light a[href^="/blog/"] {
-    background-color: #F2F2F2 !important;
+  #blog-reading-area.reading-mode-light .partner-links-section a {
+    background-color: #FFFFFF !important;
+    border-color: #E3E3E3 !important;
+    color: #111111 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .partner-links-section a:hover {
+    border-color: #00A39E !important;
+    box-shadow: 0 4px 16px rgba(0, 163, 158, 0.12) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .partner-links-section h3,
+  #blog-reading-area.reading-mode-light .partner-links-section h4 {
+    color: #111111 !important;
+  }
+
+  /* Navegação entre artigos (Anterior / Próximo) - Sem faixas cinzas */
+  #blog-reading-area.reading-mode-light .post-navigation-row {
+    border-top-color: #E3E3E3 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .post-nav-btn-prev {
+    background-color: #FFFFFF !important;
     border-color: #E3E3E3 !important;
     color: #111111 !important;
   }
 
-  #blog-reading-area.reading-mode-light a[href^="/blog/"]:hover {
-    background-color: #FFFFFF !important;
+  #blog-reading-area.reading-mode-light .post-nav-btn-prev:hover {
     border-color: #00A39E !important;
     color: #00A39E !important;
   }
 
+  #blog-reading-area.reading-mode-light .post-nav-btn-next {
+    background-color: #00A39E !important;
+    border-color: #00A39E !important;
+    color: #FFFFFF !important;
+  }
+
+  #blog-reading-area.reading-mode-light .post-nav-btn-next:hover {
+    background-color: #111111 !important;
+    border-color: #111111 !important;
+    color: #FFFFFF !important;
+  }
+
+  /* Comentários - Fundo 100% branco limpo, sem bloco cinza */
+  #blog-reading-area.reading-mode-light #disqus-comments-section {
+    border-top-color: #E3E3E3 !important;
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light #disqus-comments-section h2,
+  #blog-reading-area.reading-mode-light #disqus-comments-section h3,
+  #blog-reading-area.reading-mode-light #disqus-comments-section span.text-white {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light #disqus-comments-section textarea,
+  #blog-reading-area.reading-mode-light #disqus-comments-section input {
+    background-color: #FFFFFF !important;
+    border-color: #E3E3E3 !important;
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light #disqus-comments-section button {
+    border-color: #E3E3E3 !important;
+  }
+
+  #blog-reading-area.reading-mode-light #disqus-recommend-btn {
+    background-color: #FFFFFF !important;
+    border-color: #E3E3E3 !important;
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light #disqus-sort-select {
+    background-color: #FFFFFF !important;
+    border-color: #E3E3E3 !important;
+    color: #111111 !important;
+  }
+
   /* Barra de Compartilhamento */
   #blog-reading-area.reading-mode-light .blog-share-bar {
-    background-color: #F8F9FA !important;
+    background-color: #FFFFFF !important;
     border-color: #E3E3E3 !important;
     color: #4A4A4A !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  }
+
+  /* Botão Toggle no Modo Claro */
+  #reading-mode-toggle-btn.is-light-active {
+    background-color: #FFFFFF !important;
+    border-color: #00A39E !important;
+    color: #111111 !important;
+    box-shadow: 0 0 10px rgba(0, 163, 158, 0.15) !important;
+  }
+
+  #reading-mode-toggle-btn.is-light-active:hover {
+    background-color: #F8F9FA !important;
   }
 </style>
 </Base>
