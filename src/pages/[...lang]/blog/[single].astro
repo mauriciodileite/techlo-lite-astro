@@ -499,6 +499,72 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
     color: #111111 !important;
   }
 
+  /* ======================================================== */
+  /* CARDS DE ARQUITETURA E NOT-PROSE NO MODO CLARO           */
+  /* ======================================================== */
+  #blog-reading-area.reading-mode-light .article-step-card {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    border-color: #E3E3E3 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .article-step-card:hover {
+    border-color: #00A39E !important;
+    box-shadow: 0 6px 20px rgba(0, 163, 158, 0.12) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .article-step-card-highlight {
+    background: linear-gradient(to bottom, #F0FAF9, #FFFFFF) !important;
+    border-color: #00A39E !important;
+    box-shadow: 0 6px 22px rgba(0, 163, 158, 0.15) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .article-step-card .step-card-title {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .article-step-card .step-card-desc {
+    color: #4A4A4A !important;
+  }
+
+  #blog-reading-area.reading-mode-light .article-step-card .step-card-meta {
+    color: #777777 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .article-step-card .step-card-footer {
+    border-top-color: #EAEAEA !important;
+    color: #222222 !important;
+  }
+
+  /* Fallback para outros blocos .not-prose dentro do artigo no modo claro */
+  #blog-reading-area.reading-mode-light article.prose .not-prose div[class*="bg-[#161616]"],
+  #blog-reading-area.reading-mode-light article.prose div[class*="bg-[#161616]"] {
+    background-color: #FFFFFF !important;
+    border-color: #E3E3E3 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose .not-prose div[class*="bg-[#161616]"] h4,
+  #blog-reading-area.reading-mode-light article.prose .not-prose div[class*="bg-[#161616]"] h3 {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose .not-prose div[class*="bg-[#161616]"] p {
+    color: #4A4A4A !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose details {
+    background-color: #FFFFFF !important;
+    border-color: #E3E3E3 !important;
+    color: #111111 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose details summary {
+    color: #111111 !important;
+  }
+
   /* Ferramentas e Parcerias Recomendadas - Cards brancos sobre fundo branco */
   #blog-reading-area.reading-mode-light .partner-links-section {
     border-top-color: #E3E3E3 !important;
@@ -519,6 +585,31 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
   #blog-reading-area.reading-mode-light .partner-links-section h3,
   #blog-reading-area.reading-mode-light .partner-links-section h4 {
     color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .partner-links-section p {
+    color: #555555 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .partner-links-section .w-8.h-8 {
+    background-color: #F8F9FA !important;
+    border-color: #E5E5E5 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .partner-links-section div[class*="border-t"] {
+    border-top-color: #EAEAEA !important;
+  }
+
+  #blog-reading-area.reading-mode-light .badge-vinho {
+    background-color: rgba(128, 20, 43, 0.08) !important;
+    color: #80142B !important;
+    border-color: rgba(128, 20, 43, 0.3) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .badge-petronas {
+    background-color: rgba(0, 163, 158, 0.08) !important;
+    color: #008783 !important;
+    border-color: rgba(0, 163, 158, 0.3) !important;
   }
 
   /* Navegação entre artigos (Anterior / Próximo) - Sem faixas cinzas */
@@ -549,23 +640,49 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
     color: #FFFFFF !important;
   }
 
-  /* Comentários - Fundo 100% branco limpo, sem bloco cinza */
+  /* ======================================================== */
+  /* COMENTÁRIOS NO MODO CLARO - 100% LIMPO E LEGÍVEL         */
+  /* ======================================================== */
   #blog-reading-area.reading-mode-light #disqus-comments-section {
     border-top-color: #E3E3E3 !important;
     color: #111111 !important;
   }
 
+  #blog-reading-area.reading-mode-light #disqus-comments-section div[class*="border-b"] {
+    border-bottom-color: #E3E3E3 !important;
+  }
+
   #blog-reading-area.reading-mode-light #disqus-comments-section h2,
   #blog-reading-area.reading-mode-light #disqus-comments-section h3,
-  #blog-reading-area.reading-mode-light #disqus-comments-section span.text-white {
+  #blog-reading-area.reading-mode-light #disqus-comments-section span.font-bold,
+  #blog-reading-area.reading-mode-light #disqus-comments-section #disqus-count {
     color: #111111 !important;
+  }
+
+  /* Card da caixa de envio de comentário principal */
+  #blog-reading-area.reading-mode-light .comment-box-card {
+    background-color: #FFFFFF !important;
+    border-color: #E3E3E3 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .comment-avatar-placeholder {
+    background-color: #F8F9FA !important;
+    border-color: #E3E3E3 !important;
+    color: #00A39E !important;
   }
 
   #blog-reading-area.reading-mode-light #disqus-comments-section textarea,
   #blog-reading-area.reading-mode-light #disqus-comments-section input {
-    background-color: #FFFFFF !important;
-    border-color: #E3E3E3 !important;
+    background-color: #FAFAFA !important;
+    border-color: #E0E0E0 !important;
     color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light #disqus-comments-section textarea:focus,
+  #blog-reading-area.reading-mode-light #disqus-comments-section input:focus {
+    border-color: #00A39E !important;
+    background-color: #FFFFFF !important;
   }
 
   #blog-reading-area.reading-mode-light #disqus-comments-section button {
@@ -582,6 +699,59 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
     background-color: #FFFFFF !important;
     border-color: #E3E3E3 !important;
     color: #111111 !important;
+  }
+
+  /* Cards de comentários postados */
+  #blog-reading-area.reading-mode-light .comment-card-box {
+    background-color: #FFFFFF !important;
+    border-color: #E3E3E3 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  }
+
+  #blog-reading-area.reading-mode-light .comment-item-reply {
+    border-left-color: #E3E3E3 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .comment-author-name {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .comment-content-text {
+    color: #222222 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .comment-time-ago {
+    color: #777777 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .upvote-btn {
+    background-color: #F8F9FA !important;
+    border-color: #E3E3E3 !important;
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .upvote-btn:hover {
+    border-color: #00A39E !important;
+    color: #00A39E !important;
+  }
+
+  #blog-reading-area.reading-mode-light .reply-toggle-btn,
+  #blog-reading-area.reading-mode-light .edit-comment-btn,
+  #blog-reading-area.reading-mode-light .delete-comment-btn {
+    color: #666666 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .reply-toggle-btn:hover,
+  #blog-reading-area.reading-mode-light .edit-comment-btn:hover {
+    color: #00A39E !important;
+  }
+
+  #blog-reading-area.reading-mode-light .delete-comment-btn:hover {
+    color: #EF4444 !important;
+  }
+
+  #blog-reading-area.reading-mode-light div[id^="reply-form-"] {
+    border-top-color: #EAEAEA !important;
   }
 
   /* Barra de Compartilhamento */

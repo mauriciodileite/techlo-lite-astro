@@ -47,58 +47,58 @@ Para alcançar essa maturidade de produto, foi desenhada uma arquitetura modular
 
 <div class="not-prose my-8">
 <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
-<div class="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#161616] p-5 transition-all hover:border-[#00A39E]/50">
+<div class="article-step-card flex flex-col justify-between rounded-2xl border border-white/10 bg-[#161616] p-5 transition-all hover:border-[#00A39E]/50">
 <div>
 <div class="mb-3 flex items-center justify-between">
 <span class="rounded bg-[#00A39E]/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#00A39E]">Etapa 01</span>
-<span class="text-[11px] text-[#888888]">Canal</span>
+<span class="step-card-meta text-[11px] text-[#888888]">Canal</span>
 </div>
-<h4 class="mb-1.5 font-heading text-base font-semibold text-white">Entrada do Cliente</h4>
-<p class="font-body text-xs leading-relaxed text-[#A0A0A0]">Mensagens de texto e áudios recebidos via WhatsApp oficial da clínica.</p>
+<h4 class="step-card-title mb-1.5 font-heading text-base font-semibold text-white">Entrada do Cliente</h4>
+<p class="step-card-desc font-body text-xs leading-relaxed text-[#A0A0A0]">Mensagens de texto e áudios recebidos via WhatsApp oficial da clínica.</p>
 </div>
-<div class="mt-4 flex items-center gap-2 border-t border-white/5 pt-3 font-body text-xs font-medium text-white/80">
+<div class="step-card-footer mt-4 flex items-center gap-2 border-t border-white/5 pt-3 font-body text-xs font-medium text-white/80">
 <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>
 WhatsApp • AvisaAPI
 </div>
 </div>
-<div class="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#161616] p-5 transition-all hover:border-[#00A39E]/50">
+<div class="article-step-card flex flex-col justify-between rounded-2xl border border-white/10 bg-[#161616] p-5 transition-all hover:border-[#00A39E]/50">
 <div>
 <div class="mb-3 flex items-center justify-between">
 <span class="rounded bg-[#00A39E]/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#00A39E]">Etapa 02</span>
-<span class="text-[11px] text-[#888888]">Triagem</span>
+<span class="step-card-meta text-[11px] text-[#888888]">Triagem</span>
 </div>
-<h4 class="mb-1.5 font-heading text-base font-semibold text-white">Orquestração & Funil</h4>
-<p class="font-body text-xs leading-relaxed text-[#A0A0A0]">Identificação de prontuário por telefone no Supabase e ativação do contexto correto.</p>
+<h4 class="step-card-title mb-1.5 font-heading text-base font-semibold text-white">Orquestração & Funil</h4>
+<p class="step-card-desc font-body text-xs leading-relaxed text-[#A0A0A0]">Identificação de prontuário por telefone no Supabase e ativação do contexto correto.</p>
 </div>
-<div class="mt-4 flex items-center gap-2 border-t border-white/5 pt-3 font-body text-xs font-medium text-white/80">
+<div class="step-card-footer mt-4 flex items-center gap-2 border-t border-white/5 pt-3 font-body text-xs font-medium text-white/80">
 <span class="h-2 w-2 rounded-full bg-[#00A39E]"></span>
 n8n Receiver • Supabase
 </div>
 </div>
-<div class="flex flex-col justify-between rounded-2xl border border-[#00A39E]/50 bg-gradient-to-b from-[#132624] to-[#161616] p-5 shadow-[0_0_25px_rgba(0,163,158,0.12)]">
+<div class="article-step-card article-step-card-highlight flex flex-col justify-between rounded-2xl border border-[#00A39E]/50 bg-gradient-to-b from-[#132624] to-[#161616] p-5 shadow-[0_0_25px_rgba(0,163,158,0.12)]">
 <div>
 <div class="mb-3 flex items-center justify-between">
 <span class="rounded bg-[#00A39E] px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-black">Núcleo IA</span>
-<span class="text-[11px] font-semibold text-[#00A39E]">Dora v3</span>
+<span class="step-card-meta-highlight text-[11px] font-semibold text-[#00A39E]">Dora v3</span>
 </div>
-<h4 class="mb-1.5 font-heading text-base font-semibold text-white">Memória & Graph RAG</h4>
-<p class="font-body text-xs leading-relaxed text-[#C6C6C6]">Resgate semântico de preferências e consulta a relacionamentos clínicos em grafo.</p>
+<h4 class="step-card-title mb-1.5 font-heading text-base font-semibold text-white">Memória & Graph RAG</h4>
+<p class="step-card-desc font-body text-xs leading-relaxed text-[#C6C6C6]">Resgate semântico de preferências e consulta a relacionamentos clínicos em grafo.</p>
 </div>
-<div class="mt-4 flex items-center gap-1.5 border-t border-white/10 pt-3 font-body text-xs font-medium text-[#00A39E]">
+<div class="step-card-footer mt-4 flex items-center gap-1.5 border-t border-white/10 pt-3 font-body text-xs font-medium text-[#00A39E]">
 <span class="h-2 w-2 rounded-full bg-[#00A39E]"></span>
 Mem0 • LightRAG • Neo4j
 </div>
 </div>
-<div class="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#161616] p-5 transition-all hover:border-[#00A39E]/50">
+<div class="article-step-card flex flex-col justify-between rounded-2xl border border-white/10 bg-[#161616] p-5 transition-all hover:border-[#00A39E]/50">
 <div>
 <div class="mb-3 flex items-center justify-between">
 <span class="rounded bg-[#00A39E]/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#00A39E]">Etapa 04</span>
-<span class="text-[11px] text-[#888888]">Ação</span>
+<span class="step-card-meta text-[11px] text-[#888888]">Ação</span>
 </div>
-<h4 class="mb-1.5 font-heading text-base font-semibold text-white">Ação & Resposta</h4>
-<p class="font-body text-xs leading-relaxed text-[#A0A0A0]">Disparo de oportunidades no CRM, envio de vídeos tutoriais e mensagem no WhatsApp.</p>
+<h4 class="step-card-title mb-1.5 font-heading text-base font-semibold text-white">Ação & Resposta</h4>
+<p class="step-card-desc font-body text-xs leading-relaxed text-[#A0A0A0]">Disparo de oportunidades no CRM, envio de vídeos tutoriais e mensagem no WhatsApp.</p>
 </div>
-<div class="mt-4 flex items-center gap-2 border-t border-white/5 pt-3 font-body text-xs font-medium text-white/80">
+<div class="step-card-footer mt-4 flex items-center gap-2 border-t border-white/5 pt-3 font-body text-xs font-medium text-white/80">
 <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
 CRM • n8n Sender • WhatsApp
 </div>
