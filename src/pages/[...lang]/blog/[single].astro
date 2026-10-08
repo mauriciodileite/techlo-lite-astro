@@ -15,6 +15,7 @@ import { shortcodes } from "@/lib/shortcodes";
 import HeaderNav from "@/components/HeaderNav.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
 import VideoPlayer1Min from "@/layouts/components/VideoPlayer1Min.astro";
+import ReadingModeToggle from "@/layouts/components/blog/ReadingModeToggle.astro";
 import config from ".astro/config.generated.json";
 
 export async function getStaticPaths() {
@@ -135,7 +136,7 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
     <!-- Header Oficial da Marca -->
     <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
 
-    <main class="flex-grow flex flex-col bg-[#111111] text-[#C6C6C6] pt-20">
+    <main id="blog-reading-area" class="flex-grow flex flex-col bg-[#111111] text-[#C6C6C6] pt-20 transition-colors duration-300">
     <!-- Article Section -->
     <section class="py-10 sm:pt-20 sm:pb-24">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -147,19 +148,24 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
 
           <!-- Main Article Column -->
           <div class="space-y-10 md:col-span-3 lg:col-span-5">
-            <!-- Breadcrumbs -->
-            <nav class="flex items-center gap-2 font-body text-xs text-[#888888]">
-              <a href="/" class="transition-colors hover:text-white">Home</a>
-              <span>/</span>
-              <a href="/blog" class="transition-colors hover:text-white">Blog</a>
-              <span>/</span>
-              <span class="text-[#00A39E] font-medium">{category}</span>
-              {isNew && (
-                <span class="ml-1 inline-flex items-center justify-center rounded-full bg-[#29FF54] px-2.5 py-0.5 text-xs font-semibold text-black leading-none shadow-sm">
-                  Now
-                </span>
-              )}
-            </nav>
+            <!-- Breadcrumbs e Modo Leitura no canto superior direito -->
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-3">
+              <nav class="flex items-center gap-2 font-body text-xs text-[#888888]">
+                <a href="/" class="transition-colors hover:text-white">Home</a>
+                <span>/</span>
+                <a href="/blog" class="transition-colors hover:text-white">Blog</a>
+                <span>/</span>
+                <span class="text-[#00A39E] font-medium">{category}</span>
+                {isNew && (
+                  <span class="ml-1 inline-flex items-center justify-center rounded-full bg-[#29FF54] px-2.5 py-0.5 text-xs font-semibold text-black leading-none shadow-sm">
+                    Now
+                  </span>
+                )}
+              </nav>
+
+              <!-- Botão Modo Leitura (Canto superior direito) -->
+              <ReadingModeToggle isEnglish={Astro.currentLocale === "en"} />
+            </div>
 
             <!-- Title & Lead Description -->
             <div class="space-y-4">
@@ -331,4 +337,170 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
   <!-- Rodapé Oficial Maurício Leite -->
   <FooterMauricio />
 </div>
+
+<style is:global>
+  /* ==========================================================================
+     Modo Leitura Blog - Brand Book Maurício Leite
+     Cores Oficiais:
+     - Fundo Primário: #FFFFFF
+     - Texto Primário / Títulos: #111111 (Preto Pista)
+     - Texto Secundário: #2E2E2E / #4A4A4A
+     - Superfícies de apoio (cards, tabelas, blockquotes): #F2F2F2
+     - Bordas e divisores: #E3E3E3
+     - Destaque e Links: #00A39E (Petronas)
+     ========================================================================== */
+  #blog-reading-area.reading-mode-light {
+    background-color: #FFFFFF !important;
+    color: #111111 !important;
+  }
+
+  /* Títulos e Parágrafos */
+  #blog-reading-area.reading-mode-light h1,
+  #blog-reading-area.reading-mode-light h2,
+  #blog-reading-area.reading-mode-light h3,
+  #blog-reading-area.reading-mode-light h4,
+  #blog-reading-area.reading-mode-light h5,
+  #blog-reading-area.reading-mode-light h6 {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light .font-heading {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light p.font-body {
+    color: #2E2E2E !important;
+  }
+
+  /* Divisores e Bordas */
+  #blog-reading-area.reading-mode-light .border-white\/10,
+  #blog-reading-area.reading-mode-light .border-white\/15,
+  #blog-reading-area.reading-mode-light .border-white\/5,
+  #blog-reading-area.reading-mode-light .border-b,
+  #blog-reading-area.reading-mode-light .border-t,
+  #blog-reading-area.reading-mode-light .h-px {
+    border-color: #E3E3E3 !important;
+    background-color: #E3E3E3 !important;
+  }
+
+  /* Metadados */
+  #blog-reading-area.reading-mode-light .text-\[\#888888\],
+  #blog-reading-area.reading-mode-light .text-\[\#999999\],
+  #blog-reading-area.reading-mode-light .text-\[\#D4D4D4\],
+  #blog-reading-area.reading-mode-light .text-\[\#C6C6C6\] {
+    color: #4A4A4A !important;
+  }
+
+  /* Sidebar TOC (Neste Artigo) */
+  #blog-reading-area.reading-mode-light aside > div {
+    background-color: #F8F9FA !important;
+    border-color: #E3E3E3 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  #blog-reading-area.reading-mode-light aside h3 {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light aside a.toc-link {
+    color: #4A4A4A !important;
+  }
+
+  #blog-reading-area.reading-mode-light aside a.toc-link:hover,
+  #blog-reading-area.reading-mode-light aside a.toc-link.text-white {
+    color: #111111 !important;
+    font-weight: 600;
+  }
+
+  /* Artigo Prose */
+  #blog-reading-area.reading-mode-light article.prose {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose p,
+  #blog-reading-area.reading-mode-light article.prose li {
+    color: #222222 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose h2 {
+    border-bottom-color: #E3E3E3 !important;
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose a {
+    color: #00A39E !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose a:hover {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose strong {
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose blockquote {
+    background-color: #F2F2F2 !important;
+    border-left-color: #00A39E !important;
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose code:not(pre code) {
+    background-color: #F2F2F2 !important;
+    color: #00A39E !important;
+    border: 1px solid #E3E3E3 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose hr {
+    border-color: #E3E3E3 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose table thead {
+    border-bottom-color: #E3E3E3 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose table th {
+    background-color: #F2F2F2 !important;
+    color: #111111 !important;
+    border-color: #E3E3E3 !important;
+  }
+
+  #blog-reading-area.reading-mode-light article.prose table td {
+    color: #222222 !important;
+    border-bottom-color: #E3E3E3 !important;
+  }
+
+  /* Botão Toggle no Modo Claro */
+  #reading-mode-toggle-btn.is-light-active {
+    background-color: #F2F2F2 !important;
+    border-color: #C6C6C6 !important;
+    color: #111111 !important;
+  }
+
+  #reading-mode-toggle-btn.is-light-active:hover {
+    background-color: #FFFFFF !important;
+    border-color: #00A39E !important;
+    box-shadow: 0 0 12px rgba(0, 163, 158, 0.25) !important;
+  }
+
+  /* Cartões de navegação anterior/próximo */
+  #blog-reading-area.reading-mode-light a[href^="/blog/"] {
+    background-color: #F2F2F2 !important;
+    border-color: #E3E3E3 !important;
+    color: #111111 !important;
+  }
+
+  #blog-reading-area.reading-mode-light a[href^="/blog/"]:hover {
+    background-color: #FFFFFF !important;
+    border-color: #00A39E !important;
+    color: #00A39E !important;
+  }
+
+  /* Barra de Compartilhamento */
+  #blog-reading-area.reading-mode-light .blog-share-bar {
+    background-color: #F8F9FA !important;
+    border-color: #E3E3E3 !important;
+    color: #4A4A4A !important;
+  }
+</style>
 </Base>

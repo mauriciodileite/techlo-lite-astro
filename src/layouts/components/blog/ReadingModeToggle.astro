@@ -1,0 +1,120 @@
+---
+/**
+ * Componente: ReadingModeToggle.astro
+ * Alternador de Modo Leitura (Dark / Light) exclusivo para artigos do blog.
+ * Diretrizes do Brand Book:
+ * - Modo Escuro: Fundo #111111 (Preto Pista), texto branco / #C6C6C6 (Prata), destaque #00A39E (Petronas).
+ * - Modo Claro (Leitura): Fundo #FFFFFF (Branco), superfícies #F2F2F2 (Prata clara), texto #111111 (Preto Pista), destaque #00A39E (Petronas).
+ */
+
+interface Props {
+  isEnglish?: boolean;
+}
+
+const { isEnglish = false } = Astro.props;
+---
+
+<button
+  id="reading-mode-toggle-btn"
+  type="button"
+  class="group inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#181818] px-3.5 py-1.5 font-['IBM_Plex_Mono',monospace] text-xs font-medium text-[#C6C6C6] transition-all hover:border-[#00A39E] hover:text-white hover:shadow-[0_0_12px_rgba(0,163,158,0.2)] focus:outline-none focus:ring-1 focus:ring-[#00A39E]"
+  title={isEnglish ? "Toggle reading theme (Light / Dark)" : "Alternar modo de leitura (Claro / Escuro)"}
+  aria-label={isEnglish ? "Toggle reading theme" : "Alternar modo de leitura"}
+>
+  <!-- Ícone Sol (Modo Claro) -->
+  <svg
+    id="reading-mode-sun-icon"
+    class="h-3.5 w-3.5 text-[#00A39E] transition-transform duration-300 group-hover:rotate-45"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+    />
+  </svg>
+
+  <!-- Ícone Lua (Modo Escuro - oculto inicialmente) -->
+  <svg
+    id="reading-mode-moon-icon"
+    class="hidden h-3.5 w-3.5 text-[#00A39E] transition-transform duration-300 group-hover:-rotate-12"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+    />
+  </svg>
+
+  <span id="reading-mode-text" class="tracking-tight">
+    {isEnglish ? "Light Mode" : "Modo Claro"}
+  </span>
+</button>
+
+<script is:inline>
+  (() => {
+    const STORAGE_KEY = "mauricio_blog_reading_theme";
+
+    function applyTheme(theme) {
+      const container = document.getElementById("blog-reading-area");
+      const btn = document.getElementById("reading-mode-toggle-btn");
+      const sunIcon = document.getElementById("reading-mode-sun-icon");
+      const moonIcon = document.getElementById("reading-mode-moon-icon");
+      const textSpan = document.getElementById("reading-mode-text");
+
+      if (!container) return;
+
+      const isLight = theme === "light";
+
+      if (isLight) {
+        container.classList.add("reading-mode-light");
+      } else {
+        container.classList.remove("reading-mode-light");
+      }
+
+      if (btn && sunIcon && moonIcon && textSpan) {
+        if (isLight) {
+          sunIcon.classList.add("hidden");
+          moonIcon.classList.remove("hidden");
+          textSpan.textContent = "Modo Escuro";
+          btn.classList.add("is-light-active");
+        } else {
+          sunIcon.classList.remove("hidden");
+          moonIcon.classList.add("hidden");
+          textSpan.textContent = "Modo Claro";
+          btn.classList.remove("is-light-active");
+        }
+      }
+    }
+
+    // Inicialização rápida sem flash
+    const savedTheme = localStorage.getItem(STORAGE_KEY) || "dark";
+    applyTheme(savedTheme);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      applyTheme(localStorage.getItem(STORAGE_KEY) || "dark");
+
+      const btn = document.getElementById("reading-mode-toggle-btn");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          const currentTheme = localStorage.getItem(STORAGE_KEY) || "dark";
+          const newTheme = currentTheme === "light" ? "dark" : "light";
+          localStorage.setItem(STORAGE_KEY, newTheme);
+          applyTheme(newTheme);
+        });
+      }
+    });
+
+    // Suporte ao View Transitions do Astro
+    document.addEventListener("astro:after-swap", () => {
+      applyTheme(localStorage.getItem(STORAGE_KEY) || "dark");
+    });
+  })();
+</script>
