@@ -27,6 +27,11 @@ keywords:
 readTime: 6
 featured: true
 draft: false
+youtubeId: "lEufE8D7E60"
+videoBadgeText: "Resumo em Vídeo • 45s"
+videoDurationText: "00:45 min"
+videoTitle: "Orkut vai voltar? Resumo em 45 Segundos"
+videoAspectRatio: "9/16"
 ---
 
 **Resposta curta:** ainda não. Na quinta-feira, 8 de outubro de 2026, o criador do Orkut, **Orkut Büyükkökten**, abriu no **orkut.com** uma campanha para reunir apoiadores de uma **nova rede social baseada em comunidades**. Não é a volta do Orkut antigo, não tem data de lançamento e o cadastro não cria conta nem reserva nome de usuário.
