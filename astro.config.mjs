@@ -44,6 +44,7 @@ export default defineConfig({
     "/privacy-policy": "/politica-de-privacidade",
     "/terms-of-service": "/termos-de-uso",
     "/terms-conditions": "/termos-de-uso",
+    "/termos-e-condicoes": "/termos-de-uso",
     "/termos": "/termos-de-uso",
     "/privacidade": "/politica-de-privacidade",
     "/en/terms-of-service": "/en/terms-conditions",

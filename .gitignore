@@ -33,3 +33,7 @@ pnpm-workspace.yaml
 .vercel
 
 .claude
+
+# Agent local configs & secrets
+.agents/mcp_config.json
+.agents/mcp*.json
