@@ -49,6 +49,21 @@ const fontVariables = fontsJson.map((font) => font.cssVariable) as any[];
   <!-- Agentic Resource Discovery (ARD) -->
   <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
 
+  <!-- Google Reader Revenue Manager (Subscribe with Google Basic) -->
+  <script is:inline async type="application/javascript" src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
+  <script is:inline>
+    (self.SWG_BASIC = self.SWG_BASIC || []).push(function(basicSubscriptions) {
+      try {
+        basicSubscriptions.init({
+          type: "NewsArticle",
+          isPartOfType: ["Product"],
+          isPartOfProductId: "CAow54TiCw:openaccess",
+          clientOptions: { theme: "light", lang: "pt-BR" },
+        });
+      } catch (e) {}
+    });
+  </script>
+
   <!------------------
     Fonts
 -------------------->
