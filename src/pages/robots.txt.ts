@@ -20,6 +20,9 @@ ${disallow?.map((item: string) => `Disallow: ${item}`).join("\n") || ""}
 
 # Sitemap location
 Sitemap: ${sitemapURL.href}
+
+# Agentic Resource Discovery (ARD) capability manifest
+Agentmap: https://mauricioleite.com.br/.well-known/ai-catalog.json
 `;
 
 export const GET: APIRoute = ({ site }) => {

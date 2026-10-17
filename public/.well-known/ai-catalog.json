@@ -1,0 +1,21 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Maurício Leite",
+    "identifier": "did:web:mauricioleite.com.br"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:mauricioleite.com.br:skill:instalar-mcp-gsc-windows",
+      "displayName": "Instalar MCP Google Search Console no Windows",
+      "type": "application/vnd.agent-skill+zip",
+      "url": "https://mauricioleite.com.br/downloads/instalar-mcp-gsc-windows.skill",
+      "representativeQueries": [
+        "como instalar mcp do google search console no windows",
+        "conectar claude desktop ao search console",
+        "skill mcp google search console windows",
+        "automatizar auditoria seo com claude desktop e gsc"
+      ]
+    }
+  ]
+}
