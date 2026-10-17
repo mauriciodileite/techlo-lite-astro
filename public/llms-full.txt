@@ -1,0 +1,48 @@
+# Maurício Leite — Documento Completo para LLMs (llms-full.txt)
+
+> Estratégia, IA e Engenharia de Software. Artigos práticos, frameworks e análises aprofundadas sobre automações, agentes de IA, arquitetura e escala de produtos por Maurício Leite.
+
+Website: https://mauricioleite.com.br
+Autor: Maurício Leite
+Áreas de Especialidade: Inteligência Artificial, Agentes Autônomos, Model Context Protocol (MCP), Arquitetura de Software, Neo4j, Mem0, SEO & GEO (Generative Engine Optimization).
+
+---
+
+## 1. Tutoriais e Artigos Detalhados
+
+### 1.1 Instalar o MCP do Google Search Console no Windows com Claude Desktop
+- **URL**: https://mauricioleite.com.br/blog/instalar-mcp-google-search-console-claude-desktop-windows/
+- **Resumo**: Tutorial completo para conectar o Claude Desktop à API oficial do Google Search Console no Windows via MCP. Explica resolução de erros comuns de terminal (curl | sh no PowerShell), caminhos de diretório ("Usuários" vs "Users"), extensões duplas de JSON, variáveis de ambiente e inclui download de Skill pronta para agentes em https://mauricioleite.com.br/downloads/instalar-mcp-gsc-windows.skill.
+
+### 1.2 DataForSEO + Claude Code: Alternativa Moderna a Semrush e Ahrefs
+- **URL**: https://mauricioleite.com.br/blog/dataforseo-claude-code-alternativa-semrush-ahrefs/
+- **Resumo**: Análise comparativa e guia de integração utilizando Claude Code conectado às APIs da DataForSEO para extração de métricas de SERP, volume de busca, backlinks e auditorias técnicas sem custos fixos abusivos de ferramentas legadas de SEO.
+
+### 1.3 Melhor Configuração de Agentes de IA no WhatsApp com Grafos Neo4j
+- **URL**: https://mauricioleite.com.br/blog/melhor-configuracao-agentes-ia-whatsapp-grafos-neo4j/
+- **Resumo**: Arquitetura avançada de retenção de contexto para agentes de WhatsApp. Demonstra como modelar histórico de conversas, entidades e preferências de clientes em banco de dados de grafos Neo4j, superando as limitações de vetores simples com GraphRAG.
+
+### 1.4 Mem0 Open Source: Arquitetura e Guia Completo de Self-Hosting
+- **URL**: https://mauricioleite.com.br/blog/mem0-open-source-architecture-and-self-hosting-guide/
+- **Resumo**: Guia passo a passo de auto-hospedagem da camada de memória persistente Mem0 para agentes de IA. Detalha arquitetura de vetores, sincronização de memórias de usuário e sessão e integração com LLMs locais e em nuvem.
+
+### 1.5 Estudo de Caso Dora IA: Saúde Auditiva em Brasília
+- **URL**: https://mauricioleite.com.br/blog/estudo-de-caso-dora-ia-saude-auditiva-brasilia/
+- **Resumo**: Caso real de aplicação de agente de inteligência artificial em clínica de saúde auditiva no Distrito Federal, automatizando triagem, esclarecimento de dúvidas e agendamentos com ganho comprovado de conversão e eficiência.
+
+### 1.6 Radar IA no Marketing: Google AI Overviews, Meta Muse e ChatGPT Ads
+- **URL**: https://mauricioleite.com.br/blog/radar-ia-marketing-google-ai-overviews-meta-muse-chatgpt-ads/
+- **Resumo**: Panorama estratégico das mudanças nos mecanismos de busca com o advento do Google AI Overviews, novos formatos de anúncios em assistentes conversacionais e o futuro da visibilidade de marcas em modelos generativos.
+
+### 1.7 Meta Ads e IA: Otimização de Orçamento, ROAS e Geração de Leads
+- **URL**: https://mauricioleite.com.br/blog/meta-ads-ia-orcamento-google-roas-margem-reels-reddit-leads/
+- **Resumo**: Estratégias táticas para calibrar campanhas de tráfego pago na Meta utilizando automações inteligentes, alocação dinâmica de verba e qualificação automática de leads.
+
+---
+
+## 2. Contato e Agendamento
+
+- **Agendamento de Consultoria**: https://mauricioleite.com.br/agenda/
+- **Consultoria Corporativa**: https://mauricioleite.com.br/empresas-exterior/
+- **Catálogo de Agentes (ARD)**: https://mauricioleite.com.br/.well-known/ai-catalog.json
+- **Índice de Skills**: https://mauricioleite.com.br/.well-known/agent-skills/index.json

@@ -1,0 +1,28 @@
+# Maurício Leite
+
+> Estratégia, IA e Engenharia de Software. Artigos práticos, frameworks e análises aprofundadas sobre automações, agentes de IA, arquitetura e escala de produtos por Maurício Leite.
+
+Maurício Leite é especialista em Inteligência Artificial, Engenharia de Software e Automações, desenvolvendo soluções avançadas com Model Context Protocol (MCP), agentes autônomos, integrações de APIs e estratégias de SEO moderno para motores de busca e modelos de IA (GEO / AIO).
+
+## Artigos Principais e Tutoriais
+
+- [Instalar o MCP do Google Search Console no Windows: Guia Definitivo com Claude Desktop](https://mauricioleite.com.br/blog/instalar-mcp-google-search-console-claude-desktop-windows/): Passo a passo para conectar o Claude Desktop ao Google Search Console no Windows com download de Skill exclusiva.
+- [DataForSEO + Claude Code: Alternativa Moderna a Semrush e Ahrefs](https://mauricioleite.com.br/blog/dataforseo-claude-code-alternativa-semrush-ahrefs/): Como utilizar a API DataForSEO com Claude Code para auditorias e inteligência orgânica sem ferramentas legadas caras.
+- [Melhor Configuração de Agentes de IA no WhatsApp com Grafos Neo4j](https://mauricioleite.com.br/blog/melhor-configuracao-agentes-ia-whatsapp-grafos-neo4j/): Arquitetura de agentes conversacionais conectados a bancos de grafos Neo4j para retenção de memória e contexto relacional.
+- [Mem0 Open Source: Arquitetura e Guia de Self-Hosting](https://mauricioleite.com.br/blog/mem0-open-source-architecture-and-self-hosting-guide/): Guia prático de auto-hospedagem e arquitetura de memória persistente para agentes com Mem0.
+- [Estudo de Caso Dora IA: Saúde Auditiva em Brasília com IA](https://mauricioleite.com.br/blog/estudo-de-caso-dora-ia-saude-auditiva-brasilia/): Implementação prática de IA no setor de saúde auditiva, métricas de eficiência e atendimento.
+- [Radar IA no Marketing: Google AI Overviews, Meta Muse e ChatGPT Ads](https://mauricioleite.com.br/blog/radar-ia-marketing-google-ai-overviews-meta-muse-chatgpt-ads/): Tendências de IA generativa no tráfego pago, SEO e anúncios em assistentes.
+- [Meta Ads e IA: Otimização de Orçamento, ROAS e Geração de Leads](https://mauricioleite.com.br/blog/meta-ads-ia-orcamento-google-roas-margem-reels-reddit-leads/): Estratégias de escala de mídia paga orientadas por IA.
+
+## Páginas e Serviços
+
+- [Blog](https://mauricioleite.com.br/blog/): Todos os artigos e análises sobre IA e engenharia.
+- [Agendar Reunião / Consultoria](https://mauricioleite.com.br/agenda/): Agendamento de diagnóstico estratégico de IA e arquitetura de software com Maurício Leite.
+- [Empresas](https://mauricioleite.com.br/empresas-exterior/): Soluções e consultoria em IA para empresas internacionais e nacionais.
+
+## Recursos de Descoberta para Agentes
+
+- [Índice de Skills de IA](https://mauricioleite.com.br/.well-known/agent-skills/index.json): Download direto de skills executáveis para agentes.
+- [Catálogo ARD](https://mauricioleite.com.br/.well-known/ai-catalog.json): Manifesto de recursos semânticos para descoberta de IA.
+- [Versão Completa LLMs](https://mauricioleite.com.br/llms-full.txt): Documento expandido com resumos técnicos de cada publicação.
+- [Sitemap](https://mauricioleite.com.br/sitemap-index.xml): Mapa completo de URLs do site.
