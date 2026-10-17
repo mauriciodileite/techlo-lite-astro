@@ -38,6 +38,10 @@ Autor: Maurício Leite
 - **URL**: https://mauricioleite.com.br/blog/meta-ads-ia-orcamento-google-roas-margem-reels-reddit-leads/
 - **Resumo**: Estratégias táticas para calibrar campanhas de tráfego pago na Meta utilizando automações inteligentes, alocação dinâmica de verba e qualificação automática de leads.
 
+### 1.8 Como Fazer Automação no WhatsApp para Receber Pix com Agentes de IA
+- **URL**: https://mauricioleite.com.br/blog/automacao-whatsapp-receber-pix-agentes-ia/
+- **Resumo**: Guia de segurança e arquitetura para recebimento de pagamentos via Pix com agentes de IA no WhatsApp. Demonstra por que chaves estáticas (CNPJ) falham em escala e como utilizar Pix Dinâmico com identificadores únicos (external_reference) e fluxos n8n integrados a APIs bancárias para conciliação 100% automática.
+
 ---
 
 ## 2. Contato e Agendamento

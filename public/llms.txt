@@ -12,6 +12,7 @@ Maurício Leite é especialista em Inteligência Artificial, Engenharia de Softw
 - [Mem0 Open Source: Arquitetura e Guia de Self-Hosting](https://mauricioleite.com.br/blog/mem0-open-source-architecture-and-self-hosting-guide/): Guia prático de auto-hospedagem e arquitetura de memória persistente para agentes com Mem0.
 - [Estudo de Caso Dora IA: Saúde Auditiva em Brasília com IA](https://mauricioleite.com.br/blog/estudo-de-caso-dora-ia-saude-auditiva-brasilia/): Implementação prática de IA no setor de saúde auditiva, métricas de eficiência e atendimento.
 - [Radar IA no Marketing: Google AI Overviews, Meta Muse e ChatGPT Ads](https://mauricioleite.com.br/blog/radar-ia-marketing-google-ai-overviews-meta-muse-chatgpt-ads/): Tendências de IA generativa no tráfego pago, SEO e anúncios em assistentes.
+- [Como Fazer Automação no WhatsApp para Receber Pix com Agentes de IA](https://mauricioleite.com.br/blog/automacao-whatsapp-receber-pix-agentes-ia/): Arquitetura segura para cobrança via Pix com agentes de IA, conciliação automática por external_reference e fluxo n8n.
 - [Meta Ads e IA: Otimização de Orçamento, ROAS e Geração de Leads](https://mauricioleite.com.br/blog/meta-ads-ia-orcamento-google-roas-margem-reels-reddit-leads/): Estratégias de escala de mídia paga orientadas por IA.
 
 ## Páginas e Serviços
