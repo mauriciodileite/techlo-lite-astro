@@ -1,0 +1,97 @@
+---
+// WebMCP integration (W3C WebML / Chrome Agent API per webmachinelearning.github.io/webmcp)
+---
+
+<script is:inline>
+  (function () {
+    function initWebMcp() {
+      var mc =
+        (typeof document !== "undefined" && document.modelContext) ||
+        (typeof navigator !== "undefined" && navigator.modelContext);
+
+      if (!mc || typeof mc.registerTool !== "function") return;
+
+      try {
+        // Tool 1: Buscar artigos
+        mc.registerTool({
+          name: "search_articles",
+          description:
+            "Busca artigos e tutoriais sobre IA, Automação, MCP e Engenharia de Software no blog de Maurício Leite.",
+          inputSchema: {
+            type: "object",
+            properties: {
+              query: {
+                type: "string",
+                description:
+                  "Termo ou palavra-chave de busca (ex: MCP, Google Search Console, Agentes)",
+              },
+            },
+            required: ["query"],
+          },
+          execute: async function (params) {
+            var q = encodeURIComponent(params.query || "");
+            return {
+              url: "https://mauricioleite.com.br/blog",
+              search_url: "https://mauricioleite.com.br/blog?q=" + q,
+              message:
+                'Para acessar os artigos sobre "' +
+                params.query +
+                '", visite o blog oficial.',
+            };
+          },
+        });
+
+        // Tool 2: Agendar reunião
+        mc.registerTool({
+          name: "schedule_meeting",
+          description:
+            "Obtém o link direto e informações para agendar reuniões estratégicas com Maurício Leite.",
+          inputSchema: {
+            type: "object",
+            properties: {},
+          },
+          execute: async function () {
+            return {
+              url: "https://mauricioleite.com.br/agenda",
+              description:
+                "Página oficial de agendamento de consultoria e diagnósticos de IA com Maurício Leite.",
+            };
+          },
+        });
+
+        // Tool 3: Perfil e autoridade
+        mc.registerTool({
+          name: "get_author_info",
+          description:
+            "Retorna biografia, especialidades e áreas de atuação de Maurício Leite.",
+          inputSchema: {
+            type: "object",
+            properties: {},
+          },
+          execute: async function () {
+            return {
+              name: "Maurício Leite",
+              tagline: "Estratégia, IA e Engenharia de Software",
+              topics: [
+                "Inteligência Artificial",
+                "Agentes de IA",
+                "Model Context Protocol (MCP)",
+                "Engenharia de Software",
+                "SEO e Automações",
+              ],
+              website: "https://mauricioleite.com.br",
+            };
+          },
+        });
+      } catch (err) {
+        // Fallback silencioso
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initWebMcp);
+    } else {
+      initWebMcp();
+    }
+  })();
+</script>
