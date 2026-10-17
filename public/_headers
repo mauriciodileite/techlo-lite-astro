@@ -1,3 +1,7 @@
 # RFC 8288 Link Headers for Agent Discovery
 /
   Link: </llms.txt>; rel="describedby"
+
+# Agent Discovery Endpoints CORS
+/.well-known/*
+  Access-Control-Allow-Origin: *

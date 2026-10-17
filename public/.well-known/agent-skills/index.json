@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "instalar-mcp-gsc-windows",
+      "type": "archive",
+      "description": "Skill para instalar e configurar o MCP oficial do Google Search Console no Claude Desktop para Windows.",
+      "url": "/downloads/instalar-mcp-gsc-windows.skill",
+      "digest": "sha256:3dd8464eb7eb689ccc10bbd125bda26aa54b91a637517f57db5c453000a4fbfc"
+    }
+  ]
+}
