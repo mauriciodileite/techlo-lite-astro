@@ -86,6 +86,6 @@
     Header append Vary: Accept-Encoding
   </FilesMatch>
   <FilesMatch "^(index\.html)?$">
-    Header set Link "</.well-known/api-catalog>; rel=\"api-catalog\", </llms.txt>; rel=\"describedby\""
+    Header set Link "</llms.txt>; rel=\"describedby\""
   </FilesMatch>
 </IfModule>
