@@ -9,6 +9,9 @@ const getRobotsTxt = (
 
 User-agent: *
 
+# Content Signals (AI preferences per contentsignals.org)
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+
 # Allowed pages
 Allow: /
 
