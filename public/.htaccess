@@ -80,9 +80,12 @@
   SetOutputFilter DEFLATE
 </FilesMatch>
 
-##### Set Header Vary: Accept-Encoding
+##### Set Header Vary: Accept-Encoding and Agent Discovery Link Headers
 <IfModule mod_headers.c>
   <FilesMatch ".(js|css|xml|gz|html)$">
     Header append Vary: Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "^(index\.html)?$">
+    Header set Link "</.well-known/api-catalog>; rel=\"api-catalog\", </llms.txt>; rel=\"describedby\""
   </FilesMatch>
 </IfModule>

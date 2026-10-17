@@ -1,0 +1,3 @@
+# RFC 8288 / RFC 9727 Link Headers for Agent Discovery
+/
+  Link: </.well-known/api-catalog>; rel="api-catalog", </llms.txt>; rel="describedby"
