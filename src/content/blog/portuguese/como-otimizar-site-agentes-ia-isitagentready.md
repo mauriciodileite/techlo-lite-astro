@@ -95,4 +95,21 @@ Se a sua empresa quer se posicionar como autoridade e ser encontrada pelas intel
 
 Se você tem um negócio e deseja avaliar a presença digital da sua marca, automatizar processos com IA ou preparar sua estrutura para os novos motores de busca, agende uma reunião estratégica de 30 minutos diretamente com nosso time:
 
-👉 [**Agendar Reunião Estratégica via Cal.com**](https://mauricioleite.com.br/agenda)
+<div class="my-8 text-center not-prose">
+  <button
+    type="button"
+    data-cal-link="mauricioleite/30min"
+    data-cal-namespace=""
+    data-cal-config='{"layout":"month_view","theme":"dark"}'
+    class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#00A39E] text-black font-bold text-base hover:bg-[#00b5af] hover:shadow-[0_0_25px_rgba(0,163,158,0.4)] transition-all duration-300 shadow-lg shadow-[#00A39E]/20 cursor-pointer"
+  >
+    <span>Agendar Reunião Estratégica</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14"></path>
+      <path d="m12 5 7 7-7 7"></path>
+    </svg>
+  </button>
+  <p class="text-xs text-neutral-500 mt-2 font-sans">
+    Google Meet • 30 minutos • Sem burocracia
+  </p>
+</div>

@@ -129,38 +129,18 @@ const { postSlug, isEnglish = false } = Astro.props;
 <script is:inline define:vars={{ postSlug, isEnglish }}>
   const storageKey = `disqus_comments_${postSlug}`;
 
-  // Comentários padrão realistas para o artigo inicial
-  const defaultSeeds = [
-    {
-      id: "seed-1",
-      author_name: "Ricardo Mendes",
-      author_email: "ricardo@techleads.com",
-      content: "Excelente abordagem sobre automações e arquitetura. Como você recomenda estruturar a passagem de leads qualificados do tráfego direto para o funil no WhatsApp?",
-      created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
-      upvotes: 4,
-      is_author: false,
-      replies: [
-        {
-          id: "seed-1-1",
-          author_name: "Maurício Leite",
-          author_email: "contato@mauricioleite.com",
-          content: "O segredo está em filtrar a intenção logo no anúncio e usar Webhooks diretos para disparar a mensagem em menos de 10 segundos, Ricardo. No método VCEC abordamos esse fluxo exato.",
-          created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
-          upvotes: 7,
-          is_author: true,
-          replies: []
-        }
-      ]
-    }
-  ];
-
+  // Comentários: sem seeds fakes, lista 100% limpa e autêntica
   let comments = [];
 
   try {
     const saved = localStorage.getItem(storageKey);
-    comments = saved ? JSON.parse(saved) : defaultSeeds;
+    let parsed = saved ? JSON.parse(saved) : [];
+    // Filtro para remover permanentemente sementes fakes antigas do cache do visitante
+    comments = Array.isArray(parsed)
+      ? parsed.filter(c => !c.id?.startsWith("seed-") && c.author_name !== "Ricardo Mendes")
+      : [];
   } catch (e) {
-    comments = defaultSeeds;
+    comments = [];
   }
 
   function saveComments() {
@@ -296,8 +276,16 @@ const { postSlug, isEnglish = false } = Astro.props;
     if (countDisplay) countDisplay.textContent = countTotal(comments);
 
     if (container) {
-      container.innerHTML = renderTree(comments);
-      attachListeners();
+      if (comments.length === 0) {
+        container.innerHTML = `
+          <div class="py-8 text-center text-xs text-neutral-500 font-sans border border-dashed border-white/5 rounded-2xl">
+            ${isEnglish ? 'No comments yet. Be the first to start the conversation!' : 'Nenhum comentário ainda. Deixe sua pergunta ou dúvida acima!'}
+          </div>
+        `;
+      } else {
+        container.innerHTML = renderTree(comments);
+        attachListeners();
+      }
     }
   }
 
