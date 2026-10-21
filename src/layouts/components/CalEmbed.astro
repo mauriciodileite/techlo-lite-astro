@@ -100,13 +100,13 @@ const resolvedButtonText = buttonText ?? (isEnglish ? "Book a call" : "Agendar r
           </p>
         </div>
 
-        <!-- Botão Book a call / Agendar Reunião que dispara o Cal.com Modal Popup -->
+        <!-- Botão Book a call / Agendar Reunião com cor fixa Petronas (#00A39E) -->
         <button
           type="button"
           data-cal-link={calLink}
           data-cal-namespace=""
           data-cal-config='{"layout":"month_view","theme":"dark"}'
-          class="w-full py-3.5 px-6 rounded-full bg-white text-black font-semibold font-['Sora',sans-serif] text-sm md:text-base hover:bg-[#00A39E] hover:text-white transition-all duration-300 shadow-lg hover:shadow-[#00A39E]/25 flex items-center justify-center gap-2 cursor-pointer"
+          class="w-full py-3.5 px-6 rounded-full bg-[#00A39E] text-black font-bold font-['Sora',sans-serif] text-sm md:text-base hover:bg-[#00b5af] hover:shadow-[0_0_25px_rgba(0,163,158,0.4)] transition-all duration-300 shadow-lg shadow-[#00A39E]/20 flex items-center justify-center gap-2 cursor-pointer"
         >
           <span>{resolvedButtonText}</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5">
