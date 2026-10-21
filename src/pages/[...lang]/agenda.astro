@@ -3,7 +3,7 @@ import Base from "@/layouts/Base.astro";
 import HeaderNav from "@/components/HeaderNav.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
 import VideoPlayer1Min from "@/components/VideoPlayer1Min.astro";
-import CalendlyEmbed from "@/components/CalendlyEmbed.astro";
+import CalEmbed from "@/components/CalEmbed.astro";
 import FaqAccordion, { type FaqItem } from "@/components/FaqAccordion.astro";
 import { generatePaths } from "@/lib/utils/i18nUtils.ts";
 
@@ -322,11 +322,12 @@ const currentFaqs = isEnglish ? faqsAiSimEn : faqsAiSimPt;
         </div>
       </section>
 
-      <!-- 5. AGENDAMENTO CALENDLY (POSICIONADO ANTES DO FAQ, SEM SCROLLBAR) -->
-      <CalendlyEmbed
-        url="https://calendly.com/mauricioleitecontato/30min"
+      <!-- 5. AGENDAMENTO CAL.COM (MODAL POPUP ESCURO COM QUALIFICAÇÃO) -->
+      <CalEmbed
+        calLink="mauricioleite/30min"
         title={isEnglish ? "Ready to increase your net profit with a partner agency?" : "Pronto para aumentar seu lucro líquido com uma agência parceira?"}
         description={isEnglish ? "Tell us about your business and receive a clear proposal — with zero bureaucracy." : "Conte pra gente sobre o seu negócio e receba um orçamento — sem burocracia."}
+        isEnglish={isEnglish}
       />
 
       <!-- 6. FAQ EXCLUSIVO AISIM (APÓS O CALENDLY) -->

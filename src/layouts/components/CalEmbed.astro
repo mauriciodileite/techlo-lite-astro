@@ -1,0 +1,179 @@
+---
+/**
+ * Componente: CalEmbed.astro
+ * Responsabilidade: Card executivo com disparo do Modal Popup oficial do Cal.com (dark mode).
+ * Design: Baseado na referência executiva Starpop (foto, nome, Instagram, botão de agendamento em modal).
+ */
+
+interface Props {
+  calLink?: string;
+  title?: string;
+  description?: string;
+  name?: string;
+  role?: string;
+  instagramUrl?: string;
+  buttonText?: string;
+  photoUrl?: string;
+  isEnglish?: boolean;
+}
+
+const {
+  calLink = "mauricioleite/30min",
+  title = "Agende uma Reunião Estratégica",
+  description = "Escolha o melhor dia e horário para conversarmos diretamente sobre o seu negócio.",
+  name = "Maurício Leite",
+  role,
+  instagramUrl = "https://www.instagram.com/mauriciodeleite",
+  buttonText,
+  photoUrl = "/images/mauricio-card-1.jpeg",
+  isEnglish = false,
+} = Astro.props;
+
+const resolvedRole = role ?? (isEnglish ? "Founder & Growth Partner" : "Fundador aiSIM & Estrategista");
+const resolvedButtonText = buttonText ?? (isEnglish ? "Book a call" : "Agendar reunião");
+---
+
+<section id="agendamento" class="relative py-20 bg-[#111111] text-white overflow-hidden">
+  <!-- Glow decorativo sutil de fundo -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#00A39E]/10 rounded-full blur-[120px] pointer-events-none -z-0"></div>
+
+  <div class="container mx-auto px-4 max-w-4xl relative z-10">
+    <!-- Cabeçalho da Seção -->
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-4">
+        <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
+        <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-['Sora',sans-serif] font-semibold">
+          {isEnglish ? "Official Calendar" : "Agenda Oficial"}
+        </span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold font-['Sora',sans-serif] text-white mb-3">
+        {title}
+      </h2>
+      <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg max-w-xl mx-auto">
+        {description}
+      </p>
+    </div>
+
+    <!-- Card Estilo Referência David Ishag / Starpop com foto de Maurício -->
+    <div class="max-w-sm mx-auto">
+      <div class="relative bg-[#181818] border border-white/10 rounded-3xl p-4 md:p-5 shadow-2xl transition-all duration-300 hover:border-[#00A39E]/50 group">
+        
+        <!-- Foto de Maurício Leite -->
+        <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-5 bg-[#0D0D0D]">
+          <img
+            src={photoUrl}
+            alt={name}
+            class="w-full h-full object-cover object-top filter grayscale contrast-105 group-hover:scale-[1.02] transition-transform duration-500"
+            loading="lazy"
+          />
+          <!-- Badge 30 min no canto superior -->
+          <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-[11px] font-['Sora',sans-serif] text-white flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E]"></span>
+            <span>30 min</span>
+          </div>
+        </div>
+
+        <!-- Info do Perfil -->
+        <div class="px-1 mb-5">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white tracking-tight">
+              {name}
+            </h3>
+            <!-- Ícone do Instagram ao lado do nome (substituindo o X) -->
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-black/60 border border-white/15 text-neutral-300 hover:text-[#00A39E] hover:border-[#00A39E] hover:bg-[#00A39E]/10 transition-all"
+              title="Instagram @mauriciodeleite"
+              aria-label="Instagram de Maurício Leite"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+              </svg>
+            </a>
+          </div>
+          <p class="text-sm text-neutral-400 font-['Instrument_Sans',sans-serif]">
+            {resolvedRole}
+          </p>
+        </div>
+
+        <!-- Botão Book a call / Agendar Reunião que dispara o Cal.com Modal Popup -->
+        <button
+          type="button"
+          data-cal-link={calLink}
+          data-cal-namespace=""
+          data-cal-config='{"layout":"month_view","theme":"dark"}'
+          class="w-full py-3.5 px-6 rounded-full bg-white text-black font-semibold font-['Sora',sans-serif] text-sm md:text-base hover:bg-[#00A39E] hover:text-white transition-all duration-300 shadow-lg hover:shadow-[#00A39E]/25 flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <span>{resolvedButtonText}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </button>
+
+        <!-- Informação complementar e link de contingência -->
+        <div class="mt-4 text-center">
+          <p class="text-[11px] text-neutral-500 font-['Instrument_Sans',sans-serif] flex items-center justify-center gap-2">
+            <span>Google Meet</span>
+            <span>•</span>
+            <span>{isEnglish ? "Questions included" : "Perguntas de qualificação"}</span>
+            <span>•</span>
+            <a
+              href={`https://cal.com/${calLink}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-neutral-400 hover:text-[#00A39E] underline transition-colors"
+            >
+              {isEnglish ? "Direct link" : "Link direto"}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Script Oficial do Cal.com para Embed Modal/Popup -->
+<script is:inline>
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement("script")).src = A;
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") {
+          cal.ns[namespace] = cal.ns[namespace] || api;
+          p(cal.ns[namespace], ar);
+          p(cal, ["initNamespace", namespace]);
+        } else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", { origin: "https://cal.com" });
+
+  Cal("ui", {
+    theme: "dark",
+    styles: {
+      branding: { brandColor: "#00A39E" }
+    },
+    hideEventTypeDetails: false,
+    layout: "month_view"
+  });
+</script>

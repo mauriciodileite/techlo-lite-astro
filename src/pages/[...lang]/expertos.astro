@@ -3,7 +3,7 @@ import Base from "@/layouts/Base.astro";
 import HeaderNav from "@/components/HeaderNav.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
 import VideoPlayer1Min from "@/components/VideoPlayer1Min.astro";
-import CalendlyEmbed from "@/components/CalendlyEmbed.astro";
+import CalEmbed from "@/components/CalEmbed.astro";
 import ComparisonTable, { type ComparisonRow } from "@/components/ComparisonTable.astro";
 import FaqAccordion, { type FaqItem } from "@/components/FaqAccordion.astro";
 import { generatePaths } from "@/lib/utils/i18nUtils.ts";
@@ -212,11 +212,12 @@ const currentFaqs = isEnglish ? faqsExpertsEn : faqsExpertsPt;
         ctaUrlB="#agendamento"
       />
 
-      <!-- 4. AGENDAMENTO CALENDLY -->
-      <CalendlyEmbed
-        url="https://calendly.com/mauricioleitecontato/30min"
+      <!-- 4. AGENDAMENTO CAL.COM (MODAL POPUP ESCURO COM QUALIFICAÇÃO) -->
+      <CalEmbed
+        calLink="mauricioleite/30min"
         title={isEnglish ? "Book Your Partnership Alignment Call" : "Agende sua reunião de alinhamento de parceria"}
         description={isEnglish ? "Choose your best time to discuss your products, audience, and perpetual funnel potential." : "Escolha o melhor dia e horário para analisarmos sua audiência e potencial de escala no perpétuo."}
+        isEnglish={isEnglish}
       />
 
       <!-- 5. FAQ EXCLUSIVO PARA EXPERTS -->

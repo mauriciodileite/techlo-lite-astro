@@ -3,7 +3,7 @@ import Base from "@/layouts/Base.astro";
 import HeaderNav from "@/components/HeaderNav.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
 import VideoPlayer1Min from "@/components/VideoPlayer1Min.astro";
-import CalendlyEmbed from "@/components/CalendlyEmbed.astro";
+import CalEmbed from "@/components/CalEmbed.astro";
 import FaqAccordion, { type FaqItem } from "@/components/FaqAccordion.astro";
 import { generatePaths } from "@/lib/utils/i18nUtils.ts";
 
@@ -237,11 +237,12 @@ const currentFaqs = isEnglish ? faqsExteriorEn : faqsExteriorPt;
         </div>
       </section>
 
-      <!-- 4. AGENDAMENTO CALENDLY (DIRETO NO EVENTO /30MIN) -->
-      <CalendlyEmbed
-        url="https://calendly.com/mauricioleitecontato/30min"
+      <!-- 4. AGENDAMENTO CAL.COM (DIRETO NO EVENTO /30MIN VIA MODAL) -->
+      <CalEmbed
+        calLink="mauricioleite/30min"
         title={isEnglish ? "Book Your 30-Minute US Growth Strategy Call" : "Agende sua reunião estratégica de crescimento nos EUA"}
         description={isEnglish ? "Choose your best date and time for an executive 30-minute discussion." : "Escolha o melhor dia e horário para conversar diretamente com nossa equipe."}
+        isEnglish={isEnglish}
       />
 
       <!-- 5. FAQ INTERNACIONAL AISIM -->
