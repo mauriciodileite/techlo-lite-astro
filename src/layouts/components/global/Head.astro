@@ -40,6 +40,10 @@ const fontVariables = fontsJson.map((font) => font.cssVariable) as any[];
   {config.head?.content && <Fragment set:html={config.head?.content} />}
   <OpenGraph {...Astro.props} />
   <Favicons />
+  {/* Preload da imagem Hero LCP na Home para redução do LCP mobile */}
+  {(Astro.url.pathname === "/" || Astro.url.pathname === "/pt" || Astro.url.pathname === "/pt/" || Astro.url.pathname === "/en" || Astro.url.pathname === "/en/") && (
+    <link rel="preload" as="image" href="/images/perfil.jpg" fetchpriority="high" />
+  )}
   <JsonLD
     content={{
       ...Astro.props,

@@ -243,13 +243,18 @@ const clientThemeConfig = JSON.stringify({
   const boot = () => {
     applyAnimationConfig();
     initScrollReveal();
-    initCursorFollower();
 
-    // Smooth scroll is only perceivable once the user interacts, so keep the
-    // Lenis module and its rAF loop off the critical load path entirely.
-    initOnFirstInteraction(["wheel", "touchstart", "keydown", "pointerdown"], () => {
-      initLenisSmoothScroll();
-    });
+    const isDesktopPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (isDesktopPointer) {
+      initCursorFollower();
+
+      // Smooth scroll is only perceivable on desktop wheel / keyboard interaction.
+      // Mobile touch uses native inertial scrolling with zero JS main-thread overhead.
+      initOnFirstInteraction(["wheel", "keydown"], () => {
+        initLenisSmoothScroll();
+      });
+    }
 
     runIdle(async () => {
       await initLucide();
@@ -258,9 +263,8 @@ const clientThemeConfig = JSON.stringify({
       initMarqueeAutoPause();
 
       const canHover = window.matchMedia("(hover: hover)").matches;
-      initHorizontalScroll();
-
       if (canHover) {
+        initHorizontalScroll();
         initOnFirstInteraction(["pointerover"], () => {
           initCreativeHoverAnimation();
           initMagneticHoverAnimation();
