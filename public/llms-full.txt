@@ -46,6 +46,10 @@ Autor: Maurício Leite
 - **URL**: https://mauricioleite.com.br/blog/mudancas-meta-ads-termos-ia-google-smart-bidding-chatgpt/
 - **Resumo**: Análise técnica das atualizações de outubro de 2026 nos três maiores players de leilão: novos Termos Comerciais da Meta autorizando raspagem de sites para treino de IA sem opt-out parcial, nova documentação oficial do Google desmistificando o reset de aprendizado por alteração de orçamento diário (teto de 7 dias e 3 gatilhos reais), testes do navegador embutido do WhatsApp no iOS e riscos de abandono de checkout, reescrita autônoma de criativos e URLs no ChatGPT Ads e o modelo preditivo unificado GEM 2026 da Meta.
 
+### 1.10 Como Fazer Anúncios no Formato Podcast com IA: Erros, Acertos e Engenharia de Roteiro na Prática
+- **URL**: https://mauricioleite.com.br/blog/como-fazer-anuncio-formato-podcast-ia/
+- **Resumo**: Estudo de caso real e engenharia de criativos em formato de podcast com IA para a marca de laticínios Autalac. Destrincha o fluxo técnico com HeyGen, ElevenLabs, Nano Banana Pro e Apify MCP para raspagem de dores reais no TikTok Shop e Reddit. Analisa erros críticos de produção (inconsistência de cenário, uncanny valley em avatares públicos, falta de sotaque e imperfeições humanas na voz) e disponibiliza a skill oficial de batching vocal desenvolvida pela Starpop.ai para download.
+
 ---
 
 ## 2. Contato e Agendamento

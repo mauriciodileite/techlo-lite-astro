@@ -7,6 +7,13 @@
       "description": "Skill para instalar e configurar o MCP oficial do Google Search Console no Claude Desktop para Windows.",
       "url": "/downloads/instalar-mcp-gsc-windows.skill",
       "digest": "sha256:3dd8464eb7eb689ccc10bbd125bda26aa54b91a637517f57db5c453000a4fbfc"
+    },
+    {
+      "name": "ai-podcast-ads",
+      "type": "markdown",
+      "description": "Skill de engenharia de anúncios no formato podcast com IA, regras de loteamento vocal (batching) e prompts para MiniMax H3 Max.",
+      "url": "/downloads/ai-podcast-ads-SKILL.md",
+      "digest": "sha256:8fa349e72581a2804bbdb9f5fc42672c2900f6f224224e8a20a634642b9a14ba"
     }
   ]
 }
