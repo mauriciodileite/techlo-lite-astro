@@ -42,6 +42,10 @@ Autor: Maurício Leite
 - **URL**: https://mauricioleite.com.br/blog/automacao-whatsapp-receber-pix-agentes-ia/
 - **Resumo**: Guia de segurança e arquitetura para recebimento de pagamentos via Pix com agentes de IA no WhatsApp. Demonstra por que chaves estáticas (CNPJ) falham em escala e como utilizar Pix Dinâmico com identificadores únicos (external_reference) e fluxos n8n integrados a APIs bancárias para conciliação 100% automática.
 
+### 1.9 Tudo o Que Mudou no Meta Ads, Google Smart Bidding e ChatGPT Ads: Guia Técnico de Atualizações Críticas
+- **URL**: https://mauricioleite.com.br/blog/mudancas-meta-ads-termos-ia-google-smart-bidding-chatgpt/
+- **Resumo**: Análise técnica das atualizações de outubro de 2026 nos três maiores players de leilão: novos Termos Comerciais da Meta autorizando raspagem de sites para treino de IA sem opt-out parcial, nova documentação oficial do Google desmistificando o reset de aprendizado por alteração de orçamento diário (teto de 7 dias e 3 gatilhos reais), testes do navegador embutido do WhatsApp no iOS e riscos de abandono de checkout, reescrita autônoma de criativos e URLs no ChatGPT Ads e o modelo preditivo unificado GEM 2026 da Meta.
+
 ---
 
 ## 2. Contato e Agendamento
