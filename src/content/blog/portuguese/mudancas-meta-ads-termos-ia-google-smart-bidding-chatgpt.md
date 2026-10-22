@@ -21,7 +21,7 @@ featured: true
 draft: false
 ---
 
-Tráfego pago eficiente funciona como telemetria de precisão: você precisa entender a mecânica por trás do algoritmo para não tomar decisões baseadas em folclore. 
+Gestão de tráfego eficiente exige método: você precisa entender a mecânica por trás do algoritmo para não tomar decisões baseadas em folclore. 
 
 Nas últimas semanas, os três maiores ecossistemas de mídia e automação — **Meta, Google e OpenAI** — atualizaram peças estruturais das suas plataformas. Não se trata de mudanças estéticas de painel: são novos termos de rastreamento com consentimento tácito, documentação técnica oficial que derruba crenças antigas de lances inteligentes e sistemas de IA assumindo a reescrita autônoma de anúncios.
 
@@ -72,7 +72,7 @@ O Google encerrou o debate atualizando do zero a documentação técnica oficial
   3. Alterações estruturais na meta primária de conversão.
 * **O que NÃO reseta o histórico:** Ajustes no valor do orçamento diário, alterações na meta numérica de CPA ou ROAS desejado, troca de peças criativas e refinamentos na segmentação geográfica ou de idioma **não resetam o algoritmo nem disparam o status de aprendizado**.
 
-Essa definição técnica coincide com o posicionamento exposto por Tal Akabas, gerente de produto do Google Ads: em campanhas maduras e com volume consistente de conversão, ajustar a verba alinha a entrega sem apagar a telemetria acumulada.
+Essa definição técnica coincide com o posicionamento exposto por Tal Akabas, gerente de produto do Google Ads: em campanhas maduras e com volume consistente de conversão, ajustar a verba alinha a entrega sem apagar o histórico de dados acumulado.
 
 | Elemento Alterado | Reinicia Status de Aprendizado? | Efeito Real no Algoritmo |
 | :--- | :---: | :--- |
@@ -191,4 +191,26 @@ Para transformar atualizações em vantagem competitiva na sua operação:
 
 ---
 
-Precisa estruturar a telemetria, o rastreamento via API e a estratégia de mídia do seu negócio com método de engenharia? [Conheça nosso processo de consultoria e agende um diagnóstico estratégico com Maurício Leite](https://mauricioleite.com.br/agenda/).
+### Quer veicular anúncios online com quem domina o algoritmo das redes sociais?
+
+Agende uma reunião estratégica de 30 minutos diretamente com nosso time:
+
+<div class="my-8 text-center not-prose">
+  <button
+    type="button"
+    data-cal-link="mauricioleite/30min"
+    data-cal-namespace=""
+    data-cal-config='{"layout":"month_view","theme":"dark"}'
+    class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#00A39E] text-black font-bold text-base hover:bg-[#00b5af] hover:shadow-[0_0_25px_rgba(0,163,158,0.4)] transition-all duration-300 shadow-lg shadow-[#00A39E]/20 cursor-pointer"
+  >
+    <span>Agendar Reunião Estratégica</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14"></path>
+      <path d="m12 5 7 7-7 7"></path>
+    </svg>
+  </button>
+  <p class="text-xs text-neutral-500 mt-2 font-sans">
+    Google Meet • 30 minutos • Sem burocracia
+  </p>
+</div>
+
