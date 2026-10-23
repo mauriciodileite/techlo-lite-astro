@@ -1,8 +1,10 @@
 ---
 /**
  * Componente: CalScript.astro
- * Responsabilidade: Inicialização global assíncrona do script oficial do Cal.com.
- * Permite que qualquer botão ou elemento com data-cal-link dispare o modal popup escuro.
+ * Responsabilidade: Inicialização sob demanda (on-demand / lazy) do script oficial do Cal.com.
+ * Não bloqueia a thread principal no carregamento inicial da página.
+ * Carrega e inicializa o embed.js sob interação (hover, touch, focus ou clique em botões de agendamento)
+ * ou de forma assíncrona durante tempo ocioso do navegador se houver botões de agendamento na página.
  */
 ---
 
@@ -34,14 +36,87 @@
     };
   })(window, "https://app.cal.com/embed/embed.js", "init");
 
-  Cal("init", { origin: "https://cal.com" });
+  (function () {
+    let calInitialized = false;
 
-  Cal("ui", {
-    theme: "dark",
-    styles: {
-      branding: { brandColor: "#00A39E" }
-    },
-    hideEventTypeDetails: false,
-    layout: "month_view"
-  });
+    function initCal() {
+      if (calInitialized) return;
+      calInitialized = true;
+
+      Cal("init", { origin: "https://cal.com" });
+      Cal("ui", {
+        theme: "dark",
+        styles: {
+          branding: { brandColor: "#00A39E" }
+        },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
+    }
+
+    function setupCalTriggers() {
+      // Pré-carrega de forma passiva quando o usuário passa o mouse, toca ou foca em qualquer botão com data-cal-link
+      document.addEventListener("pointerover", function (e) {
+        if (e.target && e.target.closest && e.target.closest("[data-cal-link]")) {
+          initCal();
+        }
+      }, { passive: true });
+
+      document.addEventListener("touchstart", function (e) {
+        if (e.target && e.target.closest && e.target.closest("[data-cal-link]")) {
+          initCal();
+        }
+      }, { passive: true });
+
+      document.addEventListener("focusin", function (e) {
+        if (e.target && e.target.closest && e.target.closest("[data-cal-link]")) {
+          initCal();
+        }
+      }, { passive: true });
+
+      // Se clicar antes do script terminar o download, garante o disparo do modal
+      document.addEventListener("click", function (e) {
+        const btn = e.target && e.target.closest ? e.target.closest("[data-cal-link]") : null;
+        if (btn) {
+          const calLink = btn.getAttribute("data-cal-link");
+          if (!calInitialized) {
+            initCal();
+            let config = { layout: "month_view", theme: "dark" };
+            try {
+              const raw = btn.getAttribute("data-cal-config");
+              if (raw) config = Object.assign(config, JSON.parse(raw));
+            } catch (err) {}
+
+            Cal("modal", {
+              calLink: calLink,
+              config: config
+            });
+          }
+        }
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupCalTriggers);
+    } else {
+      setupCalTriggers();
+    }
+
+    // Carregamento em tempo ocioso se a página possuir botão de agendamento presente
+    if (typeof window !== "undefined") {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(function () {
+          if (document.querySelector("[data-cal-link]")) {
+            initCal();
+          }
+        }, { timeout: 4000 });
+      } else {
+        setTimeout(function () {
+          if (document.querySelector("[data-cal-link]")) {
+            initCal();
+          }
+        }, 4000);
+      }
+    }
+  })();
 </script>

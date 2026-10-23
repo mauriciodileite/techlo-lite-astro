@@ -8,6 +8,10 @@ import { Font } from "astro:assets";
 import config from ".astro/config.generated.json";
 
 const fontVariables = fontsJson.map((font) => font.cssVariable) as any[];
+const isArticle =
+  Astro.props.pageType === "article" ||
+  (Astro.url.pathname.includes("/blog/") &&
+    !["/blog", "/blog/", "/pt/blog", "/pt/blog/", "/en/blog", "/en/blog/"].includes(Astro.url.pathname));
 ---
 
 <head>
@@ -53,30 +57,47 @@ const fontVariables = fontsJson.map((font) => font.cssVariable) as any[];
   <!-- Agentic Resource Discovery (ARD) -->
   <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
 
-  <!-- Google Reader Revenue Manager (Subscribe with Google Basic) -->
-  <script is:inline async type="application/javascript" src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
-  <script is:inline>
-    (self.SWG_BASIC = self.SWG_BASIC || []).push(function(basicSubscriptions) {
-      try {
-        basicSubscriptions.init({
-          type: "NewsArticle",
-          isPartOfType: ["Product"],
-          isPartOfProductId: "CAow54TiCw:openaccess",
-          clientOptions: { theme: "light", lang: "pt-BR" },
+  <!-- Google Reader Revenue Manager (Subscribe with Google Basic) - Carregado exclusivamente em artigos de blog -->
+  {isArticle && (
+    <>
+      <script is:inline async type="application/javascript" src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
+      <script is:inline>
+        (self.SWG_BASIC = self.SWG_BASIC || []).push(function(basicSubscriptions) {
+          try {
+            basicSubscriptions.init({
+              type: "NewsArticle",
+              isPartOfType: ["Product"],
+              isPartOfProductId: "CAow54TiCw:openaccess",
+              clientOptions: { theme: "light", lang: "pt-BR" },
+            });
+          } catch (e) {}
         });
-      } catch (e) {}
-    });
-  </script>
+      </script>
+    </>
+  )}
 
   <!------------------
-    Fonts
+    Fonts (Carregamento assíncrono não-bloqueante para Sora e Instrument Sans)
 -------------------->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
+    rel="preload"
+    as="style"
     href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Sora:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
   />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Sora:wght@400;500;600;700;800&display=swap"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Sora:wght@400;500;600;700;800&display=swap"
+    />
+  </noscript>
   {fontVariables.map((font) => <Font cssVariable={font} />)}
 
   <!-- Meta Pixel Code -->
