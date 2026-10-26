@@ -50,6 +50,10 @@ Autor: Maurício Leite
 - **URL**: https://mauricioleite.com.br/blog/como-fazer-anuncio-formato-podcast-ia/
 - **Resumo**: Estudo de caso real e engenharia de criativos em formato de podcast com IA para a marca de laticínios Autalac. Destrincha o fluxo técnico com HeyGen, ElevenLabs, Nano Banana Pro e Apify MCP para raspagem de dores reais no TikTok Shop e Reddit. Analisa erros críticos de produção (inconsistência de cenário, uncanny valley em avatares públicos, falta de sotaque e imperfeições humanas na voz) e disponibiliza a skill oficial de batching vocal desenvolvida pela Starpop.ai para download.
 
+### 1.11 Como Fazer Vídeo de Motion com IA
+- **URL**: https://mauricioleite.com.br/blog/como-fazer-video-de-motion-com-ia/
+- **Resumo**: Como montar um estúdio e segundo cérebro para vídeo e motion design com IA utilizando Claude Code, Mem0 e Neo4j. Demonstra a adaptação da estrutura do modelo Estúdio de IA e do Palácio Mental (criados por Jeferson de Lima / @jefao.ai e Clube do Motion), a substituição do ai-memory pelo Mem0, catalogação em grafo de 131 referências por estilo, criador e técnicas, e fluxo leve de prévias por folha de contato e Remotion sem reter gigabytes de vídeos pesados no computador.
+
 ---
 
 ## 2. Contato e Agendamento
