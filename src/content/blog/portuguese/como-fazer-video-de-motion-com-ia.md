@@ -251,10 +251,11 @@ Converse diretamente conosco no WhatsApp para estruturar seu estúdio inteligent
     href="https://wa.me/5592985582795?text=Ol%C3%A1%2C%20vi%20o%20artigo%20sobre%20v%C3%ADdeo%20de%20motion%20com%20IA%20e%20quero%20editar%20r%C3%A1pido."
     target="_blank"
     rel="noopener noreferrer"
-    class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#00A39E] text-black font-bold text-base hover:bg-[#00b5af] hover:shadow-[0_0_25px_rgba(0,163,158,0.4)] transition-all duration-300 shadow-lg shadow-[#00A39E]/20 cursor-pointer no-underline group"
+    style="color: #111111 !important; text-decoration: none !important;"
+    class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#00A39E] font-bold text-base hover:bg-[#00b5af] hover:shadow-[0_0_25px_rgba(0,163,158,0.4)] transition-all duration-300 shadow-lg shadow-[#00A39E]/20 cursor-pointer no-underline group"
   >
-    <span>Quero editar rápido</span>
-    <svg class="w-5 h-5 fill-current inline-block ml-0.5" viewBox="0 0 24 24" aria-hidden="true">
+    <span style="color: #111111 !important; font-weight: 700;">Quero editar rápido</span>
+    <svg class="w-5 h-5 inline-block ml-0.5" style="fill: #111111 !important; color: #111111 !important;" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 6.84C9.34 6.84 9.03 6.91 8.77 7.19C8.5 7.46 7.77 8.16 7.77 9.58C7.77 11 8.81 12.37 8.95 12.56C9.1 12.75 11 15.68 13.9 16.94C14.59 17.24 15.13 17.42 15.55 17.56C16.24 17.78 16.87 17.75 17.37 17.68C17.93 17.6 19.09 16.98 19.33 16.3C19.57 15.62 19.57 15.04 19.5 14.92C19.42 14.8 19.23 14.73 18.94 14.58C18.66 14.44 17.27 13.76 17.02 13.66C16.76 13.56 16.57 13.52 16.38 13.81C16.19 14.1 15.64 14.73 15.47 14.92C15.3 15.12 15.14 15.14 14.85 15C14.56 14.85 13.64 14.55 12.54 13.57C11.69 12.81 11.11 11.87 10.94 11.58C10.78 11.3 10.92 11.14 11.07 11C11.2 10.87 11.36 10.66 11.5 10.5C11.65 10.33 11.7 10.21 11.8 10.02C11.89 9.82 11.84 9.66 11.77 9.51C11.7 9.37 11.12 7.93 10.88 7.36C10.65 6.79 10.41 6.87 10.24 6.86C10.07 6.85 9.87 6.84 9.53 6.84Z"/>
     </svg>
   </a>
