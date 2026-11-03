@@ -1,0 +1,569 @@
+---
+/**
+ * Componente: RedeConexoesMemoria.astro
+ * Descrição: Visualização interativa em Canvas da Rede de Conexões da Memória Contínua (adaptada do aisim-os para o Brand Book Maurício Leite)
+ * + Abas interativas de casos de uso por nicho (Assistência Médica, Educação, Comércio Eletrônico, Suporte, Vendas e CRM) com 3 cards por tema.
+ */
+
+const temas = [
+  {
+    id: "medica",
+    nome: "Assistência médica",
+    cards: [
+      {
+        titulo: "Assistente de Cuidados Inteligentes ao Paciente",
+        descricao: "Memoriza o histórico do paciente, alergias e preferências de tratamento ao longo das consultas."
+      },
+      {
+        titulo: "Guia para Condições Crônicas",
+        descricao: "Aprende o que funciona (e o que não funciona) para o paciente ao longo do tempo."
+      },
+      {
+        titulo: "Sabe dos principais fatos",
+        descricao: "A memória persiste mesmo se o cliente entrar em contato com o atendente humano, ela sabe o que foi conversado entre eles."
+      }
+    ]
+  },
+  {
+    id: "educacao",
+    nome: "Educação",
+    cards: [
+      {
+        titulo: "Tutor de Aprendizagem Adaptativa",
+        descricao: "Adapta-se ao ritmo e estilo de aprendizagem de cada aluno."
+      },
+      {
+        titulo: "Guia de Acompanhamento do Progresso",
+        descricao: "Monitora os padrões de estudo, lacunas de conhecimento e áreas de dificuldade de cada aluno."
+      },
+      {
+        titulo: "Avaliação com auxílio de memória",
+        descricao: "Relembre o desempenho e o feedback anterior para gerar melhores questionários."
+      }
+    ]
+  },
+  {
+    id: "ecom",
+    nome: "Comércio eletrônico",
+    cards: [
+      {
+        titulo: "Assistente de Compras Pessoal",
+        descricao: "Memoriza os gostos do usuário, preferências de tamanho, orçamento, fidelidade à marca e padrões de navegação."
+      },
+      {
+        titulo: "Persistência do carrinho e da pesquisa",
+        descricao: "Mantenha a memória de pesquisas anteriores, carrinhos e ações na lista de desejos."
+      },
+      {
+        titulo: "Preços dinâmicos",
+        descricao: "Monitora a sensibilidade ao preço e o momento da compra para otimizar as ofertas para cada cliente."
+      }
+    ]
+  },
+  {
+    id: "suporte",
+    nome: "Suporte ao Cliente",
+    cards: [
+      {
+        titulo: "Agente de suporte com memória perfeita",
+        descricao: "Elimina momentos de \"Pode repetir?\" ao memorizar cada interação com o cliente."
+      },
+      {
+        titulo: "Sistema de escalonamento inteligente",
+        descricao: "Encaminha questões complexas ao especialista certo com base no histórico do cliente e nos padrões do problema."
+      },
+      {
+        titulo: "Economia de tokens",
+        descricao: "Economiza tokens de sua IA deixando de repetir perguntas já realizadas anteriormente."
+      }
+    ]
+  },
+  {
+    id: "vendas",
+    nome: "Vendas e CRM",
+    cards: [
+      {
+        titulo: "Assistente de Vendas com Contexto Persistente",
+        descricao: "Acompanhe cada interação, objeção e marco ao longo de longos ciclos de vendas."
+      },
+      {
+        titulo: "Memória do cliente entre equipes",
+        descricao: "Permita transições perfeitas entre equipes, permitindo que diferentes representantes acessem uma memória compartilhada do histórico."
+      },
+      {
+        titulo: "Acompanhamentos gerados automaticamente",
+        descricao: "Aproveite a memória de reuniões anteriores e comentários de clientes para sugerir automaticamente acompanhamentos."
+      }
+    ]
+  }
+];
+---
+
+<div class="w-full">
+  <!-- ========================================== -->
+  <!-- 1. COMPONENTE VISUAL DA REDE DE CONEXÕES -->
+  <!-- ========================================== -->
+  <div class="max-w-4xl mx-auto mb-16 sm:mb-20">
+    <div
+      class="rede-mini-brand relative overflow-hidden rounded-3xl border border-[#00A39E]/25 shadow-2xl bg-[#0c1216] select-none"
+      data-rede
+    >
+      <!-- Barra Superior Estilo Terminal / App -->
+      <div class="bg-[#121b20] px-4 py-2.5 border-b border-white/5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-[#ff5f56]/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-[#ffbd2e]/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-[#27c93f]/80 inline-block"></span>
+          <span class="ml-2 text-xs font-mono text-[#8696a0]">cria.chat • Grafo de Memória Contínua</span>
+        </div>
+        <span class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#00A39E] bg-[#00A39E]/10 px-2.5 py-0.5 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E] animate-pulse"></span>
+          CONTEXTO PERSISTENTE
+        </span>
+      </div>
+
+      <!-- Canvas Interativo -->
+      <canvas
+        class="rede-mini-tela block w-full aspect-[4/3] sm:aspect-[16/9] touch-pan-y cursor-pointer"
+        role="img"
+        aria-label="Mapa interativo de conexões de memória: ao tocar em um ponto, acendem junto os dados ligados a ele."
+      ></canvas>
+
+      <!-- Rodapé Dinâmico: Foco e Conexões Relacionadas -->
+      <div class="rede-mini-pe relative border-t border-white/10 bg-[#0e161b]/90 backdrop-blur-md px-4 py-3 sm:px-6 sm:py-3.5 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-center">
+        <b class="rede-mini-foco font-['Sora',sans-serif] font-bold text-sm sm:text-base text-white" data-rede-foco>
+          Atendente no WhatsApp
+        </b>
+        <span class="rede-mini-verbo text-[11px] sm:text-xs tracking-widest uppercase font-semibold text-[#00A39E] font-['Sora',sans-serif]">
+          puxa junto
+        </span>
+        <div class="rede-mini-liga flex flex-wrap gap-1.5 sm:gap-2 justify-center" data-rede-liga>
+          <!-- Preenchido via JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Dica de Interação -->
+    <p class="mt-3 text-sm text-[#8696a0] font-['Instrument_Sans',sans-serif] text-center">
+      💡 <span class="hidden sm:inline">Passe o mouse ou clique</span><span class="sm:hidden">Toque</span> em qualquer nó para ver as conexões de memória que a IA resgata instantaneamente.
+    </p>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. ABAS INTERATIVAS POR TEMA / NICHO       -->
+  <!-- ========================================== -->
+  <div class="w-full" id="casos-memoria">
+    <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+      <span class="text-xs font-bold uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] block mb-2">
+        Aplicações Práticas
+      </span>
+      <h3 class="text-2xl sm:text-3xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight">
+        A memória trabalhando no seu setor
+      </h3>
+    </div>
+
+    <!-- Seletor de Abas (Estilo do Print com Rolagem Horizontal Suave no Mobile) -->
+    <div class="flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-white/10 gap-2 sm:gap-6 mb-8 sm:mb-10 px-2 pb-px">
+      {temas.map((t, idx) => (
+        <button
+          type="button"
+          data-tab-target={t.id}
+          class={`tab-btn whitespace-nowrap px-3 sm:px-4 py-3 text-sm sm:text-base font-['Sora',sans-serif] font-semibold border-b-2 transition-all duration-200 outline-none ${
+            idx === 0
+              ? "active text-[#00A39E] border-[#00A39E]"
+              : "text-[#8696a0] border-transparent hover:text-white"
+          }`}
+        >
+          {t.nome}
+        </button>
+      ))}
+    </div>
+
+    <!-- Painéis de Conteúdo das Abas (3 Cards por Tema) -->
+    {temas.map((t, idx) => (
+      <div
+        data-tab-panel={t.id}
+        class={`tab-panel grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch ${
+          idx === 0 ? "grid" : "hidden"
+        }`}
+      >
+        {t.cards.map((c) => (
+          <div class="p-6 sm:p-8 rounded-2xl bg-[#162026] border border-white/10 hover:border-[#00A39E]/50 transition-all duration-300 flex flex-col justify-start group">
+            <h4 class="text-lg sm:text-xl font-bold font-['Sora',sans-serif] text-white mb-3 leading-snug group-hover:text-[#00A39E] transition-colors">
+              {c.titulo}
+            </h4>
+            <p class="text-sm sm:text-base text-[#D4D4D4] leading-relaxed font-['Instrument_Sans',sans-serif]">
+              {c.descricao}
+            </p>
+          </div>
+        ))}
+      </div>
+    ))}
+
+  </div>
+</div>
+
+<style>
+  /* Fundo pontilhado suave do Canvas inspirado na marca */
+  .rede-mini-brand::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(0, 163, 158, 0.12) 1px, transparent 1px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(85% 75% at 50% 45%, #000, transparent);
+    mask-image: radial-gradient(85% 75% at 50% 45%, #000, transparent);
+  }
+
+  /* Esconde barra de rolagem horizontal mantendo scroll suave */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<script>
+  // ==========================================
+  // SCRIPT DAS ABAS INTERATIVAS (Sem Dependências)
+  // ==========================================
+  function initTabs() {
+    const tabButtons = document.querySelectorAll<HTMLButtonElement>('[data-tab-target]');
+    const tabPanels = document.querySelectorAll<HTMLElement>('[data-tab-panel]');
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab-target');
+        if (!targetId) return;
+
+        // Atualiza estilo dos botões
+        tabButtons.forEach((b) => {
+          b.classList.remove('active', 'text-[#00A39E]', 'border-[#00A39E]');
+          b.classList.add('text-[#8696a0]', 'border-transparent');
+        });
+        btn.classList.add('active', 'text-[#00A39E]', 'border-[#00A39E]');
+        btn.classList.remove('text-[#8696a0]', 'border-transparent');
+
+        // Mostra o painel correto
+        tabPanels.forEach((panel) => {
+          if (panel.getAttribute('data-tab-panel') === targetId) {
+            panel.classList.remove('hidden');
+            panel.classList.add('grid');
+          } else {
+            panel.classList.add('hidden');
+            panel.classList.remove('grid');
+          }
+        });
+      });
+    });
+  }
+
+  // ==========================================
+  // SCRIPT DO CANVAS DE REDE DE CONEXÕES (Brand Book)
+  // ==========================================
+  function initRedeConexoes() {
+    const box = document.querySelector<HTMLElement>('[data-rede]');
+    if (!box) return;
+    const canvas = box.querySelector<HTMLCanvasElement>('canvas');
+    if (!canvas) return;
+    const elFoco = box.querySelector<HTMLElement>('[data-rede-foco]');
+    const elLiga = box.querySelector<HTMLElement>('[data-rede-liga]');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Cores Brand Book Maurício Leite
+    const BRAND_R = 0;
+    const BRAND_G = 163;
+    const BRAND_B = 158;
+
+    // Nós adaptados ao contexto de IA para WhatsApp & Memória de Longo Prazo
+    const nos: any[] = [
+      { id: 'cliente',   nome: 'Cliente Ana',           x: 0.13, y: 0.20 },
+      { id: 'historico', nome: 'Histórico de conversa', x: 0.26, y: 0.46, hub: true },
+      { id: 'pref',      nome: 'Preferências',          x: 0.11, y: 0.76 },
+      { id: 'pedidos',   nome: 'Pedidos anteriores',    x: 0.46, y: 0.22, hub: true },
+      { id: 'catalogo',  nome: 'Catálogo de Produtos',  x: 0.63, y: 0.10 },
+      { id: 'pagamento', nome: 'Dados de Pagamento',    x: 0.31, y: 0.88 },
+      { id: 'estoque',   nome: 'Estoque em Tempo Real', x: 0.52, y: 0.66 },
+      { id: 'whats',     nome: 'Agente no WhatsApp',    x: 0.69, y: 0.44, hub: true },
+      { id: 'agenda',    nome: 'Agenda de Consultas',   x: 0.86, y: 0.22 },
+      { id: 'politica',  nome: 'Políticas & Garantias', x: 0.93, y: 0.60 },
+      { id: 'oferta',    nome: 'Oferta Personalizada',  x: 0.72, y: 0.88 },
+    ];
+
+    const pares = [
+      ['cliente', 'historico'], ['cliente', 'pedidos'], ['cliente', 'pagamento'],
+      ['historico', 'pref'], ['historico', 'pedidos'],
+      ['pref', 'oferta'],
+      ['pedidos', 'catalogo'], ['pedidos', 'whats'], ['pedidos', 'politica'],
+      ['catalogo', 'estoque'],
+      ['pagamento', 'estoque'], ['pagamento', 'whats'],
+      ['estoque', 'whats'],
+      ['whats', 'oferta'], ['whats', 'agenda'],
+      ['agenda', 'politica'], ['agenda', 'oferta'],
+    ];
+
+    const passeio = ['whats', 'historico', 'cliente', 'pedidos', 'oferta', 'agenda'];
+
+    const porId = new Map(nos.map((n) => [n.id, n]));
+    const arestas = pares
+      .map(([a, b]) => ({ a: porId.get(a), b: porId.get(b), luz: 0 }))
+      .filter((e) => e.a && e.b);
+
+    const vizinhos = new Map<string, any[]>(nos.map((n) => [n.id, []]));
+    arestas.forEach((e) => {
+      vizinhos.get(e.a.id)!.push(e.b);
+      vizinhos.get(e.b.id)!.push(e.a);
+    });
+
+    nos.forEach((n, i) => {
+      n.f1 = 0.17 + (i % 5) * 0.04;
+      n.f2 = 0.21 + (i % 4) * 0.05;
+      n.p1 = i * 1.7;
+      n.p2 = i * 2.3;
+      n.luz = 0;
+      n.px = 0;
+      n.py = 0;
+    });
+
+    const pulsos: any[] = [];
+    let w = 0, h = 0, escala = 1, raf: number | null = null, antes: number | undefined;
+    let foco = porId.get(passeio[0]);
+    let sobre: any = null;
+    let proximaTroca = 0;
+    let iPasseio = 0;
+
+    function medir() {
+      const r = canvas!.getBoundingClientRect();
+      w = Math.max(1, Math.round(r.width));
+      h = Math.max(1, Math.round(r.height));
+      canvas!.width = Math.round(w * dpr);
+      canvas!.height = Math.round(h * dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      escala = Math.min(1.15, Math.max(0.74, w / 900));
+    }
+
+    function posicionar(t: number) {
+      const padX = w * (w < 560 ? 0.06 : 0.07);
+      const padY = h * (w < 560 ? 0.07 : 0.11);
+      const ax = w * 0.011;
+      const ay = h * 0.013;
+      for (const n of nos) {
+        n.px = padX + n.x * (w - 2 * padX) + Math.sin(t * n.f1 + n.p1) * ax;
+        n.py = padY + n.y * (h - 2 * padY) + Math.cos(t * n.f2 + n.p2) * ay;
+      }
+    }
+
+    function legenda() {
+      if (elFoco) elFoco.textContent = foco.nome;
+      if (elLiga) {
+        elLiga.innerHTML = (vizinhos.get(foco.id) || [])
+          .map(
+            (v) =>
+              `<span class="text-[11px] sm:text-xs text-[#00A39E] bg-[#00A39E]/10 border border-[#00A39E]/30 px-2.5 py-0.5 rounded-full font-['Sora',sans-serif]">${v.nome}</span>`
+          )
+          .join('');
+      }
+    }
+
+    function trocarFoco(n: any) {
+      if (!n || n === foco) return;
+      foco = n;
+      pulsos.length = 0;
+      (vizinhos.get(n.id) || []).forEach((v) =>
+        pulsos.push({ de: n, ate: v, t: 0, vel: 0.9 + Math.random() * 0.5 })
+      );
+      legenda();
+    }
+
+    function desenhar(t: number, dt: number, snap: boolean) {
+      posicionar(t);
+      ctx!.clearRect(0, 0, w, h);
+      const viz = new Set((vizinhos.get(foco.id) || []).map((n) => n.id));
+      const passo = snap ? 1 : 0.14;
+
+      for (const n of nos) {
+        const alvo = n === foco ? 1 : viz.has(n.id) ? 0.84 : 0.28;
+        n.luz += (alvo - n.luz) * passo;
+      }
+      for (const e of arestas) {
+        const alvo = e.a === foco || e.b === foco ? 1 : 0.12;
+        e.luz += (alvo - e.luz) * passo;
+      }
+
+      // Linhas / Arestas
+      for (const e of arestas) {
+        ctx!.lineWidth = (1.0 + e.luz * 1.6) * escala;
+        const alpha = (0.12 + e.luz * 0.55).toFixed(3);
+        ctx!.strokeStyle = `rgba(${BRAND_R}, ${BRAND_G}, ${BRAND_B}, ${alpha})`;
+        ctx!.beginPath();
+        ctx!.moveTo(e.a.px, e.a.py);
+        ctx!.lineTo(e.b.px, e.b.py);
+        ctx!.stroke();
+      }
+
+      // Nós
+      for (const n of nos) {
+        const r = (n.hub ? 10 : 7) * escala * (n === foco ? 1.25 : 1);
+        if (n.luz > 0.45) {
+          ctx!.beginPath();
+          ctx!.arc(n.px, n.py, r + 12 * escala * n.luz, 0, 6.2832);
+          ctx!.fillStyle = `rgba(${BRAND_R}, ${BRAND_G}, ${BRAND_B}, ${(0.14 * n.luz).toFixed(3)})`;
+          ctx!.fill();
+        }
+        ctx!.beginPath();
+        ctx!.arc(n.px, n.py, r, 0, 6.2832);
+        ctx!.fillStyle = 'rgba(12, 18, 22, 0.96)';
+        ctx!.fill();
+        ctx!.lineWidth = 2.2 * escala;
+        ctx!.strokeStyle = `rgba(${BRAND_R}, ${BRAND_G}, ${BRAND_B}, ${(0.35 + 0.65 * n.luz).toFixed(3)})`;
+        ctx!.stroke();
+        ctx!.beginPath();
+        ctx!.arc(n.px, n.py, r * 0.42, 0, 6.2832);
+        ctx!.fillStyle = `rgba(0, 229, 223, ${(0.25 + 0.75 * n.luz).toFixed(3)})`;
+        ctx!.fill();
+      }
+
+      // Nomes / Rótulos dos nós
+      const compacto = w < 560;
+      for (const n of nos) {
+        const forca = compacto ? Math.min(1, Math.max(0, (n.luz - 0.38) / 0.5)) : 1;
+        if (forca <= 0.02) continue;
+        const r = (n.hub ? 10 : 7) * escala;
+        const acima = n.y > 0.78;
+        const corpo = Math.max(compacto ? 11 : 10, Math.round((n.hub ? 14 : 12.5) * escala));
+        ctx!.font = `${n.hub ? 700 : 500} ${corpo}px 'Sora', sans-serif`;
+        ctx!.textAlign = 'center';
+        ctx!.textBaseline = acima ? 'bottom' : 'top';
+        const meia = ctx!.measureText(n.nome).width / 2;
+        const tx = Math.min(Math.max(n.px, meia + 6), w - meia - 6);
+        const ty = acima ? n.py - r - 8 : n.py + r + 8;
+        ctx!.fillStyle = `rgba(235, 245, 250, ${(compacto ? forca : 0.35 + 0.65 * n.luz).toFixed(3)})`;
+        ctx!.fillText(n.nome, tx, ty);
+      }
+
+      // Pulsos de energia viajando nas arestas
+      for (let k = pulsos.length - 1; k >= 0; k--) {
+        const q = pulsos[k];
+        q.t += dt * q.vel;
+        if (q.t >= 1) {
+          pulsos.splice(k, 1);
+          continue;
+        }
+        const x = q.de.px + (q.ate.px - q.de.px) * q.t;
+        const y = q.de.py + (q.ate.py - q.de.py) * q.t;
+        ctx!.beginPath();
+        ctx!.arc(x, y, 3 * escala, 0, 6.2832);
+        ctx!.fillStyle = `rgba(0, 255, 242, ${(0.95 * Math.sin(q.t * Math.PI)).toFixed(3)})`;
+        ctx!.fill();
+      }
+    }
+
+    function quadro(ms: number) {
+      const s = ms / 1000;
+      const dt = Math.min(0.05, s - (antes === undefined ? s : antes));
+      antes = s;
+      if (proximaTroca === 0) proximaTroca = s + 3.2;
+      if (sobre) proximaTroca = s + 3.2;
+      else if (s >= proximaTroca) {
+        proximaTroca = s + 3.2;
+        iPasseio = (iPasseio + 1) % passeio.length;
+        trocarFoco(porId.get(passeio[iPasseio]));
+      }
+      desenhar(s, dt, false);
+      raf = requestAnimationFrame(quadro);
+    }
+
+    const liga = () => {
+      if (!raf) {
+        antes = undefined;
+        proximaTroca = 0;
+        raf = requestAnimationFrame(quadro);
+      }
+    };
+
+    const desliga = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+    };
+
+    function noSobPonteiro(e: PointerEvent) {
+      const r = canvas!.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      let achou: any = null;
+      let melhor = (32 * escala) ** 2;
+      for (const n of nos) {
+        const d = (n.px - x) ** 2 + (n.py - y) ** 2;
+        if (d < melhor) {
+          melhor = d;
+          achou = n;
+        }
+      }
+      return achou;
+    }
+
+    function remedir() {
+      medir();
+      if (!raf) desenhar(antes === undefined ? 0 : antes, 0, true);
+    }
+
+    medir();
+    legenda();
+    desenhar(0, 0, true);
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(remedir);
+    }
+    if (window.ResizeObserver) {
+      new ResizeObserver(remedir).observe(canvas);
+    } else {
+      window.addEventListener('resize', remedir);
+    }
+
+    if (prefersReduced) return;
+
+    const apontar = (e: PointerEvent) => {
+      const n = noSobPonteiro(e);
+      sobre = n;
+      canvas!.style.cursor = n ? 'pointer' : '';
+      if (n) trocarFoco(n);
+    };
+
+    canvas.addEventListener('pointermove', apontar, { passive: true });
+    canvas.addEventListener('pointerdown', apontar, { passive: true });
+    canvas.addEventListener('pointerleave', () => {
+      sobre = null;
+      canvas!.style.cursor = '';
+    });
+
+    let naTela = false;
+    const conferir = () => (naTela && !document.hidden ? liga() : desliga());
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          naTela = e.isIntersecting;
+        });
+        conferir();
+      },
+      { threshold: 0.05 }
+    ).observe(canvas);
+
+    document.addEventListener('visibilitychange', conferir);
+  }
+
+  // Executa ao carregar e nas trocas de rota
+  document.addEventListener('DOMContentLoaded', () => {
+    initTabs();
+    initRedeConexoes();
+  });
+  initTabs();
+  initRedeConexoes();
+</script>

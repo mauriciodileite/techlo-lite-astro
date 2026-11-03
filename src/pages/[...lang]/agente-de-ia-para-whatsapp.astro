@@ -12,6 +12,7 @@ import PainelInterativo from "@/components/servicos/PainelInterativo.astro";
 import CampanhasDisparo from "@/components/servicos/CampanhasDisparo.astro";
 import CrmKanban from "@/components/servicos/CrmKanban.astro";
 import EquipeAtendentes from "@/components/servicos/EquipeAtendentes.astro";
+import RedeConexoesMemoria from "@/components/servicos/RedeConexoesMemoria.astro";
 
 // Gera a rota apenas em Português na raiz (/agente-de-ia-para-whatsapp/)
 export function getStaticPaths() {
@@ -522,67 +523,24 @@ const schemaJsonLd = {
 
       <!-- ============================================================== -->
       <!-- <!-- Evaldo #8: Lógica do mecanismo -->
-      <!-- 8. COMO A MEMÓRIA FUNCIONA -->
+      <!-- 8. MEMÓRIA DE IA QUE PERSISTE ENTRE SESSÕES E AGENTES -->
       <!-- ============================================================== -->
       <section class="py-20 md:py-28 bg-[#0a0f12] border-b border-white/5">
-        <div class="container mx-auto px-4 max-w-5xl">
+        <div class="container mx-auto px-4 max-w-6xl">
           <div class="text-center max-w-3xl mx-auto mb-14">
             <span class="text-xs font-bold uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] block mb-3">
-              Engenharia sem Complicação
+              Contexto Persistente
             </span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight mb-4">
-              Como a memória do agente funciona na prática
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight mb-4 leading-tight">
+              Memória de IA que persiste entre sessões e agentes
             </h2>
-            <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif]">
-              Cada conversa vira fatos ligados entre si: nome, preferências, o que comprou, o que perguntou. Quando o cliente volta, a IA já sabe quem ele é.
+            <p class="text-base sm:text-lg text-[#D4D4D4] font-['Instrument_Sans',sans-serif] leading-relaxed">
+              Adicione contexto persistente aos seus agentes de IA no whatsapp, isso produz confiabilidade e relacionamentos duradouros com seus clientes. Resgate contexto de clientes antigos e diminua o custo por token da sua IA.
             </p>
           </div>
 
-          <!-- Diagrama Visual Leve em SVG de Grafo de Conhecimento -->
-          <div class="p-8 sm:p-12 rounded-3xl bg-[#11181d] border border-white/10 shadow-2xl flex flex-col items-center">
-            <svg
-              viewBox="0 0 800 420"
-              class="w-full max-w-2xl h-auto"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-label="Diagrama do Grafo de Memória Contínua do Cliente"
-            >
-              <!-- Linhas de Conexão -->
-              <line x1="400" y1="210" x2="160" y2="100" stroke="#00A39E" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/>
-              <line x1="400" y1="210" x2="640" y2="100" stroke="#00A39E" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/>
-              <line x1="400" y1="210" x2="160" y2="320" stroke="#00A39E" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/>
-              <line x1="400" y1="210" x2="640" y2="320" stroke="#00A39E" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/>
-
-              <!-- Nó Central: O Cliente -->
-              <circle cx="400" cy="210" r="54" fill="#162026" stroke="#00A39E" stroke-width="3"/>
-              <text x="400" y="205" text-anchor="middle" fill="#ffffff" font-family="'Sora', sans-serif" font-weight="700" font-size="15">CLIENTE</text>
-              <text x="400" y="225" text-anchor="middle" fill="#00A39E" font-family="sans-serif" font-size="11">WhatsApp Oficial</text>
-
-              <!-- Nó 1: Fato de Preferência -->
-              <rect x="70" y="70" width="180" height="60" rx="12" fill="#18252d" stroke="#25D366" stroke-width="1.5"/>
-              <text x="160" y="96" text-anchor="middle" fill="#ffffff" font-family="'Sora', sans-serif" font-size="13" font-weight="600">Prefere à tarde</text>
-              <text x="160" y="114" text-anchor="middle" fill="#8696a0" font-family="sans-serif" font-size="11">Fato salvo há 3 meses</text>
-
-              <!-- Nó 2: Fato de Compra / Histórico -->
-              <rect x="550" y="70" width="180" height="60" rx="12" fill="#18252d" stroke="#3b82f6" stroke-width="1.5"/>
-              <text x="640" y="96" text-anchor="middle" fill="#ffffff" font-family="'Sora', sans-serif" font-size="13" font-weight="600">Interesse em Aparelho X</text>
-              <text x="640" y="114" text-anchor="middle" fill="#8696a0" font-family="sans-serif" font-size="11">Registrado via áudio</text>
-
-              <!-- Nó 3: Etapa do Funil -->
-              <rect x="70" y="290" width="180" height="60" rx="12" fill="#18252d" stroke="#e3ff04" stroke-width="1.5"/>
-              <text x="160" y="316" text-anchor="middle" fill="#ffffff" font-family="'Sora', sans-serif" font-size="13" font-weight="600">Lead Qualificado VIP</text>
-              <text x="160" y="334" text-anchor="middle" fill="#8696a0" font-family="sans-serif" font-size="11">Sem objeção de preço</text>
-
-              <!-- Nó 4: Dados Familiares / Contexto -->
-              <rect x="550" y="290" width="180" height="60" rx="12" fill="#18252d" stroke="#a855f7" stroke-width="1.5"/>
-              <text x="640" y="316" text-anchor="middle" fill="#ffffff" font-family="'Sora', sans-serif" font-size="13" font-weight="600">Tem 2 filhos</text>
-              <text x="640" y="334" text-anchor="middle" fill="#8696a0" font-family="sans-serif" font-size="11">Evita horários escolares</text>
-            </svg>
-
-            <p class="mt-6 text-sm text-[#8696a0] font-['Instrument_Sans',sans-serif] text-center max-w-xl">
-              Diferente de chatbots convencionais que sofrem de amnésia a cada nova sessão, nossa arquitetura preserva relacionamentos de longo prazo.
-            </p>
-          </div>
+          <!-- Componente Interativo de Rede de Conexões + Abas por Setor -->
+          <RedeConexoesMemoria />
         </div>
       </section>
 
