@@ -13,6 +13,7 @@ import CampanhasDisparo from "@/components/servicos/CampanhasDisparo.astro";
 import CrmKanban from "@/components/servicos/CrmKanban.astro";
 import EquipeAtendentes from "@/components/servicos/EquipeAtendentes.astro";
 import RedeConexoesMemoria from "@/components/servicos/RedeConexoesMemoria.astro";
+import IntegracoesNativas from "@/components/servicos/IntegracoesNativas.astro";
 
 // Gera a rota apenas em Português na raiz (/agente-de-ia-para-whatsapp/)
 export function getStaticPaths() {
@@ -370,46 +371,10 @@ const schemaJsonLd = {
             </div>
           </div>
 
-          <!-- Exemplos de Segmentos (Sem promessas inventadas) -->
-          <div class="border-t border-white/10 pt-12">
-            <h3 class="text-lg font-bold font-['Sora',sans-serif] text-center text-white mb-8">
-              Exemplos de como diferentes setores utilizam o agente:
-            </h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div class="p-5 rounded-xl bg-[#182229] border border-white/5">
-                <div class="text-2xl mb-3">🩺</div>
-                <h4 class="text-base font-bold text-white font-['Sora',sans-serif] mb-2">Clínicas e Consultórios</h4>
-                <p class="text-xs text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
-                  Triagem inicial, esclarecimento de convênios aceitos e agendamento direto de consultas.
-                </p>
-              </div>
-
-              <div class="p-5 rounded-xl bg-[#182229] border border-white/5">
-                <div class="text-2xl mb-3">🧘‍♀️</div>
-                <h4 class="text-base font-bold text-white font-['Sora',sans-serif] mb-2">Estúdios e Bem-Estar</h4>
-                <p class="text-xs text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
-                  Agendamento de aulas experimentais de pilates, yoga e estética com lembretes automáticos.
-                </p>
-              </div>
-
-              <div class="p-5 rounded-xl bg-[#182229] border border-white/5">
-                <div class="text-2xl mb-3">🚗</div>
-                <h4 class="text-base font-bold text-white font-['Sora',sans-serif] mb-2">Concessionárias e Lojas</h4>
-                <p class="text-xs text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
-                  Identificação do modelo desejado, envio de ficha técnica e repasse imediato ao vendedor.
-                </p>
-              </div>
-
-              <div class="p-5 rounded-xl bg-[#182229] border border-white/5">
-                <div class="text-2xl mb-3">🛠️</div>
-                <h4 class="text-base font-bold text-white font-['Sora',sans-serif] mb-2">Prestadores de Serviço</h4>
-                <p class="text-xs text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
-                  Coleta de informações preliminares para orçamentos e triagem técnica antes da visita.
-                </p>
-              </div>
-            </div>
-          </div>
+          <!-- ============================================================== -->
+          <!-- INTEGRAÇÕES NATIVAS & CANAIS SUPORTADOS -->
+          <!-- ============================================================== -->
+          <IntegracoesNativas />
         </div>
       </section>
 
