@@ -25,8 +25,8 @@
     "area": "Etiquetas da Conversa",
     "titulo": "Etiquetas da Conversa",
     "texto": "Adicione etiquetas aos seus usuários para melhor gerenciar a etapa da conversa do cliente.",
-    "x": 82,
-    "y": 45,
+    "x": 89,
+    "y": 43,
     "icone": "bookmark"
   },
   {
@@ -35,8 +35,8 @@
     "area": "Atendente Atribuído",
     "titulo": "Atendente Atribuído",
     "texto": "Atribua cada conversa a um atendente específico da sua equipe.",
-    "x": 82,
-    "y": 54,
+    "x": 78,
+    "y": 56,
     "icone": "user"
   }
 ]
