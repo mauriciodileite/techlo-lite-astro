@@ -176,80 +176,58 @@ const schemaJsonLd = {
       <!-- <!-- Evaldo #1 Diferenciação + #2 Benefício direto -->
       <!-- 1. HERO SECTION -->
       <!-- ============================================================== -->
-      <section class="relative pt-6 pb-20 md:pt-12 md:pb-28 overflow-hidden border-b border-white/5">
+      <section class="relative pt-8 pb-20 md:pt-16 md:pb-28 overflow-hidden border-b border-white/5">
         <!-- Glow suave de iluminação da marca -->
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[#00A39E]/10 blur-[140px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#00A39E]/10 blur-[140px] rounded-full pointer-events-none"></div>
 
-        <div class="container mx-auto px-4 max-w-6xl relative z-10">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            
-            <!-- Coluna de Texto e Conversão -->
-            <div class="lg:col-span-7 text-center lg:text-left">
-              <!-- Tag / Badge -->
-              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-6">
-                <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
-                <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-['Sora',sans-serif] font-semibold">
-                  Agente de IA para WhatsApp • Atendimento 24h
-                </span>
-              </div>
+        <div class="container mx-auto px-4 max-w-4xl relative z-10 text-center">
+          <!-- Tag / Badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-6">
+            <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
+            <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-['Sora',sans-serif] font-semibold">
+              Agente de IA para WhatsApp • Atendimento 24h
+            </span>
+          </div>
 
-              <!-- H1 Obrigatório com o termo no início -->
-              <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[40px] xl:text-[46px] font-extrabold tracking-tight font-['Sora',sans-serif] text-white leading-[1.18] mb-6">
-                Agente de IA para WhatsApp que atende, agenda e vende <span class="text-[#00A39E]">enquanto sua empresa está fechada</span>
-              </h1>
+          <!-- Headline One Belief oficial do Maurício -->
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[50px] font-extrabold tracking-tight font-['Sora',sans-serif] text-white leading-[1.18] mb-6">
+            Centralizar todos os canais de atendimento em uma única tela é a chave para <span class="text-[#00A39E]">vender todo santo dia por inteligência artificial</span>.
+          </h1>
 
-              <!-- Subtítulo -->
-              <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Treinado com os dados do seu negócio e com memória de cada cliente: ele lembra do que foi conversado meses atrás e responde em segundos, 24 horas por dia.
-              </p>
+          <!-- Subheadline -->
+          <p class="text-base sm:text-lg md:text-xl text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-10 leading-relaxed max-w-2xl mx-auto">
+            Isso só é possível através da memória de longo prazo, presente somente no agente de IA da Criachat.
+          </p>
 
-              <!-- Botão Principal de Ação -->
-              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="relative group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-base hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#00A39E]/25"
-                >
-                  <span class="absolute -inset-0.5 rounded-xl bg-[#00A39E] opacity-40 group-hover:opacity-75 blur-sm animate-pulse transition duration-1000 -z-10"></span>
-                  <span>Quero ver funcionando no meu WhatsApp</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-                  </svg>
-                </a>
-              </div>
+          <!-- Botão Principal de Ação -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="relative group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-base hover:bg-[#008f8a] transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#00A39E]/25"
+            >
+              <span class="absolute -inset-0.5 rounded-xl bg-[#00A39E] opacity-40 group-hover:opacity-75 blur-sm animate-pulse transition duration-1000 -z-10"></span>
+              <span>Quero ver funcionando no meu WhatsApp</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+              </svg>
+            </a>
+          </div>
 
-              <div class="mt-4 flex items-center justify-center lg:justify-start gap-4 text-xs text-[#8696a0] font-['Instrument_Sans',sans-serif]">
-                <span class="flex items-center gap-1.5">
-                  <svg class="w-4 h-4 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                  </svg>
-                  Sem chatbots burros de menu
-                </span>
-                <span class="flex items-center gap-1.5">
-                  <svg class="w-4 h-4 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                  </svg>
-                  Atendimento em segundos
-                </span>
-              </div>
-            </div>
-
-            <!-- Imagem Estática do Hero (WhatsApp às 23h) -->
-            <div class="lg:col-span-5 flex justify-center">
-              <div class="relative w-full max-w-sm sm:max-w-md rounded-3xl p-1 bg-gradient-to-b from-white/10 to-transparent shadow-2xl">
-                <img
-                  src="/images/servicos/whatsapp-conversa-23h.webp"
-                  alt="Conversa de WhatsApp às 23h atendida por agente de IA"
-                  width="800"
-                  height="960"
-                  fetchpriority="high"
-                  decoding="async"
-                  class="w-full h-auto rounded-3xl block"
-                />
-              </div>
-            </div>
-
+          <div class="mt-6 flex items-center justify-center gap-6 text-xs text-[#8696a0] font-['Instrument_Sans',sans-serif]">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Sem chatbots burros de menu
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Atendimento em segundos
+            </span>
           </div>
         </div>
       </section>
