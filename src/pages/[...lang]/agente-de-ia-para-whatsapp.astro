@@ -404,36 +404,207 @@ const schemaJsonLd = {
       <!-- <!-- Evaldo #5: Inimigo comum (Nós vs. Eles) -->
       <!-- 5. O CULPADO -->
       <!-- ============================================================== -->
-      <section class="py-20 md:py-24 border-b border-white/5">
-        <div class="container mx-auto px-4 max-w-4xl">
-          <div class="text-center max-w-3xl mx-auto">
-            <span class="inline-block text-xs font-bold uppercase tracking-widest text-rose-400 font-['Sora',sans-serif] mb-4">
-              O Inimigo em Comum
-            </span>
-
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight mb-8">
-              Não é culpa sua. É culpa do horário comercial.
+      <section class="py-20 md:py-28 border-b border-white/5 relative overflow-hidden">
+        <div class="container mx-auto px-4 max-w-5xl">
+          <!-- Cabeçalho da Seção -->
+          <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight leading-tight">
+              Não é culpa sua. É culpa do <span class="text-rose-400">horário comercial</span>.
             </h2>
+            <p class="mt-4 text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] max-w-2xl mx-auto leading-relaxed">
+              Ele foi inventado quando o cliente só comprava de porta aberta. Hoje, o comportamento do consumidor é outro:
+            </p>
+          </div>
 
-            <div class="space-y-6 text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed text-left">
-              <p>
-                Ele foi criado quando o cliente só comprava com a loja aberta. Hoje, ele pesquisa no Google às 23h, chama no WhatsApp no domingo e escolhe quem responder primeiro.
-              </p>
-              <p>
-                E quem tentou resolver com chatbot de menu (<span class="text-white italic">"digite 1 para agendamento"</span>) descobriu do pior jeito: o cliente se irrita, desiste e vai para o concorrente.
-              </p>
-              <div class="p-6 rounded-2xl bg-[#162026] border border-white/10 my-8">
-                <p class="text-white font-medium mb-3">
-                  De um lado, empresas que deixam o cliente esperando até segunda-feira.
-                </p>
-                <p class="text-[#00A39E] font-bold text-lg">
-                  Do outro, empresas que respondem em segundos, conversam como gente e lembram de cada cliente.
+          <!-- 3 Situações Curtas: Lado a Lado no Computador, Empilhadas no Celular -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-16 sm:mb-20">
+            <!-- Situação 1: 23h -->
+            <div class="p-6 sm:p-7 rounded-2xl bg-[#162026] border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[11px] font-mono uppercase tracking-wider text-[#8696a0]">Cenário 1</span>
+                  <span class="text-lg">🌙</span>
+                </div>
+                <div class="text-3xl sm:text-4xl font-black font-['Sora',sans-serif] text-white tracking-tight mb-2">
+                  23h
+                </div>
+                <p class="text-base font-bold text-white font-['Sora',sans-serif]">
+                  Pesquisa no Google
                 </p>
               </div>
-              <p class="text-xl sm:text-2xl font-bold font-['Sora',sans-serif] text-white text-center pt-2">
-                De que lado a sua empresa quer estar?
+              <p class="text-xs sm:text-sm text-[#8696a0] font-['Instrument_Sans',sans-serif] mt-4 pt-3 border-t border-white/5">
+                O cliente está navegando na cama, pronto para tirar dúvidas e avançar na compra.
               </p>
             </div>
+
+            <!-- Situação 2: Domingo -->
+            <div class="p-6 sm:p-7 rounded-2xl bg-[#162026] border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[11px] font-mono uppercase tracking-wider text-[#8696a0]">Cenário 2</span>
+                  <span class="text-lg">💬</span>
+                </div>
+                <div class="text-3xl sm:text-4xl font-black font-['Sora',sans-serif] text-white tracking-tight mb-2">
+                  Domingo
+                </div>
+                <p class="text-base font-bold text-white font-['Sora',sans-serif]">
+                  Chama no WhatsApp
+                </p>
+              </div>
+              <p class="text-xs sm:text-sm text-[#8696a0] font-['Instrument_Sans',sans-serif] mt-4 pt-3 border-t border-white/5">
+                Tempo livre para resolver pendências. Quem responder primeiro ganha a preferência.
+              </p>
+            </div>
+
+            <!-- Situação 3: Seg 9h -->
+            <div class="p-6 sm:p-7 rounded-2xl bg-[#162026] border border-rose-500/30 flex flex-col justify-between shadow-lg shadow-rose-500/5">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[11px] font-mono uppercase tracking-wider text-rose-400 font-bold">Cenário 3 • Perda Real</span>
+                  <span class="text-lg">⚠️</span>
+                </div>
+                <div class="text-3xl sm:text-4xl font-black font-['Sora',sans-serif] text-rose-400 tracking-tight mb-2">
+                  Seg 9h
+                </div>
+                <p class="text-base font-bold text-white font-['Sora',sans-serif] leading-snug">
+                  A loja abre, e o cliente já comprou do concorrente
+                </p>
+              </div>
+              <p class="text-xs sm:text-sm text-rose-300/80 font-['Instrument_Sans',sans-serif] mt-4 pt-3 border-t border-rose-500/20">
+                Sua equipe visualiza a mensagem, mas o negócio foi fechado há 12 horas.
+              </p>
+            </div>
+          </div>
+
+          <!-- Mockup Visual: Chatbot de Menu Tradicional -->
+          <div class="mb-16 sm:mb-20">
+            <div class="text-center max-w-xl mx-auto mb-6">
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#8696a0] block mb-2">
+                O Falso Remédio
+              </span>
+              <p class="text-sm sm:text-base text-[#D4D4D4] font-['Instrument_Sans',sans-serif]">
+                E quem tentou resolver com chatbot tradicional de menu gerou frustração imediata:
+              </p>
+            </div>
+
+            <!-- Simulação de Balões de WhatsApp Realistas -->
+            <div class="max-w-md mx-auto p-4 sm:p-5 rounded-2xl bg-[#0b141a] border border-white/10 shadow-2xl relative">
+              <div class="flex items-center gap-2 pb-3 mb-4 border-b border-white/10 text-xs text-[#8696a0]">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>WhatsApp • Chatbot Antigo de Menus</span>
+              </div>
+
+              <div class="space-y-3 font-['Instrument_Sans',sans-serif] text-xs sm:text-sm">
+                <!-- Balão Bot (Recebido) -->
+                <div class="flex justify-start">
+                  <div class="max-w-[85%] bg-[#202c33] text-white p-3.5 rounded-2xl rounded-tl-sm shadow-sm border border-white/5">
+                    <p class="font-semibold mb-1 text-[11px] text-[#8696a0]">Robô de Menu</p>
+                    <p class="leading-relaxed">
+                      Olá! Digite <strong>1</strong> para agendamento<br />
+                      Digite <strong>2</strong> para financeiro<br />
+                      Digite <strong>3</strong> para outros assuntos
+                    </p>
+                    <div class="text-[10px] text-[#8696a0] text-right mt-1">23:02</div>
+                  </div>
+                </div>
+
+                <!-- Balão Cliente (Enviado) -->
+                <div class="flex justify-end">
+                  <div class="max-w-[85%] bg-[#005c4b] text-white p-3.5 rounded-2xl rounded-tr-sm shadow-sm border border-emerald-500/20">
+                    <p class="leading-relaxed">
+                      só queria saber o preço…
+                    </p>
+                    <div class="flex items-center justify-end gap-1 text-[10px] text-emerald-200/70 mt-1">
+                      <span>23:03</span>
+                      <!-- Marcação de Visto Duplo Azul do WhatsApp -->
+                      <svg class="w-3.5 h-3.5 text-[#53bdeb] inline" fill="currentColor" viewBox="0 0 16 15">
+                        <path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-white/5 text-center">
+                <span class="text-xs text-rose-400 font-medium">
+                  ✕ O cliente desiste, se irrita e procura quem responde de verdade.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Caixa Final: Contraste Dividido em 2 Colunas Lado a Lado -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-12">
+            <!-- Coluna Esquerda: Cinza e um pouco apagada -->
+            <div class="p-6 sm:p-8 rounded-2xl bg-[#141a1e]/60 border border-white/10 opacity-75 hover:opacity-100 transition-opacity flex flex-col justify-between">
+              <div>
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#8696a0] mb-4">
+                  <span>✕</span>
+                  <span>De um lado</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold font-['Sora',sans-serif] text-[#a0aeb6] mb-4">
+                  Esperando até segunda-feira
+                </h3>
+                <ul class="space-y-3 text-xs sm:text-sm text-[#8696a0] font-['Instrument_Sans',sans-serif]">
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-rose-400 font-bold">―</span>
+                    <span>WhatsApp fica em silêncio à noite e em fins de semana inteiros.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-rose-400 font-bold">―</span>
+                    <span>Leads esfriam e fecham com concorrentes ágeis.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-rose-400 font-bold">―</span>
+                    <span>Equipe sobrecarregada na segunda tentando salvar conversas antigas.</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="mt-6 pt-4 border-t border-white/5 text-xs text-[#6b7c85]">
+                O cliente espera, cansa e compra de outro.
+              </div>
+            </div>
+
+            <!-- Coluna Direita: Borda verde e leve brilho -->
+            <div class="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#162026] to-[#0c1418] border-2 border-[#00A39E] shadow-2xl shadow-[#00A39E]/20 flex flex-col justify-between">
+              <!-- Glow suave de destaque -->
+              <div class="absolute -top-12 -right-12 w-44 h-44 bg-[#00A39E]/20 rounded-full blur-[60px] pointer-events-none"></div>
+
+              <div class="relative z-10">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00A39E]/15 border border-[#00A39E]/40 text-xs font-mono font-bold text-[#00A39E] mb-4">
+                  <span>✓</span>
+                  <span>Do outro lado</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-extrabold font-['Sora',sans-serif] text-white mb-4 leading-snug">
+                  Responde em segundos, conversa como gente, <span class="text-[#00A39E]">lembra de cada cliente</span>.
+                </h3>
+                <ul class="space-y-3 text-xs sm:text-sm text-[#D4D4D4] font-['Instrument_Sans',sans-serif]">
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-[#29FF54] font-bold">✓</span>
+                    <span>Atendimento imediato 24h por dia, 7 dias por semana, sem fila.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-[#29FF54] font-bold">✓</span>
+                    <span>Entende áudios longos, linguagem natural e tira dúvidas complexas.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-[#29FF54] font-bold">✓</span>
+                    <span>Memória persistente: recupera histórico, preferências e dados do cliente.</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="relative z-10 mt-6 pt-4 border-t border-[#00A39E]/20 flex items-center justify-between text-xs font-bold text-[#00A39E]">
+                <span>Memória viva entre atendentes e sessões</span>
+                <span>⚡ 24/7 Ativo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pergunta de Fechamento -->
+          <div class="text-center pt-6">
+            <p class="text-xl sm:text-2xl md:text-3xl font-extrabold font-['Sora',sans-serif] text-white">
+              De que lado a sua empresa quer estar?
+            </p>
           </div>
         </div>
       </section>
