@@ -1,51 +1,42 @@
 [
   {
     "id": 1,
-    "area": "Lista de conversas",
-    "titulo": "Todos os canais numa tela",
-    "texto": "WhatsApp, Instagram e Messenger de todos os números da empresa no mesmo lugar.",
-    "x": 16,
-    "y": 32
+    "lado": "esquerdo",
+    "area": "Canais",
+    "titulo": "Canais Centralizados",
+    "texto": "Gerencie todos os canais do seu negócio apenas numa única aba.",
+    "x": 10.5,
+    "y": 42,
+    "icone": "chat"
   },
   {
     "id": 2,
-    "area": "Conversa aberta com resposta da IA",
-    "titulo": "Responde em segundos",
-    "texto": "A IA responde texto, áudio e imagem 24h, no tom da sua empresa.",
-    "x": 50,
-    "y": 48
+    "lado": "esquerdo",
+    "area": "Etiquetas",
+    "titulo": "Filtro por Etiquetas",
+    "texto": "Clique nas etiquetas criadas por você e acesse rapidamente aos usuários atribuídos.",
+    "x": 10.5,
+    "y": 60,
+    "icone": "tag"
   },
   {
     "id": 3,
-    "area": "Painel lateral do contato",
-    "titulo": "Memória do cliente",
-    "texto": "Os fatos importantes de cada cliente ficam salvos e são lembrados meses depois.",
-    "x": 84,
-    "y": 24
+    "lado": "direito",
+    "area": "Etiquetas da Conversa",
+    "titulo": "Etiquetas da Conversa",
+    "texto": "Adicione etiquetas aos seus usuários para melhor gerenciar a etapa da conversa do cliente.",
+    "x": 82,
+    "y": 45,
+    "icone": "bookmark"
   },
   {
     "id": 4,
-    "area": "Botão ou etiqueta de transferência",
-    "titulo": "Passa para um humano",
-    "texto": "Quando a conversa pede uma pessoa, a IA transfere com todo o histórico.",
-    "x": 60,
-    "y": 14
-  },
-  {
-    "id": 5,
-    "area": "Etiquetas ou funil",
-    "titulo": "Etiquetas e funil de vendas",
-    "texto": "Cada lead é etiquetado e entra na etapa certa do funil automaticamente.",
-    "x": 84,
-    "y": 74
-  },
-  {
-    "id": 6,
-    "area": "Filtro por atendente",
-    "titulo": "Visão do gestor",
-    "texto": "Veja o que cada atendente está conversando agora.",
-    "x": 26,
-    "y": 14
+    "lado": "direito",
+    "area": "Atendente Atribuído",
+    "titulo": "Atendente Atribuído",
+    "texto": "Atribua cada conversa a um atendente específico da sua equipe.",
+    "x": 82,
+    "y": 54,
+    "icone": "user"
   }
 ]
-
