@@ -21,7 +21,7 @@ export function getStaticPaths() {
 }
 
 const metaTitle = "Agente de IA para WhatsApp que Atende e Vende 24h | Maurício Leite";
-const metaDescription = "Seu WhatsApp atendendo, agendando e vendendo 24h com IA treinada nos dados da sua empresa e com memória de cada cliente. Veja os planos e fale comigo.";
+const metaDescription = "Seu WhatsApp atendendo, agendando e vendendo 24h com IA treinada nos dados da sua empresa e com memória de cada cliente. Fale diretamente comigo.";
 const whatsappLink = "https://wa.me/5592985582795?text=Ol%C3%A1%2C%20Maur%C3%ADcio!%20Quero%20ver%20o%20agente%20de%20IA%20para%20WhatsApp%20funcionando%20no%20meu%20neg%C3%B3cio.";
 
 // Dados das perguntas frequentes (FAQ)
@@ -77,8 +77,8 @@ const faqs = [
     marker: "[CONFIRMAR: regras de disparo ativo e custos da Meta]"
   },
   {
-    q: "Quanto custa?",
-    a: "Os planos mensais de software começam em R$ 889/mês, com a implementação técnica inicial a partir de R$ 3.500 (setup único). Veja o detalhamento na seção de planos.",
+    q: "Como funciona a contratação e valores?",
+    a: "Avaliamos o volume de atendimento, quantidade de canais e integrações necessárias para estruturar uma proposta personalizada para a sua empresa. Fale diretamente comigo para analisarmos sua operação.",
     marker: null
   }
 ];
@@ -510,202 +510,6 @@ const schemaJsonLd = {
       </section>
 
       <!-- ============================================================== -->
-      <!-- <!-- Evaldo #9: Oferta óbvia -->
-      <!-- 9. PLANOS E INVESTIMENTO -->
-      <!-- ============================================================== -->
-      <section class="py-20 md:py-28 border-b border-white/5" id="planos">
-        <div class="container mx-auto px-4 max-w-6xl">
-          <div class="text-center max-w-3xl mx-auto mb-14">
-            <span class="text-xs font-bold uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] block mb-3">
-              Investimento Transparente
-            </span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight mb-4">
-              Planos sem pegadinhas nem custos ocultos
-            </h2>
-            <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif]">
-              Escolha a capacidade ideal para o volume de conversas do seu negócio.
-            </p>
-          </div>
-
-          <!-- Grid dos 3 Planos -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mb-12">
-            
-            <!-- Plano 1: Inicie com IA -->
-            <div class="p-8 rounded-2xl bg-[#162026] border border-white/10 flex flex-col justify-between">
-              <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#8696a0] font-['Sora',sans-serif] block mb-2">
-                  Início Rápido
-                </span>
-                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white mb-2">
-                  Inicie com IA
-                </h3>
-                <p class="text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-6">
-                  Primeiro agente de IA no seu WhatsApp para atender e qualificar 24h.
-                </p>
-
-                <div class="mb-6 pb-6 border-b border-white/10">
-                  <span class="text-xs text-[#8696a0] block">Mensalidade cria.chat</span>
-                  <div class="flex items-baseline gap-1 mt-1">
-                    <span class="text-3xl sm:text-4xl font-extrabold font-['Sora',sans-serif] text-white">R$ 889</span>
-                    <span class="text-xs text-[#8696a0]">/mês</span>
-                  </div>
-                </div>
-
-                <ul class="space-y-3 text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-8">
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E]">✓</span> 1 Agente de IA para WhatsApp
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E]">✓</span> Painel multicanal integrado
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E]">✓</span> Transferência para equipe humana
-                  </li>
-                </ul>
-              </div>
-
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full py-3.5 px-4 rounded-xl text-center font-['Sora',sans-serif] text-sm font-bold bg-[#1f2c34] text-white hover:bg-[#283842] transition-colors border border-white/10"
-              >
-                Contratar este plano
-              </a>
-            </div>
-
-            <!-- Plano 2: Atenda com IA (DESTACADO) -->
-            <div class="relative p-8 rounded-2xl bg-[#162026] border-2 border-[#00A39E] shadow-2xl shadow-[#00A39E]/15 flex flex-col justify-between transform md:-translate-y-2">
-              <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#00A39E] text-black text-xs font-extrabold font-['Sora',sans-serif] uppercase tracking-wider py-1 px-4 rounded-full">
-                Mais Escolhido
-              </span>
-
-              <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#00A39E] font-['Sora',sans-serif] block mb-2">
-                  Operação Comercial
-                </span>
-                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white mb-2">
-                  Atenda com IA
-                </h3>
-                <p class="text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-6">
-                  Para empresas com equipe que precisam de múltiplos atendentes e volume.
-                </p>
-
-                <div class="mb-6 pb-6 border-b border-white/10">
-                  <span class="text-xs text-[#8696a0] block">Mensalidade cria.chat</span>
-                  <div class="flex items-baseline gap-1 mt-1">
-                    <span class="text-4xl font-extrabold font-['Sora',sans-serif] text-[#00A39E]">R$ 1.389</span>
-                    <span class="text-xs text-[#8696a0]">/mês</span>
-                  </div>
-                </div>
-
-                <ul class="space-y-3 text-xs text-white font-['Instrument_Sans',sans-serif] mb-8">
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E] font-bold">✓</span> <strong>5 Usuários</strong> para sua equipe
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E] font-bold">✓</span> <strong>2 Inboxes</strong> (ex: WhatsApp + Insta)
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E] font-bold">✓</span> <strong>600 Atendimentos</strong> de IA por mês
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E] font-bold">✓</span> Memória de longo prazo do cliente
-                  </li>
-                </ul>
-              </div>
-
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full py-4 px-4 rounded-xl text-center font-['Sora',sans-serif] text-sm font-bold bg-[#00A39E] text-black hover:bg-[#008f8a] transition-all shadow-lg shadow-[#00A39E]/25"
-              >
-                Garantir implementação
-              </a>
-            </div>
-
-            <!-- Plano 3: Vender Todo Dia -->
-            <div class="p-8 rounded-2xl bg-[#162026] border border-white/10 flex flex-col justify-between">
-              <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#8696a0] font-['Sora',sans-serif] block mb-2">
-                  Escala Avançada
-                </span>
-                <h3 class="text-2xl font-bold font-['Sora',sans-serif] text-white mb-2">
-                  Vender Todo Dia
-                </h3>
-                <p class="text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-6">
-                  Atendente dedicado, integrações externas customizadas e alto volume.
-                </p>
-
-                <div class="mb-6 pb-6 border-b border-white/10">
-                  <span class="text-xs text-[#8696a0] block">Mensalidade cria.chat</span>
-                  <div class="flex items-baseline gap-1 mt-1">
-                    <span class="text-3xl sm:text-4xl font-extrabold font-['Sora',sans-serif] text-white">R$ 1.889</span>
-                    <span class="text-xs text-[#8696a0]">/mês</span>
-                  </div>
-                </div>
-
-                <ul class="space-y-3 text-xs text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-8">
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E]">✓</span> Atendente dedicado
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E]">✓</span> Integrações com APIs externas
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <span class="text-[#00A39E]">✓</span> Roteamento complexo de vendas
-                  </li>
-                </ul>
-              </div>
-
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full py-3.5 px-4 rounded-xl text-center font-['Sora',sans-serif] text-sm font-bold bg-[#1f2c34] text-white hover:bg-[#283842] transition-colors border border-white/10"
-              >
-                Falar com Maurício
-              </a>
-            </div>
-
-          </div>
-
-          <!-- Informações de Setup e Calculadora -->
-          <div class="p-6 rounded-2xl bg-[#11181d] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h4 class="text-base font-bold font-['Sora',sans-serif] text-white mb-1">
-                Taxa de Setup Único: R$ 3.500
-              </h4>
-              <p class="text-xs text-[#8696a0] font-['Instrument_Sans',sans-serif]">
-                Inclui análise de processos, engenharia de prompts, treinamento nos manuais da sua empresa e implementação técnica completa.
-              </p>
-            </div>
-            <a
-              href="https://cria.chat/calculadora"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-xs font-bold text-[#00A39E] hover:underline whitespace-nowrap"
-            >
-              <span>Monte seu plano na calculadora cria.chat</span>
-              <span>↗</span>
-            </a>
-          </div>
-
-          <!-- Marcadores de Planos -->
-          <div class="mt-6 space-y-2">
-            <span class="block text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 p-2.5 rounded-lg text-center">
-              [PREENCHER: conferir se os preços continuam valendo e os limites de cada plano]
-            </span>
-            <span class="block text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 p-2.5 rounded-lg text-center">
-              [PREENCHER: garantia e bônus, se houver]
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================================== -->
-      <!-- <!-- Evaldo #10: Push-pull -->
       <!-- 10. O QUE VOCÊ PERDE SE ESPERAR -->
       <!-- ============================================================== -->
       <section class="py-20 md:py-24 bg-[#0a0f12] border-b border-white/5">

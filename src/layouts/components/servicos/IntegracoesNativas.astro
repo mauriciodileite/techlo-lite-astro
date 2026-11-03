@@ -1,8 +1,9 @@
 ---
 /**
  * Componente: IntegracoesNativas.astro
- * Descrição: Grid moderno de integrações nativas e canais suportados pela cria.chat + Maurício Leite
- * Inspirado no design do concorrente com cores do Brand Book (Verde Água #00A39E e fundo escuro).
+ * Descrição: Grid de 10 integrações nativas e canais suportados pela cria.chat + Maurício Leite
+ * Layout balanceado de 5 colunas x 2 linhas no desktop (2 colunas no mobile).
+ * Cores alinhadas ao Brand Book (Verde Água #00A39E, Neon #29FF54 e fundo escuro).
  */
 
 const integracoes = [
@@ -13,10 +14,11 @@ const integracoes = [
     icone: "whatsapp"
   },
   {
-    nome: "WhatsApp Ilimitado",
-    tipo: "Alta Escala",
-    descricao: "Múltiplos números e atendentes",
-    icone: "whatsapp-infinity"
+    nome: "Integração Sob Medida",
+    tipo: "Customizada",
+    descricao: "Desenvolvemos para qualquer API",
+    destaque: true,
+    icone: "custom"
   },
   {
     nome: "Instagram Direct",
@@ -31,10 +33,10 @@ const integracoes = [
     icone: "messenger"
   },
   {
-    nome: "Facebook / Meta Ads",
-    tipo: "Tráfego Pago",
-    descricao: "Geração de leads e anúncios diretos",
-    icone: "meta"
+    nome: "API & Webhooks",
+    tipo: "Desenvolvedores",
+    descricao: "Envie e receba dados em tempo real",
+    icone: "api"
   },
   {
     nome: "Telegram",
@@ -65,32 +67,13 @@ const integracoes = [
     tipo: "Automotivo",
     descricao: "Integração para rede concessionárias",
     icone: "myhonda"
-  },
-  {
-    nome: "Syonet CRM",
-    tipo: "CRM Líder",
-    descricao: "Sincronização com o CRM líder auto",
-    icone: "syonet"
-  },
-  {
-    nome: "API & Webhooks",
-    tipo: "Desenvolvedores",
-    descricao: "Envie e receba dados em tempo real",
-    icone: "api"
-  },
-  {
-    nome: "Integração Sob Medida",
-    tipo: "Customizada",
-    descricao: "Desenvolvemos para qualquer API",
-    destaque: true,
-    icone: "custom"
   }
 ];
 ---
 
 <div class="border-t border-white/10 pt-16 md:pt-20">
   <!-- Cabeçalho Centralizado da Seção -->
-  <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+  <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A1A1A] border border-[#00A39E]/30 mb-4 shadow-sm">
       <span class="text-[#00A39E]">🔌</span>
       <span class="text-xs uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] font-bold">
@@ -103,17 +86,17 @@ const integracoes = [
     </h3>
 
     <p class="text-base sm:text-lg text-[#D4D4D4] font-['Instrument_Sans',sans-serif] leading-relaxed max-w-2xl mx-auto">
-      Integre seu agente para responder em todos os seus canais de comunicação. E conecte facilmente com seus dados e ferramentas do dia a dia.
+      Integre seu agente para responder em seus canais de comunicação. E conecte facilmente com seus dados e ferramentas nos principais serviços.
     </p>
   </div>
 
-  <!-- Grid de Cards de Integrações -->
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-5">
+  <!-- Grid Balanceado de 10 Cards (2x5 no desktop, 5x2 no mobile) -->
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-3.5 sm:gap-5 max-w-6xl mx-auto">
     {integracoes.map((item) => (
       <div
-        class={`group relative p-4 sm:p-5 rounded-2xl border transition-all duration-300 flex flex-col items-center justify-center text-center ${
+        class={`group relative p-4 sm:p-5 rounded-2xl border transition-all duration-300 flex flex-col items-center justify-center text-center h-full min-h-[160px] sm:min-h-[175px] ${
           item.destaque
-            ? "col-span-2 sm:col-span-1 bg-gradient-to-b from-[#162026] to-[#0a1518] border-[#00A39E]/60 shadow-lg shadow-[#00A39E]/10 hover:border-[#00A39E] hover:scale-[1.03]"
+            ? "bg-gradient-to-b from-[#162026] to-[#0d161a] border-[#00A39E]/60 shadow-lg shadow-[#00A39E]/10 hover:border-[#00A39E] hover:scale-[1.03]"
             : "bg-[#162026] border-white/10 hover:border-[#00A39E]/50 hover:bg-[#1a252c] hover:scale-[1.03]"
         }`}
       >
@@ -125,15 +108,10 @@ const integracoes = [
             </svg>
           )}
 
-          {item.icone === "whatsapp-infinity" && (
-            <div class="relative flex items-center justify-center">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.954 2.8.956 3.182 0 5.768-2.587 5.768-5.766.001-3.181-2.585-5.767-5.772-5.767z"/>
-              </svg>
-              <span class="absolute -bottom-1 -right-1 text-[10px] font-black text-[#00A39E] font-mono leading-none bg-[#111111] px-1 rounded-full border border-[#00A39E]/40">
-                ∞
-              </span>
-            </div>
+          {item.icone === "custom" && (
+            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#29FF54]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+            </svg>
           )}
 
           {item.icone === "instagram" && (
@@ -148,9 +126,9 @@ const integracoes = [
             </svg>
           )}
 
-          {item.icone === "meta" && (
-            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#0081FB]" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/>
+          {item.icone === "api" && (
+            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
             </svg>
           )}
 
@@ -184,24 +162,6 @@ const integracoes = [
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 2h10l2-2zm0 0h5l3 3V10l-3-4h-5v10z"/>
             </svg>
           )}
-
-          {item.icone === "syonet" && (
-            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
-            </svg>
-          )}
-
-          {item.icone === "api" && (
-            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
-          )}
-
-          {item.icone === "custom" && (
-            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#29FF54]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
-            </svg>
-          )}
         </div>
 
         <!-- Nome da Integração -->
@@ -215,31 +175,11 @@ const integracoes = [
         </p>
 
         {item.destaque && (
-          <span class="mt-2 inline-block text-[10px] uppercase tracking-wider font-extrabold text-[#29FF54] bg-[#29FF54]/10 border border-[#29FF54]/30 px-2 py-0.5 rounded-full">
-            Tem API? Conectamos!
+          <span class="mt-2 inline-block text-[9px] uppercase tracking-wider font-extrabold text-[#29FF54] bg-[#29FF54]/10 border border-[#29FF54]/30 px-2 py-0.5 rounded-full">
+            Sob Medida
           </span>
         )}
       </div>
     ))}
-  </div>
-
-  <!-- Box de Garantia de Integração Personalizada -->
-  <div class="mt-10 sm:mt-12 p-6 sm:p-8 rounded-2xl bg-[#0f171c] border border-[#00A39E]/25 text-center max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-    <div class="text-left">
-      <h4 class="text-base sm:text-lg font-bold font-['Sora',sans-serif] text-white mb-1">
-        Seu CRM, ERP ou sistema interno não está na lista?
-      </h4>
-      <p class="text-xs sm:text-sm text-[#D4D4D4] font-['Instrument_Sans',sans-serif]">
-        Se a sua ferramenta possui API ou Webhook documentados, desenvolvemos a integração sob medida para o seu fluxo.
-      </p>
-    </div>
-    <a
-      href="https://wa.me/5592985582795?text=Ol%C3%A1%2C%20Maur%C3%ADcio!%20Tenho%20um%20sistema%20com%20API%20e%20quero%20saber%20se%20integra%20com%20o%20agente%20de%20IA."
-      target="_blank"
-      rel="noopener noreferrer"
-      class="whitespace-nowrap px-5 py-2.5 rounded-xl bg-[#00A39E] hover:bg-[#00c4be] text-black font-['Sora',sans-serif] font-bold text-xs sm:text-sm transition-all shadow-lg shadow-[#00A39E]/20 hover:scale-105"
-    >
-      Consultar Minha API →
-    </a>
   </div>
 </div>
