@@ -9,6 +9,7 @@ import Base from "@/layouts/Base.astro";
 import HeaderNav from "@/components/HeaderNav.astro";
 import FooterMauricio from "@/components/FooterMauricio.astro";
 import PainelInterativo from "@/components/servicos/PainelInterativo.astro";
+import CampanhasDisparo from "@/components/servicos/CampanhasDisparo.astro";
 
 // Gera a rota apenas em Português na raiz (/agente-de-ia-para-whatsapp/)
 export function getStaticPaths() {
@@ -257,6 +258,16 @@ const schemaJsonLd = {
         <div class="container mx-auto px-4 max-w-7xl">
           <!-- Componente do Print Interativo (100% CSS Nativo, Zero JS) -->
           <PainelInterativo />
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- 2.1 CAMPANHAS DE DISPARO INTERATIVAS (IMAGEM 2) -->
+      <!-- ============================================================== -->
+      <section class="py-20 md:py-28 bg-[#111111] border-b border-white/5 relative">
+        <div class="container mx-auto px-4 max-w-7xl">
+          <!-- Componente de Disparo e Campanhas (100% CSS Nativo, Zero JS) -->
+          <CampanhasDisparo />
         </div>
       </section>
 

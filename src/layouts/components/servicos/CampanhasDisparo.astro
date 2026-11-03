@@ -1,0 +1,190 @@
+---
+/**
+ * Componente: CampanhasDisparo.astro
+ * Descrição: Seção interativa de Campanhas de Disparo da cria.chat com 2 balões explicativos
+ * Funciona no Desktop (hover/clique) e no Celular (ao toque com <details>), 100% CSS NATIVO (Zero JS).
+ */
+
+const pontos = [
+  {
+    id: 1,
+    area: "Módulo de Disparo",
+    titulo: "Disparo Direto e Segmentado",
+    texto: "Realize disparos de mensagens para uma lista específica ou número cadastrado na plataforma.",
+    x: 8.5,
+    y: 44.5,
+    posicao: "esquerda"
+  },
+  {
+    id: 2,
+    area: "Origem dos Dados",
+    titulo: "Multi-Fontes de Contatos",
+    texto: "Selecione diferentes tipos de fontes para realizar disparo para sua lista de contatos e aquecer seus clientes.",
+    x: 56,
+    y: 44,
+    posicao: "centro"
+  }
+];
+---
+
+<div class="relative w-full">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+    
+    <!-- Coluna do Mockup Visual (À esquerda no desktop para alternar o ritmo) -->
+    <div class="lg:col-span-8 order-2 lg:order-1">
+      <div class="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-[#0d1418] shadow-2xl">
+        
+        <!-- Barra de Janela Superior do Mockup -->
+        <div class="bg-[#141d22] px-4 py-2.5 border-b border-white/5 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-[#ff5f56]/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-[#ffbd2e]/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-[#27c93f]/80 inline-block"></span>
+            <span class="ml-2 text-[11px] font-mono text-[#8696a0]">cria.chat • Campanhas & Disparo</span>
+          </div>
+          <span class="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-[#00A39E] bg-[#00A39E]/10 px-2 py-0.5 rounded-full">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E] animate-pulse"></span>
+            ENVIO SEGURO
+          </span>
+        </div>
+
+        <!-- Imagem Real de Disparo -->
+        <div class="relative w-full">
+          <img
+            src="/images/servicos/disparo-campanhas-criachat.webp"
+            alt="Módulo de campanhas e disparo de mensagens no WhatsApp com cria.chat"
+            width="1525"
+            height="691"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-auto block select-none"
+          />
+
+          <!-- Camada de Hotspots Interativos (Visível no Celular e no Desktop) -->
+          <div class="absolute inset-0 pointer-events-none">
+            {pontos.map((ponto) => (
+              <details
+                name="disparo-hotspots"
+                class="hotspot-details group absolute pointer-events-auto"
+                style={`left: ${ponto.x}%; top: ${ponto.y}%;`}
+              >
+                <!-- Botão / Gatilho de Toque e Clique (Summary) -->
+                <summary
+                  class="list-none outline-none cursor-pointer relative -translate-x-1/2 -translate-y-1/2 flex items-center justify-center select-none [&::-webkit-details-marker]:hidden p-1 focus-visible:ring-2 focus-visible:ring-[#00A39E] rounded-full"
+                  aria-label={`Ponto ${ponto.id}: ${ponto.titulo}`}
+                >
+                  <span class="relative flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center">
+                    <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A39E] opacity-75"></span>
+                    <span class="relative inline-flex items-center justify-center rounded-full h-6 w-6 sm:h-7 sm:w-7 bg-[#00A39E] text-black font-['Sora',sans-serif] font-black text-xs shadow-lg shadow-[#00A39E]/50 border-2 border-[#111111] transition-transform duration-200 group-hover:scale-110">
+                      {ponto.id}
+                    </span>
+                  </span>
+                </summary>
+
+                <!-- Balão Explicativo (Abre ao toque via details, ou hover no desktop via CSS) -->
+                <div
+                  class={`hotspot-bubble absolute z-40 w-52 sm:w-72 p-3 sm:p-4 rounded-xl bg-[#162026]/98 backdrop-blur-md border border-[#00A39E]/60 shadow-2xl text-left pointer-events-auto transition-all duration-200 animate-in fade-in zoom-in-95 ${
+                    ponto.posicao === "esquerda"
+                      ? "left-4 sm:left-6 -top-6 sm:top-1/2 sm:-translate-y-1/2"
+                      : "left-1/2 -translate-x-1/2 bottom-5 sm:bottom-8"
+                  }`}
+                >
+                  <div class="flex items-center justify-between gap-1.5 mb-1.5">
+                    <div class="flex items-center gap-1.5">
+                      <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#00A39E]/20 text-[#00A39E] text-[10px] font-bold">
+                        {ponto.id}
+                      </span>
+                      <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#00A39E] font-['Sora',sans-serif]">
+                        {ponto.area}
+                      </span>
+                    </div>
+                    <span class="text-[10px] text-[#8696a0] hover:text-white cursor-pointer px-1">✕</span>
+                  </div>
+
+                  <h4 class="text-xs sm:text-sm font-bold text-white font-['Sora',sans-serif] mb-1 leading-snug">
+                    {ponto.titulo}
+                  </h4>
+
+                  <p class="text-[11px] sm:text-xs text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
+                    {ponto.texto}
+                  </p>
+                </div>
+              </details>
+            ))}
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Dica Interativa para o visitante -->
+      <p class="mt-3 text-xs text-[#8696a0] font-['Instrument_Sans',sans-serif] text-center">
+        💡 <span class="hidden sm:inline">Passe o mouse ou clique</span><span class="sm:hidden">Toque</span> nos números 1 e 2 no print para inspecionar cada recurso.
+      </p>
+    </div>
+
+    <!-- Coluna de Texto e Benefícios (À direita no desktop) -->
+    <div class="lg:col-span-4 text-left order-1 lg:order-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-4">
+        <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
+        <span class="text-xs uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] font-semibold">
+          Engajamento & Vendas
+        </span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight mb-4 leading-tight">
+        Crie campanhas de disparo de mensagens para seus contatos
+      </h2>
+
+      <p class="text-sm sm:text-base text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-6 leading-relaxed">
+        Reative clientes inativos, envie avisos importantes e aqueça sua base de contatos com segmentação inteligente.
+      </p>
+
+      <!-- Lista de Benefícios dos 2 Pontos -->
+      <div class="space-y-3.5">
+        <div class="p-4 rounded-xl bg-[#162026] border border-white/5 hover:border-[#00A39E]/40 transition-all flex items-start gap-3.5">
+          <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-[#00A39E]/15 border border-[#00A39E]/30 text-[#00A39E] font-['Sora',sans-serif] font-extrabold text-xs flex items-center justify-center mt-0.5">
+            1
+          </span>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-sm font-bold text-white font-['Sora',sans-serif] mb-1">
+              Disparos para Listas ou Contatos Específicos
+            </h3>
+            <p class="text-xs text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
+              Realize disparos de mensagens para uma lista específica ou número cadastrado na plataforma sem burocracia.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#162026] border border-white/5 hover:border-[#00A39E]/40 transition-all flex items-start gap-3.5">
+          <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-[#00A39E]/15 border border-[#00A39E]/30 text-[#00A39E] font-['Sora',sans-serif] font-extrabold text-xs flex items-center justify-center mt-0.5">
+            2
+          </span>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-sm font-bold text-white font-['Sora',sans-serif] mb-1">
+              Flexibilidade de Fontes de Dados
+            </h3>
+            <p class="text-xs text-[#C6C6C6] leading-relaxed font-['Instrument_Sans',sans-serif]">
+              Selecione diferentes tipos de fontes para realizar disparo para sua lista de contatos e aquecer seus clientes: use conversas ativas, base interna, planilhas do Excel/Sheets ou arquivos CSV.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Abre também no hover em dispositivos com mouse (desktop), sem precisar clicar */
+  @media (hover: hover) and (pointer: fine) {
+    .hotspot-details:hover .hotspot-bubble {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+    .hotspot-details:not([open]):not(:hover) .hotspot-bubble {
+      display: none;
+    }
+  }
+</style>
