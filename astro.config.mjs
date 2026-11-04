@@ -27,6 +27,7 @@ export default defineConfig({
   redirects: {
     "/empresas-brasil": "/agenda",
     "/en/empresas-brasil": "/en/agenda",
+    "/agencia-de-trafego-pago": "/agenda",
     // Rotas antigas com tráfego detectado no GSC
     "/tik-tok-shop": "/blog",
     "/alerta": "/blog",
