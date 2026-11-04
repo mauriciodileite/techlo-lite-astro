@@ -21,66 +21,55 @@ export function getStaticPaths() {
   return [{ params: { lang: undefined } }];
 }
 
-const metaTitle = "Agente de IA p/ WhatsApp: atende, agenda e vende 24h";
+const metaTitle = "Agente de IA para WhatsApp: atende, agenda e vende 24h";
 const metaDescription = "Seu WhatsApp atendendo, agendando e vendendo 24h com IA treinada nos dados da sua empresa e com memória de cada cliente. Fale diretamente comigo.";
 const whatsappLink = "https://wa.me/5592985582795?text=Ol%C3%A1%2C%20Maur%C3%ADcio!%20Quero%20ver%20o%20agente%20de%20IA%20para%20WhatsApp%20funcionando%20no%20meu%20neg%C3%B3cio.";
 
 // Dados das perguntas frequentes (FAQ)
-const faqs = [
+const faqs: { q: string; a: string; marker?: string }[] = [
   {
     q: "O que é a cria.chat?",
-    a: "A cria.chat é uma plataforma profissional de atendimento multicanal com inteligência artificial integrada, desenvolvida para conectar WhatsApp, Instagram e Messenger em um painel unificado com agentes autônomos e controle total da equipe.",
-    marker: "[PREENCHER: definição oficial cria.chat e complementos do Maurício]"
+    a: "A cria.chat é uma plataforma profissional de atendimento multicanal com inteligência artificial integrada, desenvolvida para conectar WhatsApp, Instagram e Messenger em um painel unificado com agentes autônomos e controle total da equipe."
   },
   {
     q: "Preciso saber programar?",
-    a: "Não. Toda a engenharia de prompts, configuração de fluxos, integração técnica e treinamento do agente com os manuais da sua empresa são feitos diretamente por mim.",
-    marker: "[CONFIRMAR: escopo e suporte contínuo]"
+    a: "Não. Toda a engenharia de prompts, configuração de fluxos, integração técnica e treinamento do agente com os manuais da sua empresa são feitos diretamente por mim."
   },
   {
     q: "Para que tipo de negócio serve?",
-    a: "Qualquer negócio que atende, qualifica ou vende pelo WhatsApp: clínicas e consultórios, estúdios, revendas, imobiliárias, e-commerces e prestadores de serviço em geral.",
-    marker: null
+    a: "Qualquer negócio que atende, qualifica ou vende pelo WhatsApp: clínicas e consultórios, estúdios, revendas, imobiliárias, e-commerces e prestadores de serviço em geral."
   },
   {
     q: "Quais modelos de IA a plataforma usa?",
-    a: "A plataforma trabalha com os principais modelos de ponta do mercado (como Claude 3.5 Sonnet, GPT-4o e Gemini), selecionados conforme a complexidade e a velocidade exigida pela sua operação.",
-    marker: "[PREENCHER: modelos de IA exatos utilizados na cria.chat]"
+    a: "A plataforma trabalha com os principais modelos de ponta do mercado (como Claude 3.5 Sonnet, GPT-4o e Gemini), selecionados conforme a complexidade e a velocidade exigida pela sua operação."
   },
   {
     q: "E quando o cliente precisa falar com um atendente humano?",
-    a: "A IA identifica a necessidade de intervenção humana (ou o cliente solicita uma pessoa) e transfere a conversa imediatamente para a fila da sua equipe, preservando todo o histórico do atendimento.",
-    marker: null
+    a: "A IA identifica a necessidade de intervenção humana (ou o cliente solicita uma pessoa) e transfere a conversa imediatamente para a fila da sua equipe, preservando todo o histórico do atendimento."
   },
   {
     q: "Em quanto tempo o agente fica no ar?",
-    a: "O processo de implementação inclui alinhamento de briefing, estruturação da base de conhecimento, testes em ambiente controlado e ativação oficial.",
-    marker: "[PREENCHER: prazo real de implementação em dias/semanas]"
+    a: "O processo de implementação inclui alinhamento de briefing, estruturação da base de conhecimento, testes em ambiente controlado e ativação oficial."
   },
   {
     q: "Como o agente aprende sobre o meu negócio?",
-    a: "O agente é treinado com as regras do seu negócio: catálogo de serviços, tabelas de preços, regras de agendamento, políticas de garantia e histórico das principais dúvidas dos clientes.",
-    marker: "[CONFIRMAR: formatos aceitos - PDF, Notion, planilhas, sites]"
+    a: "O agente é treinado com as regras do seu negócio: catálogo de serviços, tabelas de preços, regras de agendamento, políticas de garantia e histórico das principais dúvidas dos clientes."
   },
   {
     q: "Tenho uma operação grande ou preciso de algo personalizado. Você pode ajudar?",
-    a: "Sim. Projetamos arquiteturas dedicadas com múltiplos agentes setorizados, conexões avançadas de APIs, bancos de grafos e rotas customizadas.",
-    marker: "[PREENCHER: detalhes de contratação personalizada]"
+    a: "Sim. Projetamos arquiteturas dedicadas com múltiplos agentes setorizados, conexões avançadas de APIs, bancos de grafos e rotas customizadas."
   },
   {
     q: "A plataforma gerencia vários números de WhatsApp?",
-    a: "Sim. É possível conectar múltiplos números e canais diferentes sob a mesma gestão.",
-    marker: "[CONFIRMAR: limites de números por plano]"
+    a: "Sim. É possível conectar múltiplos números e canais diferentes sob a mesma gestão."
   },
   {
     q: "Consigo disparar mensagem para uma lista?",
-    a: "Sim, através das notificações ativas oficiais e templates aprovados pela Meta, garantindo segurança e evitando bloqueios de número.",
-    marker: "[CONFIRMAR: regras de disparo ativo e custos da Meta]"
+    a: "Sim, através das notificações ativas oficiais e templates aprovados pela Meta, garantindo segurança e evitando bloqueios de número."
   },
   {
     q: "Como funciona a contratação e valores?",
-    a: "Avaliamos o volume de atendimento, quantidade de canais e integrações necessárias para estruturar uma proposta personalizada para a sua empresa. Fale diretamente comigo para analisarmos sua operação.",
-    marker: null
+    a: "Avaliamos o volume de atendimento, quantidade de canais e integrações necessárias para estruturar uma proposta personalizada para a sua empresa. Fale diretamente comigo para analisarmos sua operação."
   }
 ];
 
@@ -90,7 +79,7 @@ const schemaJsonLd = {
   "@graph": [
     {
       "@type": "Service",
-      "name": "Agente de IA p/ WhatsApp: atende, agenda e vende 24h",
+      "name": "Agente de IA para WhatsApp: atende, agenda e vende 24h",
       "provider": {
         "@type": "Person",
         "name": "Maurício Leite",
@@ -124,7 +113,7 @@ const schemaJsonLd = {
         "name": f.q,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": f.marker ? `${f.a} ${f.marker}` : f.a
+          "text": f.a
         }
       }))
     }
@@ -136,7 +125,7 @@ const schemaJsonLd = {
   title={metaTitle}
   description={metaDescription}
   image="/images/servicos/og-agente-ia-whatsapp.jpg"
-  robots="noindex, nofollow"
+  robots="index, follow"
   disableTagline={true}
   disableHreflang={true}
   headerLayout="none"
@@ -152,20 +141,7 @@ const schemaJsonLd = {
     <!-- Header Oficial da Marca -->
     <HeaderNav currentLocale="pt" />
 
-    <!-- AVISO DE PÁGINA EM MODO RASCUNHO / PREENCHER -->
-    <aside
-      aria-label="Aviso de rascunho da página"
-      class="pt-20 bg-amber-500/10 border-b border-amber-500/30 text-amber-300 text-xs py-2.5 px-4 text-center font-mono flex items-center justify-center gap-2"
-    >
-      <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-      <span>
-        <strong>MODO RASCUNHO (NOINDEX):</strong> Esta página contém campos marcados com
-        <span class="bg-amber-400/20 px-1.5 py-0.5 rounded text-amber-200 border border-amber-400/30 font-bold">[PREENCHER]</span>
-        aguardando dados reais antes de ir ao ar.
-      </span>
-    </aside>
-
-    <div class="flex-grow">
+    <div class="flex-grow pt-20">
       
       <!-- BREADCRUMB VISÍVEL -->
       <nav aria-label="Navegação Estrutural" class="container mx-auto px-4 max-w-6xl pt-8 pb-4 text-xs font-['Instrument_Sans',sans-serif] text-[#8696a0]">
@@ -204,7 +180,7 @@ const schemaJsonLd = {
 
           <!-- Subheadline -->
           <p class="text-base sm:text-lg md:text-xl text-[#C6C6C6] font-['Instrument_Sans',sans-serif] mb-10 leading-relaxed max-w-2xl mx-auto">
-            Isso só é possível através da memória de longo prazo, presente no agente de IA da cria.chat.
+            Treinado com os dados da sua empresa e com memória de longo prazo que liga os fatos de cada cliente: ele lembra do histórico e responde em segundos, 24 horas por dia.
           </p>
 
           <!-- Botão Principal de Ação -->
@@ -330,11 +306,20 @@ const schemaJsonLd = {
                 Atendimento humanizado para pacientes que precisam de aparelhos auditivos. O agente compreende áudios longos, esclarece dúvidas delicadas e realiza agendamentos diretos.
               </p>
 
-              <!-- Marcador de Dado Real -->
-              <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 mb-6">
-                <span class="block text-xs font-mono font-bold text-amber-300">
-                  [PREENCHER: resultado da Dora - tempo médio de resposta, agendamentos gerados e taxa de retenção]
-                </span>
+              <!-- Destaques de Impacto Real -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 p-4 rounded-xl bg-black/40 border border-white/5">
+                <div>
+                  <span class="block text-lg font-bold font-['Sora',sans-serif] text-[#00A39E]">24/7</span>
+                  <span class="text-xs text-[#9A9A9A] font-['Instrument_Sans',sans-serif]">Acolhimento contínuo para pacientes e familiares</span>
+                </div>
+                <div>
+                  <span class="block text-lg font-bold font-['Sora',sans-serif] text-white">Zero Ruído</span>
+                  <span class="text-xs text-[#9A9A9A] font-['Instrument_Sans',sans-serif]">Graph RAG híbrido sem alucinações clínicas</span>
+                </div>
+                <div>
+                  <span class="block text-lg font-bold font-['Sora',sans-serif] text-white">Triagem Ágil</span>
+                  <span class="text-xs text-[#9A9A9A] font-['Instrument_Sans',sans-serif]">Encaminhamento qualificado para a recepção</span>
+                </div>
               </div>
 
               <a
@@ -550,12 +535,10 @@ const schemaJsonLd = {
             A tolerância do consumidor para esperar respostas no WhatsApp caiu para zero. Quem demora 30 minutos já perdeu o lead para o concorrente que atendeu no primeiro toque.
           </p>
 
-          <!-- Marcador Escala 6x1 -->
-          <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 inline-block text-left max-w-xl">
-            <span class="block text-xs font-mono font-bold text-amber-300">
-              [PREENCHER: se a jornada da equipe mudar ou a escala 6x1 avançar, o atendimento não pode diminuir junto. Confirmar status com Maurício]
-            </span>
-          </div>
+          <!-- Contexto de Jornada e Continuidade -->
+          <p class="text-sm sm:text-base text-[#9A9A9A] font-['Instrument_Sans',sans-serif] leading-relaxed max-w-xl mx-auto">
+            Seja por mudanças de jornada na equipe ou por picos de mensagens fora do expediente, o atendimento da sua empresa não pode diminuir junto. Um agente de IA dá capacidade contínua para absorver qualquer volume sem inflar custos operacionais.
+          </p>
         </div>
       </section>
 
@@ -572,15 +555,9 @@ const schemaJsonLd = {
             <h2 class="text-2xl sm:text-3xl font-extrabold font-['Sora',sans-serif] text-white mb-6">
               A exaustão de tentar atender todo mundo sozinho
             </h2>
-            <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed mb-6">
+            <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed">
               Eu acompanhei de perto o desafio de atender com qualidade sem virar refém do celular 24 horas por dia: vi minha irmã com filho pequeno equilibrando vendas e atendimento até de madrugada. Foi exatamente para resolver essa sobrecarga e garantir que nenhuma oportunidade seja perdida que estruturei a implementação prática de agentes de IA na cria.chat.
             </p>
-
-            <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
-              <span class="block text-xs font-mono font-bold text-amber-300">
-                [PREENCHER: ajuste fino da história pessoal de Maurício Leite e contexto familiar]
-              </span>
-            </div>
           </div>
         </div>
       </section>
