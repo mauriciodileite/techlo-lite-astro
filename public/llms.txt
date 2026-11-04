@@ -20,6 +20,7 @@ Maurício Leite é especialista em Inteligência Artificial, Engenharia de Softw
 
 ## Páginas e Serviços
 
+- [Agente de IA para WhatsApp](https://mauricioleite.com.br/agente-de-ia-para-whatsapp/): Implementação personalizada de agentes de inteligência artificial para WhatsApp, com atendimento 24/7, memória persistente e treinamento em dados próprios da empresa.
 - [Blog](https://mauricioleite.com.br/blog/): Todos os artigos e análises sobre IA e engenharia.
 - [Agendar Reunião / Consultoria](https://mauricioleite.com.br/agenda/): Agendamento de diagnóstico estratégico de IA e arquitetura de software com Maurício Leite.
 - [Empresas](https://mauricioleite.com.br/empresas-exterior/): Soluções e consultoria em IA para empresas internacionais e nacionais.

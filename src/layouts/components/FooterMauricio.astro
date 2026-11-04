@@ -91,7 +91,18 @@ const termsLabel = isEnglish ? "Terms of Use" : "Termos de Uso";
         &copy; {currentYear} Maurício Leite. Todos os direitos reservados.
       </div>
       {showLegalLinks && (
-        <div class="flex items-center gap-4 text-xs font-['Instrument_Sans',sans-serif]">
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-4 text-xs font-['Instrument_Sans',sans-serif]">
+          {!isEnglish && (
+            <>
+              <a
+                href="/agente-de-ia-para-whatsapp/"
+                class="text-[#9A9A9A] hover:text-[#00A39E] transition-colors underline-offset-4 hover:underline"
+              >
+                Agente de IA para WhatsApp
+              </a>
+              <span class="text-white/20 select-none">·</span>
+            </>
+          )}
           <a
             href={privacyUrl}
             class="text-[#9A9A9A] hover:text-[#00A39E] transition-colors underline-offset-4 hover:underline"

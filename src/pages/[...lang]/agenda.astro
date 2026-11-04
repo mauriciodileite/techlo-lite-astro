@@ -258,6 +258,27 @@ const currentFaqs = isEnglish ? faqsAiSimEn : faqsAiSimPt;
               </p>
             </div>
           </div>
+
+          <!-- Chamada para Agente de IA para WhatsApp no Brasil -->
+          {!isEnglish && (
+            <div class="mt-10 p-6 sm:p-7 rounded-2xl bg-[#162026] border border-[#00A39E]/30 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-lg">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] block mb-1.5">
+                  Atendimento & Conversão 24/7 no WhatsApp
+                </span>
+                <p class="text-sm md:text-base text-white font-['Instrument_Sans',sans-serif] leading-relaxed">
+                  Precisa de atendimento imediato para não perder vendas fora do horário comercial? Conheça o nosso <a href="/agente-de-ia-para-whatsapp/" class="text-[#00A39E] font-bold underline hover:text-[#008f8a]">Agente de IA para WhatsApp</a>.
+                </p>
+              </div>
+              <a
+                href="/agente-de-ia-para-whatsapp/"
+                class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#00A39E] text-black font-['Sora',sans-serif] font-bold text-xs sm:text-sm hover:bg-[#008f8a] transition-all shadow-md shadow-[#00A39E]/20"
+              >
+                <span>Conhecer o agente</span>
+                <span>→</span>
+              </a>
+            </div>
+          )}
         </div>
       </section>
 

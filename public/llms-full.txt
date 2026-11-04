@@ -56,7 +56,15 @@ Autor: Maurício Leite
 
 ---
 
-## 2. Contato e Agendamento
+## 2. Serviços e Implementações de IA
+
+### 2.1 Agente de IA para WhatsApp
+- **URL**: https://mauricioleite.com.br/agente-de-ia-para-whatsapp/
+- **Resumo**: Implementação personalizada de agentes conversacionais de inteligência artificial para WhatsApp, com atendimento 24/7, qualificação de leads, agendamento de reuniões e memória persistente de longo prazo que retém o histórico e contexto de cada cliente. A infraestrutura conecta a plataforma cria.chat, modelos de ponta (Claude 3.5 Sonnet, GPT-4o, Gemini) e bancos de grafos Neo4j/Mem0 para eliminar alucinações e garantir escalabilidade de vendas sem sobrecarregar a equipe humana.
+
+---
+
+## 3. Contato e Agendamento
 
 - **Agendamento de Consultoria**: https://mauricioleite.com.br/agenda/
 - **Consultoria Corporativa**: https://mauricioleite.com.br/empresas-exterior/

@@ -113,4 +113,4 @@ A implementação dessa configuração nas operações de clientes que atendo no
 
 Para conhecer como desenhamos automações integradas com IA para empresas de alto ticket, leia também nosso [Estudo de Caso sobre RAG no WhatsApp para Saúde](/blog/estudo-de-caso-dora-ia-saude-auditiva-brasilia/) e acompanhe as novidades no nosso [Radar de Tráfego & IA](/blog/radar-ia-marketing-google-ai-overviews-meta-muse-chatgpt-ads/).
 
-Se você deseja estruturar um agente de IA com arquitetura corporativa para o seu negócio, agende uma sessão de planejamento na nossa página de [Agendamento Estratégico](/agenda/).
+Se você deseja estruturar um [Agente de IA para WhatsApp](/agente-de-ia-para-whatsapp/) com arquitetura corporativa e memória persistente para a sua empresa, conheça a nossa [implementação prática de Agente de IA](/agente-de-ia-para-whatsapp/) ou agende uma sessão na nossa página de [Agendamento Estratégico](/agenda/).

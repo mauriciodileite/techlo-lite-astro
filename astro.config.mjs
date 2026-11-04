@@ -65,7 +65,7 @@ export default defineConfig({
     },
   },
   integrations: [
-    sitemapConfig.enable ? sitemap({ filter: (page) => !page.includes('agente-de-ia-para-whatsapp') }) : null,
+    sitemapConfig.enable ? sitemap() : null,
     // Shortcodes are provided to MDX via the `components` prop on `<Content />`
     // (see `src/lib/shortcodes.ts`), so no auto-import integration is needed.
     mdx(),

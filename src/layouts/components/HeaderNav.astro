@@ -58,14 +58,58 @@ const navItems = [
 
     <!-- Menu Central (Desktop) -->
     <nav class="hidden xl:flex items-center gap-7">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class="text-sm font-medium text-[#C6C6C6] hover:text-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]"
-        >
-          {item.name}
-        </a>
-      ))}
+      {navItems.map((item) => {
+        const hasSubmenu = !isEnglish && item.href === "/agenda";
+        if (!hasSubmenu) {
+          return (
+            <a
+              href={item.href}
+              class="text-sm font-medium text-[#C6C6C6] hover:text-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]"
+            >
+              {item.name}
+            </a>
+          );
+        }
+        return (
+          <div class="relative group">
+            <div class="flex items-center gap-1.5">
+              <a
+                href={item.href}
+                class="text-sm font-medium text-[#C6C6C6] hover:text-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]"
+              >
+                {item.name}
+              </a>
+              <button
+                type="button"
+                aria-label="Submenu de Empresas no Brasil"
+                aria-haspopup="true"
+                class="text-[#C6C6C6] hover:text-[#00A39E] focus:outline-none transition-transform group-hover:rotate-180"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+            <!-- Submenu Dropdown (Desktop) -->
+            <div class="absolute left-0 top-full pt-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-all duration-200 z-50">
+              <div class="w-64 rounded-xl bg-[#162026] border border-white/10 shadow-2xl p-2.5 backdrop-blur-md">
+                <a
+                  href="/agente-de-ia-para-whatsapp/"
+                  class="flex flex-col gap-0.5 p-2.5 rounded-lg hover:bg-white/5 transition-colors group/sub"
+                >
+                  <span class="text-xs font-bold font-['Sora',sans-serif] text-white group-hover/sub:text-[#00A39E] transition-colors flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E]"></span>
+                    Agente de IA para WhatsApp
+                  </span>
+                  <span class="text-[11px] text-[#A0A0A0] font-['Instrument_Sans',sans-serif]">
+                    Atendimento e vendas 24h com IA
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </nav>
 
     <!-- Seletor de Idioma (PT | EN) -->
@@ -109,24 +153,82 @@ const navItems = [
   </div>
 
   <!-- Gaveta Mobile -->
-  <div id="mobile-menu" class="hidden xl:hidden bg-[#1A1A1A] border-b border-white/10 px-6 py-6 space-y-4">
-    {navItems.map((item) => (
-      <a
-        href={item.href}
-        class="block text-base font-medium text-[#C6C6C6] hover:text-[#00A39E] py-2 border-b border-white/5 font-['Instrument_Sans',sans-serif]"
-      >
-        {item.name}
-      </a>
-    ))}
+  <div id="mobile-menu" class="hidden xl:hidden bg-[#1A1A1A] border-b border-white/10 px-6 py-6 space-y-2">
+    {navItems.map((item) => {
+      const hasSubmenu = !isEnglish && item.href === "/agenda";
+      if (!hasSubmenu) {
+        return (
+          <a
+            href={item.href}
+            class="block text-base font-medium text-[#C6C6C6] hover:text-[#00A39E] py-2.5 border-b border-white/5 font-['Instrument_Sans',sans-serif]"
+          >
+            {item.name}
+          </a>
+        );
+      }
+      return (
+        <div class="border-b border-white/5 py-1">
+          <div class="flex items-center justify-between">
+            <a
+              href={item.href}
+              class="block text-base font-medium text-[#C6C6C6] hover:text-[#00A39E] py-2 font-['Instrument_Sans',sans-serif]"
+            >
+              {item.name}
+            </a>
+            <button
+              id="mobile-submenu-btn"
+              type="button"
+              aria-expanded="false"
+              aria-controls="mobile-submenu-brasil"
+              aria-label="Alternar submenu Empresas no Brasil"
+              class="p-2 text-[#C6C6C6] hover:text-[#00A39E] transition-transform"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-200" id="mobile-submenu-icon">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div id="mobile-submenu-brasil" class="hidden pl-3 pb-2 space-y-1">
+            <a
+              href="/agente-de-ia-para-whatsapp/"
+              class="block py-2 text-sm text-[#00A39E] font-['Instrument_Sans',sans-serif] hover:underline flex items-center gap-2"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E]"></span>
+              Agente de IA para WhatsApp
+            </a>
+          </div>
+        </div>
+      );
+    })}
   </div>
 </header>
 
 <script>
-  const btn = document.getElementById("mobile-menu-btn");
-  const menu = document.getElementById("mobile-menu");
-  if (btn && menu) {
-    btn.addEventListener("click", () => {
-      menu.classList.toggle("hidden");
-    });
+  function setupHeaderNav() {
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    if (btn && menu && !btn.dataset.bound) {
+      btn.dataset.bound = "true";
+      btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+    }
+
+    const subBtn = document.getElementById("mobile-submenu-btn");
+    const subMenu = document.getElementById("mobile-submenu-brasil");
+    const subIcon = document.getElementById("mobile-submenu-icon");
+    if (subBtn && subMenu && !subBtn.dataset.bound) {
+      subBtn.dataset.bound = "true";
+      subBtn.addEventListener("click", () => {
+        const isHidden = subMenu.classList.toggle("hidden");
+        subBtn.setAttribute("aria-expanded", String(!isHidden));
+        if (subIcon) {
+          subIcon.style.transform = isHidden ? "rotate(0deg)" : "rotate(180deg)";
+        }
+      });
+    }
   }
+
+  setupHeaderNav();
+  document.addEventListener("astro:page-load", setupHeaderNav);
 </script>
