@@ -1,0 +1,196 @@
+---
+/**
+ * Componente: JornadaCriacaoVideo.astro
+ * Responsabilidade: Seção "Veja toda a jornada da criação do seu agente de IA no WhatsApp"
+ * Layout: Grid de 2 colunas (texto explicativo da jornada à esquerda + vídeo vertical YouTube Shorts à direita)
+ * Performance: Carregamento estrito sob demanda (zero iframes/scripts externos até o clique do usuário)
+ * Estilo: Brand Book Maurício Leite (#111111 / #0a0f12, acento #00A39E, fontes Sora e Instrument Sans)
+ */
+
+interface Props {
+  youtubeId?: string;
+}
+
+const {
+  youtubeId = "EGych7uiPSU"
+} = Astro.props;
+
+const etapasJornada = [
+  {
+    numero: "01",
+    titulo: "Diagnóstico e regras do seu negócio",
+    descricao: "Mapeamos seus serviços, catálogos, tabelas de preço, objeções frequentes e o tom de voz exato do seu atendimento."
+  },
+  {
+    numero: "02",
+    titulo: "Treinamento com dados próprios",
+    descricao: "Alimentamos a inteligência com os materiais reais da sua empresa, garantindo respostas seguras e sem alucinações."
+  },
+  {
+    numero: "03",
+    titulo: "Conexão oficial no WhatsApp com memória",
+    descricao: "Integramos ao número oficial e ativamos a persistência de contexto, para a IA reconhecer cada cliente e histórico anterior."
+  },
+  {
+    numero: "04",
+    titulo: "No ar 24/7 com suporte à sua equipe",
+    descricao: "O agente atende na hora, tira dúvidas, agenda e passa contatos quentes e prontos para fechamento humano."
+  }
+];
+---
+
+<section class="py-20 md:py-28 bg-[#0a0f12] border-b border-white/5 relative overflow-hidden">
+  <!-- Glow suave de fundo alinhado à paleta #00A39E -->
+  <div class="absolute top-1/2 -right-32 w-96 h-96 bg-[#00A39E]/10 rounded-full blur-[130px] pointer-events-none"></div>
+  <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-[#00A39E]/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 max-w-6xl relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      
+      <!-- LADO ESQUERDO: Textos e Etapas da Jornada -->
+      <div class="lg:col-span-7">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] block mb-3">
+          Bastidores da Implementação
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight mb-5 leading-tight">
+          Veja toda a jornada da criação do seu agente de IA no WhatsApp
+        </h2>
+        <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed mb-8">
+          Entenda em menos de 1 minuto como estruturamos, treinamos e ativamos um agente inteligente personalizado para a sua empresa — pronto para atender e vender sem você precisar programar.
+        </p>
+
+        <!-- Timeline / Grid de Etapas -->
+        <div class="space-y-4">
+          {etapasJornada.map((etapa) => (
+            <div class="p-4 sm:p-5 rounded-xl bg-[#162026] border border-white/10 hover:border-[#00A39E]/40 transition-all duration-300 flex items-start gap-4">
+              <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-[#00A39E]/15 border border-[#00A39E]/40 text-[#00A39E] font-['Sora',sans-serif] font-bold text-sm flex items-center justify-center">
+                {etapa.numero}
+              </span>
+              <div>
+                <h3 class="text-base font-bold font-['Sora',sans-serif] text-white mb-1">
+                  {etapa.titulo}
+                </h3>
+                <p class="text-xs sm:text-sm text-[#A0A0A0] font-['Instrument_Sans',sans-serif] leading-relaxed">
+                  {etapa.descricao}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- LADO DIREITO: Vídeo Vertical Shorts (Carregamento estrito sob clique) -->
+      <div class="lg:col-span-5 flex flex-col items-center justify-center">
+        <!-- Moldura Smartphone / Player Vertical -->
+        <div class="w-full max-w-[320px] sm:max-w-[340px] rounded-3xl p-1 bg-gradient-to-b from-[#00A39E]/40 via-white/10 to-[#00A39E]/20 shadow-[0_0_40px_rgba(0,163,158,0.2)]">
+          <div class="relative rounded-[22px] overflow-hidden bg-[#0a0f12] border border-white/10 aspect-[9/16] flex items-center justify-center">
+            
+            <!-- Barra superior estética estilo App -->
+            <div class="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-4 py-2.5 bg-black/60 backdrop-blur-md border-b border-white/10 text-[11px] text-[#C6C6C6] font-['Instrument_Sans',sans-serif]">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#29FF54] animate-pulse"></span>
+                <span class="text-white font-semibold">Maurício Leite</span>
+              </div>
+              <span class="text-[#00A39E] font-medium">Demonstração</span>
+            </div>
+
+            <!-- Container do Player com Lazy Loading estrito sob clique -->
+            <div
+              class="lazy-jornada-player relative w-full h-full cursor-pointer group/player select-none"
+              data-youtube-id={youtubeId}
+              data-title="Jornada da criação do seu agente de IA no WhatsApp"
+              role="button"
+              tabindex="0"
+              aria-label="Reproduzir vídeo da jornada da criação do agente de IA"
+            >
+              <!-- Thumbnail do YouTube (Zero scripts externos na carga inicial) -->
+              <img
+                src={`https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg`}
+                alt="Jornada da criação do seu agente de IA no WhatsApp"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover/player:scale-105 opacity-90 group-hover/player:opacity-100"
+              />
+
+              <!-- Overlay escuro com gradiente -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/50 group-hover/player:opacity-75 transition-opacity duration-300"></div>
+
+              <!-- Botão Play Centralizado Brand Book (#00A39E) -->
+              <div class="absolute inset-0 flex flex-col items-center justify-center gap-3.5 z-10">
+                <div class="w-16 h-16 rounded-full bg-[#00A39E] text-black flex items-center justify-center shadow-[0_0_30px_rgba(0,163,158,0.6)] transition-all duration-300 group-hover/player:scale-110 group-hover/player:shadow-[0_0_40px_rgba(0,163,158,0.9)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-semibold text-white tracking-wide shadow-lg backdrop-blur-sm group-hover/player:border-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]">
+                  <svg class="w-3.5 h-3.5 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Toque para assistir</span>
+                </span>
+              </div>
+
+              <!-- Dica inferior -->
+              <div class="absolute bottom-4 inset-x-4 text-center z-10 pointer-events-none">
+                <span class="text-[11px] text-[#A0A0A0] font-['Instrument_Sans',sans-serif]">
+                  Vídeo rápido • Demonstração prática
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  function initJornadaPlayer() {
+    document.querySelectorAll<HTMLElement>('.lazy-jornada-player').forEach((container) => {
+      if (container.dataset.ready) return;
+      container.dataset.ready = 'true';
+
+      const id = container.dataset.youtubeId;
+      const img = container.querySelector('img');
+      if (img && id) {
+        img.addEventListener('error', () => {
+          if (!img.src.includes('hqdefault')) {
+            img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+          }
+        });
+      }
+
+      const playVideo = () => {
+        const id = container.dataset.youtubeId;
+        const title = container.dataset.title || 'Vídeo da Jornada';
+        if (!id) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.className = 'w-full h-full';
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`;
+        iframe.title = title;
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', 'true');
+
+        container.replaceWith(iframe);
+      };
+
+      container.addEventListener('click', playVideo);
+      container.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          playVideo();
+        }
+      });
+    });
+  }
+
+  // Executa na carga e em navegação
+  initJornadaPlayer();
+  document.addEventListener('astro:page-load', initJornadaPlayer);
+</script>
+

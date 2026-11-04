@@ -14,6 +14,7 @@ import CrmKanban from "@/components/servicos/CrmKanban.astro";
 import EquipeAtendentes from "@/components/servicos/EquipeAtendentes.astro";
 import RedeConexoesMemoria from "@/components/servicos/RedeConexoesMemoria.astro";
 import IntegracoesNativas from "@/components/servicos/IntegracoesNativas.astro";
+import JornadaCriacaoVideo from "@/components/servicos/JornadaCriacaoVideo.astro";
 
 // Gera a rota apenas em Português na raiz (/agente-de-ia-para-whatsapp/)
 export function getStaticPaths() {
@@ -606,6 +607,11 @@ const schemaJsonLd = {
           <RedeConexoesMemoria />
         </div>
       </section>
+
+      <!-- ============================================================== -->
+      <!-- VÍDEO DA JORNADA DE CRIAÇÃO DO AGENTE DE IA NO WHATSAPP -->
+      <!-- ============================================================== -->
+      <JornadaCriacaoVideo youtubeId="EGych7uiPSU" />
 
       <!-- ============================================================== -->
       <!-- 10. O QUE VOCÊ PERDE SE ESPERAR -->
