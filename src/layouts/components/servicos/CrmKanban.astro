@@ -139,104 +139,105 @@ const pontos = [
 
           <!-- Camada de Hotspots Interativos -->
           <div class="absolute inset-0 pointer-events-none">
+            <!-- VERSÃO CELULAR (md:hidden): Toque nativo com card centralizado na área de segurança da imagem -->
             {pontos.map((ponto) => (
-              <div
-                class="hotspot-wrapper group absolute"
-                style={`left: ${ponto.x}%; top: ${ponto.y}%;`}
+              <details
+                name="crm-hotspots"
+                class="mobile-hotspot-item group/hotspot md:hidden absolute inset-0 pointer-events-none open:z-50 [&[open]]:z-50"
               >
-                <!-- VERSÃO CELULAR (md:hidden): Toque nativo via <details> -->
-                <details
-                  name="crm-hotspots"
-                  class="md:hidden pointer-events-auto"
+                <summary
+                  class="list-none outline-none cursor-pointer absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center select-none [&::-webkit-details-marker]:hidden p-1.5 pointer-events-auto z-20"
+                  style={`left: ${ponto.x}%; top: ${ponto.y}%;`}
+                  aria-label={`Ponto ${ponto.id}: ${ponto.titulo}`}
                 >
-                  <summary
-                    class="list-none outline-none cursor-pointer relative -translate-x-1/2 -translate-y-1/2 flex items-center justify-center select-none [&::-webkit-details-marker]:hidden p-1.5"
-                    aria-label={`Ponto ${ponto.id}: ${ponto.titulo}`}
-                  >
-                    <span class="relative flex h-8 w-8 items-center justify-center">
-                      <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A39E] opacity-75"></span>
-                      <span class="relative inline-flex items-center justify-center rounded-full h-7 w-7 bg-[#00A39E] text-black font-['Sora',sans-serif] font-black text-xs shadow-lg shadow-[#00A39E]/50 border-2 border-[#111111]">
-                        {ponto.id}
-                      </span>
+                  <span class="relative flex h-8 w-8 items-center justify-center">
+                    <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A39E] opacity-75"></span>
+                    <span class="relative inline-flex items-center justify-center rounded-full h-7 w-7 bg-[#00A39E] text-black font-['Sora',sans-serif] font-black text-xs shadow-lg shadow-[#00A39E]/50 border-2 border-[#111111]">
+                      {ponto.id}
                     </span>
-                  </summary>
+                  </span>
+                </summary>
 
-                  <div
-                    class={`absolute z-40 w-64 p-4 rounded-xl bg-[#162026]/98 backdrop-blur-md border border-[#00A39E]/60 shadow-2xl text-left pointer-events-auto ${
-                      ponto.posicao === "esquerda"
-                        ? "left-2 top-8"
-                        : ponto.posicao === "direita"
-                        ? "right-2 top-8"
-                        : "left-1/2 -translate-x-1/2 bottom-8"
-                    }`}
-                  >
-                    <div class="flex items-center justify-between gap-1.5 mb-2">
+                <!-- Backdrop escuro e card centralizado no meio da imagem -->
+                <div class="hotspot-backdrop absolute inset-0 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-[2px] pointer-events-auto z-30">
+                  <div class="w-full max-w-[290px] sm:max-w-xs p-3 sm:p-4 rounded-xl bg-[#162026] border-2 border-[#00A39E] shadow-2xl text-left relative">
+                    <div class="flex items-center justify-between gap-1.5 mb-1.5">
                       <div class="flex items-center gap-1.5">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#00A39E]/20 text-[#00A39E] text-xs font-bold">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#00A39E]/20 text-[#00A39E] text-xs font-bold font-['Sora',sans-serif]">
                           {ponto.id}
                         </span>
-                        <span class="text-xs font-bold uppercase tracking-wider text-[#00A39E] font-['Sora',sans-serif]">
+                        <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#00A39E] font-['Sora',sans-serif]">
                           {ponto.area}
                         </span>
                       </div>
-                      <span class="text-xs text-[#8696a0] hover:text-white cursor-pointer px-1">✕</span>
+                      <button
+                        type="button"
+                        class="hotspot-close-trigger text-[#8696a0] hover:text-white cursor-pointer px-1.5 py-0.5 text-xs rounded border border-white/10 hover:border-white/30"
+                        aria-label="Fechar"
+                      >
+                        ✕
+                      </button>
                     </div>
 
-                    <h4 class="text-sm font-bold text-white font-['Sora',sans-serif] mb-1.5 leading-snug">
+                    <h4 class="text-xs sm:text-sm font-bold text-white font-['Sora',sans-serif] mb-1 leading-snug">
                       {ponto.titulo}
                     </h4>
 
-                    <p class="text-xs text-[#D4D4D4] leading-relaxed font-['Instrument_Sans',sans-serif]">
-                      {ponto.texto}
-                    </p>
-                  </div>
-                </details>
-
-                <!-- VERSÃO COMPUTADOR (hidden md:block): Hover puro 100% CSS sem precisar de clique -->
-                <div class="hidden md:block relative pointer-events-auto">
-                  <div
-                    class="cursor-pointer relative -translate-x-1/2 -translate-y-1/2 flex items-center justify-center select-none p-1"
-                    aria-label={`Ponto ${ponto.id}: ${ponto.titulo}`}
-                  >
-                    <span class="relative flex h-8 w-8 items-center justify-center transition-transform duration-200 group-hover:scale-125">
-                      <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A39E] opacity-75"></span>
-                      <span class="relative inline-flex items-center justify-center rounded-full h-7 w-7 bg-[#00A39E] text-black font-['Sora',sans-serif] font-black text-xs shadow-lg shadow-[#00A39E]/50 border-2 border-[#111111]">
-                        {ponto.id}
-                      </span>
-                    </span>
-                  </div>
-
-                  <!-- Balão no hover do desktop -->
-                  <div
-                    class={`absolute z-40 w-72 p-4 rounded-xl bg-[#162026]/98 backdrop-blur-md border border-[#00A39E]/60 shadow-2xl text-left pointer-events-none opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ${
-                      ponto.posicao === "esquerda"
-                        ? "left-4 top-8"
-                        : ponto.posicao === "direita"
-                        ? "right-4 top-8"
-                        : "left-1/2 -translate-x-1/2 bottom-8"
-                    }`}
-                  >
-                    <div class="flex items-center justify-between gap-1.5 mb-2">
-                      <div class="flex items-center gap-1.5">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#00A39E]/20 text-[#00A39E] text-xs font-bold">
-                          {ponto.id}
-                        </span>
-                        <span class="text-xs font-bold uppercase tracking-wider text-[#00A39E] font-['Sora',sans-serif]">
-                          {ponto.area}
-                        </span>
-                      </div>
-                    </div>
-
-                    <h4 class="text-sm font-bold text-white font-['Sora',sans-serif] mb-1.5 leading-snug">
-                      {ponto.titulo}
-                    </h4>
-
-                    <p class="text-xs text-[#D4D4D4] leading-relaxed font-['Instrument_Sans',sans-serif]">
+                    <p class="text-[11px] sm:text-xs text-[#D4D4D4] leading-relaxed font-['Instrument_Sans',sans-serif]">
                       {ponto.texto}
                     </p>
                   </div>
                 </div>
+              </details>
+            ))}
 
+            <!-- VERSÃO COMPUTADOR (hidden md:block): Hover puro 100% CSS sem precisar de clique -->
+            {pontos.map((ponto) => (
+              <div
+                class="hidden md:block hotspot-wrapper group absolute"
+                style={`left: ${ponto.x}%; top: ${ponto.y}%;`}
+              >
+                <div
+                  class="cursor-pointer relative -translate-x-1/2 -translate-y-1/2 flex items-center justify-center select-none p-1 pointer-events-auto"
+                  aria-label={`Ponto ${ponto.id}: ${ponto.titulo}`}
+                >
+                  <span class="relative flex h-8 w-8 items-center justify-center transition-transform duration-200 group-hover:scale-125">
+                    <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A39E] opacity-75"></span>
+                    <span class="relative inline-flex items-center justify-center rounded-full h-7 w-7 bg-[#00A39E] text-black font-['Sora',sans-serif] font-black text-xs shadow-lg shadow-[#00A39E]/50 border-2 border-[#111111]">
+                      {ponto.id}
+                    </span>
+                  </span>
+                </div>
+
+                <!-- Balão no hover do desktop -->
+                <div
+                  class={`absolute z-40 w-72 p-4 rounded-xl bg-[#162026]/98 backdrop-blur-md border border-[#00A39E]/60 shadow-2xl text-left pointer-events-none opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 ${
+                    ponto.posicao === "esquerda"
+                      ? "left-4 top-8"
+                      : ponto.posicao === "direita"
+                      ? "right-4 top-8"
+                      : "left-1/2 -translate-x-1/2 bottom-8"
+                  }`}
+                >
+                  <div class="flex items-center justify-between gap-1.5 mb-2">
+                    <div class="flex items-center gap-1.5">
+                      <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#00A39E]/20 text-[#00A39E] text-xs font-bold">
+                        {ponto.id}
+                      </span>
+                      <span class="text-xs font-bold uppercase tracking-wider text-[#00A39E] font-['Sora',sans-serif]">
+                        {ponto.area}
+                      </span>
+                    </div>
+                  </div>
+
+                  <h4 class="text-sm font-bold text-white font-['Sora',sans-serif] mb-1.5 leading-snug">
+                    {ponto.titulo}
+                  </h4>
+
+                  <p class="text-xs text-[#D4D4D4] leading-relaxed font-['Instrument_Sans',sans-serif]">
+                    {ponto.texto}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -253,3 +254,22 @@ const pontos = [
 
   </div>
 </div>
+
+<script>
+  // Suporte a fechamento do modal mobile ao tocar no botão ✕ ou no backdrop escuro
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target) return;
+
+    if (target.closest('.hotspot-close-trigger')) {
+      const details = target.closest('details');
+      if (details) details.removeAttribute('open');
+      return;
+    }
+
+    if (target.classList.contains('hotspot-backdrop')) {
+      const details = target.closest('details');
+      if (details) details.removeAttribute('open');
+    }
+  });
+</script>
