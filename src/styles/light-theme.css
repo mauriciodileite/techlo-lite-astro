@@ -143,15 +143,59 @@ html.light-theme li {
   color: #2E2E2E !important;
 }
 
-html.light-theme span[class*="text-[#C6C6C6]"],
-html.light-theme p[class*="text-[#C6C6C6]"],
-html.light-theme span[class*="text-[#D4D4D4]"],
-html.light-theme p[class*="text-[#D4D4D4]"],
-html.light-theme span[class*="text-[#9A9A9A]"],
-html.light-theme p[class*="text-[#9A9A9A]"],
-html.light-theme span[class*="text-[#A0A0A0]"],
-html.light-theme p[class*="text-[#A0A0A0]"] {
-  color: #4A4A4A !important;
+/* ==========================================================================
+   REGRA DE OURO DO BRAND BOOK (TEXTO SOBRE COR):
+   "Prata só recebe texto em #111111. Preto e vinho só recebem texto branco.
+    Em petronas, o padrão é preto pista; branco é liberado apenas em botão e título em bold."
+   ========================================================================== */
+
+/* 1. Elementos e superfícies pretas/escuras DEVEM SEMPRE ter texto 100% BRANCO (#FFFFFF) */
+html.light-theme [class*="bg-[#111111]"]:not(section):not(main),
+html.light-theme [class*="bg-[#1A1A1A]"],
+html.light-theme [class*="bg-[#17171a]"],
+html.light-theme [class*="bg-[#181818]"],
+html.light-theme [class*="bg-[#161616]"],
+html.light-theme [class*="bg-[#242528]"],
+html.light-theme [class*="bg-[#80142B]"],
+html.light-theme details[class*="bg-[#1A1A1A]"],
+html.light-theme details[class*="bg-[#111111]"],
+html.light-theme span[class*="bg-[#111111]"],
+html.light-theme span[class*="bg-[#1A1A1A]"],
+html.light-theme .bg-\[\#111111\],
+html.light-theme .bg-\[\#1A1A1A\] {
+  color: #FFFFFF !important;
+}
+
+/* Forçar texto branco para filhos de superfícies escuras, exceto acentos em Petronas (#00A39E) */
+html.light-theme [class*="bg-[#111111]"]:not(section):not(main) p,
+html.light-theme [class*="bg-[#1A1A1A]"] p,
+html.light-theme [class*="bg-[#17171a]"] p,
+html.light-theme [class*="bg-[#181818]"] p,
+html.light-theme [class*="bg-[#161616]"] p,
+html.light-theme [class*="bg-[#242528]"] p,
+html.light-theme [class*="bg-[#80142B]"] p,
+html.light-theme details[class*="bg-[#1A1A1A]"] p,
+html.light-theme details[class*="bg-[#111111]"] p,
+html.light-theme [class*="bg-[#111111]"]:not(section):not(main) span:not([class*="text-[#00A39E]"]),
+html.light-theme [class*="bg-[#1A1A1A]"] span:not([class*="text-[#00A39E]"]),
+html.light-theme [class*="bg-[#17171a]"] span:not([class*="text-[#00A39E]"]),
+html.light-theme [class*="bg-[#181818]"] span:not([class*="text-[#00A39E]"]),
+html.light-theme [class*="bg-[#161616]"] span:not([class*="text-[#00A39E]"]),
+html.light-theme [class*="bg-[#242528]"] span:not([class*="text-[#00A39E]"]),
+html.light-theme [class*="bg-[#80142B]"] span:not([class*="text-[#00A39E]"]),
+html.light-theme details[class*="bg-[#1A1A1A]"] summary span:not([class*="text-[#00A39E]"]),
+html.light-theme details[class*="bg-[#111111]"] summary span:not([class*="text-[#00A39E]"]) {
+  color: #FFFFFF !important;
+}
+
+/* Textos secundários em superfícies CLARAS (#FFFFFF / #F2F2F2 / #C6C6C6) */
+html.light-theme section:not(#faq) div.text-center > p[class*="text-[#C6C6C6]"],
+html.light-theme #experiencia .group.rounded-2xl p,
+html.light-theme #solucoes .group.rounded-2xl p,
+html.light-theme #conteudo-gratuito .group.rounded-2xl p,
+html.light-theme .blog-card p,
+html.light-theme article.prose p {
+  color: #2E2E2E !important;
 }
 
 /* ==========================================================================
@@ -269,11 +313,22 @@ html.light-theme #conteudo-gratuito {
   border-top-color: #E3E3E3 !important;
 }
 
-html.light-theme #conteudo-gratuito .group.rounded-2xl,
-html.light-theme #conteudo-gratuito div[class*="bg-[#17171a]"] {
+html.light-theme #conteudo-gratuito a.group {
   background-color: #FFFFFF !important;
   border-color: #E3E3E3 !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme #conteudo-gratuito a.group:hover {
+  border-color: #00A39E !important;
+}
+
+html.light-theme #conteudo-gratuito a.group h3 {
+  color: #111111 !important;
+}
+
+html.light-theme #conteudo-gratuito a.group p {
+  color: #4A4A4A !important;
 }
 
 html.light-theme #conteudo-gratuito div[class*="bg-[#242528]"] {
@@ -282,24 +337,51 @@ html.light-theme #conteudo-gratuito div[class*="bg-[#242528]"] {
   color: #00A39E !important;
 }
 
-/* FAQ Accordion */
+/* Badges e pílulas pretas no FreeContent (Instagram, YouTube, Blog):
+   Preto Pista (#111111) com texto 100% Branco (#FFFFFF) conforme Brand Book */
+html.light-theme #conteudo-gratuito span[class*="bg-[#111111]"],
+html.light-theme #conteudo-gratuito .bg-\[\#111111\] {
+  background-color: #111111 !important;
+  color: #FFFFFF !important;
+  border-color: #2E2E2E !important;
+}
+
+/* FAQ Accordion: Acordeão em Preto Pista com Pergunta e Resposta 100% BRANCO */
 html.light-theme #faq {
   background-color: #FFFFFF !important;
   border-top-color: #E3E3E3 !important;
 }
 
-html.light-theme #faq .group.rounded-2xl,
-html.light-theme #faq div[class*="bg-[#17171a]"] {
-  background-color: #F2F2F2 !important;
-  border-color: #E3E3E3 !important;
-}
-
-html.light-theme #faq button span {
+html.light-theme #faq h2 {
   color: #111111 !important;
 }
 
-html.light-theme #faq button svg {
+html.light-theme #faq details {
+  background-color: #111111 !important;
+  border-color: #2E2E2E !important;
+}
+
+html.light-theme #faq details:hover {
+  border-color: #00A39E !important;
+}
+
+html.light-theme #faq details summary {
+  color: #FFFFFF !important;
+}
+
+html.light-theme #faq details summary span {
+  color: #FFFFFF !important;
+}
+
+html.light-theme #faq details summary span.text-\[\#00A39E\],
+html.light-theme #faq details summary svg {
   color: #00A39E !important;
+  stroke: #00A39E !important;
+}
+
+html.light-theme #faq details p {
+  color: #FFFFFF !important;
+  border-top-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Bordas Gerais */
