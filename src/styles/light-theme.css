@@ -1,0 +1,317 @@
+/**
+ * Estilos do Modo Claro (Light Theme) para todo o site de Maurício Leite
+ * Em conformidade estrita com o Brand Book oficial:
+ * - Fundo principal: #F2F2F2 (Off-white / cinza claro institucional)
+ * - Superfícies e Cards: #FFFFFF (Branco puro)
+ * - Bordas e divisores: #E3E3E3 / #D8D8D8
+ * - Títulos e destaque: #111111 (Preto Pista)
+ * - Corpo e texto secundário: #4A4A4A / #333333 (Cinza escuro de alta legibilidade)
+ * - Acento de marca: #00A39E (Verde Petronas)
+ */
+
+html.light-theme,
+html.light-theme body {
+  background-color: #F2F2F2 !important;
+  color: #111111 !important;
+}
+
+/* Fundo padrão das páginas e seções */
+html.light-theme div[class*="bg-[#111111]"],
+html.light-theme section[class*="bg-[#111111]"],
+html.light-theme main[class*="bg-[#111111]"],
+html.light-theme div[class*="bg-[#070800]"] {
+  background-color: #F2F2F2 !important;
+  color: #111111 !important;
+}
+
+/* ==========================================================================
+   CABEÇALHO (HeaderNav)
+   ========================================================================== */
+html.light-theme header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom-color: #E3E3E3 !important;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme header a span,
+html.light-theme header .font-extrabold {
+  color: #111111 !important;
+}
+
+html.light-theme header nav a {
+  color: #4A4A4A !important;
+}
+
+html.light-theme header nav a:hover {
+  color: #00A39E !important;
+}
+
+html.light-theme header button[aria-label*="Submenu"] {
+  color: #4A4A4A !important;
+}
+
+html.light-theme header .bg-\[\#162026\] {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light-theme header .bg-\[\#162026\] span.text-white {
+  color: #111111 !important;
+}
+
+html.light-theme header #mobile-menu {
+  background-color: #FFFFFF !important;
+  border-bottom-color: #E3E3E3 !important;
+}
+
+html.light-theme header #mobile-menu a {
+  color: #333333 !important;
+  border-bottom-color: #F0F0F0 !important;
+}
+
+html.light-theme header #mobile-menu-btn {
+  background-color: #F2F2F2 !important;
+  border-color: #E3E3E3 !important;
+  color: #111111 !important;
+}
+
+/* Controles de Idioma e Tema no Header */
+html.light-theme header .bg-\[\#1A1A1A\],
+html.light-theme header #global-theme-toggle-btn {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  color: #4A4A4A !important;
+}
+
+html.light-theme header #global-theme-toggle-btn:hover {
+  border-color: #00A39E !important;
+  color: #111111 !important;
+}
+
+html.light-theme header .bg-\[\#1A1A1A\] a {
+  color: #4A4A4A !important;
+}
+
+html.light-theme header .bg-\[\#1A1A1A\] a.bg-\[\#00A39E\] {
+  background-color: #00A39E !important;
+  color: #111111 !important;
+}
+
+/* ==========================================================================
+   TIPOGRAFIA & CORES DE TEXTO
+   ========================================================================== */
+html.light-theme h1,
+html.light-theme h2,
+html.light-theme h3,
+html.light-theme h4,
+html.light-theme h5,
+html.light-theme h6 {
+  color: #111111 !important;
+}
+
+html.light-theme p,
+html.light-theme li {
+  color: #333333 !important;
+}
+
+html.light-theme span[class*="text-[#C6C6C6]"],
+html.light-theme p[class*="text-[#C6C6C6]"],
+html.light-theme span[class*="text-[#D4D4D4]"],
+html.light-theme p[class*="text-[#D4D4D4]"],
+html.light-theme span[class*="text-[#9A9A9A]"],
+html.light-theme p[class*="text-[#9A9A9A]"],
+html.light-theme span[class*="text-[#A0A0A0]"],
+html.light-theme p[class*="text-[#A0A0A0]"] {
+  color: #4A4A4A !important;
+}
+
+/* ==========================================================================
+   CARDS & SUPERFÍCIES
+   ========================================================================== */
+html.light-theme .bg-\[\#17171a\],
+html.light-theme .bg-\[\#1A1A1A\],
+html.light-theme .bg-\[\#161616\],
+html.light-theme .bg-\[\#181818\],
+html.light-theme .bg-\[\#162026\],
+html.light-theme div[class*="bg-[#17171a]"],
+html.light-theme div[class*="bg-[#1A1A1A]"],
+html.light-theme div[class*="bg-[#161616]"],
+html.light-theme div[class*="bg-[#181818]"],
+html.light-theme div[class*="bg-[#162026]"] {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme .bg-\[\#17171a\]:hover,
+html.light-theme div[class*="bg-[#17171a]"]:hover {
+  background-color: #FFFFFF !important;
+  border-color: #00A39E !important;
+  box-shadow: 0 8px 30px rgba(0, 163, 158, 0.12) !important;
+}
+
+/* Bordas globais no modo claro */
+html.light-theme .border-white\/5,
+html.light-theme .border-white\/10,
+html.light-theme .border-white\/15,
+html.light-theme .border-white\/20,
+html.light-theme *[class*="border-[#C6C6C6]/15"],
+html.light-theme *[class*="border-[#C6C6C6]/20"],
+html.light-theme *[class*="border-[#C6C6C6]/30"] {
+  border-color: #E3E3E3 !important;
+}
+
+/* Botões Secundários */
+html.light-theme a[class*="bg-[#1A1A1A]"] {
+  background-color: #FFFFFF !important;
+  color: #111111 !important;
+  border-color: #D8D8D8 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme a[class*="bg-[#1A1A1A]"]:hover {
+  border-color: #00A39E !important;
+  color: #00A39E !important;
+}
+
+/* ==========================================================================
+   BLOG HERO & BLOG GRID
+   ========================================================================== */
+html.light-theme #blog-filter-bar button {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  color: #4A4A4A !important;
+}
+
+html.light-theme #blog-filter-bar button.active,
+html.light-theme #blog-filter-bar button[class*="bg-[#00A39E]"] {
+  background-color: #00A39E !important;
+  color: #111111 !important;
+  font-weight: 700 !important;
+}
+
+html.light-theme input#blog-search-input {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  color: #111111 !important;
+}
+
+html.light-theme .blog-card,
+html.light-theme article[class*="bg-[#1A1A1A]"] {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ==========================================================================
+   ACORDION / FAQ
+   ========================================================================== */
+html.light-theme details,
+html.light-theme .faq-item {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+}
+
+html.light-theme details summary {
+  color: #111111 !important;
+}
+
+/* ==========================================================================
+   RODAPÉ (FooterMauricio)
+   ========================================================================== */
+html.light-theme footer {
+  background-color: #E8E8E8 !important;
+  border-top-color: #D4D4D4 !important;
+  color: #111111 !important;
+}
+
+html.light-theme footer .text-white {
+  color: #111111 !important;
+}
+
+html.light-theme footer p,
+html.light-theme footer .text-\[\#9A9A9A\],
+html.light-theme footer .text-\[\#8A8A8A\],
+html.light-theme footer .text-\[\#C6C6C6\] {
+  color: #4A4A4A !important;
+}
+
+html.light-theme footer .bg-\[\#1A1A1A\] {
+  background-color: #FFFFFF !important;
+  border-color: #D8D8D8 !important;
+  color: #4A4A4A !important;
+}
+
+html.light-theme footer .bg-\[\#1A1A1A\]:hover {
+  color: #00A39E !important;
+  border-color: #00A39E !important;
+}
+
+html.light-theme footer .border-white\/5,
+html.light-theme footer .border-t {
+  border-top-color: #D4D4D4 !important;
+}
+
+/* ==========================================================================
+   SINCRONIZAÇÃO COM MODO LEITURA DO ARTIGO DO BLOG
+   ========================================================================== */
+html.light-theme #blog-reading-area {
+  background-color: #FFFFFF !important;
+  color: #111111 !important;
+}
+
+html.light-theme #blog-reading-area article.prose {
+  color: #111111 !important;
+}
+
+html.light-theme #blog-reading-area article.prose p,
+html.light-theme #blog-reading-area article.prose li {
+  color: #222222 !important;
+}
+
+html.light-theme #blog-reading-area article.prose h2 {
+  border-bottom-color: #E3E3E3 !important;
+  color: #111111 !important;
+}
+
+html.light-theme #blog-reading-area article.prose a {
+  color: #00A39E !important;
+}
+
+html.light-theme #blog-reading-area article.prose a:hover {
+  color: #111111 !important;
+}
+
+html.light-theme #blog-reading-area article.prose strong {
+  color: #111111 !important;
+}
+
+html.light-theme #blog-reading-area article.prose blockquote {
+  background-color: #F8F9FA !important;
+  border-left-color: #00A39E !important;
+  color: #111111 !important;
+}
+
+html.light-theme #blog-reading-area article.prose code:not(pre code) {
+  background-color: #F4F4F5 !important;
+  color: #00A39E !important;
+  border: 1px solid #E3E3E3 !important;
+}
+
+html.light-theme #blog-reading-area article.prose hr {
+  border-color: #E3E3E3 !important;
+}
+
+html.light-theme #blog-reading-area .article-step-card {
+  background-color: #FFFFFF !important;
+  background-image: none !important;
+  border-color: #E3E3E3 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme #blog-reading-area .partner-links-section a {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  color: #111111 !important;
+}

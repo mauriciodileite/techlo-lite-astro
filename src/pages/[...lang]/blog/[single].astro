@@ -201,15 +201,15 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
                 <img
                   src={avatarUrl}
                   alt={author}
-                  class="h-10 w-10 rounded-full border border-white/15 object-cover"
+                  class="h-11 w-11 rounded-full border border-white/15 object-cover"
                 />
                 <div class="flex flex-col">
-                  <span class="text-xs text-[#888888]">Escrito por</span>
-                  <span class="font-heading font-medium text-white">{author}</span>
+                  <span class="text-xs sm:text-sm text-[#888888]">Escrito por</span>
+                  <span class="font-heading font-semibold text-white text-sm sm:text-base">{author}</span>
                 </div>
               </div>
 
-              <div class="flex items-center gap-6 text-xs text-[#999999]">
+              <div class="flex items-center gap-5 text-xs sm:text-sm text-[#999999]">
                 <div class="flex items-center gap-1.5">
                   <svg class="h-4 w-4 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -241,20 +241,20 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
             <!-- Article Body Content with Brand Styling -->
             <article
               id="content"
-              class="prose prose-invert max-w-none text-[#D4D4D4] font-body text-lg leading-[1.8]
+              class="prose prose-invert max-w-none text-[#D4D4D4] font-body text-lg leading-[1.85]
                 prose-headings:font-heading prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-white
                 prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-5 prose-h2:border-b prose-h2:border-white/10 prose-h2:pb-3
                 prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-9 prose-h3:mb-4
                 prose-h4:text-lg sm:prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
-                prose-p:text-[18px] sm:prose-p:text-[19px] prose-p:leading-[1.85] prose-p:mb-6 prose-p:text-[#D4D4D4]
+                prose-p:text-[19px] sm:prose-p:text-[20px] prose-p:leading-[1.85] prose-p:mb-6 prose-p:text-[#D4D4D4]
                 prose-a:text-[#00A39E] prose-a:font-medium prose-a:no-underline hover:prose-a:underline hover:prose-a:text-[#29FF54] transition-colors
                 prose-strong:text-white prose-strong:font-semibold
-                prose-code:text-[#00A39E] prose-code:bg-white/10 prose-code:px-2 prose-code:py-0.5 prose-code:rounded-md prose-code:text-[15px] sm:prose-code:text-[16px] prose-code:font-mono
-                prose-blockquote:border-l-4 prose-blockquote:border-l-[#00A39E] prose-blockquote:bg-[#161616]/80 prose-blockquote:py-3.5 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:italic prose-blockquote:text-white/95 prose-blockquote:text-[18px] prose-blockquote:my-6
+                prose-code:text-[#00A39E] prose-code:bg-white/10 prose-code:px-2 prose-code:py-0.5 prose-code:rounded-md prose-code:text-[16px] sm:prose-code:text-[17px] prose-code:font-mono
+                prose-blockquote:border-l-4 prose-blockquote:border-l-[#00A39E] prose-blockquote:bg-[#161616]/80 prose-blockquote:py-3.5 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:italic prose-blockquote:text-white/95 prose-blockquote:text-[19px] prose-blockquote:my-6
                 prose-ul:list-disc prose-ul:pl-6 prose-ul:my-5
                 prose-ol:list-decimal prose-ol:pl-6 prose-ol:my-5
-                prose-li:text-[18px] sm:prose-li:text-[19px] prose-li:leading-[1.8] prose-li:my-2 prose-li:text-[#D4D4D4]
-                prose-table:my-8 prose-table:w-full prose-table:text-[15px] sm:prose-table:text-[16px]
+                prose-li:text-[19px] sm:prose-li:text-[20px] prose-li:leading-[1.8] prose-li:my-2 prose-li:text-[#D4D4D4]
+                prose-table:my-8 prose-table:w-full prose-table:text-[16px] sm:prose-table:text-[17px]
                 prose-thead:border-b prose-thead:border-white/15 prose-thead:text-white
                 prose-th:p-3.5 prose-th:font-semibold prose-th:text-white prose-th:bg-[#161616]
                 prose-td:p-3.5 prose-td:border-b prose-td:border-white/5 prose-td:text-[#D4D4D4]

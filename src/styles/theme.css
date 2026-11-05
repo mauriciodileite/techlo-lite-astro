@@ -38,7 +38,7 @@
   /* Typography */
   --text-base: 1rem;
   --text-base-scale: 1.23;
-  --text-base-sm: calc(var(--text-base) * 0.9);
+  --text-base-sm: var(--text-base);
 
   --text-display-1: calc(var(--text-base) * pow(var(--text-base-scale), 8.8)); /* 115px  */
   --text-display-2: calc(var(--text-base) * pow(var(--text-base-scale), 8)); /* 95px  */
@@ -71,9 +71,9 @@
   --aspect-project-card: 1 / 1;
 }
 
-/* Extra-small mobile tuning: tweak only --text-base-sm */
+/* Mobile reading readability: preserve comfortable base size */
 @media (max-width: 340px) {
   :root {
-    --text-base-sm: calc(var(--text-base) * 0.8);
+    --text-base-sm: var(--text-base);
   }
 }

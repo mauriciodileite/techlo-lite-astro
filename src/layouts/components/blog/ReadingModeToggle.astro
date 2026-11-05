@@ -60,7 +60,8 @@ const { isEnglish = false } = Astro.props;
 
 <script is:inline>
   (() => {
-    const STORAGE_KEY = "mauricio_blog_reading_theme";
+    const STORAGE_KEY = "mauricio_theme_mode";
+    const FALLBACK_KEY = "mauricio_blog_reading_theme";
 
     function applyTheme(theme) {
       const container = document.getElementById("blog-reading-area");
@@ -69,14 +70,14 @@ const { isEnglish = false } = Astro.props;
       const moonIcon = document.getElementById("reading-mode-moon-icon");
       const textSpan = document.getElementById("reading-mode-text");
 
-      if (!container) return;
-
       const isLight = theme === "light";
 
       if (isLight) {
-        container.classList.add("reading-mode-light");
+        document.documentElement.classList.add("light-theme");
+        if (container) container.classList.add("reading-mode-light");
       } else {
-        container.classList.remove("reading-mode-light");
+        document.documentElement.classList.remove("light-theme");
+        if (container) container.classList.remove("reading-mode-light");
       }
 
       if (btn && sunIcon && moonIcon && textSpan) {
@@ -94,27 +95,46 @@ const { isEnglish = false } = Astro.props;
       }
     }
 
-    // Inicialização rápida sem flash
-    const savedTheme = localStorage.getItem(STORAGE_KEY) || "dark";
-    applyTheme(savedTheme);
+    function getSavedTheme() {
+      return localStorage.getItem(STORAGE_KEY) || localStorage.getItem(FALLBACK_KEY) || "dark";
+    }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      applyTheme(localStorage.getItem(STORAGE_KEY) || "dark");
+    // Inicialização rápida
+    applyTheme(getSavedTheme());
+
+    function bindEvents() {
+      applyTheme(getSavedTheme());
 
       const btn = document.getElementById("reading-mode-toggle-btn");
-      if (btn) {
+      if (btn && !btn.dataset.bound) {
+        btn.dataset.bound = "true";
         btn.addEventListener("click", () => {
-          const currentTheme = localStorage.getItem(STORAGE_KEY) || "dark";
+          const currentTheme = getSavedTheme();
           const newTheme = currentTheme === "light" ? "dark" : "light";
           localStorage.setItem(STORAGE_KEY, newTheme);
+          localStorage.setItem(FALLBACK_KEY, newTheme);
           applyTheme(newTheme);
+          window.dispatchEvent(new CustomEvent("mauricio-theme-changed", { detail: { theme: newTheme } }));
         });
+      }
+    }
+
+    window.addEventListener("mauricio-theme-changed", (e) => {
+      if (e.detail && e.detail.theme) {
+        applyTheme(e.detail.theme);
       }
     });
 
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bindEvents);
+    } else {
+      bindEvents();
+    }
+
     // Suporte ao View Transitions do Astro
     document.addEventListener("astro:after-swap", () => {
-      applyTheme(localStorage.getItem(STORAGE_KEY) || "dark");
+      applyTheme(getSavedTheme());
+      bindEvents();
     });
   })();
 </script>

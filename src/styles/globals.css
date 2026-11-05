@@ -25,4 +25,5 @@
   @import "./animation.css";
   @import "./navigation.css";
   @import "./components.css";
+  @import "./light-theme.css";
 }

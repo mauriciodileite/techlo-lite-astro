@@ -23,6 +23,17 @@ const isArticle =
   })(window,document,'script','dataLayer','GTM-WWQQ826L');</script>
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
+  <!-- Inicialização Antecipada do Modo Claro / Escuro (Zero Flash FOUC) -->
+  <script is:inline>
+    (function () {
+      try {
+        var theme = localStorage.getItem("mauricio_theme_mode") || localStorage.getItem("mauricio_blog_reading_theme");
+        if (theme === "light") {
+          document.documentElement.classList.add("light-theme");
+        }
+      } catch (e) {}
+    })();
+  </script>
   <meta http-equiv="Content-Language" content={Astro.currentLocale} />
   <meta name="theme" content="techlo-lite" />
   <meta
