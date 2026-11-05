@@ -13,5 +13,6 @@
 /en/blog/page/* /en/blog 301
 /blog/post-* /blog 301
 /en/blog/post-* /en/blog 301
+/en/blog/* /en/blog 301
 /team/* / 301
 /en/team/* /en/ 301

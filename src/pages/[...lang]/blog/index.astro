@@ -70,8 +70,8 @@ const featuredPosts = formattedPosts.filter((p) => p.featured);
   hideHelperButtons={true}
 >
   <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
-    <!-- Header Oficial da Marca -->
-    <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
+    <!-- Header Oficial da Marca (seletor oculto pois posts são 100% em português) -->
+    <HeaderNav currentLocale={Astro.currentLocale || "pt"} hideLanguageSwitcher={true} />
 
     <div class="flex-grow pt-20">
       <BlogHero featuredPosts={featuredPosts.length > 0 ? featuredPosts : formattedPosts.slice(0, 2)} />

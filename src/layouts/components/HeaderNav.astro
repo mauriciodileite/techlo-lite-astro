@@ -6,16 +6,61 @@
 
 interface Props {
   currentLocale?: string;
+  hideLanguageSwitcher?: boolean;
 }
 
-const { currentLocale = "pt" } = Astro.props;
+const { currentLocale = "pt", hideLanguageSwitcher = false } = Astro.props;
 
 // Se a rota contiver '/en', o idioma atual é inglês
 const isEnglish = currentLocale === "en" || Astro.url.pathname.startsWith("/en");
 
 const currentPath = Astro.url.pathname;
-const ptPath = currentPath.startsWith("/en/") ? currentPath.replace(/^\/en/, "") : (currentPath === "/en" ? "/" : currentPath);
-const enPath = currentPath.startsWith("/en") ? currentPath : (currentPath === "/" ? "/en/" : `/en${currentPath}`);
+const pathnameClean = currentPath.replace(/\/$/, "");
+
+// Páginas sem versão traduzida para inglês:
+// Todo o ecossistema do blog (/blog, /blog/*, /pt/blog/*) não possui posts em inglês.
+const isBlogPage =
+  pathnameClean === "/blog" ||
+  pathnameClean.startsWith("/blog/") ||
+  pathnameClean === "/pt/blog" ||
+  pathnameClean.startsWith("/pt/blog/") ||
+  pathnameClean === "/en/blog" ||
+  pathnameClean.startsWith("/en/blog/");
+
+const isUntranslated = isBlogPage || pathnameClean.includes("agente-de-ia-para-whatsapp");
+
+const showLanguageSwitcher = !hideLanguageSwitcher && !isUntranslated;
+
+let ptPath = "/";
+let enPath = "/en/";
+
+if (isEnglish) {
+  const stripped = currentPath.replace(/^\/en/, "") || "/";
+  if (stripped.startsWith("/privacy-policy")) {
+    ptPath = "/politica-de-privacidade/";
+  } else if (stripped.startsWith("/terms-conditions")) {
+    ptPath = "/termos-de-uso/";
+  } else {
+    ptPath = stripped.endsWith("/") ? stripped : `${stripped}/`;
+  }
+  enPath = currentPath.endsWith("/") ? currentPath : `${currentPath}/`;
+} else {
+  ptPath = currentPath.endsWith("/") ? currentPath : `${currentPath}/`;
+  if (currentPath.startsWith("/politica-de-privacidade")) {
+    enPath = "/en/privacy-policy/";
+  } else if (currentPath.startsWith("/termos-de-uso")) {
+    enPath = "/en/terms-conditions/";
+  } else if (currentPath === "/" || currentPath === "") {
+    enPath = "/en/";
+  } else {
+    enPath = `/en${currentPath.endsWith("/") ? currentPath : `${currentPath}/`}`;
+  }
+}
+
+// Fallback seguro adicional: se por qualquer motivo enPath for sub-rota de blog, aponta para /blog/
+if (enPath.includes("/blog/")) {
+  enPath = "/blog/";
+}
 
 const navItems = [
   { 
@@ -114,26 +159,28 @@ const navItems = [
 
     <!-- Seletor de Idioma (PT | EN) -->
     <div class="flex items-center gap-4">
-      <div class="inline-flex items-center bg-[#1A1A1A] border border-[#C6C6C6]/30 rounded-lg p-1 text-xs font-mono">
-        <a
-          href={ptPath}
-          class={`px-3 py-1.5 rounded transition-colors ${
-            !isEnglish ? "bg-[#00A39E] text-[#111111] font-bold" : "text-[#C6C6C6] hover:text-white"
-          }`}
-          aria-label="Versão em Português"
-        >
-          PT
-        </a>
-        <a
-          href={enPath}
-          class={`px-3 py-1.5 rounded transition-colors ${
-            isEnglish ? "bg-[#00A39E] text-[#111111] font-bold" : "text-[#C6C6C6] hover:text-white"
-          }`}
-          aria-label="English Version"
-        >
-          EN
-        </a>
-      </div>
+      {showLanguageSwitcher && (
+        <div class="inline-flex items-center bg-[#1A1A1A] border border-[#C6C6C6]/30 rounded-lg p-1 text-xs font-mono">
+          <a
+            href={ptPath}
+            class={`px-3 py-1.5 rounded transition-colors ${
+              !isEnglish ? "bg-[#00A39E] text-[#111111] font-bold" : "text-[#C6C6C6] hover:text-white"
+            }`}
+            aria-label="Versão em Português"
+          >
+            PT
+          </a>
+          <a
+            href={enPath}
+            class={`px-3 py-1.5 rounded transition-colors ${
+              isEnglish ? "bg-[#00A39E] text-[#111111] font-bold" : "text-[#C6C6C6] hover:text-white"
+            }`}
+            aria-label="English Version"
+          >
+            EN
+          </a>
+        </div>
+      )}
 
 
       <!-- Botão Menu Mobile -->

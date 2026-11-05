@@ -76,7 +76,7 @@ const description = post?.data.description || postIndex?.data.description;
   disableTagline={true}
   robots="noindex, follow">
   <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
-    <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
+    <HeaderNav currentLocale={Astro.currentLocale || "pt"} hideLanguageSwitcher={true} />
 
     <div class="flex-grow pt-20">
       <PageHeader
