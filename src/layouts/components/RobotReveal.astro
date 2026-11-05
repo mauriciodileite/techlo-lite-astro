@@ -1,0 +1,323 @@
+---
+/**
+ * Componente: RobotReveal.astro
+ * Foto que vira robô onde o cursor passa (inspirado em cauhi.com).
+ * Camadas: foto original → versão robô (revelada pelo rastro do cursor) → dígitos 0/1
+ * e circuitos Petronas desenhados só sobre a pessoa → borda luminosa → HUD.
+ * Requisitos: `src` e `robot` com o MESMO enquadramento e tamanho; `mask` = recorte da pessoa (alpha ou tons de cinza).
+ * Sem dependências. Sem WebGL2 → fica só a foto. Pausa fora da tela.
+ * Opcional: um <canvas data-rr-rain> no mesmo <section> vira a chuva de 0/1 do fundo.
+ */
+interface Props {
+  src: string;
+  robot: string;
+  mask: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  eager?: boolean;
+}
+const { src, robot, mask, alt, width = 900, height = 1200, class: cls = "", eager = false } = Astro.props;
+---
+
+<figure
+  class:list={["rr", cls]}
+  data-robot-reveal
+  data-robot={robot}
+  data-mask={mask}
+  style={`aspect-ratio:${width}/${height}`}
+>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={eager ? "eager" : "lazy"}
+    fetchpriority={eager ? "high" : "auto"}
+    decoding="async"
+  />
+  <canvas aria-hidden="true"></canvas>
+  <figcaption class="rr-hud" aria-hidden="true">
+    <span>Rede de agentes · <span data-n>0</span> nós</span>
+    <span>X <span data-x>0.50</span> · Y <span data-y>0.50</span> · <b data-s>passe o mouse</b></span>
+  </figcaption>
+</figure>
+
+<style>
+  .rr { position: relative; margin: 0; overflow: hidden; background: #111111; cursor: crosshair; touch-action: pan-y; width: 100%; }
+  .rr img, .rr canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+  .rr canvas { opacity: 0; transition: opacity 0.5s; }
+  .rr.rr-on canvas { opacity: 1; }
+  .rr-hud {
+    position: absolute; left: 14px; top: 14px; display: flex; flex-direction: column; gap: 4px;
+    font: 500 10px/1.2 ui-monospace, Consolas, Menlo, monospace; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8); background: rgba(17, 17, 17, 0.45); padding: 7px 9px; border-radius: 6px;
+    backdrop-filter: blur(4px); pointer-events: none; opacity: 0; transition: opacity 0.5s;
+  }
+  .rr.rr-on .rr-hud { opacity: 1; }
+  .rr-hud b { color: #00a39e; font-weight: 500; }
+</style>
+
+<script>
+  const ACC = [0.0, 0.64, 0.62]; // Petronas #00A39E
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const VS = `#version 300 es
+in vec2 p;out vec2 vUv;void main(){vUv=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}`;
+
+  const FS = `#version 300 es
+precision highp float;
+in vec2 vUv;out vec4 o;
+uniform sampler2D uA,uB,uM,uP,uC,uG;
+uniform vec2 uRes;uniform float uT,uDpr;uniform vec3 uAcc;
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n2(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+void main(){
+  vec2 uv=vUv;
+  vec4 mk=texture(uM,uv);
+  float person=texture(uP,uv).r;
+  float nz=n2(uv*vec2(9.,12.)+vec2(uT*.35,-uT*.22))*.65+n2(uv*38.-uT*.5)*.35;
+  // revelação do robô (rastro pequeno)
+  float mm=mk.r+(nz-.5)*.42;
+  float rv=smoothstep(.33,.47,mm);
+  float rim=smoothstep(.2,.33,mm)*(1.-rv);
+  // zona larga: circuitos e dígitos se espalham além do robô
+  float wide=mk.g+(nz-.5)*.22;
+  float zc=smoothstep(.05,.4,wide)*person;
+  float zd=smoothstep(.12,.55,wide)*person;
+  // glitch horizontal na borda
+  float band=step(.985,h(vec2(floor(uv.y*90.),floor(uT*12.))))*rim;
+  vec3 a=texture(uA,uv).rgb;
+  vec3 b=texture(uB,uv+vec2(band*.012,0.)).rgb;
+  b*=.93+.07*sin(uv.y*uRes.y*1.6/uDpr);
+  vec3 col=mix(a,b,rv);
+  vec3 glow=mix(uAcc,vec3(.55,1.,.97),.35);
+  // dígitos 0/1
+  vec2 cell=vec2(8.,12.)*uDpr;vec2 px=uv*uRes;vec2 id=floor(px/cell);vec2 f=fract(px/cell);
+  float bit=step(.5,h(id+floor(uT*5.+h(id*3.1)*20.)));
+  float g=texture(uG,vec2((bit+f.x)*.5,f.y)).r;
+  float dens=step(.5,h(id*1.37+floor(uT*1.5)*.13));
+  float lum=dot(a,vec3(.299,.587,.114));
+  col=mix(col,glow*1.15,g*dens*zd*(.55+.45*lum)*.9);
+  // circuitos com pulso
+  float ci=texture(uC,uv).r;
+  float pulse=.5+.5*sin(uT*4.5+uv.y*26.-uv.x*14.);
+  col+=glow*ci*zc*(.55+.75*pulse)*(1.-rv*.5);
+  // borda luminosa
+  col+=glow*rim*1.25;
+  o=vec4(min(col,vec3(1.)),1.);
+}`;
+
+  const load = (url: string) =>
+    new Promise<HTMLImageElement>((ok, err) => {
+      const i = new Image();
+      i.decoding = "async";
+      i.onload = () => ok(i);
+      i.onerror = err;
+      i.src = url;
+    });
+
+  function circuits(M: HTMLImageElement, W: number, H: number) {
+    const t = document.createElement("canvas");
+    t.width = W; t.height = H;
+    const tx = t.getContext("2d") as CanvasRenderingContext2D;
+    tx.drawImage(M, 0, 0, W, H);
+    const d = tx.getImageData(0, 0, W, H).data;
+    const inside = (x: number, y: number) => x >= 2 && y >= 2 && x < W - 2 && y < H - 2 && d[((y | 0) * W + (x | 0)) * 4] > 200;
+    const c = document.createElement("canvas");
+    c.width = W; c.height = H;
+    const cx = c.getContext("2d") as CanvasRenderingContext2D;
+    cx.strokeStyle = "#fff"; cx.fillStyle = "#fff"; cx.lineWidth = 1.3; cx.lineCap = "round"; cx.lineJoin = "round";
+    const D = [[1, 0], [0.7071, 0.7071], [0, 1], [-0.7071, 0.7071], [-1, 0], [-0.7071, -0.7071], [0, -1], [0.7071, -0.7071]];
+    let made = 0, tries = 0;
+    while (made < 220 && tries < 9000) {
+      tries++;
+      let x = Math.random() * W, y = Math.random() * H;
+      if (!inside(x, y)) continue;
+      const pts = [[x, y]];
+      let di = (Math.random() * 4 | 0) * 2;
+      const segs = 2 + (Math.random() * 4 | 0);
+      for (let s = 0; s < segs; s++) {
+        const len = 10 + Math.random() * 40;
+        const nx = x + D[di][0] * len, ny = y + D[di][1] * len;
+        if (!inside(nx, ny)) break;
+        x = nx; y = ny; pts.push([x, y]);
+        di = (di + (Math.random() < 0.5 ? 1 : 7)) % 8;
+      }
+      if (pts.length < 2) continue;
+      cx.beginPath(); cx.moveTo(pts[0][0], pts[0][1]);
+      for (const p of pts) cx.lineTo(p[0], p[1]);
+      cx.stroke();
+      const e = pts[pts.length - 1];
+      cx.beginPath(); cx.arc(e[0], e[1], 2.4, 0, 6.283); cx.stroke();
+      cx.beginPath(); cx.arc(pts[0][0], pts[0][1], 1.3, 0, 6.283); cx.fill();
+      made++;
+    }
+    const g = document.createElement("canvas");
+    g.width = W; g.height = H;
+    const gx = g.getContext("2d") as CanvasRenderingContext2D;
+    gx.fillStyle = "#000"; gx.fillRect(0, 0, W, H);
+    gx.filter = "blur(3px)"; gx.drawImage(c, 0, 0); gx.filter = "none"; gx.drawImage(c, 0, 0);
+    return { canvas: g, nodes: made };
+  }
+
+  function glyphs() {
+    const g = document.createElement("canvas");
+    g.width = 64; g.height = 40;
+    const c = g.getContext("2d") as CanvasRenderingContext2D;
+    c.fillStyle = "#000"; c.fillRect(0, 0, 64, 40);
+    c.fillStyle = "#fff"; c.font = "700 30px ui-monospace,Consolas,monospace"; c.textAlign = "center"; c.textBaseline = "middle";
+    c.fillText("0", 16, 21); c.fillText("1", 48, 21);
+    return g;
+  }
+
+  // ---------- chuva de 0/1 no fundo do <section> ----------
+  function rain(cv: HTMLCanvasElement, host: HTMLElement, pointer: { x: number; y: number; on: boolean }) {
+    const ctx = cv.getContext("2d") as CanvasRenderingContext2D;
+    const CW = 18, CH = 22;
+    let cols: { y: number; s: number; len: number; on: boolean; seed: number }[] = [], W = 0, H = 0;
+    const size = () => {
+      const d = Math.min(devicePixelRatio || 1, 2), r = host.getBoundingClientRect();
+      W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+      cols = Array.from({ length: Math.ceil(W / CW) }, () => ({ y: Math.random() * H, s: 18 + Math.random() * 55, len: 6 + (Math.random() * 16 | 0), on: Math.random() < 0.65, seed: Math.random() * 1e4 }));
+    };
+    new ResizeObserver(size).observe(host); size();
+    return (t: number, dt: number) => {
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = "600 13px ui-monospace,Consolas,monospace"; ctx.textAlign = "center";
+      const hr = host.getBoundingClientRect(), mx = pointer.x - hr.left, my = pointer.y - hr.top;
+      for (let i = 0; i < cols.length; i++) {
+        const c = cols[i];
+        if (!c.on) continue;
+        if (!reduce) c.y += c.s * dt;
+        if (c.y - c.len * CH > H) { c.y = -Math.random() * 200; c.on = Math.random() < 0.75; }
+        const x = i * CW + CW / 2;
+        for (let k = 0; k < c.len; k++) {
+          const y = Math.floor(c.y / CH - k) * CH;
+          if (y < -CH || y > H) continue;
+          const fade = 1 - k / c.len;
+          const near = pointer.on ? Math.max(0, 1 - Math.hypot(x - mx, y - my) / 260) : 0;
+          const bit = (Math.sin(i * 91.7 + Math.floor(y / CH) * 17.3 + Math.floor(t * 2 + c.seed)) * 43758.5) % 1;
+          const a = (0.04 + 0.3 * near) * fade;
+          ctx.fillStyle = near > 0.3 && k % 3 === 0 ? `rgba(0,163,158,${Math.min(1, a * 1.8)})` : `rgba(198,198,198,${a})`;
+          ctx.fillText(Math.abs(bit) > 0.5 ? "1" : "0", x, y);
+        }
+      }
+    };
+  }
+
+  async function setup(el: HTMLElement) {
+    const base = el.querySelector("img") as HTMLImageElement;
+    const cv = el.querySelector("canvas") as HTMLCanvasElement;
+    const gl = cv.getContext("webgl2", { antialias: false, alpha: false });
+    if (!gl) return;
+    const [A, B, M] = await Promise.all([load(base.currentSrc || base.src), load(el.dataset.robot as string), load(el.dataset.mask as string)]);
+
+    const sh = (t: number, s: string) => { const x = gl.createShader(t) as WebGLShader; gl.shaderSource(x, s); gl.compileShader(x); return x; };
+    const pr = gl.createProgram() as WebGLProgram;
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const tex = (unit: number, src: TexImageSource, name: string) => {
+      const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
+      gl.uniform1i(gl.getUniformLocation(pr, name), unit); return t;
+    };
+    const W = A.naturalWidth, H = A.naturalHeight;
+    const circ = circuits(M, W, H);
+    tex(0, A, "uA"); tex(1, B, "uB"); tex(3, M, "uP"); tex(4, circ.canvas, "uC"); tex(5, glyphs(), "uG");
+    const MW = 240, MH = Math.round((MW * H) / W);
+    const mk = document.createElement("canvas"); mk.width = MW; mk.height = MH;
+    const mx = mk.getContext("2d") as CanvasRenderingContext2D;
+    mx.fillStyle = "#000"; mx.fillRect(0, 0, MW, MH);
+    const maskTex = tex(2, mk, "uM");
+    const uT = gl.getUniformLocation(pr, "uT"), uRes = gl.getUniformLocation(pr, "uRes"), uDpr = gl.getUniformLocation(pr, "uDpr");
+    gl.uniform3f(gl.getUniformLocation(pr, "uAcc"), ACC[0], ACC[1], ACC[2]);
+
+    let dpr = 1;
+    const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(cv.clientWidth * dpr); cv.height = Math.round(cv.clientHeight * dpr); gl.viewport(0, 0, cv.width, cv.height); };
+    new ResizeObserver(size).observe(el); size();
+
+    // ponteiro: escuta o <section> inteiro (chuva reage em toda a dobra)
+    const host = (el.closest("section") as HTMLElement) || el;
+    const pointer = { x: -9999, y: -9999, on: false };
+    let last = -1e9, overPhoto = false;
+    host.addEventListener("pointermove", (e) => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.on = true; });
+    host.addEventListener("pointerleave", () => { pointer.on = false; });
+    el.addEventListener("pointermove", () => { last = performance.now(); overPhoto = true; });
+    el.addEventListener("pointerleave", () => { overPhoto = false; prev = null; });
+    const rainCv = host.querySelector("canvas[data-rr-rain]") as HTMLCanvasElement | null;
+    const drawRain = rainCv ? rain(rainCv, host, pointer) : null;
+
+    let visible = true;
+    new IntersectionObserver((e) => { visible = e[0].isIntersecting; }).observe(host);
+
+    const hx = el.querySelector("[data-x]") as HTMLElement, hy = el.querySelector("[data-y]") as HTMLElement;
+    const hs = el.querySelector("[data-s]") as HTMLElement, hn = el.querySelector("[data-n]") as HTMLElement;
+    const R = Math.round(MW * 0.15), RC = Math.round(MW * 0.34);
+    let prev: number[] | null = null;
+    const brush = (u: number, v: number) => {
+      const x = u * MW, y = v * MH;
+      const steps = prev ? Math.max(1, Math.ceil(Math.hypot(x - prev[0], y - prev[1]) / 2)) : 1;
+      mx.globalCompositeOperation = "lighter";
+      for (let s = 1; s <= steps; s++) {
+        const bx = prev ? prev[0] + ((x - prev[0]) * s) / steps : x, by = prev ? prev[1] + ((y - prev[1]) * s) / steps : y;
+        let g = mx.createRadialGradient(bx, by, 0, bx, by, R);
+        g.addColorStop(0, "rgba(255,0,0,.45)"); g.addColorStop(1, "rgba(255,0,0,0)");
+        mx.fillStyle = g; mx.fillRect(bx - R, by - R, R * 2, R * 2);
+        g = mx.createRadialGradient(bx, by, 0, bx, by, RC);
+        g.addColorStop(0, "rgba(0,255,0,.2)"); g.addColorStop(1, "rgba(0,255,0,0)");
+        mx.fillStyle = g; mx.fillRect(bx - RC, by - RC, RC * 2, RC * 2);
+      }
+      mx.globalCompositeOperation = "source-over";
+      prev = [x, y];
+    };
+
+    el.classList.add("rr-on");
+    const t0 = performance.now();
+    let lt = t0, shownNodes = 0;
+    const frame = (now: number) => {
+      requestAnimationFrame(frame);
+      if (!visible || document.hidden) { lt = now; return; }
+      const dt = Math.min(0.05, (now - lt) / 1000); lt = now;
+      const t = (now - t0) / 1000;
+      mx.fillStyle = "rgba(0,0,0,.028)"; mx.fillRect(0, 0, MW, MH);
+      const r = el.getBoundingClientRect();
+      let u: number | null = null, v = 0;
+      const live = overPhoto && now - last < 2500;
+      if (live) { u = (pointer.x - r.left) / r.width; v = (pointer.y - r.top) / r.height; }
+      else if (!reduce) { u = 0.5 + 0.2 * Math.sin(t * 0.8) + 0.05 * Math.sin(t * 2.1); v = 0.32 + 0.16 * Math.sin(t * 0.55 + 1); }
+      if (u !== null) {
+        brush(u, v);
+        hx.textContent = Math.max(0, Math.min(1, u)).toFixed(2);
+        hy.textContent = Math.max(0, Math.min(1, v)).toFixed(2);
+        hs.textContent = live ? "analisando" : "passe o mouse";
+      } else prev = null;
+      shownNodes += (circ.nodes * 8.4 - shownNodes) * 0.04;
+      hn.textContent = Math.round(shownNodes).toLocaleString("pt-BR");
+      gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, maskTex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, mk);
+      gl.uniform1f(uT, t); gl.uniform2f(uRes, cv.width, cv.height); gl.uniform1f(uDpr, dpr);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (drawRain) drawRain(t, dt);
+    };
+    requestAnimationFrame(frame);
+  }
+
+  const start = () =>
+    document.querySelectorAll<HTMLElement>("[data-robot-reveal]:not([data-rr-ready])").forEach((el) => {
+      el.dataset.rrReady = "1";
+      const io = new IntersectionObserver((e) => {
+        if (e[0].isIntersecting) { io.disconnect(); setup(el).catch(() => {}); }
+      }, { rootMargin: "200px" });
+      io.observe(el);
+    });
+  start();
+  document.addEventListener("astro:page-load", start);
+</script>

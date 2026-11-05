@@ -57,7 +57,7 @@ const isArticle =
   <Favicons />
   {/* Preload da imagem Hero LCP na Home para redução do LCP mobile */}
   {(Astro.url.pathname === "/" || Astro.url.pathname === "/pt" || Astro.url.pathname === "/pt/" || Astro.url.pathname === "/en" || Astro.url.pathname === "/en/") && (
-    <link rel="preload" as="image" href="/images/perfil.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/hero-mauricio.webp" fetchpriority="high" />
   )}
   <JsonLD
     content={{
