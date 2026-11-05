@@ -73,7 +73,8 @@ const description = post?.data.description || postIndex?.data.description;
   hideFooter={true}
   hideCallToAction={true}
   hideHelperButtons={true}
-  disableTagline={true}>
+  disableTagline={true}
+  robots="noindex, follow">
   <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
     <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
 

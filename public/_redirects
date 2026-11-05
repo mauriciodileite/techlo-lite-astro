@@ -9,3 +9,9 @@
 /termos /termos-de-uso 301
 /privacidade /politica-de-privacidade 301
 /en/terms-of-service /en/terms-conditions 301
+/blog/page/* /blog 301
+/en/blog/page/* /en/blog 301
+/blog/post-* /blog 301
+/en/blog/post-* /en/blog 301
+/team/* / 301
+/en/team/* /en/ 301

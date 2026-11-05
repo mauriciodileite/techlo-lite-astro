@@ -43,25 +43,27 @@ const resolvedCanonical = getLocaleUrlCTM(
   Astro.currentLocale,
 );
 
-// If multilingual is enabled, add rel alternate link tags
-const isSingleBlogPost =
-  Astro.url.pathname.includes("/blog/") &&
-  !Astro.url.pathname.match(/\/blog\/?$/) &&
-  !Astro.url.pathname.includes("/blog/page/") &&
-  !Astro.url.pathname.includes("/blog/category/") &&
-  !Astro.url.pathname.includes("/blog/tag/");
+// Any deep blog route (post, category, tag, page) does NOT have an English translation.
+// Only the main blog index (/blog and /en/blog) exists in both languages.
+const pathnameClean = Astro.url.pathname.replace(/\/$/, "");
+const isBlogSubpath =
+  (pathnameClean.startsWith("/blog/") ||
+    pathnameClean.startsWith("/pt/blog/") ||
+    pathnameClean.startsWith("/en/blog/")) &&
+  pathnameClean !== "/blog" &&
+  pathnameClean !== "/pt/blog" &&
+  pathnameClean !== "/en/blog";
 
 const alternateTags: Array<{ hreflang: string; href: string }> = [];
 if (
   config.settings.multilingual.enable &&
   !disableHreflang &&
-  !resolvedCanonical.includes("blog/category/") &&
   !Astro.url.pathname.includes("agente-de-ia-para-whatsapp")
 ) {
-  // Se for blog post em PT sem tradução em EN, não cria hreflang para /en/ que resulta em 404
-  if (isSingleBlogPost && (Astro.currentLocale === "pt" || !Astro.currentLocale)) {
+  // Se for qualquer sub-rota interna do blog, não emite hreflang para o outro idioma que resulta em 404
+  if (isBlogSubpath) {
     alternateTags.push({
-      hreflang: "pt",
+      hreflang: Astro.currentLocale || "pt",
       href: resolvedCanonical,
     });
     alternateTags.push({
