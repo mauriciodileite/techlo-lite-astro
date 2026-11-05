@@ -42,14 +42,14 @@ const resolvedButtonText = buttonText ?? (isEnglish ? "Book a call" : "Agendar r
     <div class="text-center mb-10">
       <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C6C6C6]/20 mb-4">
         <span class="w-2 h-2 rounded-full bg-[#00A39E] animate-pulse"></span>
-        <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-['Sora',sans-serif] font-semibold">
+        <span class="text-xs uppercase tracking-widest text-[#C6C6C6] font-sora font-semibold">
           {isEnglish ? "Official Calendar" : "Agenda Oficial"}
         </span>
       </div>
-      <h2 class="text-3xl md:text-4xl font-bold font-['Sora',sans-serif] text-white mb-3">
+      <h2 class="text-3xl md:text-4xl font-bold font-sora text-white mb-3">
         {title}
       </h2>
-      <p class="text-[#C6C6C6] font-['Instrument_Sans',sans-serif] text-base md:text-lg max-w-xl mx-auto">
+      <p class="text-[#C6C6C6] font-instrument text-base md:text-lg max-w-xl mx-auto">
         {description}
       </p>
     </div>
@@ -67,7 +67,7 @@ const resolvedButtonText = buttonText ?? (isEnglish ? "Book a call" : "Agendar r
             loading="lazy"
           />
           <!-- Badge 30 min no canto superior -->
-          <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-[11px] font-['Sora',sans-serif] text-white flex items-center gap-1.5">
+          <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-[11px] font-sora text-white flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E]"></span>
             <span>30 min</span>
           </div>
@@ -76,7 +76,7 @@ const resolvedButtonText = buttonText ?? (isEnglish ? "Book a call" : "Agendar r
         <!-- Info do Perfil -->
         <div class="px-1 mb-5">
           <div class="flex items-center justify-between gap-2 mb-1">
-            <h3 class="text-xl md:text-2xl font-bold font-['Sora',sans-serif] text-white tracking-tight">
+            <h3 class="text-xl md:text-2xl font-bold font-sora text-white tracking-tight">
               {name}
             </h3>
             <!-- Ícone do Instagram ao lado do nome (substituindo o X) -->
@@ -95,7 +95,7 @@ const resolvedButtonText = buttonText ?? (isEnglish ? "Book a call" : "Agendar r
               </svg>
             </a>
           </div>
-          <p class="text-sm text-neutral-400 font-['Instrument_Sans',sans-serif]">
+          <p class="text-sm text-neutral-400 font-instrument">
             {resolvedRole}
           </p>
         </div>
@@ -106,7 +106,7 @@ const resolvedButtonText = buttonText ?? (isEnglish ? "Book a call" : "Agendar r
           data-cal-link={calLink}
           data-cal-namespace=""
           data-cal-config='{"layout":"month_view","theme":"dark"}'
-          class="w-full py-3.5 px-6 rounded-full bg-[#00A39E] text-black font-bold font-['Sora',sans-serif] text-sm md:text-base hover:bg-[#00b5af] hover:shadow-[0_0_25px_rgba(0,163,158,0.4)] transition-all duration-300 shadow-lg shadow-[#00A39E]/20 flex items-center justify-center gap-2 cursor-pointer"
+          class="w-full py-3.5 px-6 rounded-full bg-[#00A39E] text-black font-bold font-sora text-sm md:text-base hover:bg-[#00b5af] hover:shadow-[0_0_25px_rgba(0,163,158,0.4)] transition-all duration-300 shadow-lg shadow-[#00A39E]/20 flex items-center justify-center gap-2 cursor-pointer"
         >
           <span>{resolvedButtonText}</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5">
@@ -117,7 +117,7 @@ const resolvedButtonText = buttonText ?? (isEnglish ? "Book a call" : "Agendar r
 
         <!-- Informação complementar e link de contingência -->
         <div class="mt-4 text-center">
-          <p class="text-[11px] text-neutral-500 font-['Instrument_Sans',sans-serif] flex items-center justify-center gap-2">
+          <p class="text-[11px] text-neutral-500 font-instrument flex items-center justify-center gap-2">
             <span>Google Meet</span>
             <span>•</span>
             <span>{isEnglish ? "Questions included" : "Perguntas de qualificação"}</span>

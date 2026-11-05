@@ -49,13 +49,13 @@ const etapasJornada = [
       
       <!-- LADO ESQUERDO: Textos e Etapas da Jornada -->
       <div class="lg:col-span-7">
-        <span class="text-xs font-bold uppercase tracking-widest text-[#00A39E] font-['Sora',sans-serif] block mb-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#00A39E] font-sora block mb-3">
           Bastidores da Implementação
         </span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight mb-5 leading-tight">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-sora text-white tracking-tight mb-5 leading-tight">
           Veja toda a jornada da criação do seu agente de IA no WhatsApp
         </h2>
-        <p class="text-lg sm:text-xl text-[#D4D4D4] font-['Instrument_Sans',sans-serif] leading-relaxed mb-8">
+        <p class="text-lg sm:text-xl text-[#D4D4D4] font-instrument leading-relaxed mb-8">
           Entenda em menos de 1 minuto como estruturamos, treinamos e ativamos um agente inteligente personalizado para a sua empresa — pronto para atender e vender sem você precisar programar.
         </p>
 
@@ -63,14 +63,14 @@ const etapasJornada = [
         <div class="space-y-4">
           {etapasJornada.map((etapa) => (
             <div class="p-4 sm:p-5 rounded-xl bg-[#162026] border border-white/10 hover:border-[#00A39E]/40 transition-all duration-300 flex items-start gap-4">
-              <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-[#00A39E]/15 border border-[#00A39E]/40 text-[#00A39E] font-['Sora',sans-serif] font-bold text-sm flex items-center justify-center">
+              <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-[#00A39E]/15 border border-[#00A39E]/40 text-[#00A39E] font-sora font-bold text-sm flex items-center justify-center">
                 {etapa.numero}
               </span>
               <div>
-                <h3 class="text-base font-bold font-['Sora',sans-serif] text-white mb-1">
+                <h3 class="text-base font-bold font-sora text-white mb-1">
                   {etapa.titulo}
                 </h3>
-                <p class="text-xs sm:text-sm text-[#A0A0A0] font-['Instrument_Sans',sans-serif] leading-relaxed">
+                <p class="text-xs sm:text-sm text-[#A0A0A0] font-instrument leading-relaxed">
                   {etapa.descricao}
                 </p>
               </div>
@@ -86,7 +86,7 @@ const etapasJornada = [
           <div class="lt-dark relative rounded-[22px] overflow-hidden bg-[#0a0f12] border border-white/10 aspect-[9/16] flex items-center justify-center">
             
             <!-- Barra superior estética estilo App -->
-            <div class="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-4 py-2.5 bg-black/60 backdrop-blur-md border-b border-white/10 text-[11px] text-[#C6C6C6] font-['Instrument_Sans',sans-serif]">
+            <div class="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-4 py-2.5 bg-black/60 backdrop-blur-md border-b border-white/10 text-[11px] text-[#C6C6C6] font-instrument">
               <div class="flex items-center gap-1.5">
                 <span class="w-2 h-2 rounded-full bg-[#29FF54] animate-pulse"></span>
                 <span class="text-white font-semibold">Maurício Leite</span>
@@ -123,7 +123,7 @@ const etapasJornada = [
                   </svg>
                 </div>
                 
-                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-semibold text-white tracking-wide shadow-lg backdrop-blur-sm group-hover/player:border-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]">
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-semibold text-white tracking-wide shadow-lg backdrop-blur-sm group-hover/player:border-[#00A39E] transition-colors font-instrument">
                   <svg class="w-3.5 h-3.5 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -134,7 +134,7 @@ const etapasJornada = [
 
               <!-- Dica inferior -->
               <div class="absolute bottom-4 inset-x-4 text-center z-10 pointer-events-none">
-                <span class="text-[11px] text-[#A0A0A0] font-['Instrument_Sans',sans-serif]">
+                <span class="text-[11px] text-[#A0A0A0] font-instrument">
                   Vídeo rápido • Demonstração prática
                 </span>
               </div>

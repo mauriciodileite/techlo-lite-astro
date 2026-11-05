@@ -101,7 +101,7 @@ const navItems = [
         alt="Símbolo Maurício Leite"
         class="h-10 w-auto object-contain transition-transform group-hover:scale-105 light-logo hidden"
       />
-      <span class="brand-name-text text-xl md:text-2xl font-extrabold tracking-tight font-['Sora',sans-serif] text-white">
+      <span class="brand-name-text text-xl md:text-2xl font-extrabold tracking-tight font-sora text-white">
         MAURÍCIO LEITE
       </span>
     </a>
@@ -114,7 +114,7 @@ const navItems = [
           return (
             <a
               href={item.href}
-              class="text-sm font-medium text-[#C6C6C6] hover:text-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]"
+              class="text-sm font-medium text-[#C6C6C6] hover:text-[#00A39E] transition-colors font-instrument"
             >
               {item.name}
             </a>
@@ -125,7 +125,7 @@ const navItems = [
             <div class="flex items-center gap-1.5">
               <a
                 href={item.href}
-                class="text-sm font-medium text-[#C6C6C6] hover:text-[#00A39E] transition-colors font-['Instrument_Sans',sans-serif]"
+                class="text-sm font-medium text-[#C6C6C6] hover:text-[#00A39E] transition-colors font-instrument"
               >
                 {item.name}
               </a>
@@ -147,11 +147,11 @@ const navItems = [
                   href="/agente-de-ia-para-whatsapp/"
                   class="flex flex-col gap-0.5 p-2.5 rounded-lg hover:bg-white/5 transition-colors group/sub"
                 >
-                  <span class="text-xs font-bold font-['Sora',sans-serif] text-white group-hover/sub:text-[#00A39E] transition-colors flex items-center gap-1.5">
+                  <span class="text-xs font-bold font-sora text-white group-hover/sub:text-[#00A39E] transition-colors flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E]"></span>
                     Agente de IA para WhatsApp
                   </span>
-                  <span class="text-[11px] text-[#A0A0A0] font-['Instrument_Sans',sans-serif]">
+                  <span class="text-[11px] text-[#A0A0A0] font-instrument">
                     Atendimento e vendas 24h com IA
                   </span>
                 </a>
@@ -257,7 +257,7 @@ const navItems = [
         return (
           <a
             href={item.href}
-            class="block text-base font-medium text-[#C6C6C6] hover:text-[#00A39E] py-2.5 border-b border-white/5 font-['Instrument_Sans',sans-serif]"
+            class="block text-base font-medium text-[#C6C6C6] hover:text-[#00A39E] py-2.5 border-b border-white/5 font-instrument"
           >
             {item.name}
           </a>
@@ -268,7 +268,7 @@ const navItems = [
           <div class="flex items-center justify-between">
             <a
               href={item.href}
-              class="block text-base font-medium text-[#C6C6C6] hover:text-[#00A39E] py-2 font-['Instrument_Sans',sans-serif]"
+              class="block text-base font-medium text-[#C6C6C6] hover:text-[#00A39E] py-2 font-instrument"
             >
               {item.name}
             </a>
@@ -288,7 +288,7 @@ const navItems = [
           <div id="mobile-submenu-brasil" class="hidden pl-3 pb-2 space-y-1">
             <a
               href="/agente-de-ia-para-whatsapp/"
-              class="block py-2 text-sm text-[#00A39E] font-['Instrument_Sans',sans-serif] hover:underline flex items-center gap-2"
+              class="block py-2 text-sm text-[#00A39E] font-instrument hover:underline flex items-center gap-2"
             >
               <span class="w-1.5 h-1.5 rounded-full bg-[#00A39E]"></span>
               Agente de IA para WhatsApp
@@ -300,7 +300,7 @@ const navItems = [
 
     <!-- Alternador de Tema no Menu Mobile -->
     <div class="pt-4 mt-3 border-t border-white/10 flex items-center justify-between">
-      <span class="text-sm font-['Instrument_Sans',sans-serif] text-[#C6C6C6]" id="mobile-theme-label">
+      <span class="text-sm font-instrument text-[#C6C6C6]" id="mobile-theme-label">
         {isEnglish ? "Theme" : "Modo de visualização"}
       </span>
       <button

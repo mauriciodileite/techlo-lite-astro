@@ -83,7 +83,7 @@ Para quem utiliza agentes inteligentes e ferramentas compatíveis com skills de 
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A39E]/10 border border-[#00A39E]/30 text-[#00A39E] text-xs font-semibold uppercase tracking-wider">
         Recurso para Download
       </div>
-      <h3 class="text-xl md:text-2xl font-['Sora',sans-serif] font-bold text-white m-0">instalar-mcp-gsc-windows.skill</h3>
+      <h3 class="text-xl md:text-2xl font-sora font-bold text-white m-0">instalar-mcp-gsc-windows.skill</h3>
       <p class="text-sm text-[#C6C6C6] max-w-[600px] m-0">
         Pacote estruturado com as instruções normativas, comandos de diagnóstico e cheatsheet de resolução de problemas para instalar e validar o MCP do Search Console no Windows.
       </p>
@@ -92,7 +92,7 @@ Para quem utiliza agentes inteligentes e ferramentas compatíveis com skills de 
       href="/downloads/instalar-mcp-gsc-windows.skill"
       download="instalar-mcp-gsc-windows.skill"
       style="color: #111111 !important; background-color: #00A39E !important;"
-      class="shrink-0 inline-flex items-center gap-3 px-6 py-3.5 rounded-xl font-['Sora',sans-serif] font-bold text-sm tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(0,163,158,0.35)] hover:shadow-[0_0_30px_rgba(0,163,158,0.6)] hover:brightness-110 hover:scale-105 cursor-pointer no-underline"
+      class="shrink-0 inline-flex items-center gap-3 px-6 py-3.5 rounded-xl font-sora font-bold text-sm tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(0,163,158,0.35)] hover:shadow-[0_0_30px_rgba(0,163,158,0.6)] hover:brightness-110 hover:scale-105 cursor-pointer no-underline"
     >
       <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="#111111" stroke-width="2.5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

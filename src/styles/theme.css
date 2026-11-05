@@ -1,6 +1,9 @@
 /* prettier-ignore */
 @theme inline {
   /* Configure base font size, type scale, and font families in `src/config/fonts.json` */
+  /* Brand book: Sora (títulos) e Instrument Sans (textos), servidas localmente pelo Astro Fonts */
+  --font-sora: var(--font-primary);
+  --font-instrument: var(--font-secondary);
   --leading-body: 1.8;
   --leading-inherit: inherit;
 

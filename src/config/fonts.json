@@ -27,7 +27,9 @@
     "display": "swap",
     "cssVariable": "--font-primary",
     "provider": "google",
-    "subsets": ["latin"],
+    "subsets": [
+      "latin"
+    ],
     "fallback": "sans-serif"
   },
   {
@@ -48,13 +50,31 @@
       {
         "style": "normal",
         "weight": "700"
+      },
+      {
+        "style": "italic",
+        "weight": "400"
+      },
+      {
+        "style": "italic",
+        "weight": "500"
+      },
+      {
+        "style": "italic",
+        "weight": "600"
+      },
+      {
+        "style": "italic",
+        "weight": "700"
       }
     ],
     "preload": true,
     "display": "swap",
     "cssVariable": "--font-secondary",
     "provider": "google",
-    "subsets": ["latin"],
+    "subsets": [
+      "latin"
+    ],
     "fallback": "sans-serif"
   }
 ]

@@ -19,7 +19,7 @@ interface Props {
 const { title, slug, isEnglish = false } = Astro.props;
 ---
 
-<div class="blog-share-bar my-10 py-4 px-3 sm:px-6 rounded-2xl bg-[#141414] border border-white/10 text-[#A0A0A0] font-['Instrument_Sans',sans-serif] text-xs">
+<div class="blog-share-bar my-10 py-4 px-3 sm:px-6 rounded-2xl bg-[#141414] border border-white/10 text-[#A0A0A0] font-instrument text-xs">
   <div class="flex flex-wrap items-center justify-between gap-y-4 gap-x-6">
     
     <!-- LADO ESQUERDO: Visualizações, Curtidas e Copiar Link -->
@@ -64,7 +64,7 @@ const { title, slug, isEnglish = false } = Astro.props;
 
     <!-- LADO DIREITO: Ícones de Compartilhamento Social -->
     <div class="flex items-center gap-3 ml-auto flex-wrap sm:flex-nowrap">
-      <span class="text-xs text-[#777777] font-['Sora',sans-serif] mr-1">
+      <span class="text-xs text-[#777777] font-sora mr-1">
         {isEnglish ? "Share:" : "Compartilhar:"}
       </span>
 

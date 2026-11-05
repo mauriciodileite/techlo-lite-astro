@@ -53,7 +53,7 @@ const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
 <section class:list={["w-full", className]}>
   <div class="container mx-auto px-4 max-w-4xl">
     <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 font-['Instrument_Sans',sans-serif] text-xs text-[#888888] mb-6">
+    <nav class="flex items-center gap-2 font-instrument text-xs text-[#888888] mb-6">
       <a href={homeUrl} class="transition-colors hover:text-white">Home</a>
       <span>/</span>
       {isLegalPage && (
@@ -66,7 +66,7 @@ const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
     </nav>
 
     {isLegalPage && (
-      <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-8 pb-4 border-b border-white/10 font-['Sora',sans-serif] text-xs sm:text-sm">
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-8 pb-4 border-b border-white/10 font-sora text-xs sm:text-sm">
         <a
           href={privacyUrl}
           class:list={[
@@ -114,11 +114,11 @@ const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
           ))}
         </ul>
       )}
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold font-['Sora',sans-serif] text-white tracking-tight leading-tight">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold font-sora text-white tracking-tight leading-tight">
         {title}
       </h1>
       {description && (
-        <p class="text-base sm:text-lg text-[#9A9A9A] font-['Instrument_Sans',sans-serif] leading-relaxed">
+        <p class="text-base sm:text-lg text-[#9A9A9A] font-instrument leading-relaxed">
           {description}
         </p>
       )}
@@ -128,7 +128,7 @@ const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
     {hasToc && (
       <div class="mb-10 rounded-2xl border border-white/10 bg-[#161616] p-5 sm:p-6 transition-all duration-300">
         <details class="group" open>
-          <summary class="flex cursor-pointer items-center justify-between font-['Sora',sans-serif] text-sm font-semibold tracking-wider text-white uppercase list-none select-none">
+          <summary class="flex cursor-pointer items-center justify-between font-sora text-sm font-semibold tracking-wider text-white uppercase list-none select-none">
             <span class="flex items-center gap-2.5">
               <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-[#00A39E]/10 text-[#00A39E] border border-[#00A39E]/20">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -141,7 +141,7 @@ const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
                 </svg>
               </span>
               <span>{tocTitle}</span>
-              <span class="text-xs font-normal text-[#8A8A8A] font-['Instrument_Sans',sans-serif] normal-case">
+              <span class="text-xs font-normal text-[#8A8A8A] font-instrument normal-case">
                 ({tocItems.length} {isEnglish ? "topics" : "tópicos"})
               </span>
             </span>
@@ -153,7 +153,7 @@ const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
           </summary>
 
           <nav class="mt-4 pt-4 border-t border-white/5 max-h-80 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10">
-            <ol class="space-y-2 text-sm font-['Instrument_Sans',sans-serif]">
+            <ol class="space-y-2 text-sm font-instrument">
               {tocItems.map((heading) => (
                 <li class:list={[heading.depth === 3 ? "pl-5 text-xs text-[#9A9A9A]" : "pl-0 text-[#C6C6C6]"]}>
                   <a
@@ -174,8 +174,8 @@ const termsUrl = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
     <!-- Content Area with Brand Styling -->
     {Content && (
       <article
-        class="prose prose-invert max-w-none text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed
-          prose-headings:font-['Sora',sans-serif] prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-white
+        class="prose prose-invert max-w-none text-[#C6C6C6] font-instrument leading-relaxed
+          prose-headings:font-sora prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-white
           prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-white/10 prose-h2:pb-3
           prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
           prose-p:text-base prose-p:leading-relaxed prose-p:mb-5

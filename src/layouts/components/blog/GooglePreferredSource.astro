@@ -41,15 +41,15 @@ const googlePreferredUrl = `https://www.google.com/preferences/source?q=${domain
 
       <!-- Textos -->
       <div class="space-y-1.5">
-        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#00A39E]/10 text-[#00A39E] border border-[#00A39E]/30 font-['Sora',sans-serif]">
+        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#00A39E]/10 text-[#00A39E] border border-[#00A39E]/30 font-sora">
           {isEnglish ? "GOOGLE • PREFERRED SOURCE" : "GOOGLE • FONTE PREFERIDA"}
         </div>
 
-        <h3 class="text-lg md:text-xl font-bold font-['Sora',sans-serif] text-white leading-tight">
+        <h3 class="text-lg md:text-xl font-bold font-sora text-white leading-tight">
           {isEnglish ? "See my articles first on Google" : "Veja meus artigos primeiro no Google"}
         </h3>
 
-        <p class="text-sm text-[#A0A0A0] font-['Instrument_Sans',sans-serif] leading-relaxed max-w-xl">
+        <p class="text-sm text-[#A0A0A0] font-instrument leading-relaxed max-w-xl">
           {isEnglish ? (
             <>
               Liked the content? Add <span class="text-white font-medium">{domain}</span> as a preferred source and see more of my articles in your Google search results.
@@ -70,7 +70,7 @@ const googlePreferredUrl = `https://www.google.com/preferences/source?q=${domain
         href={googlePreferredUrl}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#202124] hover:bg-[#2b2c30] border border-white/20 hover:border-[#00A39E] text-white font-['Sora',sans-serif] font-semibold text-xs md:text-sm shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(0,163,158,0.25)] cursor-pointer group/btn"
+        class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#202124] hover:bg-[#2b2c30] border border-white/20 hover:border-[#00A39E] text-white font-sora font-semibold text-xs md:text-sm shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(0,163,158,0.25)] cursor-pointer group/btn"
       >
         <!-- Logo Oficial do Google 4 Cores -->
         <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
@@ -83,7 +83,7 @@ const googlePreferredUrl = `https://www.google.com/preferences/source?q=${domain
         <span>Add to Preferred Sources</span>
       </a>
 
-      <span class="text-[11px] text-[#777777] font-['Instrument_Sans',sans-serif] mt-2 tracking-wide text-center">
+      <span class="text-[11px] text-[#777777] font-instrument mt-2 tracking-wide text-center">
         {isEnglish ? "Free • 1 click • appears in search results" : "Grátis • 1 clique • aparece nos resultados"}
       </span>
     </div>
