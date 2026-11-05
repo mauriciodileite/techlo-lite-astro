@@ -292,6 +292,21 @@ const navItems = [
         </div>
       );
     })}
+
+    <!-- Alternador de Tema no Menu Mobile -->
+    <div class="pt-4 mt-3 border-t border-white/10 flex items-center justify-between">
+      <span class="text-sm font-['Instrument_Sans',sans-serif] text-[#C6C6C6]" id="mobile-theme-label">
+        {isEnglish ? "Theme" : "Modo de visualização"}
+      </span>
+      <button
+        id="mobile-drawer-theme-btn"
+        type="button"
+        class="inline-flex items-center gap-2 rounded-lg border border-[#C6C6C6]/30 bg-[#222222] px-3 py-2 text-xs font-mono text-[#C6C6C6] transition-colors hover:text-white"
+        aria-label="Alternar modo claro e escuro"
+      >
+        <span id="mobile-drawer-theme-text">{isEnglish ? "Light Mode" : "Modo Claro"}</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -325,6 +340,8 @@ const navItems = [
     const sunIcon = document.getElementById("global-sun-icon");
     const moonIcon = document.getElementById("global-moon-icon");
     const themeText = document.getElementById("global-theme-text");
+    const drawerThemeBtn = document.getElementById("mobile-drawer-theme-btn");
+    const drawerThemeText = document.getElementById("mobile-drawer-theme-text");
 
     function updateThemeUI(isLight: boolean) {
       if (isLight) {
@@ -332,27 +349,36 @@ const navItems = [
         if (sunIcon) sunIcon.classList.add("hidden");
         if (moonIcon) moonIcon.classList.remove("hidden");
         if (themeText) themeText.textContent = "Modo Escuro";
+        if (drawerThemeText) drawerThemeText.textContent = "☀️ Modo Escuro";
       } else {
         document.documentElement.classList.remove("light-theme");
         if (sunIcon) sunIcon.classList.remove("hidden");
         if (moonIcon) moonIcon.classList.add("hidden");
         if (themeText) themeText.textContent = "Modo Claro";
+        if (drawerThemeText) drawerThemeText.textContent = "🌙 Modo Claro";
       }
     }
 
     const isLightNow = document.documentElement.classList.contains("light-theme");
     updateThemeUI(isLightNow);
 
+    function toggleTheme() {
+      const willBeLight = !document.documentElement.classList.contains("light-theme");
+      updateThemeUI(willBeLight);
+      const nextMode = willBeLight ? "light" : "dark";
+      localStorage.setItem("mauricio_theme_mode", nextMode);
+      localStorage.setItem("mauricio_blog_reading_theme", nextMode);
+      window.dispatchEvent(new CustomEvent("mauricio-theme-changed", { detail: { theme: nextMode } }));
+    }
+
     if (themeBtn && !themeBtn.dataset.bound) {
       themeBtn.dataset.bound = "true";
-      themeBtn.addEventListener("click", () => {
-        const willBeLight = !document.documentElement.classList.contains("light-theme");
-        updateThemeUI(willBeLight);
-        const nextMode = willBeLight ? "light" : "dark";
-        localStorage.setItem("mauricio_theme_mode", nextMode);
-        localStorage.setItem("mauricio_blog_reading_theme", nextMode);
-        window.dispatchEvent(new CustomEvent("mauricio-theme-changed", { detail: { theme: nextMode } }));
-      });
+      themeBtn.addEventListener("click", toggleTheme);
+    }
+
+    if (drawerThemeBtn && !drawerThemeBtn.dataset.bound) {
+      drawerThemeBtn.dataset.bound = "true";
+      drawerThemeBtn.addEventListener("click", toggleTheme);
     }
 
     window.addEventListener("mauricio-theme-changed", (e: any) => {
