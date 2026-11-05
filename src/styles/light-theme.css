@@ -1,41 +1,57 @@
 /**
- * Estilos do Modo Claro (Light Theme) para todo o site de Maurício Leite
- * Em conformidade estrita com o Brand Book oficial:
- * - Fundo principal: #F2F2F2 (Off-white / cinza claro institucional)
- * - Superfícies e Cards: #FFFFFF (Branco puro)
- * - Bordas e divisores: #E3E3E3 / #D8D8D8
- * - Títulos e destaque: #111111 (Preto Pista)
- * - Corpo e texto secundário: #4A4A4A / #333333 (Cinza escuro de alta legibilidade)
- * - Acento de marca: #00A39E (Verde Petronas)
+ * BRAND BOOK OFICIAL - MAURÍCIO LEITE v2.0
+ * Paleta Estrita do Modo Claro (Light Theme)
+ * 
+ * Cores Canônicas:
+ * - Preto Pista: #111111 (Cor principal: textos, títulos, símbolos e contrastes)
+ * - Prata: #C6C6C6 (Superfícies, detalhes e divisores)
+ * - Petronas: #00A39E (Acento de telemetria, destaque e botões de ação)
+ * - Vinho: #80142B (Acentos mínimos de alerta e erro)
+ * - Fundo Claro Institucional: #FFFFFF (Principal positiva preferencial) e #F2F2F2 (Off-white de apoio)
+ * - Divisores e Bordas: #E3E3E3
+ * 
+ * Regra de Ouro do Brand Book:
+ * "NÃO PÔR BRANCO SOBRE PETRONAS: O petronas anda sempre com preto: texto, símbolo e ícone em #111111."
+ * "O petronas é acento, não superfície. Quando cobre uma área grande, tudo que estiver em cima vai em preto."
  */
 
+/* ==========================================================================
+   1. FUNDO GERAL E LOGOTIPO
+   ========================================================================== */
 html.light-theme,
 html.light-theme body {
-  background-color: #F2F2F2 !important;
+  background-color: #FFFFFF !important;
   color: #111111 !important;
 }
 
-/* Fundo padrão das páginas e seções */
 html.light-theme div[class*="bg-[#111111]"],
 html.light-theme section[class*="bg-[#111111]"],
 html.light-theme main[class*="bg-[#111111]"],
 html.light-theme div[class*="bg-[#070800]"] {
-  background-color: #F2F2F2 !important;
+  background-color: #FFFFFF !important;
+  color: #111111 !important;
+}
+
+/* Símbolo ML oficial no Modo Claro: Principal Positiva (#111111) */
+html.light-theme .dark-logo {
+  display: none !important;
+}
+
+html.light-theme .light-logo {
+  display: block !important;
+}
+
+html.light-theme .brand-name-text {
   color: #111111 !important;
 }
 
 /* ==========================================================================
-   CABEÇALHO (HeaderNav)
+   2. CABEÇALHO (HeaderNav)
    ========================================================================== */
 html.light-theme header {
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  background-color: rgba(255, 255, 255, 0.98) !important;
   border-bottom-color: #E3E3E3 !important;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04) !important;
-}
-
-html.light-theme header a span,
-html.light-theme header .font-extrabold {
-  color: #111111 !important;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.05) !important;
 }
 
 html.light-theme header nav a {
@@ -50,23 +66,30 @@ html.light-theme header button[aria-label*="Submenu"] {
   color: #4A4A4A !important;
 }
 
-html.light-theme header .bg-\[\#162026\] {
+/* Dropdown de Submenu (Desktop) */
+html.light-theme header .bg-\[\#162026\],
+html.light-theme header div[class*="bg-[#162026]"] {
   background-color: #FFFFFF !important;
   border-color: #E3E3E3 !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08) !important;
 }
 
 html.light-theme header .bg-\[\#162026\] span.text-white {
   color: #111111 !important;
 }
 
+html.light-theme header .bg-\[\#162026\] span.text-\[\#A0A0A0\] {
+  color: #666666 !important;
+}
+
+/* Drawer Mobile */
 html.light-theme header #mobile-menu {
   background-color: #FFFFFF !important;
   border-bottom-color: #E3E3E3 !important;
 }
 
 html.light-theme header #mobile-menu a {
-  color: #333333 !important;
+  color: #111111 !important;
   border-bottom-color: #F0F0F0 !important;
 }
 
@@ -77,16 +100,20 @@ html.light-theme header #mobile-menu-btn {
 }
 
 /* Controles de Idioma e Tema no Header */
-html.light-theme header .bg-\[\#1A1A1A\],
 html.light-theme header #global-theme-toggle-btn {
-  background-color: #FFFFFF !important;
+  background-color: #F2F2F2 !important;
   border-color: #E3E3E3 !important;
-  color: #4A4A4A !important;
+  color: #111111 !important;
 }
 
 html.light-theme header #global-theme-toggle-btn:hover {
   border-color: #00A39E !important;
-  color: #111111 !important;
+  color: #00A39E !important;
+}
+
+html.light-theme header .bg-\[\#1A1A1A\] {
+  background-color: #F2F2F2 !important;
+  border-color: #E3E3E3 !important;
 }
 
 html.light-theme header .bg-\[\#1A1A1A\] a {
@@ -96,10 +123,11 @@ html.light-theme header .bg-\[\#1A1A1A\] a {
 html.light-theme header .bg-\[\#1A1A1A\] a.bg-\[\#00A39E\] {
   background-color: #00A39E !important;
   color: #111111 !important;
+  font-weight: 700 !important;
 }
 
 /* ==========================================================================
-   TIPOGRAFIA & CORES DE TEXTO
+   3. TIPOGRAFIA & HIERARQUIA DE TEXTO (Sora + Instrument Sans)
    ========================================================================== */
 html.light-theme h1,
 html.light-theme h2,
@@ -112,7 +140,7 @@ html.light-theme h6 {
 
 html.light-theme p,
 html.light-theme li {
-  color: #333333 !important;
+  color: #2E2E2E !important;
 }
 
 html.light-theme span[class*="text-[#C6C6C6]"],
@@ -127,31 +155,154 @@ html.light-theme p[class*="text-[#A0A0A0]"] {
 }
 
 /* ==========================================================================
-   CARDS & SUPERFÍCIES
+   4. BOTÕES E CTAS (Regras Rígidas do Brand Book)
    ========================================================================== */
-html.light-theme .bg-\[\#17171a\],
-html.light-theme .bg-\[\#1A1A1A\],
-html.light-theme .bg-\[\#161616\],
-html.light-theme .bg-\[\#181818\],
-html.light-theme .bg-\[\#162026\],
-html.light-theme div[class*="bg-[#17171a]"],
-html.light-theme div[class*="bg-[#1A1A1A]"],
-html.light-theme div[class*="bg-[#161616]"],
-html.light-theme div[class*="bg-[#181818]"],
-html.light-theme div[class*="bg-[#162026]"] {
+/* Botão Primário: Petronas (#00A39E) + Letra Preto Pista (#111111) */
+html.light-theme a[class*="bg-[#00A39E]"],
+html.light-theme button[class*="bg-[#00A39E]"],
+html.light-theme span[class*="bg-[#00A39E]"] {
+  background-color: #00A39E !important;
+  color: #111111 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 18px rgba(0, 163, 158, 0.25) !important;
+}
+
+html.light-theme a[class*="bg-[#00A39E]"]:hover,
+html.light-theme button[class*="bg-[#00A39E]"]:hover {
+  background-color: #008f8a !important;
+  color: #111111 !important;
+}
+
+/* Botão Secundário: Preto Pista (#111111) + Texto Branco (#FFFFFF) + Sombra Petronas */
+html.light-theme a[class*="bg-[#1A1A1A]"]:not([href*="instagram"]):not([href*="youtube"]):not([href*="linkedin"]),
+html.light-theme a[class*="bg-[#242528]"] {
+  background-color: #111111 !important;
+  color: #FFFFFF !important;
+  border-color: #111111 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+html.light-theme a[class*="bg-[#1A1A1A]"]:hover:not([href*="instagram"]):not([href*="youtube"]):not([href*="linkedin"]),
+html.light-theme a[class*="bg-[#242528]"]:hover {
+  background-color: #00A39E !important;
+  color: #111111 !important;
+  border-color: #00A39E !important;
+}
+
+/* ==========================================================================
+   5. SEÇÕES DA HOME
+   ========================================================================== */
+/* Hero */
+html.light-theme section:first-of-type {
+  background-color: #FFFFFF !important;
+}
+
+html.light-theme section:first-of-type div[class*="bg-[#1A1A1A]"] {
+  background-color: #F2F2F2 !important;
+  border-color: #E3E3E3 !important;
+}
+
+html.light-theme section:first-of-type div[class*="bg-[#1A1A1A]"] span {
+  color: #111111 !important;
+}
+
+/* Seção Minha Experiência (4 Pilares) - Fundo de apoio #F2F2F2 */
+html.light-theme #experiencia {
+  background-color: #F2F2F2 !important;
+  border-top-color: #E3E3E3 !important;
+}
+
+html.light-theme #experiencia .group.rounded-2xl {
   background-color: #FFFFFF !important;
   border-color: #E3E3E3 !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
-html.light-theme .bg-\[\#17171a\]:hover,
-html.light-theme div[class*="bg-[#17171a]"]:hover {
-  background-color: #FFFFFF !important;
+html.light-theme #experiencia .group.rounded-2xl:hover {
   border-color: #00A39E !important;
   box-shadow: 0 8px 30px rgba(0, 163, 158, 0.12) !important;
 }
 
-/* Bordas globais no modo claro */
+html.light-theme #experiencia div[class*="bg-[#242528]"] {
+  background-color: #F2F2F2 !important;
+  border-color: #E3E3E3 !important;
+  color: #00A39E !important;
+}
+
+html.light-theme #experiencia span[class*="bg-[#00A39E]/10"] {
+  background-color: #F2F2F2 !important;
+  border-color: #00A39E !important;
+  color: #00A39E !important;
+}
+
+/* Seção Minhas Soluções (4 Cards de Perfis) - Fundo #FFFFFF com cards #F2F2F2 */
+html.light-theme #solucoes {
+  background-color: #FFFFFF !important;
+  border-top-color: #E3E3E3 !important;
+}
+
+html.light-theme #solucoes .group.rounded-2xl {
+  background-color: #F2F2F2 !important;
+  border-color: #E3E3E3 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light-theme #solucoes .group.rounded-2xl:hover {
+  border-color: #00A39E !important;
+  background-color: #FFFFFF !important;
+  box-shadow: 0 8px 30px rgba(0, 163, 158, 0.1) !important;
+}
+
+html.light-theme #solucoes span[class*="bg-[#00A39E]/10"] {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  color: #00A39E !important;
+}
+
+html.light-theme #solucoes span.font-mono {
+  color: #8A8A8A !important;
+}
+
+/* Seção Todo Dia Eu Ajudo de Graça (FreeContent) */
+html.light-theme #conteudo-gratuito {
+  background-color: #F2F2F2 !important;
+  border-top-color: #E3E3E3 !important;
+}
+
+html.light-theme #conteudo-gratuito .group.rounded-2xl,
+html.light-theme #conteudo-gratuito div[class*="bg-[#17171a]"] {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme #conteudo-gratuito div[class*="bg-[#242528]"] {
+  background-color: #F2F2F2 !important;
+  border-color: #E3E3E3 !important;
+  color: #00A39E !important;
+}
+
+/* FAQ Accordion */
+html.light-theme #faq {
+  background-color: #FFFFFF !important;
+  border-top-color: #E3E3E3 !important;
+}
+
+html.light-theme #faq .group.rounded-2xl,
+html.light-theme #faq div[class*="bg-[#17171a]"] {
+  background-color: #F2F2F2 !important;
+  border-color: #E3E3E3 !important;
+}
+
+html.light-theme #faq button span {
+  color: #111111 !important;
+}
+
+html.light-theme #faq button svg {
+  color: #00A39E !important;
+}
+
+/* Bordas Gerais */
 html.light-theme .border-white\/5,
 html.light-theme .border-white\/10,
 html.light-theme .border-white\/15,
@@ -162,24 +313,11 @@ html.light-theme *[class*="border-[#C6C6C6]/30"] {
   border-color: #E3E3E3 !important;
 }
 
-/* Botões Secundários */
-html.light-theme a[class*="bg-[#1A1A1A]"] {
-  background-color: #FFFFFF !important;
-  color: #111111 !important;
-  border-color: #D8D8D8 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-}
-
-html.light-theme a[class*="bg-[#1A1A1A]"]:hover {
-  border-color: #00A39E !important;
-  color: #00A39E !important;
-}
-
 /* ==========================================================================
-   BLOG HERO & BLOG GRID
+   6. BLOG (Índice /blog e Artigo /blog/[single])
    ========================================================================== */
 html.light-theme #blog-filter-bar button {
-  background-color: #FFFFFF !important;
+  background-color: #F2F2F2 !important;
   border-color: #E3E3E3 !important;
   color: #4A4A4A !important;
 }
@@ -189,12 +327,17 @@ html.light-theme #blog-filter-bar button[class*="bg-[#00A39E]"] {
   background-color: #00A39E !important;
   color: #111111 !important;
   font-weight: 700 !important;
+  border-color: #00A39E !important;
 }
 
 html.light-theme input#blog-search-input {
-  background-color: #FFFFFF !important;
+  background-color: #F2F2F2 !important;
   border-color: #E3E3E3 !important;
   color: #111111 !important;
+}
+
+html.light-theme input#blog-search-input::placeholder {
+  color: #8A8A8A !important;
 }
 
 html.light-theme .blog-card,
@@ -204,61 +347,30 @@ html.light-theme article[class*="bg-[#1A1A1A]"] {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* ==========================================================================
-   ACORDION / FAQ
-   ========================================================================== */
-html.light-theme details,
-html.light-theme .faq-item {
+html.light-theme .blog-card:hover {
+  border-color: #00A39E !important;
+  box-shadow: 0 8px 30px rgba(0, 163, 158, 0.12) !important;
+}
+
+/* Artigo Individual do Blog */
+html.light-theme #blog-reading-area {
+  background-color: #FFFFFF !important;
+  color: #111111 !important;
+}
+
+html.light-theme #blog-reading-area aside {
   background-color: #FFFFFF !important;
   border-color: #E3E3E3 !important;
 }
 
-html.light-theme details summary {
-  color: #111111 !important;
-}
-
-/* ==========================================================================
-   RODAPÉ (FooterMauricio)
-   ========================================================================== */
-html.light-theme footer {
-  background-color: #E8E8E8 !important;
-  border-top-color: #D4D4D4 !important;
-  color: #111111 !important;
-}
-
-html.light-theme footer .text-white {
-  color: #111111 !important;
-}
-
-html.light-theme footer p,
-html.light-theme footer .text-\[\#9A9A9A\],
-html.light-theme footer .text-\[\#8A8A8A\],
-html.light-theme footer .text-\[\#C6C6C6\] {
+html.light-theme #blog-reading-area aside a.toc-link {
   color: #4A4A4A !important;
 }
 
-html.light-theme footer .bg-\[\#1A1A1A\] {
-  background-color: #FFFFFF !important;
-  border-color: #D8D8D8 !important;
-  color: #4A4A4A !important;
-}
-
-html.light-theme footer .bg-\[\#1A1A1A\]:hover {
-  color: #00A39E !important;
-  border-color: #00A39E !important;
-}
-
-html.light-theme footer .border-white\/5,
-html.light-theme footer .border-t {
-  border-top-color: #D4D4D4 !important;
-}
-
-/* ==========================================================================
-   SINCRONIZAÇÃO COM MODO LEITURA DO ARTIGO DO BLOG
-   ========================================================================== */
-html.light-theme #blog-reading-area {
-  background-color: #FFFFFF !important;
+html.light-theme #blog-reading-area aside a.toc-link:hover,
+html.light-theme #blog-reading-area aside a.toc-link.text-white {
   color: #111111 !important;
+  font-weight: 700 !important;
 }
 
 html.light-theme #blog-reading-area article.prose {
@@ -277,6 +389,7 @@ html.light-theme #blog-reading-area article.prose h2 {
 
 html.light-theme #blog-reading-area article.prose a {
   color: #00A39E !important;
+  text-decoration: underline !important;
 }
 
 html.light-theme #blog-reading-area article.prose a:hover {
@@ -285,22 +398,39 @@ html.light-theme #blog-reading-area article.prose a:hover {
 
 html.light-theme #blog-reading-area article.prose strong {
   color: #111111 !important;
+  font-weight: 700 !important;
 }
 
 html.light-theme #blog-reading-area article.prose blockquote {
-  background-color: #F8F9FA !important;
+  background-color: #F2F2F2 !important;
   border-left-color: #00A39E !important;
   color: #111111 !important;
 }
 
 html.light-theme #blog-reading-area article.prose code:not(pre code) {
-  background-color: #F4F4F5 !important;
+  background-color: #F2F2F2 !important;
   color: #00A39E !important;
   border: 1px solid #E3E3E3 !important;
+  font-family: 'IBM Plex Mono', monospace !important;
 }
 
 html.light-theme #blog-reading-area article.prose hr {
   border-color: #E3E3E3 !important;
+}
+
+html.light-theme #blog-reading-area article.prose table thead {
+  background-color: #F2F2F2 !important;
+  border-bottom-color: #E3E3E3 !important;
+}
+
+html.light-theme #blog-reading-area article.prose table th {
+  color: #111111 !important;
+  border-color: #E3E3E3 !important;
+}
+
+html.light-theme #blog-reading-area article.prose table td {
+  color: #222222 !important;
+  border-bottom-color: #E3E3E3 !important;
 }
 
 html.light-theme #blog-reading-area .article-step-card {
@@ -314,4 +444,48 @@ html.light-theme #blog-reading-area .partner-links-section a {
   background-color: #FFFFFF !important;
   border-color: #E3E3E3 !important;
   color: #111111 !important;
+}
+
+/* ==========================================================================
+   7. RODAPÉ (FooterMauricio)
+   ========================================================================== */
+html.light-theme footer {
+  background-color: #F2F2F2 !important;
+  border-top-color: #E3E3E3 !important;
+  color: #111111 !important;
+}
+
+html.light-theme footer .text-white {
+  color: #111111 !important;
+}
+
+html.light-theme footer p,
+html.light-theme footer .text-\[\#9A9A9A\],
+html.light-theme footer .text-\[\#8A8A8A\],
+html.light-theme footer .text-\[\#C6C6C6\] {
+  color: #4A4A4A !important;
+}
+
+html.light-theme footer .text-\[\#00A39E\] {
+  color: #00A39E !important;
+}
+
+html.light-theme footer a[href*="instagram"],
+html.light-theme footer a[href*="youtube"],
+html.light-theme footer a[href*="linkedin"] {
+  background-color: #FFFFFF !important;
+  border-color: #E3E3E3 !important;
+  color: #111111 !important;
+}
+
+html.light-theme footer a[href*="instagram"]:hover,
+html.light-theme footer a[href*="youtube"]:hover,
+html.light-theme footer a[href*="linkedin"]:hover {
+  border-color: #00A39E !important;
+  color: #00A39E !important;
+}
+
+html.light-theme footer .border-white\/5,
+html.light-theme footer .border-t {
+  border-top-color: #E3E3E3 !important;
 }
