@@ -136,7 +136,7 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
     <!-- Header Oficial da Marca -->
     <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
 
-    <main id="blog-reading-area" class="flex-grow flex flex-col bg-[#111111] text-[#C6C6C6] pt-20 transition-colors duration-300">
+    <div id="blog-reading-area" class="flex-grow flex flex-col bg-[#111111] text-[#C6C6C6] pt-20 transition-colors duration-300">
     <!-- Article Section -->
     <section class="py-10 sm:pt-20 sm:pb-24">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -332,7 +332,7 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
 
     <!-- Newsletter CTA -->
     <BlogCta />
-  </main>
+  </div>
 
   <!-- Rodapé Oficial Maurício Leite -->
   <FooterMauricio />

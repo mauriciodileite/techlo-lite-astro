@@ -73,11 +73,11 @@ const featuredPosts = formattedPosts.filter((p) => p.featured);
     <!-- Header Oficial da Marca -->
     <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
 
-    <main class="flex-grow pt-20">
+    <div class="flex-grow pt-20">
       <BlogHero featuredPosts={featuredPosts.length > 0 ? featuredPosts : formattedPosts.slice(0, 2)} />
       <BlogGrid posts={formattedPosts} />
       <BlogCta />
-    </main>
+    </div>
 
     <!-- Rodapé Oficial Maurício Leite -->
     <FooterMauricio />

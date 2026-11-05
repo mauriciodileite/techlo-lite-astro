@@ -2,7 +2,7 @@
 [site]
   title            = "Maurício Leite" # Shared title for SEO and OpenGraph
   description      = "Estratégia, IA e Engenharia de Software. Artigos práticos, frameworks e análises aprofundadas sobre automações, agentes de IA, arquitetura e escala de produtos por Maurício Leite." # Shared description for SEO and OpenGraph
-  tagline          = "Estratégia, IA e Engenharia de Software"
+  tagline          = "tráfego pago e automações no Whatsapp"
   taglineSeparator = " | " 
   baseUrl          = "https://mauricioleite.com.br/" # Base URL for the site and used in OpenGraph meta tags.
   logo             = "/images/logo-mauricio-leite.svg" # Path to the site's logo
@@ -64,7 +64,7 @@
 
   # docs - https://formspree.io/ | https://formsubmit.co/ | https://docs.netlify.com/forms/setup/
   # Form action URL for the contact form (For more settings related to form see "src/content/sections/contact-section.md")
-  contactFormAction = "https://formsubmit.co/temp.gats@gmail.com" # https://formspree.io/f/kweoweo | https://formsubmit.co/your@email.com | "/"
+  contactFormAction = "https://formsubmit.co/suporte@mauricioleite.com.br" # https://formspree.io/f/kweoweo | https://formsubmit.co/your@email.com | "/"
   # formspree | formsubmit.co | netlify (default is formsubmit.co)
   contactFormProvider = "formsubmit.co"
 
@@ -122,10 +122,10 @@
 
   # Global Contact Information
   [settings.contactInfo]
-    phone       = "[518-564-3200](tel:5185643200)"
-    email       = "[hello@example.com](mailto:hello@example.com)"
-    address     = "1791 Yorkshire Circle Kitty <br /> Hawk, NC 279499"
-    officeHours = "Office Hours: 8:00 AM – 10:00 PM"
+    phone       = "[+55 92 98558-2795](tel:+5592985582795)"
+    email       = "[suporte@mauricioleite.com.br](mailto:suporte@mauricioleite.com.br)"
+    address     = "Manaus, AM - Brasil"
+    officeHours = "Atendimento: Segunda a Sexta, 8h às 18h (GMT-4)"
 
   # Header Offcanvas Configuration
   # Update social links in `src/config/social.json`

@@ -18,8 +18,8 @@ const currentLocale = Astro.currentLocale || "pt";
 const isEnglish = currentLocale === "en" || Astro.url.pathname.startsWith("/en");
 
 const metaTitle = isEnglish 
-  ? "Maurício Leite | Marketing & Revenue Growth" 
-  : "Maurício Leite | Marketing & Aumento de Lucro";
+  ? "Maurício Leite - Paid Traffic & WhatsApp Automation" 
+  : "Maurício Leite - tráfego pago e automações no Whatsapp";
 
 const metaDescription = isEnglish
   ? "My mission is to facilitate sales for your client and increase your company's profit. Commitment, speed, and clarity."
@@ -29,6 +29,7 @@ const metaDescription = isEnglish
 <Base 
   title={metaTitle} 
   description={metaDescription}
+  disableTagline={true}
   headerLayout="none"
   hideHeader={true}
   hideFooter={true}
@@ -40,7 +41,7 @@ const metaDescription = isEnglish
     <HeaderNav currentLocale={isEnglish ? "en" : "pt"} />
 
     <!-- Conteúdo Principal -->
-    <main class="flex-grow">
+    <div class="flex-grow">
       <!-- 1. Hero com Headline, Foto Oficial e CTAs 100% no idioma ativo -->
       <Hero 
         headline={isEnglish 
@@ -77,7 +78,7 @@ const metaDescription = isEnglish
 
       <!-- 5. Perguntas Frequentes (FAQ) no idioma correto -->
       <FaqAccordion isEnglish={isEnglish} />
-    </main>
+    </div>
 
     <!-- Rodapé Oficial de Maurício Leite -->
     <FooterMauricio showLegalLinks={true} isEnglish={isEnglish} />

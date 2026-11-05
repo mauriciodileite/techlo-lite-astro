@@ -42,6 +42,8 @@ export default defineConfig({
     "/wp-login.php": "/",
     "/wp-admin": "/",
     // Redirecionamentos para páginas legais
+    "/politica-de-privacidade-e-termos-de-uso": "/politica-de-privacidade",
+    "/en/politica-de-privacidade-e-termos-de-uso": "/en/privacy-policy",
     "/privacy-policy": "/politica-de-privacidade",
     "/terms-of-service": "/termos-de-uso",
     "/terms-conditions": "/termos-de-uso",

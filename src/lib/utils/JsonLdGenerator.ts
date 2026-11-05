@@ -1,8 +1,8 @@
 /**
  * JSON-LD Generator
- * Generates appropriate JSON-LD data based on the page type and provided content
- * Generates JSON-LD data that search engines like Google, Bing, and DuckDuckGo can use to better understand the content of the page.
- * This can improve the page's visibility in search engine results and provide users with additional information about the page.
+ * Generates appropriate JSON-LD data based on the page type and provided content.
+ * Follows Google Search Central guidelines for WebSite (Site Name), WebPage,
+ * BreadcrumbList, BlogPosting, Organization, and Person entities in a unified @graph.
  */
 import { absoluteUrl } from "./absoluteUrl";
 import { getLocaleUrlCTM } from "./i18nUtils";
@@ -37,14 +37,40 @@ export default function JsonLdGenerator(content: JSONLDProps, Astro: any) {
     config,
   } = content || {};
 
-  // Rich Author Profile (Maurício Leite)
+  const siteOrigin = trailingSlashChecker(
+    config?.site?.baseUrl || (Astro.site ? Astro.site.href : Astro.url.origin),
+  );
+
+  const canonicalUrl = canonical.startsWith("http")
+    ? trailingSlashChecker(canonical)
+    : trailingSlashChecker(`${siteOrigin}${canonical.replace(/^\//, "")}`);
+
+  const normalizedLocale = lang === "en" ? "en-US" : "pt-BR";
+
+  // 1. Organization Node
+  const organizationNode = {
+    "@type": "Organization",
+    "@id": `${siteOrigin}#organization`,
+    name: "ML Consultoria e Treinamento",
+    alternateName: "Maurício Leite",
+    url: siteOrigin,
+    logo: {
+      "@type": "ImageObject",
+      "@id": `${siteOrigin}#logo`,
+      url: absoluteUrl(config?.site?.logo || "/images/logo-mauricio-leite.svg", Astro),
+      caption: "Maurício Leite",
+    },
+    sameAs: social.main.filter((item: any) => item.enable).map((item: any) => item.url),
+  };
+
+  // 2. Author/Person Node (Maurício Leite)
   const authorPerson = {
     "@type": "Person",
+    "@id": `${siteOrigin}#person`,
     name: "Maurício Leite",
     jobTitle: "Fundador & Consultor em Marketing de Performance e IA",
     worksFor: {
-      "@type": "Organization",
-      name: "ML Consultoria e Treinamento",
+      "@id": `${siteOrigin}#organization`,
     },
     brand: {
       "@type": "Brand",
@@ -56,107 +82,208 @@ export default function JsonLdGenerator(content: JSONLDProps, Astro: any) {
       addressRegion: "AM",
       addressCountry: "BR",
     },
-    url: trailingSlashChecker(Astro.url.origin),
+    url: siteOrigin,
     sameAs: social.main.filter((item: any) => item.enable).map((item: any) => item.url),
   };
 
-  // Generate JSON-LD data dynamically based on page type
-  let jsonLdData: Record<string, any> = {
-    "@context": "https://schema.org",
-  };
-
-  switch (pageType) {
-    case "post":
-    case "article":
-    case "blog":
-      jsonLdData["@type"] = "BlogPosting";
-      jsonLdData.headline = title;
-      jsonLdData.name = title;
-      jsonLdData.description = description;
-      if (image) {
-        jsonLdData.image = [absoluteUrl(image, Astro)];
-      }
-      jsonLdData.url = canonical;
-      if (lang) {
-        jsonLdData.inLanguage = lang;
-      }
-      if (content.datePublished) {
-        jsonLdData.datePublished = new Date(content.datePublished).toISOString();
-      }
-      const lastModified = content.dateModified || content.datePublished;
-      if (lastModified) {
-        jsonLdData.dateModified = new Date(lastModified).toISOString();
-      }
-      jsonLdData.author = authorPerson;
-      jsonLdData.publisher = {
-        "@type": "Organization",
-        name: "ML Consultoria e Treinamento",
-        alternateName: "Maurício Leite",
-        url: trailingSlashChecker(Astro.url.origin),
-        logo: {
-          "@type": "ImageObject",
-          url: absoluteUrl(config.site.logo, Astro),
-        },
-      };
-      jsonLdData.mainEntityOfPage = {
-        "@type": "WebPage",
-        "@id": canonical,
-      };
-      if (content.categories && content.categories.length > 0) {
-        jsonLdData.articleSection = content.categories;
-      }
-      break;
-
-    default:
-      jsonLdData["@type"] = "WebPage";
-      jsonLdData.name = title;
-      jsonLdData.description = description;
-      jsonLdData.image = image ? absoluteUrl(image, Astro) : undefined;
-      jsonLdData.url = canonical;
-
-      if (lang) {
-        jsonLdData.inLanguage = lang;
-      }
-  }
-
-  // Add site metadata to `isPartOf` of jsonLdData
-  const siteTitle =
-    config.site.title +
-    (config.site.tagline &&
-      (config.site.taglineSeparator || " - ") + config.site.tagline);
-
-  jsonLdData["isPartOf"] = {
+  // 3. WebSite Node (Critical for Google SERP Site Name attribution)
+  const websiteNode = {
     "@type": "WebSite",
-    name: siteTitle,
-    description: config.site.description,
-    url: trailingSlashChecker(Astro.url.origin),
+    "@id": `${siteOrigin}#website`,
+    url: siteOrigin,
+    name: "Maurício Leite",
+    alternateName: ["Mauricio Leite", "ML Consultoria"],
+    description: config?.site?.description,
+    inLanguage: normalizedLocale,
+    publisher: {
+      "@id": `${siteOrigin}#organization`,
+    },
   };
 
-  // Add alternate languages if provided
-  if (alternateLangs.length > 0) {
-    jsonLdData.alternateLanguage = alternateLangs
-      .filter((alt: any) => Astro.currentLocale !== alt.languageCode)
-      .map((alt: any) => ({
-        "@type": "WebPage",
-        url: getLocaleUrlCTM(canonical, alt.languageCode),
-        inLanguage: alt.languageCode,
-      }));
-  }
+  const pathnameClean = (Astro.url?.pathname || "").replace(/\/$/, "");
+  const isHome =
+    pathnameClean === "" ||
+    pathnameClean === "/pt" ||
+    pathnameClean === "/en" ||
+    canonicalUrl === siteOrigin ||
+    canonicalUrl === `${siteOrigin}en/` ||
+    canonicalUrl === `${siteOrigin}pt/`;
 
-  // Add `publisher` if not already set
-  if (!jsonLdData.publisher) {
-    jsonLdData.publisher = {
-      "@type": "Organization",
-      name: "ML Consultoria e Treinamento",
-      alternateName: config.seo.author || "Maurício Leite",
-      url: trailingSlashChecker(Astro.url.origin),
-      sameAs: social.main.filter((item: any) => item.enable).map((item: any) => item.url),
-      logo: {
-        "@type": "ImageObject",
-        url: absoluteUrl(config.site.logo, Astro),
+  const isBlogPost = pageType === "post" || pageType === "article" || pageType === "blog";
+
+  const graphNodes: any[] = [websiteNode, organizationNode, authorPerson];
+
+  if (isHome) {
+    // WebPage on Home
+    const webPageNode: Record<string, any> = {
+      "@type": "WebPage",
+      "@id": `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: title,
+      description: description,
+      inLanguage: normalizedLocale,
+      isPartOf: {
+        "@id": `${siteOrigin}#website`,
+      },
+      about: {
+        "@id": `${siteOrigin}#person`,
       },
     };
+
+    if (image) {
+      webPageNode.image = absoluteUrl(image, Astro);
+    }
+
+    if (alternateLangs && alternateLangs.length > 0) {
+      webPageNode.alternateLanguage = alternateLangs
+        .filter((alt: any) => Astro.currentLocale !== alt.languageCode)
+        .map((alt: any) => ({
+          "@type": "WebPage",
+          url: getLocaleUrlCTM(canonicalUrl, alt.languageCode),
+          inLanguage: alt.languageCode === "en" ? "en-US" : "pt-BR",
+        }));
+    }
+
+    graphNodes.push(webPageNode);
+  } else if (isBlogPost) {
+    // BreadcrumbList for Blog Post
+    const breadcrumbNode = {
+      "@type": "BreadcrumbList",
+      "@id": `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: lang === "en" ? "Home" : "Início",
+          item: siteOrigin,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Blog",
+          item: `${siteOrigin}${lang === "en" ? "en/blog/" : "blog/"}`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: title,
+          item: canonicalUrl,
+        },
+      ],
+    };
+
+    // WebPage for Blog Post
+    const webPageNode: Record<string, any> = {
+      "@type": "WebPage",
+      "@id": `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: title,
+      description: description,
+      inLanguage: normalizedLocale,
+      isPartOf: {
+        "@id": `${siteOrigin}#website`,
+      },
+      breadcrumb: {
+        "@id": `${canonicalUrl}#breadcrumb`,
+      },
+    };
+
+    // BlogPosting Node
+    const blogPostNode: Record<string, any> = {
+      "@type": "BlogPosting",
+      "@id": `${canonicalUrl}#article`,
+      isPartOf: {
+        "@id": `${canonicalUrl}#webpage`,
+      },
+      headline: title,
+      name: title,
+      description: description,
+      url: canonicalUrl,
+      inLanguage: normalizedLocale,
+      mainEntityOfPage: {
+        "@id": `${canonicalUrl}#webpage`,
+      },
+      author: {
+        "@id": `${siteOrigin}#person`,
+      },
+      publisher: {
+        "@id": `${siteOrigin}#organization`,
+      },
+    };
+
+    if (image) {
+      blogPostNode.image = [absoluteUrl(image, Astro)];
+      webPageNode.image = absoluteUrl(image, Astro);
+    }
+    if (content.datePublished) {
+      blogPostNode.datePublished = new Date(content.datePublished).toISOString();
+    }
+    const lastModified = content.dateModified || content.datePublished;
+    if (lastModified) {
+      blogPostNode.dateModified = new Date(lastModified).toISOString();
+    }
+    if (content.categories && content.categories.length > 0) {
+      blogPostNode.articleSection = content.categories;
+    }
+
+    graphNodes.push(webPageNode, breadcrumbNode, blogPostNode);
+  } else {
+    // Standard Pages (e.g. /agenda, /politica-de-privacidade, /termos-de-uso)
+    const breadcrumbNode = {
+      "@type": "BreadcrumbList",
+      "@id": `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: lang === "en" ? "Home" : "Início",
+          item: siteOrigin,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: title,
+          item: canonicalUrl,
+        },
+      ],
+    };
+
+    const webPageNode: Record<string, any> = {
+      "@type": "WebPage",
+      "@id": `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: title,
+      description: description,
+      inLanguage: normalizedLocale,
+      isPartOf: {
+        "@id": `${siteOrigin}#website`,
+      },
+      breadcrumb: {
+        "@id": `${canonicalUrl}#breadcrumb`,
+      },
+    };
+
+    if (image) {
+      webPageNode.image = absoluteUrl(image, Astro);
+    }
+
+    if (alternateLangs && alternateLangs.length > 0) {
+      webPageNode.alternateLanguage = alternateLangs
+        .filter((alt: any) => Astro.currentLocale !== alt.languageCode)
+        .map((alt: any) => ({
+          "@type": "WebPage",
+          url: getLocaleUrlCTM(canonicalUrl, alt.languageCode),
+          inLanguage: alt.languageCode === "en" ? "en-US" : "pt-BR",
+        }));
+    }
+
+    graphNodes.push(webPageNode, breadcrumbNode);
   }
+
+  const jsonLdData: Record<string, any> = {
+    "@context": "https://schema.org",
+    "@graph": graphNodes,
+  };
 
   // Utility to remove empty or undefined keys
   return removeEmptyKeys(jsonLdData);

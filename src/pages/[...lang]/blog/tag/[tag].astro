@@ -78,7 +78,7 @@ const description = post?.data.description || postIndex?.data.description;
   <div class="bg-[#111111] min-h-screen text-white flex flex-col justify-between selection:bg-[#00A39E] selection:text-black">
     <HeaderNav currentLocale={Astro.currentLocale || "pt"} />
 
-    <main class="flex-grow pt-20">
+    <div class="flex-grow pt-20">
       <PageHeader
         content={{ hiddenPaths: ["Tag"], title: `Tag: ${titleify(tag.name)}` }}
       />
@@ -95,7 +95,7 @@ const description = post?.data.description || postIndex?.data.description;
         }}
         content={{ ...post, ...post?.data }}
       />
-    </main>
+    </div>
 
     <FooterMauricio />
   </div>

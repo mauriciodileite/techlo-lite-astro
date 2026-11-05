@@ -20,13 +20,12 @@ let {
   structuredData,
 } = content;
 
-title =
-  !disableTagline && metaTitle ? metaTitle : title ? title : config.site.title;
+let resolvedTitle = metaTitle ?? title ?? config.site.title;
+if (!disableTagline && config.site.tagline) {
+  resolvedTitle += (config.site.taglineSeparator || " - ") + config.site.tagline;
+}
 
-// Add tagline & separator to title
-// prettier-ignore
-const alternateLangs =  config.settings.multilingual.enable ? supportedLanguages : [];
-title += config.site.tagline ? taglineSeparator + config.site.tagline : "";
+const alternateLangs = config.settings.multilingual.enable ? supportedLanguages : [];
 description = metaDescription ? metaDescription : description;
 canonical = canonical ? canonical : Astro.url.href;
 lang = Astro.currentLocale;
@@ -37,7 +36,7 @@ const jsonLdData = JsonLdGenerator(
   {
     ...content,
     ...structuredData,
-    title,
+    title: resolvedTitle,
     description,
     image,
     canonical,

@@ -44,6 +44,13 @@ const resolvedCanonical = getLocaleUrlCTM(
 );
 
 // If multilingual is enabled, add rel alternate link tags
+const isSingleBlogPost =
+  Astro.url.pathname.includes("/blog/") &&
+  !Astro.url.pathname.match(/\/blog\/?$/) &&
+  !Astro.url.pathname.includes("/blog/page/") &&
+  !Astro.url.pathname.includes("/blog/category/") &&
+  !Astro.url.pathname.includes("/blog/tag/");
+
 const alternateTags: Array<{ hreflang: string; href: string }> = [];
 if (
   config.settings.multilingual.enable &&
@@ -51,12 +58,29 @@ if (
   !resolvedCanonical.includes("blog/category/") &&
   !Astro.url.pathname.includes("agente-de-ia-para-whatsapp")
 ) {
-  supportedLanguages.forEach((lang) => {
+  // Se for blog post em PT sem tradução em EN, não cria hreflang para /en/ que resulta em 404
+  if (isSingleBlogPost && (Astro.currentLocale === "pt" || !Astro.currentLocale)) {
     alternateTags.push({
-      hreflang: lang.languageCode,
-      href: getLocaleUrlCTM(Astro.url.href, lang.languageCode),
+      hreflang: "pt",
+      href: resolvedCanonical,
     });
-  });
+    alternateTags.push({
+      hreflang: "x-default",
+      href: resolvedCanonical,
+    });
+  } else {
+    supportedLanguages.forEach((lang) => {
+      alternateTags.push({
+        hreflang: lang.languageCode,
+        href: getLocaleUrlCTM(Astro.url.href, lang.languageCode),
+      });
+    });
+    // Aponta x-default para a versão em português (idioma padrão do site)
+    alternateTags.push({
+      hreflang: "x-default",
+      href: getLocaleUrlCTM(Astro.url.href, "pt"),
+    });
+  }
 }
 ---
 
