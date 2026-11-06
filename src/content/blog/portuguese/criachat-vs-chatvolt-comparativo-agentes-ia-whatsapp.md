@@ -122,7 +122,7 @@ A Chatvolt entrega uma interface excelente para quem deseja subir um agente por 
 * O que o agente deve responder quando o cliente pede desconto?
 * Como evitar que a IA alucine prazos que a sua equipe não consegue cumprir?
 * Em que momento exato o robô deve calar a boca e transferir o lead quente para o humano fechar?
-* Como integrar o WhatsApp ao checkout para gerar um Pix com identificador dinâmico?
+* Como integrar o WhatsApp ao checkout para gerar [um Pix com identificador dinâmico](/blog/automacao-whatsapp-receber-pix-agentes-ia/)?
 
 Na **Criachat através da minha consultoria**, o cliente não recebe uma tela em branco para preencher sozinho. Eu desenho a arquitetura comercial, mapeio o tom de voz da sua marca, testo as blindagens contra alucinações e acompanho o comportamento do agente nas primeiras semanas de operação.
 
@@ -152,20 +152,74 @@ A Criachat é a escolha superior quando:
 
 ## 7. Como Migrar da Chatvolt para a Criachat em 4 Passos
 
-Se você já opera na Chatvolt e deseja migrar para ter chave própria e CRM integrado, a transição é feita sem interrupção do seu número:
+Se você já opera na Chatvolt e deseja migrar para ter chave própria e CRM integrado, a transição é feita sem interrupção do seu número e sem perda de contexto comercial:
 
-```
-┌─────────────────┐     ┌──────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│ 1. Diagnóstico  │ ──> │ 2. Configuração  │ ──> │ 3. Homologação   │ ──> │ 4. Virada Suave │
-│ Mapeamento de   │     │ Conexão de API e │     │ Teste cego dos   │     │ Troca de rotas  │
-│ fluxos atuais   │     │ esteiras de CRM  │     │ prompts e travas │     │ sem downtime    │
-└─────────────────┘     └──────────────────┘     └──────────────────┘     └─────────────────┘
-```
-
-1. **Diagnóstico dos Fluxos Existentes:** Levantamos a base de conhecimento atual, perguntas frequentes, regras de transbordo e integrações com ERPs ou plataformas de pagamento.
-2. **Estruturação do Ambiente:** Criamos o tenant na Criachat, conectamos sua chave da OpenAI e desenhamos as colunas do seu CRM Kanban.
-3. **Calibração e Teste de Prompt:** O agente é reconstruído com instruções blindadas, functions e regras de qualificação em um ambiente de homologação.
-4. **Virada de Chave sem Queda:** Conectamos o número oficial de WhatsApp. O atendimento continua operando normalmente, agora com custo direto e rastreabilidade total.
+<div class="not-prose my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+<div class="p-6 rounded-2xl bg-[#161616] border border-white/10 flex flex-col justify-between hover:border-[#00A39E]/50 transition-all hover:-translate-y-1 group shadow-lg">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-mono font-bold text-[#00A39E] px-2.5 py-1 rounded-md bg-[#00A39E]/10 border border-[#00A39E]/30">PASSO 01</span>
+<span class="text-2xl font-black font-['Sora',sans-serif] text-white/30 group-hover:text-[#00A39E] transition-colors">01</span>
+</div>
+<h3 class="text-lg font-bold font-['Sora',sans-serif] text-white mb-2">Diagnóstico</h3>
+<p class="text-sm text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed">
+Mapeamento minucioso dos fluxos atuais, perguntas frequentes, regras de transbordo e integrações existentes com checkout ou ERP.
+</p>
+</div>
+<div class="mt-6 pt-3 border-t border-white/5 text-xs text-[#00A39E] font-semibold flex items-center gap-1">
+<span>Auditoria completa</span>
+<span>→</span>
+</div>
+</div>
+<div class="p-6 rounded-2xl bg-[#161616] border border-white/10 flex flex-col justify-between hover:border-[#00A39E]/50 transition-all hover:-translate-y-1 group shadow-lg">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-mono font-bold text-[#00A39E] px-2.5 py-1 rounded-md bg-[#00A39E]/10 border border-[#00A39E]/30">PASSO 02</span>
+<span class="text-2xl font-black font-['Sora',sans-serif] text-white/30 group-hover:text-[#00A39E] transition-colors">02</span>
+</div>
+<h3 class="text-lg font-bold font-['Sora',sans-serif] text-white mb-2">Estruturação</h3>
+<p class="text-sm text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed">
+Criação do ambiente na Criachat, conexão da sua chave direta da OpenAI e desenho das esteiras Kanban no CRM integrado.
+</p>
+</div>
+<div class="mt-6 pt-3 border-t border-white/5 text-xs text-[#00A39E] font-semibold flex items-center gap-1">
+<span>Custo direto da API</span>
+<span>→</span>
+</div>
+</div>
+<div class="p-6 rounded-2xl bg-[#161616] border border-white/10 flex flex-col justify-between hover:border-[#00A39E]/50 transition-all hover:-translate-y-1 group shadow-lg">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-mono font-bold text-[#00A39E] px-2.5 py-1 rounded-md bg-[#00A39E]/10 border border-[#00A39E]/30">PASSO 03</span>
+<span class="text-2xl font-black font-['Sora',sans-serif] text-white/30 group-hover:text-[#00A39E] transition-colors">03</span>
+</div>
+<h3 class="text-lg font-bold font-['Sora',sans-serif] text-white mb-2">Homologação</h3>
+<p class="text-sm text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed">
+Reconstrução das instruções, calibração de tom de voz, testes de estresse contra alucinações e validação de functions financeiras.
+</p>
+</div>
+<div class="mt-6 pt-3 border-t border-white/5 text-xs text-[#00A39E] font-semibold flex items-center gap-1">
+<span>Teste cego em bancada</span>
+<span>→</span>
+</div>
+</div>
+<div class="p-6 rounded-2xl bg-[#161616] border border-white/10 flex flex-col justify-between hover:border-[#00A39E]/50 transition-all hover:-translate-y-1 group shadow-lg">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-mono font-bold text-[#00A39E] px-2.5 py-1 rounded-md bg-[#00A39E]/10 border border-[#00A39E]/30">PASSO 04</span>
+<span class="text-2xl font-black font-['Sora',sans-serif] text-white/30 group-hover:text-[#00A39E] transition-colors">04</span>
+</div>
+<h3 class="text-lg font-bold font-['Sora',sans-serif] text-white mb-2">Virada Suave</h3>
+<p class="text-sm text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed">
+Conexão do número oficial de WhatsApp sem downtime, sem pausar atendimento e com acompanhamento técnico nas primeiras semanas.
+</p>
+</div>
+<div class="mt-6 pt-3 border-t border-white/5 text-xs text-[#00A39E] font-semibold flex items-center gap-1">
+<span>Zero interrupção</span>
+<span>→</span>
+</div>
+</div>
+</div>
 
 ---
 
@@ -194,36 +248,29 @@ Sim. Na Criachat você paga a assinatura da infraestrutura do software (a partir
 Sim. O número pertence à sua empresa. A migração envolve apenas desconectar a sessão da plataforma antiga e validar o canal na nova plataforma.
 
 ### O agente consegue consultar meu estoque ou gerar cobranças Pix?
-Sim. Através de *functions* (chamadas de função) conectadas ao n8n ou webhooks de gateways de pagamento, o agente pode consultar bancos de dados em tempo real e emitir Pix dinâmico com identificador de venda.
+Sim. Através de *functions* (chamadas de função) conectadas ao n8n ou webhooks de gateways de pagamento, o agente pode consultar bancos de dados em tempo real e emitir [Pix dinâmico com identificador de venda](/blog/automacao-whatsapp-receber-pix-agentes-ia/).
 
 ---
 
 <div class="not-prose my-14 relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#162026] via-[#10171b] to-[#0c1013] p-8 sm:p-12 md:p-14 text-center shadow-2xl">
-  <!-- Brilho sutil no topo do card -->
-  <div class="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-44 w-96 rounded-full bg-[#00A39E]/20 blur-[70px]"></div>
-
-  <div class="relative z-10 max-w-2xl mx-auto">
-    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white font-['Sora',sans-serif] tracking-tight mb-4">
-      Pronto para vender mais no whatsapp com IA?
-    </h2>
-    <p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed mb-8">
-      Na Criachat, oferecemos soluções completas para desenvolver e integrar um agente de IA personalizado nos seus canais de comunicação.
-    </p>
-
-    <div class="flex justify-center mb-5">
-      <a
-        href="/agente-de-ia-para-whatsapp/"
-        class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white text-[#111111] font-bold font-['Sora',sans-serif] text-sm sm:text-base hover:bg-[#F2F2F2] transition-all transform hover:scale-[1.03] shadow-[0_4px_25px_rgba(255,255,255,0.18)]"
-      >
-        <span>⚡</span>
-        <span>Quero saber mais</span>
-        <span>→</span>
-      </a>
-    </div>
-
-    <p class="text-xs text-[#8A8A8A] font-['Instrument_Sans',sans-serif] m-0">
-      Comece hoje mesmo a escalar sua operação com IA
-    </p>
-  </div>
+<div class="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-44 w-96 rounded-full bg-[#00A39E]/20 blur-[70px]"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white font-['Sora',sans-serif] tracking-tight mb-4">
+Pronto para vender mais no whatsapp com IA?
+</h2>
+<p class="text-base sm:text-lg text-[#C6C6C6] font-['Instrument_Sans',sans-serif] leading-relaxed mb-8">
+Na Criachat, oferecemos soluções completas para desenvolver e integrar um agente de IA personalizado nos seus canais de comunicação.
+</p>
+<div class="flex justify-center mb-6">
+<a href="/agente-de-ia-para-whatsapp/" class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white text-[#111111] font-bold font-['Sora',sans-serif] text-sm sm:text-base hover:bg-[#F2F2F2] transition-all transform hover:scale-[1.03] shadow-[0_4px_25px_rgba(255,255,255,0.18)] no-underline">
+<span>⚡</span>
+<span>Quero saber mais</span>
+<span>→</span>
+</a>
+</div>
+<p class="text-xs text-[#8A8A8A] font-['Instrument_Sans',sans-serif] m-0">
+Comece hoje mesmo a escalar sua operação com IA
+</p>
+</div>
 </div>
 
