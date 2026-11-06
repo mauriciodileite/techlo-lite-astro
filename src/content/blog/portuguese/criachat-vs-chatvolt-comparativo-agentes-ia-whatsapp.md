@@ -1,7 +1,7 @@
 ---
 title: "Criachat vs Chatvolt: A Comparação Completa de Agentes de IA no WhatsApp (2026)"
 description: "Comparativo técnico e financeiro entre Criachat e Chatvolt em 15 critérios objetivos: custo de tokens da OpenAI vs créditos da plataforma, CRM integrado, API oficial da Meta e implantação assistida."
-image: "/images/blog-post/melhor-configuracao-agentes-ia-whatsapp-grafos-neo4j.webp"
+image: "/images/blog-post/criachat-vs-chatvolt-comparativo.webp"
 imageAlt: "Comparativo técnico entre as plataformas Criachat e Chatvolt para automação comercial no WhatsApp com Inteligência Artificial"
 date: 2026-11-06
 author: "Maurício Leite"
