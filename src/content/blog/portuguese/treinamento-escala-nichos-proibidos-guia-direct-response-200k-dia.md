@@ -124,3 +124,4 @@ A escala não é sorte. É um processo de 15 dias para quem domina os fundamento
 3. **Matemática Pura:** Otimização fria baseada em dados, ignorando o ego do criador.
 
 Se você quer o resultado dos 1%, pare de se comportar como os 99%. Foque no mecanismo, domine o ABT e deixe a matemática trabalhar.
+

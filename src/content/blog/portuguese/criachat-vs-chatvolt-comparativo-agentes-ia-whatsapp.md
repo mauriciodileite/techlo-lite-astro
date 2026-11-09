@@ -231,7 +231,6 @@ A plataforma pertence à **CRIA CHAT LTDA** (CNPJ 66.634.769/0001-70), empresa d
 
 * **Felipe Sakaguti (CTO):** Arquiteto de software responsável pela estabilidade, integrações e infraestrutura de alta concorrência no WhatsApp.
 * **Pedro Russo (CEO):** Responsável pela condução de negócios, expansão e relacionamento com parceiros e grandes contas.
-* **Rhavi da Silva (CMO):** Especialista em posicionamento, comunidade e engenharia de tom de voz para inteligência artificial.
 * **Maurício Leite (Parceiro Oficial Independente):** Responsável pela consultoria de tráfego, arquitetura comercial e implantação personalizada de agentes inteligentes para empresas no Brasil e no exterior.
 
 ---
@@ -249,6 +248,12 @@ Sim. O número pertence à sua empresa. A migração envolve apenas desconectar 
 
 ### O agente consegue consultar meu estoque ou gerar cobranças Pix?
 Sim. Através de *functions* (chamadas de função) conectadas ao n8n ou webhooks de gateways de pagamento, o agente pode consultar bancos de dados em tempo real e emitir [Pix dinâmico com identificador de venda](/blog/automacao-whatsapp-receber-pix-agentes-ia/).
+
+### Qual API a Criachat usa?
+Usa a **Avisa API** e custa R$ 69,90 no plano básico. Essa API é necessária para conectar o seu chatbot ao WhatsApp — é a ponte que conecta as mensagens ao agente.
+
+### Qual API a ChatVolt utiliza?
+Usa a API da **Z-API**, muito consolidada no mercado. Não há outra opção e o plano da Z-API custa R$ 97,00 mensais.
 
 ---
 
