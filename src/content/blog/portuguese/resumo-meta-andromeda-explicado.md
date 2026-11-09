@@ -52,33 +52,6 @@ Abaixo está o mapa visual de como uma solicitação de anúncio viaja dentro do
 
 ![Infográfico oficial do fluxo do Meta Andromeda 2026](/images/blog-post/meta-andromeda-novo-fluxo-infografico.webp)
 
-```
-[ Usuário abre o App (Instagram/Facebook) ]
-                 │
-                 ▼
-┌─────────────────────────────────────────────────────────────┐
-│          SERVIDOR GPU DEDICADO (NVIDIA GH200)               │
-│                                                             │
-│  1. REGRA E TARGETING (Index Matching no Chip)             │
-│     Filtra anúncios por país, idade e interesses.          │
-│     └─► Capacidade: >100 bilhões de anúncios/seg            │
-│                                                             │
-│  2. ROTEADOR DE ESPECIALISTAS (MoE - Mixture of Experts)    │
-│     Sinais do Usuário + Contexto do Anúncio                 │
-│     │                                                       │
-│     ├──► Especialista de Vídeos / Engagement                │
-│     ├──► Especialista de Compras / Histórico                │
-│     └──► Especialista Semântico de IA                       │
-│     └─► Pontuação em passagem única no chip (Kernel Fusion) │
-│                                                             │
-│  3. SELEÇÃO TOP-K (Os Melhores Finalistas)                  │
-│     Separa apenas os melhores candidatos locais.            │
-└─────────────────────────────────────────────────────────────┘
-                 │ (Tráfego de rede reduzido em 100x!)
-                 ▼
-[ Envia para a Fase de Ranking Final ──► Anúncio Perfeito no Feed ]
-```
-
 ---
 
 ## 3. As 3 Grandes Inovações Explicadas sem Complicação
@@ -176,3 +149,4 @@ Quando você estrutura suas campanhas nesses 3 eixos, você alimenta diretamente
 ---
 
 **Comprometimento. Velocidade. Clareza.**
+
