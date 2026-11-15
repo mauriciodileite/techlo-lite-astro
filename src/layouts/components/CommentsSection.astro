@@ -5,10 +5,12 @@
  * - Só comenta quem está logado: Google ou e-mail e senha (Supabase Auth).
  * - Login em fluxo PKCE: nenhum token de sessão passa pela URL.
  * - Nome, foto e selo "Autor" são definidos no servidor (trigger), não no navegador.
- * - Respostas em árvore, voto único por pessoa, editar/apagar o próprio comentário.
+ * - Para o Google: os comentários existentes saem prontos no HTML do build e no
+ *   JSON-LD do artigo (schema.org/Comment). O navegador só atualiza a lista depois.
  * - A biblioteca do Supabase só é baixada quando o leitor chega perto da seção.
- * Banco: supabase/migrations/20261115_blog_comentarios.sql
+ * Molde e textos: src/lib/comentarios.ts · Banco: supabase/migrations/
  */
+import { commentsJsonLd, loadForBuild, renderComments } from "@/lib/comentarios";
 
 interface Props {
   postSlug: string;
@@ -17,56 +19,68 @@ interface Props {
 
 const { postSlug, isEnglish = false } = Astro.props;
 
-const supabaseUrl = "https://rhfufrjbzjkmiwgoauks.supabase.co";
-// Chave publicável: feita para ficar no navegador. Quem protege os dados é o RLS.
-const supabaseKey = "sb_publishable__vk_mYjY2ZBtVj6MTDHPtQ_KBDntsMg";
+const { comments, postLikes } = await loadForBuild();
+const rows = comments.get(postSlug) || [];
+const likeCount = postLikes.get(postSlug) || 0;
+
+const staticList = renderComments(rows, {
+  en: isEnglish,
+  sort: "newest",
+  userId: null,
+  isMod: false,
+  relative: false,
+});
+
+// Mesmo @id do BlogPosting gerado em JsonLdGenerator: o Google junta os dois blocos.
+const pageUrl = Astro.url.href.split("#")[0].split("?")[0];
+const jsonLd =
+  rows.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "@id": `${pageUrl}#article`,
+        commentCount: rows.length,
+        comment: commentsJsonLd(rows, pageUrl),
+      }
+    : null;
 
 const privacyHref = isEnglish ? "/en/privacy-policy/" : "/politica-de-privacidade/";
 const termsHref = isEnglish ? "/en/terms-conditions/" : "/termos-de-uso/";
 
 const inputClass =
   "w-full bg-[#111111] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-[#777777] focus:border-[#00A39E] outline-none transition-colors";
+const tabClass =
+  "ml-tab pb-1 border-b-2 border-transparent text-[#888888] hover:text-[#00A39E] transition-colors cursor-pointer";
+const tabs = [
+  { id: "best", label: isEnglish ? "Best" : "Melhores" },
+  { id: "newest", label: isEnglish ? "Newest" : "Mais recentes" },
+  { id: "oldest", label: isEnglish ? "Oldest" : "Mais antigos" },
+];
 ---
+
+{jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}
 
 <section
   id="ml-comments-section"
   data-slug={postSlug}
   data-lang={isEnglish ? "en" : "pt"}
-  data-url={supabaseUrl}
-  data-key={supabaseKey}
   class="mt-16 pt-12 border-t border-white/10 font-body text-[#C6C6C6]"
 >
   <!-- Cabeçalho -->
-  <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10 mb-8">
-    <div class="flex items-center gap-3">
-      <div class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-        </svg>
-        <h2 class="text-xl md:text-2xl font-bold font-heading text-white">
-          <span id="ml-comments-count">0</span>
-          {isEnglish ? "Comments" : "Comentários"}
-        </h2>
-      </div>
-      <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#00A39E]/15 text-[#00A39E] border border-[#00A39E]/30 font-heading">
-        Comunidade ML
-      </span>
-    </div>
-
-    <div class="flex items-center gap-2 text-xs">
-      <label for="ml-comments-sort" class="text-[#888888]">{isEnglish ? "Sort by:" : "Ordenar por:"}</label>
-      <select id="ml-comments-sort" class="bg-[#181818] border border-white/10 text-white text-xs rounded-lg px-2.5 py-1.5 focus:border-[#00A39E] outline-none cursor-pointer">
-        <option value="newest" selected>{isEnglish ? "Newest" : "Mais recentes"}</option>
-        <option value="best">{isEnglish ? "Most voted" : "Mais votados"}</option>
-        <option value="oldest">{isEnglish ? "Oldest" : "Mais antigos"}</option>
-      </select>
-    </div>
+  <div class="flex items-center gap-3 mb-6">
+    <h2 class="text-xl md:text-2xl font-bold font-heading text-white">
+      <span id="ml-comments-count">{rows.length}</span>
+      {isEnglish ? "Comments" : "Comentários"}
+    </h2>
+    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#00A39E]/15 text-[#00A39E] border border-[#00A39E]/30 font-heading">
+      Comunidade ML
+    </span>
   </div>
 
   <!-- Caixa de login / envio -->
-  <div class="comment-box-card bg-[#161616] border border-white/10 rounded-2xl p-5 mb-10 transition-all duration-300 focus-within:border-[#00A39E]/60 shadow-lg">
+  <div class="comment-box-card bg-[#161616] border border-white/10 rounded-2xl p-5 mb-8 transition-all duration-300 focus-within:border-[#00A39E]/60 shadow-lg">
     <p id="ml-comments-loading" class="text-sm text-[#888888]">
-      {isEnglish ? "Loading comments…" : "Carregando comentários…"}
+      {isEnglish ? "Loading…" : "Carregando…"}
     </p>
 
     <!-- Visitante sem login -->
@@ -121,7 +135,7 @@ const inputClass =
     <div id="ml-auth-in" class="hidden">
       <div class="flex items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-3 min-w-0">
-          <div id="ml-user-avatar" class="comment-avatar-placeholder w-10 h-10 rounded-full bg-[#222222] border border-white/15 flex items-center justify-center shrink-0 overflow-hidden text-[#00A39E] font-heading text-sm font-bold"></div>
+          <div id="ml-user-avatar" class="comment-avatar-placeholder w-10 h-10 rounded-xl bg-[#222222] border border-white/15 flex items-center justify-center shrink-0 overflow-hidden text-[#00A39E] font-heading text-sm font-bold"></div>
           <span id="ml-user-name" class="comment-author-name font-heading font-semibold text-white text-sm truncate"></span>
         </div>
         <button type="button" id="ml-auth-signout" class="text-xs text-[#888888] underline underline-offset-4 hover:text-[#00A39E] cursor-pointer shrink-0">
@@ -160,11 +174,70 @@ const inputClass =
     </p>
   </div>
 
-  <!-- Lista de comentários (preenchida pelo script) -->
-  <div id="ml-comments-list" class="space-y-6"></div>
+  <!-- Barra: curtir o post, compartilhar e ordenar -->
+  <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 pb-3 border-b border-white/10 text-sm font-heading font-medium">
+    <div class="flex items-center gap-5">
+      <button type="button" id="ml-post-like" aria-pressed="false" aria-label={isEnglish ? "Like this article" : "Curtir este artigo"} class="reply-toggle-btn inline-flex items-center gap-1.5 text-[#888888] hover:text-[#00A39E] transition-colors cursor-pointer">
+        <svg id="ml-post-like-icon" class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.5 4.6 13.4a4.9 4.9 0 0 1 0-7 5 5 0 0 1 7 0l.4.4.4-.4a5 5 0 0 1 7 0 4.9 4.9 0 0 1 0 7L12 20.5Z"/>
+        </svg>
+        <span id="ml-post-like-count">{likeCount}</span>
+      </button>
+      <button type="button" id="ml-post-share" class="reply-toggle-btn text-[#888888] hover:text-[#00A39E] transition-colors cursor-pointer">
+        {isEnglish ? "Share" : "Compartilhar"}
+      </button>
+    </div>
+
+    <div id="ml-comments-tabs" class="flex items-center gap-5" role="group" aria-label={isEnglish ? "Sort comments" : "Ordenar comentários"}>
+      {tabs.map((t) => (
+        <button
+          type="button"
+          data-sort={t.id}
+          aria-pressed={t.id === "newest" ? "true" : "false"}
+          class:list={[tabClass, t.id === "newest" && "ml-tab-on"]}
+        >
+          {t.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Lista: já vem pronta no HTML do build; o script atualiza depois -->
+  <div id="ml-comments-list" set:html={staticList} />
 </section>
 
+<style is:global>
+  #ml-comments-section .ml-tab-on,
+  #ml-comments-section .ml-on {
+    color: #00a39e;
+  }
+  #ml-comments-section .ml-tab-on {
+    border-bottom-color: #00a39e;
+  }
+  /* Petronas como texto pequeno sobre branco não tem contraste: no claro vira preto. */
+  html.light-theme #ml-comments-section .ml-tab-on,
+  html.light-theme #ml-comments-section .ml-on,
+  #blog-reading-area.reading-mode-light #ml-comments-section .ml-tab-on,
+  #blog-reading-area.reading-mode-light #ml-comments-section .ml-on {
+    color: #111111 !important;
+  }
+  html.light-theme #ml-comments-section .ml-comment,
+  #blog-reading-area.reading-mode-light #ml-comments-section .ml-comment {
+    border-bottom-color: #e3e3e3 !important;
+  }
+</style>
+
 <script>
+  import {
+    FIELDS,
+    SUPABASE_KEY,
+    SUPABASE_URL,
+    renderComments,
+    strings,
+    type CommentRow,
+    type SortMode,
+  } from "@/lib/comentarios";
+
   const root = document.getElementById("ml-comments-section");
   if (root) initComments(root);
 
@@ -172,66 +245,7 @@ const inputClass =
     const slug = root.dataset.slug || "";
     const en = root.dataset.lang === "en";
     const RETURN_FLAG = "ml-comments-return";
-    const FIELDS =
-      "id,autor,autor_nome,autor_avatar,eh_autor_do_blog,conteudo,parent_id,criado_em,editado_em,blog_comentario_votos(user_id)";
-
-    const T = en
-      ? {
-          empty: "No comments yet. Be the first to start the conversation!",
-          loadError: "Could not load the comments. Please try again in a moment.",
-          loginFirst: "Sign in to take part.",
-          sendError: "Could not send. Please try again.",
-          rate: "Too many comments in a row. Wait a minute and try again.",
-          badLogin: "Wrong email or password, or the email is not confirmed yet.",
-          confirm: "We sent a confirmation link to your email. Open it to finish creating your account.",
-          authError: "Sign-in failed. Please try again.",
-          weakPass: "Use a password with at least 8 characters.",
-          needName: "Tell us your name.",
-          signIn: "Sign in",
-          signUp: "Create account",
-          toSignUp: "I don't have an account",
-          toSignIn: "I already have an account",
-          reply: "Reply",
-          edit: "Edit",
-          del: "Delete",
-          cancel: "Cancel",
-          save: "Save",
-          replyPh: "Write a reply…",
-          delConfirm: "Delete this comment and its replies?",
-          author: "Author",
-          edited: "edited",
-          now: "just now",
-          ago: "ago",
-          vote: "Vote for this comment",
-        }
-      : {
-          empty: "Nenhum comentário ainda. Deixe sua pergunta ou opinião acima!",
-          loadError: "Não foi possível carregar os comentários. Tente de novo em instantes.",
-          loginFirst: "Entre para participar.",
-          sendError: "Não foi possível enviar. Tente de novo.",
-          rate: "Muitos comentários seguidos. Espere um minuto e tente de novo.",
-          badLogin: "E-mail ou senha incorretos, ou o e-mail ainda não foi confirmado.",
-          confirm: "Enviamos um link de confirmação para o seu e-mail. Abra o link para concluir o cadastro.",
-          authError: "Não foi possível entrar. Tente de novo.",
-          weakPass: "Use uma senha com pelo menos 8 caracteres.",
-          needName: "Informe seu nome.",
-          signIn: "Entrar",
-          signUp: "Criar conta",
-          toSignUp: "Ainda não tenho conta",
-          toSignIn: "Já tenho conta",
-          reply: "Responder",
-          edit: "Editar",
-          del: "Apagar",
-          cancel: "Cancelar",
-          save: "Salvar",
-          replyPh: "Escreva uma resposta…",
-          delConfirm: "Apagar este comentário e as respostas dele?",
-          author: "Autor",
-          edited: "editado",
-          now: "agora mesmo",
-          ago: "atrás",
-          vote: "Votar neste comentário",
-        };
+    const T = strings(en);
 
     const el = (id: string) => document.getElementById(id) as any;
     const list = el("ml-comments-list");
@@ -241,18 +255,11 @@ const inputClass =
     let booting: Promise<void> | null = null;
     let user: any = null;
     let isMod = false;
-    let rows: any[] = [];
-    let sort = "newest";
+    let rows: CommentRow[] = [];
+    let loaded = false;
+    let postLikes: { user_id: string }[] = [];
+    let sort: SortMode = "newest";
     let signUpMode = false;
-
-    function esc(str: unknown) {
-      return String(str ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
 
     function say(text: string) {
       if (!msgBox) return;
@@ -260,23 +267,16 @@ const inputClass =
       msgBox.classList.toggle("hidden", !text);
     }
 
-    function timeAgo(iso: string) {
-      const diff = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
-      if (diff < 60) return T.now;
-      if (diff < 3600) return `${Math.floor(diff / 60)} min ${T.ago}`;
-      if (diff < 86400) return `${Math.floor(diff / 3600)} h ${T.ago}`;
-      return new Date(iso).toLocaleDateString(en ? "en-US" : "pt-BR", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
-    }
+    const pageUrl = () => location.origin + location.pathname;
 
-    function avatarHtml(name: string, url: string | null, mod: boolean, size: string) {
-      if (url && /^https:\/\//.test(url)) {
-        return `<img src="${esc(url)}" alt="" width="36" height="36" loading="lazy" referrerpolicy="no-referrer" class="${size} rounded-full object-cover shrink-0 border border-white/15" />`;
-      }
-      return `<div class="comment-avatar-badge ${size} rounded-full ${mod ? "bg-[#80142B] border-[#00A39E]" : "bg-[#00A39E]/20 border-[#00A39E]/30"} border flex items-center justify-center font-heading text-xs font-bold text-white shrink-0">${esc((name || "?").charAt(0).toUpperCase())}</div>`;
+    async function share(url: string) {
+      try {
+        if (navigator.share) await navigator.share({ title: document.title, url });
+        else {
+          await navigator.clipboard.writeText(url);
+          say(T.copied);
+        }
+      } catch {}
     }
 
     /* ---------- Sessão ---------- */
@@ -292,11 +292,16 @@ const inputClass =
       if (nameEl) nameEl.textContent = name;
       const av = el("ml-user-avatar");
       if (av) {
+        av.textContent = name.charAt(0).toUpperCase();
         const url = meta.avatar_url;
-        av.innerHTML =
-          url && /^https:\/\//.test(url)
-            ? `<img src="${esc(url)}" alt="" width="40" height="40" referrerpolicy="no-referrer" class="w-full h-full object-cover" />`
-            : esc(name.charAt(0).toUpperCase());
+        if (url && /^https:\/\//.test(url)) {
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "";
+          img.referrerPolicy = "no-referrer";
+          img.className = "w-full h-full object-cover";
+          av.replaceChildren(img);
+        }
       }
     }
 
@@ -307,6 +312,7 @@ const inputClass =
       isMod = false;
       renderAuth();
       renderList();
+      renderPostLike();
       if (user) {
         // Fora do callback de sessão: chamar o Supabase lá dentro trava a biblioteca.
         setTimeout(async () => {
@@ -325,7 +331,7 @@ const inputClass =
           const authError = params.get("error_description") || params.get("error");
 
           const { createClient } = await import("@supabase/supabase-js");
-          sb = createClient(root.dataset.url!, root.dataset.key!, {
+          sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
             auth: { flowType: "pkce", detectSessionInUrl: true, persistSession: true },
           });
           sb.auth.onAuthStateChange((_event: string, session: any) => setUser(session?.user ?? null));
@@ -361,107 +367,43 @@ const inputClass =
     /* ---------- Dados ---------- */
 
     async function load() {
-      const { data, error } = await sb
-        .from("blog_comentarios")
-        .select(FIELDS)
-        .eq("post_slug", slug)
-        .order("criado_em", { ascending: true });
-      if (error) {
+      const [c, l] = await Promise.all([
+        sb.from("blog_comentarios").select(FIELDS).eq("post_slug", slug).order("criado_em", { ascending: true }),
+        sb.from("blog_post_curtidas").select("user_id").eq("post_slug", slug),
+      ]);
+      if (c.error) {
         say(T.loadError);
         return;
       }
-      rows = data || [];
+      rows = c.data || [];
+      loaded = true;
+      postLikes = l.data || [];
       renderList();
+      renderPostLike();
     }
 
-    const votes = (c: any) => (c.blog_comentario_votos || []).length;
-    const voted = (c: any) => !!user && (c.blog_comentario_votos || []).some((v: any) => v.user_id === user.id);
-
     function renderList() {
+      // Antes da primeira carga fica o HTML que veio do build.
+      if (!loaded || !list) return;
       const count = el("ml-comments-count");
       if (count) count.textContent = String(rows.length);
-      if (!list) return;
-
-      if (rows.length === 0) {
-        list.innerHTML = `<div class="py-8 text-center text-xs text-neutral-500 border border-dashed border-white/5 rounded-2xl">${T.empty}</div>`;
-        return;
-      }
-
-      const kids = new Map<string, any[]>();
-      const ids = new Set(rows.map((c) => c.id));
-      const tops: any[] = [];
-      rows.forEach((c) => {
-        if (c.parent_id && ids.has(c.parent_id)) {
-          if (!kids.has(c.parent_id)) kids.set(c.parent_id, []);
-          kids.get(c.parent_id)!.push(c);
-        } else {
-          tops.push(c);
-        }
+      list.innerHTML = renderComments(rows, {
+        en,
+        sort,
+        userId: user?.id ?? null,
+        isMod,
+        relative: true,
       });
+    }
 
-      const time = (c: any) => new Date(c.criado_em).getTime();
-      if (sort === "newest") tops.sort((a, b) => time(b) - time(a));
-      else if (sort === "oldest") tops.sort((a, b) => time(a) - time(b));
-      else tops.sort((a, b) => votes(b) - votes(a) || time(b) - time(a));
-
-      const draw = (c: any, depth: number): string => {
-        const mine = !!user && c.autor === user.id;
-        const canDelete = mine || isMod;
-        const wrap =
-          depth === 0
-            ? "comment-card-box bg-[#161616] border border-white/10 rounded-2xl p-5 mb-4"
-            : `comment-item-reply ${depth < 4 ? "ml-4 sm:ml-10" : ""} mt-4 pl-4 border-l-2 border-white/10`;
-        const btn = "text-[#888888] hover:text-[#00A39E] transition-colors cursor-pointer";
-        return `
-        <div class="comment-item ${wrap}" data-comment="${c.id}">
-          <div class="flex items-start justify-between gap-3 mb-2">
-            <div class="flex items-center gap-3 min-w-0">
-              ${avatarHtml(c.autor_nome, c.autor_avatar, c.eh_autor_do_blog, "w-9 h-9")}
-              <div class="min-w-0">
-                <div class="flex items-center gap-2">
-                  <span class="comment-author-name font-heading font-semibold text-white text-sm truncate">${esc(c.autor_nome)}</span>
-                  ${c.eh_autor_do_blog ? `<span class="lt-dark text-[9px] bg-[#80142B] text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border border-white/20">${T.author}</span>` : ""}
-                </div>
-                <span class="comment-time-ago text-[11px] text-[#777777]">${timeAgo(c.criado_em)}${c.editado_em ? ` · ${T.edited}` : ""}</span>
-              </div>
-            </div>
-            <button type="button" data-act="vote" data-id="${c.id}" aria-label="${T.vote}" aria-pressed="${voted(c)}" class="upvote-btn flex items-center gap-1.5 px-2.5 py-1 rounded-lg border ${voted(c) ? "border-[#00A39E]" : "border-white/10"} bg-[#111111] hover:border-[#00A39E] text-xs text-[#C6C6C6] hover:text-[#00A39E] transition-all cursor-pointer shrink-0">
-              <svg class="w-3 h-3 text-[#00A39E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
-              <span class="font-bold font-heading">${votes(c)}</span>
-            </button>
-          </div>
-
-          <p class="comment-content-text text-sm text-[#D1D1D1] leading-relaxed mb-3.5 whitespace-pre-line break-words" data-text="${c.id}">${esc(c.conteudo)}</p>
-
-          <div class="hidden mb-3" data-editbox="${c.id}">
-            <textarea rows="3" maxlength="4000" class="w-full bg-[#111111] border border-[#00A39E]/60 rounded-xl p-3 text-sm text-white focus:border-[#00A39E] outline-none resize-y">${esc(c.conteudo)}</textarea>
-            <div class="flex justify-end gap-2 mt-2">
-              <button type="button" data-act="edit" data-id="${c.id}" class="px-3 py-1.5 rounded-lg text-xs ${btn}">${T.cancel}</button>
-              <button type="button" data-act="save" data-id="${c.id}" class="px-4 py-1.5 rounded-lg bg-[#00A39E] text-black font-heading font-semibold text-xs hover:bg-[#00c4be] transition-colors cursor-pointer">${T.save}</button>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-4 text-xs font-heading font-medium">
-            <button type="button" data-act="reply" data-id="${c.id}" class="reply-toggle-btn ${btn}">${T.reply}</button>
-            ${mine ? `<button type="button" data-act="edit" data-id="${c.id}" class="edit-comment-btn ${btn}">${T.edit}</button>` : ""}
-            ${canDelete ? `<button type="button" data-act="delete" data-id="${c.id}" class="delete-comment-btn text-[#888888] hover:text-[#EF4444] transition-colors cursor-pointer">${T.del}</button>` : ""}
-          </div>
-
-          <div id="reply-form-${c.id}" class="hidden mt-4 pt-3 border-t border-white/5">
-            <form data-reply="${c.id}" class="space-y-2.5">
-              <textarea required rows="2" maxlength="4000" placeholder="${T.replyPh}" class="w-full bg-[#111111] border border-white/10 rounded-xl p-2.5 text-sm text-white placeholder-[#666666] focus:border-[#00A39E] outline-none"></textarea>
-              <div class="flex justify-end gap-2">
-                <button type="button" data-act="reply" data-id="${c.id}" class="px-3 py-1 rounded-lg text-xs ${btn}">${T.cancel}</button>
-                <button type="submit" class="px-4 py-1.5 rounded-lg bg-[#00A39E] text-black font-heading font-semibold text-xs hover:bg-[#00c4be] cursor-pointer">${T.reply}</button>
-              </div>
-            </form>
-          </div>
-
-          ${(kids.get(c.id) || []).map((k) => draw(k, depth + 1)).join("")}
-        </div>`;
-      };
-
-      list.innerHTML = tops.map((c) => draw(c, 0)).join("");
+    function renderPostLike() {
+      if (!loaded) return;
+      const mine = !!user && postLikes.some((v) => v.user_id === user.id);
+      const btn = el("ml-post-like");
+      el("ml-post-like-count").textContent = String(postLikes.length);
+      btn?.setAttribute("aria-pressed", String(mine));
+      btn?.classList.toggle("ml-on", mine);
+      el("ml-post-like-icon")?.setAttribute("fill", mine ? "currentColor" : "none");
     }
 
     function needLogin() {
@@ -473,7 +415,7 @@ const inputClass =
 
     async function send(conteudo: string, parentId: string | null) {
       const text = conteudo.trim();
-      if (text.length < 2 || needLogin()) return false;
+      if (text.length < 2 || !sb || needLogin()) return false;
       const { data, error } = await sb
         .from("blog_comentarios")
         .insert({ post_slug: slug, conteudo: text, parent_id: parentId })
@@ -493,11 +435,15 @@ const inputClass =
 
     list?.addEventListener("click", async (ev: Event) => {
       const btn = (ev.target as HTMLElement).closest("[data-act]") as HTMLElement | null;
-      if (!btn || !sb) return;
+      if (!btn) return;
       const id = btn.dataset.id!;
       const act = btn.dataset.act;
+
+      if (act === "share") return share(`${pageUrl()}#comentario-${id}`);
+
+      await boot();
       const c = rows.find((r) => r.id === id);
-      if (!c) return;
+      if (!c || !sb) return;
 
       if (act === "reply") {
         const box = document.getElementById(`reply-form-${id}`);
@@ -539,14 +485,13 @@ const inputClass =
         renderList();
       } else if (act === "vote") {
         if (needLogin()) return;
-        const had = voted(c);
-        const q = had
-          ? sb.from("blog_comentario_votos").delete().eq("comentario_id", id).eq("user_id", user.id)
-          : sb.from("blog_comentario_votos").insert({ comentario_id: id });
-        const { error } = await q;
+        const had = (c.blog_comentario_votos || []).some((v) => v.user_id === user.id);
+        const { error } = had
+          ? await sb.from("blog_comentario_votos").delete().eq("comentario_id", id).eq("user_id", user.id)
+          : await sb.from("blog_comentario_votos").insert({ comentario_id: id });
         if (error) return say(T.sendError);
         c.blog_comentario_votos = had
-          ? (c.blog_comentario_votos || []).filter((v: any) => v.user_id !== user.id)
+          ? c.blog_comentario_votos.filter((v) => v.user_id !== user.id)
           : [...(c.blog_comentario_votos || []), { user_id: user.id }];
         renderList();
       }
@@ -566,12 +511,32 @@ const inputClass =
       if (await send(area.value, null)) area.value = "";
     });
 
-    el("ml-comments-sort")?.addEventListener("change", (ev: Event) => {
-      sort = (ev.target as HTMLSelectElement).value;
+    el("ml-comments-tabs")?.addEventListener("click", async (ev: Event) => {
+      const tab = (ev.target as HTMLElement).closest("[data-sort]") as HTMLElement | null;
+      if (!tab) return;
+      sort = tab.dataset.sort as SortMode;
+      root.querySelectorAll("[data-sort]").forEach((b) => {
+        const on = b === tab;
+        b.classList.toggle("ml-tab-on", on);
+        b.setAttribute("aria-pressed", String(on));
+      });
+      await boot();
       renderList();
     });
 
-    const cleanUrl = () => location.origin + location.pathname;
+    el("ml-post-share")?.addEventListener("click", () => share(pageUrl()));
+
+    el("ml-post-like")?.addEventListener("click", async () => {
+      await boot();
+      if (!sb || needLogin()) return;
+      const had = postLikes.some((v) => v.user_id === user.id);
+      const { error } = had
+        ? await sb.from("blog_post_curtidas").delete().eq("post_slug", slug).eq("user_id", user.id)
+        : await sb.from("blog_post_curtidas").insert({ post_slug: slug });
+      if (error) return say(T.sendError);
+      postLikes = had ? postLikes.filter((v) => v.user_id !== user.id) : [...postLikes, { user_id: user.id }];
+      renderPostLike();
+    });
 
     el("ml-auth-google")?.addEventListener("click", async () => {
       await boot();
@@ -581,7 +546,7 @@ const inputClass =
       } catch {}
       const { error } = await sb.auth.signInWithOAuth({
         provider: "google",
-        options: { redirectTo: cleanUrl() },
+        options: { redirectTo: pageUrl() },
       });
       if (error) say(T.authError);
     });
@@ -614,7 +579,7 @@ const inputClass =
         const { data, error } = await sb.auth.signUp({
           email,
           password,
-          options: { data: { full_name: name }, emailRedirectTo: cleanUrl() },
+          options: { data: { full_name: name }, emailRedirectTo: pageUrl() },
         });
         if (error) return say(T.authError);
         say(data?.session ? "" : T.confirm);
@@ -630,12 +595,12 @@ const inputClass =
 
     /* ---------- Partida ---------- */
 
-    let returning = /[?&](code|error)=/.test(location.search);
+    let now = /[?&](code|error)=/.test(location.search);
     try {
-      returning = returning || sessionStorage.getItem(RETURN_FLAG) === "1";
+      now = now || sessionStorage.getItem(RETURN_FLAG) === "1";
     } catch {}
 
-    if (returning || !("IntersectionObserver" in window)) {
+    if (now || !("IntersectionObserver" in window)) {
       boot();
     } else {
       const io = new IntersectionObserver(
