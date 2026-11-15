@@ -144,7 +144,7 @@ const t = await useTranslations(Astro.currentLocale as string);
     <!-- Links Úteis e Parcerias Recomendadas -->
     <BlogPartnerLinks isEnglish={Astro.currentLocale === "en"} />
 
-    <!-- Sistema Próprio de Comentários no Blog (Disqus-like) -->
+    <!-- Sistema Próprio de Comentários no Blog (Supabase, login obrigatório) -->
     <CommentsSection postSlug={content.id || "post"} isEnglish={Astro.currentLocale === "en"} />
   </div>
 </div>

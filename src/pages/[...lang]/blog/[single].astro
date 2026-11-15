@@ -318,7 +318,7 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
             <!-- Links Úteis e Parcerias Recomendadas -->
             <BlogPartnerLinks isEnglish={Astro.currentLocale === "en"} />
 
-            <!-- Sistema Próprio de Comentários no Blog (Disqus-like com Supabase) -->
+            <!-- Sistema Próprio de Comentários no Blog (Supabase, login obrigatório) -->
             <div class="pt-8">
               <CommentsSection postSlug={currentSlug || "post"} isEnglish={Astro.currentLocale === "en"} />
             </div>
@@ -355,7 +355,7 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
   #blog-reading-area.reading-mode-light article,
   #blog-reading-area.reading-mode-light .post-navigation-row,
   #blog-reading-area.reading-mode-light .partner-links-section,
-  #blog-reading-area.reading-mode-light #disqus-comments-section {
+  #blog-reading-area.reading-mode-light #ml-comments-section {
     background-color: transparent !important;
   }
 
@@ -643,19 +643,19 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
   /* ======================================================== */
   /* COMENTÁRIOS NO MODO CLARO - 100% LIMPO E LEGÍVEL         */
   /* ======================================================== */
-  #blog-reading-area.reading-mode-light #disqus-comments-section {
+  #blog-reading-area.reading-mode-light #ml-comments-section {
     border-top-color: #E3E3E3 !important;
     color: #111111 !important;
   }
 
-  #blog-reading-area.reading-mode-light #disqus-comments-section div[class*="border-b"] {
+  #blog-reading-area.reading-mode-light #ml-comments-section div[class*="border-b"] {
     border-bottom-color: #E3E3E3 !important;
   }
 
-  #blog-reading-area.reading-mode-light #disqus-comments-section h2,
-  #blog-reading-area.reading-mode-light #disqus-comments-section h3,
-  #blog-reading-area.reading-mode-light #disqus-comments-section span.font-bold,
-  #blog-reading-area.reading-mode-light #disqus-comments-section #disqus-count {
+  #blog-reading-area.reading-mode-light #ml-comments-section h2,
+  #blog-reading-area.reading-mode-light #ml-comments-section h3,
+  #blog-reading-area.reading-mode-light #ml-comments-section span.font-bold,
+  #blog-reading-area.reading-mode-light #ml-comments-section #ml-comments-count {
     color: #111111 !important;
   }
 
@@ -672,30 +672,25 @@ const formattedRelatedPosts = relatedRaw.map((p, idx) => {
     color: #00A39E !important;
   }
 
-  #blog-reading-area.reading-mode-light #disqus-comments-section textarea,
-  #blog-reading-area.reading-mode-light #disqus-comments-section input {
+  #blog-reading-area.reading-mode-light #ml-comments-section textarea,
+  #blog-reading-area.reading-mode-light #ml-comments-section input {
     background-color: #FAFAFA !important;
     border-color: #E0E0E0 !important;
     color: #111111 !important;
   }
 
-  #blog-reading-area.reading-mode-light #disqus-comments-section textarea:focus,
-  #blog-reading-area.reading-mode-light #disqus-comments-section input:focus {
+  #blog-reading-area.reading-mode-light #ml-comments-section textarea:focus,
+  #blog-reading-area.reading-mode-light #ml-comments-section input:focus {
     border-color: #00A39E !important;
     background-color: #FFFFFF !important;
   }
 
-  #blog-reading-area.reading-mode-light #disqus-comments-section button {
+  #blog-reading-area.reading-mode-light #ml-comments-section button {
     border-color: #E3E3E3 !important;
   }
 
-  #blog-reading-area.reading-mode-light #disqus-recommend-btn {
-    background-color: #FFFFFF !important;
-    border-color: #E3E3E3 !important;
-    color: #111111 !important;
-  }
 
-  #blog-reading-area.reading-mode-light #disqus-sort-select {
+  #blog-reading-area.reading-mode-light #ml-comments-sort {
     background-color: #FFFFFF !important;
     border-color: #E3E3E3 !important;
     color: #111111 !important;
