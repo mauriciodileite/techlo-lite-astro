@@ -582,7 +582,10 @@ html.light-theme #blog-reading-area aside a.toc-link.text-white {
   font-weight: 700 !important;
 }
 
+/* O <article> carrega "prose-blockquote:bg-[#161616]/80" na classe e por isso caía
+   na camada de contraste (seção 3), ganhando fundo #F2F2F2. Conteúdo é sempre branco. */
 html.light-theme #blog-reading-area article.prose {
+  background-color: #FFFFFF !important;
   color: #111111 !important;
 }
 
