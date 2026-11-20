@@ -117,6 +117,10 @@ Google Ads • Offline import
 </div>
 </div>
 
+This is the production n8n workflow that receives the event from GTM Server, normalizes the fields, timestamps the conversion and writes it to the conversion sheet:
+
+![n8n workflow for psychologist Bruna Caleffi: webhook receives the GCLID from GTM Server, formats date and time, and appends the conversion to Google Sheets](/images/blog-post/n8n-gclid-offline-conversion-workflow.png)
+
 * **Why server-side:** ad blockers, cookie restrictions and iOS cut part of the data when everything depends on the browser. With GTM Server hosted on Stape, the click ID leaves from the server and reaches n8n with much less loss.
 * **Why WBRAID and GBRAID:** on clicks from iOS devices, Google does not always send a GCLID. Storing all three identifiers keeps those conversions from being lost.
 
